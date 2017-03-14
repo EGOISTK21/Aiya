@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Aiya</string>
+    <string name="title_community">社区</string>
+    <string name="title_message">消息</string>
+    <string name="title_love">恋爱记</string>
+    <string name="title_me">我</string>
+</resources>
