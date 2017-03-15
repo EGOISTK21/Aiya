@@ -5,7 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**屏蔽ViewPager对滑动的响应，如果内层控件的触控遇到问题请联系我
+/**屏蔽ViewPager对滑动的响应，内层View的监听请放在ViewPagerAdapter的instantiateItem()内
  * Created by EGOISTK on 2017/3/14.
  */
 
