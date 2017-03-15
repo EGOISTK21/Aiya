@@ -1,4 +1,4 @@
-package com.egoistk.aiya;
+package com.egoistk.aiya.view;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -13,15 +13,17 @@ import java.lang.reflect.Field;
 class BottomNavigationViewHelper {
     @SuppressWarnings("RestrictedApi")
     static void disableShiftMode(BottomNavigationView navigationView) {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigationView.getChildAt(0);
+        BottomNavigationMenuView navigationMenuView =
+                (BottomNavigationMenuView) navigationView.getChildAt(0);
         try {
-            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            Field shiftingMode = navigationMenuView.getClass().getDeclaredField("mShiftingMode");
             shiftingMode.setAccessible(true);
-            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setBoolean(navigationMenuView, false);
             shiftingMode.setAccessible(false);
 
-            for (int i = 0; i < menuView.getChildCount(); i++) {
-                BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
+            for (int i = 0; i < navigationMenuView.getChildCount(); i++) {
+                BottomNavigationItemView itemView =
+                        (BottomNavigationItemView) navigationMenuView.getChildAt(i);
                 itemView.setShiftingMode(false);
                 itemView.setChecked(itemView.getItemData().isChecked());
             }

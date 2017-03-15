@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.egoistk.aiya.MainActivity">
+    tools:context="com.egoistk.aiya.view.MainActivity">
 
     <FrameLayout
         android:id="@+id/content"
@@ -15,7 +15,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.egoistk.aiya.NoScrollViewPager
+        <com.egoistk.aiya.view.NoScrollViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

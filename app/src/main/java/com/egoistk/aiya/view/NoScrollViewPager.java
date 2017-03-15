@@ -1,11 +1,11 @@
-package com.egoistk.aiya;
+package com.egoistk.aiya.view;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**屏蔽ViewPager对滑动的响应，内层View的监听请放在ViewPagerAdapter的instantiateItem()内
+/**屏蔽ViewPager对滑动的响应，内层View的监听请放在MainActivity
  * Created by EGOISTK on 2017/3/14.
  */
 

@@ -1,4 +1,4 @@
-package com.egoistk.aiya;
+package com.egoistk.aiya.view;
 
 
 import android.app.Fragment;
@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.egoistk.aiya.R;
 
 /**这个类暂时没被使用，有需要的可以拿去用
  * Created by EGOISTK on 2017/3/14.
