@@ -4,21 +4,21 @@
     <item
         android:id="@+id/navigation_community"
         android:icon="@drawable/community_icon"
-        android:title="@string/title_community"/>
+        android:title="@string/community_title"/>
 
     <item
         android:id="@+id/navigation_message"
         android:icon="@drawable/message_icon"
-        android:title="@string/title_message"/>
+        android:title="@string/message_title"/>
 
     <item
         android:id="@+id/navigation_love"
         android:icon="@drawable/love_icon"
-        android:title="@string/title_love"/>
+        android:title="@string/love_title"/>
 
     <item
         android:id="@+id/navigation_me"
         android:icon="@drawable/me_icon"
-        android:title="@string/title_me"/>
+        android:title="@string/me_title"/>
 
 </menu>

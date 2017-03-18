@@ -1,4 +1,4 @@
-package com.egoistk.aiya.view;
+package com.egoistk.aiya.bottomNav;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -10,9 +10,9 @@ import java.lang.reflect.Field;
  * Created by EGOISTK on 2017/3/14.
  */
 
-class BottomNavigationViewHelper {
+public class BottomNavigationViewHelper {
     @SuppressWarnings("RestrictedApi")
-    static void disableShiftMode(BottomNavigationView navigationView) {
+    public static void disableShiftMode(BottomNavigationView navigationView) {
         BottomNavigationMenuView navigationMenuView =
                 (BottomNavigationMenuView) navigationView.getChildAt(0);
         try {

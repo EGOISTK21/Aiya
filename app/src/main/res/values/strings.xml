@@ -1,7 +1,24 @@
 <resources>
     <string name="app_name">Aiya</string>
-    <string name="title_community">社区</string>
-    <string name="title_message">消息</string>
-    <string name="title_love">恋爱记</string>
-    <string name="title_me">我</string>
+    <string name="community_title">社区</string>
+    <string name="message_title">消息</string>
+    <string name="love_title">恋爱记</string>
+    <string name="love_title_unmatched">尚未匹配</string>
+    <string name="love_matchAtRandom">随缘匹配</string>
+    <string name="love_warn_single">你当前还是单身状态，快去和你的Ta相遇吧！</string>
+    <string name="love_filter">筛选条件</string>
+    <string name="love_DIY">如果给你七块钱，你想DIY一个怎样的Ta？</string>
+    <string name="love_5RMB">5￥</string>
+    <string name="love_4RMB">4￥</string>
+    <string name="love_2RMB">2￥</string>
+    <string name="love_1RMB">1￥</string>
+    <string name="love_start_match">开始条件匹配</string>
+    <string name="height">身高</string>
+    <string name="age">年龄</string>
+    <string name="school">学校</string>
+    <string name="major">专业</string>
+    <string name="school_major">学校专业</string>
+    <string name="hometown">家乡</string>
+    <string name="constellation">星座</string>
+    <string name="me_title">我</string>
 </resources>
