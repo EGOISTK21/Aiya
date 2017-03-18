@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/love_title_unmatched"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_love_match_at_random"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:text="@string/love_matchAtRandom"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"/>
+
+    </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_love_warn_single"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:gravity="center_vertical"
+            android:paddingStart="13dp"
+            android:background="@color/white"
+            android:text="@string/love_warn_single"
+            android:textColor="@color/colorContentMain"
+            android:textSize="15sp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@string/love_filter"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/love_DIY"
+            android:textColor="@color/colorPrimary"
+            android:textSize="13sp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="314dp"
+        android:divider="@drawable/divider"
+        android:showDividers="middle"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_centerVertical="true"
+                android:text="@string/height"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/switch_love_height"
+                android:layout_marginEnd="16dp"
+                android:text="@string/love_5RMB"
+                android:textColor="@color/colorAccent"
+                android:textSize="13sp"/>
+
+            <Switch
+                android:id="@+id/switch_love_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_centerVertical="true"
+                android:text="@string/age"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/switch_love_age"
+                android:layout_marginEnd="16dp"
+                android:text="@string/love_4RMB"
+                android:textColor="@color/colorAccent"
+                android:textSize="13sp"/>
+
+            <Switch
+                android:id="@+id/switch_love_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_centerVertical="true"
+                android:text="@string/school_major"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/switch_love_school_major"
+                android:layout_marginEnd="16dp"
+                android:text="@string/love_2RMB"
+                android:textColor="@color/colorAccent"
+                android:textSize="13sp"/>
+
+            <Switch
+                android:id="@+id/switch_love_school_major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_centerVertical="true"
+                android:text="@string/hometown"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/switch_love_hometown"
+                android:layout_marginEnd="16dp"
+                android:text="@string/love_2RMB"
+                android:textColor="@color/colorAccent"
+                android:textSize="13sp"/>
+
+            <Switch
+                android:id="@+id/switch_love_hometown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_centerVertical="true"
+                android:text="@string/constellation"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/switch_love_constellation"
+                android:layout_marginEnd="16dp"
+                android:text="@string/love_1RMB"
+                android:textColor="@color/colorAccent"
+                android:textSize="13sp"/>
+
+            <Switch
+                android:id="@+id/switch_love_constellation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center">
+            
+            <Button
+                android:id="@+id/btn_love_start_match"
+                android:layout_width="180dp"
+                android:layout_height="36dp"
+                android:text="@string/love_start_match"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:background="@drawable/button_selector"/>
+            
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

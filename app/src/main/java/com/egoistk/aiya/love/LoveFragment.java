@@ -110,10 +110,10 @@ public class LoveFragment extends LazyFragment implements ILoveView, CompoundBut
             switchsLove[1].setClickable(switchsLove[1].isChecked());
             switchsLove[2].setClickable(sum < 6 || switchsLove[2].isChecked());
             switchsLove[3].setClickable(sum < 6 || switchsLove[3].isChecked());
-            switchsLove[4].setClickable(sum != 7 || switchsLove[4].isChecked());
+            switchsLove[4].setClickable(sum < 7 || switchsLove[4].isChecked());
         } else {
             switchsLove[0].setClickable(sum < 3);
-            switchsLove[1].setClickable(true);
+            switchsLove[1].setClickable(sum < 4 || switchsLove[1].isChecked());
             switchsLove[2].setClickable(true);
             switchsLove[3].setClickable(true);
             switchsLove[4].setClickable(true);
