@@ -14,8 +14,6 @@ import com.egoistk.aiya.love.LoveFragment;
 import com.egoistk.aiya.me.MeFragment;
 import com.egoistk.aiya.message.MessageFragment;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
 
     private NoScrollViewPager mainViewPager;
@@ -29,16 +27,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViewPager() {
-        final ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new CommunityFragment());
-        fragments.add(new MessageFragment());
-        fragments.add(new LoveFragment());
-        fragments.add(new MeFragment());
+        final Fragment[] fragments = new Fragment[]{new CommunityFragment(), new MessageFragment(),
+                new LoveFragment(), new MeFragment()};
         mainViewPager = (NoScrollViewPager) findViewById(R.id.viewpager_main);
         mainViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return fragments.get(position);
+                return fragments[position];
             }
 
             @Override
