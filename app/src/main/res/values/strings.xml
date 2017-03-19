@@ -8,6 +8,8 @@
     <string name="love_warn_single">你当前还是单身状态，快去和你的Ta相遇吧！</string>
     <string name="love_filter">筛选条件</string>
     <string name="love_DIY">如果给你七块钱，你想DIY一个怎样的Ta？</string>
+    <string name="love_default_height">175–180</string>
+    <string name="love_default_school_major">西安电子科技大学</string>
     <string name="love_5RMB">5￥</string>
     <string name="love_4RMB">4￥</string>
     <string name="love_2RMB">2￥</string>

@@ -28,15 +28,14 @@ public class LoveFragment extends LazyFragment implements ILoveView, CompoundBut
     private int sum;
     private int[] prices;
     private ILovePresenter iLovePresenter;
-    private TextView tvLoveMatchAtRandom;
-    private Button btnLoveStartMatch;
     private Switch[] switchsLove;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final boolean isMatched = ((MyApplication)getActivity().getApplicationContext()).getIsMatched();
-        View rootView = inflater.inflate(isMatched?R.layout.fragment_love_matched:R.layout.fragment_love_unmatched, container, false);
-        setOnClickListener(isMatched, rootView);
+        View rootView = inflater.inflate(isMatched?
+                R.layout.fragment_love_matched:R.layout.fragment_love_unmatched, container, false);
+        initView(isMatched, rootView);
         iLovePresenter = new LovePresenter(this);
         return rootView;
     }
@@ -47,25 +46,32 @@ public class LoveFragment extends LazyFragment implements ILoveView, CompoundBut
         iLovePresenter.setLoveView(null);
     }
 
-    private void setOnClickListener(boolean isMatched, View rootView) {
+    private void initView(boolean isMatched, View rootView) {
         if (!isMatched) {
             sum = 0;
             prices = new int[]{5, 4, 2, 2, 1, 0};
             switchsLove = new Switch[5];
-            Spannable spannable = new SpannableString("你当前还是单身状态，快去和你的Ta相遇吧！");
-            spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimaryDark)), 5, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            ((TextView) rootView.findViewById(R.id.tv_love_warn_single)).setText(spannable);
-            tvLoveMatchAtRandom = (TextView) rootView.findViewById(R.id.tv_love_match_at_random);
-            tvLoveMatchAtRandom.setOnClickListener(this);
-            btnLoveStartMatch = (Button) rootView.findViewById(R.id.btn_love_start_match);
+
+            TextView tvLoveMatchAtRandom = (TextView) rootView.findViewById(R.id.tv_love_match_at_random);
+            Button btnLoveHeightPicker = (Button) rootView.findViewById(R.id.btn_love_height_picker);
+            Button btnLoveSchoolMajorPicker = (Button) rootView.findViewById(R.id.btn_love_school_major_picker);
+            Button btnLoveStartMatch = (Button) rootView.findViewById(R.id.btn_love_start_match);
             switchsLove[0] = ((Switch) rootView.findViewById(R.id.switch_love_height));
             switchsLove[1] =((Switch) rootView.findViewById(R.id.switch_love_age));
             switchsLove[2] = ((Switch) rootView.findViewById(R.id.switch_love_school_major));
             switchsLove[3] = ((Switch) rootView.findViewById(R.id.switch_love_hometown));
             switchsLove[4] = ((Switch) rootView.findViewById(R.id.switch_love_constellation));
-            for (Switch s: switchsLove) {
-                s.setOnCheckedChangeListener(this);
-            }
+
+            tvLoveMatchAtRandom.setOnClickListener(this);
+            btnLoveHeightPicker.setOnClickListener(this);
+            btnLoveSchoolMajorPicker.setOnClickListener(this);
+            btnLoveStartMatch.setOnClickListener(this);
+            for (Switch s: switchsLove) s.setOnCheckedChangeListener(this);
+
+            Spannable spannable = new SpannableString("你当前还是单身状态，快去和你的Ta相遇吧！");
+            spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorPrimaryDark)), 5, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ((TextView) rootView.findViewById(R.id.tv_love_warn_single)).setText(spannable);
+            btnLoveSchoolMajorPicker.setText(btnLoveSchoolMajorPicker.getText().subSequence(0, 4) + "...");
         } else {}
     }
 
@@ -73,6 +79,10 @@ public class LoveFragment extends LazyFragment implements ILoveView, CompoundBut
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_love_match_at_random:
+                break;
+            case R.id.btn_love_height_picker:
+                break;
+            case R.id.btn_love_school_major_picker:
                 break;
             case R.id.btn_love_start_match:
                 break;
@@ -99,7 +109,6 @@ public class LoveFragment extends LazyFragment implements ILoveView, CompoundBut
                 iLovePresenter.changeSwitchsStatus(isChecked, 4);
                 break;
         }
-
     }
 
     @Override
