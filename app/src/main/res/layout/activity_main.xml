@@ -7,21 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.egoistk.aiya.MainActivity">
+    tools:context="xyz.egoistk.aiya.activity.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/content"
+    <xyz.egoistk.aiya.base.NoScrollViewPager
+        android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <com.egoistk.aiya.NoScrollViewPager
-            android:id="@+id/viewpager_main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorBackground"/>
-
-    </FrameLayout>
+        android:layout_weight="1"
+        android:background="@color/colorBackground"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

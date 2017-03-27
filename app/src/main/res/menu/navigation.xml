@@ -14,7 +14,7 @@
     <item
         android:id="@+id/navigation_love"
         android:icon="@drawable/love_icon"
-        android:title="@string/love_title"/>
+        android:title="@string/love_matched_title"/>
 
     <item
         android:id="@+id/navigation_me"

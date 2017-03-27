@@ -4,14 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/message3"
+    <EditText
+        android:id="@+id/et_username"
+        style="@style/Widget.AppCompat.EditText"
         android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_above="@+id/btn_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:text="jarry"
+        android:textSize="24sp"/>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/me_title"/>
+        android:layout_centerInParent="true"
+        android:text="login"
+        android:textSize="24sp"/>
 
 </RelativeLayout>

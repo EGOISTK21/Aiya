@@ -4,7 +4,7 @@
         android:left="15dp"
         android:right="15dp">
         <shape android:shape="rectangle" >
-            <size android:height="1dp"/>
+            <size android:height="0.5dp"/>
             <solid android:color="@color/colorDivider" />
         </shape>
     </item>
