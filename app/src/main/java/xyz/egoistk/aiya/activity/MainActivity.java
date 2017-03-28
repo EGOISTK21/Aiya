@@ -13,7 +13,7 @@ import xyz.egoistk.aiya.base.NoScrollViewPager;
 import xyz.egoistk.aiya.util.BottomNavigationViewHelper;
 import xyz.egoistk.aiya.community.CommunityFragment;
 import xyz.egoistk.aiya.love.matched.view.impl.LoveMatchedFragment;
-import xyz.egoistk.aiya.love.unmatched.Fragment;
+import xyz.egoistk.aiya.love.unmatched.UnmatchedFragment;
 import xyz.egoistk.aiya.me.MeFragment;
 import xyz.egoistk.aiya.message.MessageFragment;
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 new MessageFragment(),
                 ((MyApplication) getApplicationContext()).isMatched() ?
                         new LoveMatchedFragment() :
-                        new Fragment(),
+                        new UnmatchedFragment(),
                 new MeFragment()};
         vpMain = (NoScrollViewPager) findViewById(R.id.viewpager_main);
         vpMain.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {

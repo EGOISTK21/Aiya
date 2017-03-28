@@ -28,7 +28,7 @@ import xyz.egoistk.aiya.love.unmatched.view.UnmatchedContract;
  * Created by EGOISTK on 2017/3/16.
  */
 
-public class Fragment extends LazyFragment implements UnmatchedContract.View, CompoundButton.OnCheckedChangeListener {
+public class UnmatchedFragment extends LazyFragment implements UnmatchedContract.View, CompoundButton.OnCheckedChangeListener {
 
     private int sum;
     private int[] prices;
@@ -57,7 +57,7 @@ public class Fragment extends LazyFragment implements UnmatchedContract.View, Co
     private void initView() {
         sum = 0;
         prices = new int[]{5, 4, 2, 2, 1, 0};
-        switches = new Switch[5];
+        switches = new Switch[6];
 
         TextView tvLoveMatchAtRandom = (TextView) rootView.findViewById(R.id.tv_love_match_at_random);
         btnHeight = (Button) rootView.findViewById(R.id.btn_love_height);
@@ -71,6 +71,7 @@ public class Fragment extends LazyFragment implements UnmatchedContract.View, Co
         switches[2] = ((Switch) rootView.findViewById(R.id.switch_love_school_major));
         switches[3] = ((Switch) rootView.findViewById(R.id.switch_love_hometown));
         switches[4] = ((Switch) rootView.findViewById(R.id.switch_love_constellation));
+        switches[5] = (Switch) rootView.findViewById(R.id.switch_love_shield);
 
         tvLoveMatchAtRandom.setOnClickListener(this);
         btnHeight.setOnClickListener(this);
@@ -225,6 +226,9 @@ public class Fragment extends LazyFragment implements UnmatchedContract.View, Co
                 break;
             case R.id.switch_love_constellation:
                 updateSwitchesStatus(isChecked, 4);
+                break;
+            case R.id.switch_love_shield:
+                // TODO: 2017/3/28 屏蔽手机通讯录
                 break;
         }
     }

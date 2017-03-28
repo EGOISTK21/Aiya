@@ -42,6 +42,7 @@
         android:textColor="@color/colorContentMain"
         android:textSize="13sp"/>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -75,7 +76,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="241dp"
+        android:layout_height="232dp"
         android:background="@color/white"
         android:divider="@drawable/divider"
         android:orientation="vertical"
@@ -325,6 +326,11 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorDivider"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -345,7 +351,7 @@
                 android:textSize="@dimen/common_text_size"/>
 
             <Switch
-                android:id="@+id/switch_love_Shield"
+                android:id="@+id/switch_love_shield"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
