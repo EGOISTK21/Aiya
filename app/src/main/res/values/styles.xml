@@ -8,6 +8,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
+    <style name="ArcDialog" parent="AlertDialog.AppCompat">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
     <declare-styleable name="ScrollPickerView">
         <attr name="spv_min_text_size" format="dimension"/>
         <attr name="spv_max_text_size" format="dimension"/>

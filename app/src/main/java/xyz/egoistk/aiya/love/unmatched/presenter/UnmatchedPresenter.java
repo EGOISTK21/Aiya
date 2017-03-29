@@ -19,7 +19,7 @@ public class UnmatchedPresenter implements UnmatchedContract.Presenter {
 
     public UnmatchedPresenter(UnmatchedContract.View loveView) {
         attachLoveUnmatchedView(loveView);
-        model = new UnmatchedModel(this);
+        model = new UnmatchedModel();
         handler = new Handler();
     }
 
@@ -34,8 +34,8 @@ public class UnmatchedPresenter implements UnmatchedContract.Presenter {
     }
 
     @Override
-    public void getSchoolMajorData() {
-        model.loadSchoolMajorData(new OnDataListener() {
+    public void loadSchoolMajorData() {
+        model.getSchoolMajorData(new OnDataListener() {
             @Override
             public void onFailure() {
 

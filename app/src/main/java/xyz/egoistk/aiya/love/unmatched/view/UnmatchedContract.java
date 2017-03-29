@@ -17,12 +17,11 @@ public abstract class UnmatchedContract {
 
         void detachLoveUnmatchedView();
 
-        void getSchoolMajorData();
+        void loadSchoolMajorData();
 
         interface OnDataListener {
             void onFailure();
-
-            void onSuccess(List<String> data);
+            void onSuccess(final List<String> data);
         }
     }
 

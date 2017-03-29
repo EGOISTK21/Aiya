@@ -1,11 +1,12 @@
 package xyz.egoistk.aiya.love.unmatched.bean;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -20,28 +21,27 @@ import xyz.egoistk.aiya.util.OkHttpUtil;
 
 public class UnmatchedModel {
 
-    private UnmatchedContract.Presenter presenter;
-
-    public UnmatchedModel(UnmatchedContract.Presenter presenter) {
-        this.presenter = presenter;
-    }
-
-    public void loadSchoolMajorData(final UnmatchedContract.Presenter.OnDataListener onDataListener) {
+    public void getSchoolMajorData(final UnmatchedContract.Presenter.OnDataListener onDataListener) {
         OkHttpUtil.post("/Community/GET/searchSchool",
                 new FormBody.Builder().add("keyword", ""),
                 new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
+                        onDataListener.onFailure();
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
+                        List<String> data = new ArrayList<>();
                         try {
-                            onDataListener.onSuccess(new ArrayList<>(Arrays.asList(
-                                    (new JSONObject(response.body().string())).getString("data").split(","))));
-                        } catch (JSONException e) {
+                            JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("data");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                data.add(jsonArray.getString(i));
+                            }
+                        } catch (JSONException | IOException e) {
                             e.printStackTrace();
                         }
+                        onDataListener.onSuccess(data);
                     }
                 });
     }

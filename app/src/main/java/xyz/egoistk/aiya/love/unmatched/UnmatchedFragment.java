@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import xyz.egoistk.aiya.R;
+import xyz.egoistk.aiya.base.ArcDialog;
 import xyz.egoistk.aiya.base.LazyFragment;
 import xyz.egoistk.aiya.base.StringScrollPicker;
 import xyz.egoistk.aiya.love.unmatched.presenter.UnmatchedPresenter;
@@ -28,20 +29,23 @@ import xyz.egoistk.aiya.love.unmatched.view.UnmatchedContract;
  * Created by EGOISTK on 2017/3/16.
  */
 
-public class UnmatchedFragment extends LazyFragment implements UnmatchedContract.View, CompoundButton.OnCheckedChangeListener {
+public class UnmatchedFragment extends LazyFragment implements UnmatchedContract.View,
+        CompoundButton.OnCheckedChangeListener {
 
     private int sum;
     private int[] prices;
+    private String tmpSchool;
     private UnmatchedContract.Presenter presenter;
     private Switch[] switches;
     private android.view.View rootView;
     private Button btnHeight, btnAge, btnSchoolMajor, btnHometown, btnConstellation;
-    private android.support.v7.app.AlertDialog dialogHeightPicker, dialogAgePicker,
-            dialogSchoolMajorPicker, dialogHometownPicker, dialogConstellationPicker;
+    private ArcDialog dialogHeightPicker, dialogAgePicker, dialogSchoolMajorPicker,
+            dialogHometownPicker, dialogConstellationPicker;
     private StringScrollPicker sspHeight, sspAge, sspSchoolMajor, sspHometown, sspConstellation;
 
     @Override
-    public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                          Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_love_unmatched, container, false);
         initView();
         presenter = new UnmatchedPresenter(this);
@@ -121,65 +125,123 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
 
     public void showDialogHeightPicker() {
         if (dialogHeightPicker == null) {
-            dialogHeightPicker = new android.support.v7.app.AlertDialog.Builder(getContext())
+            dialogHeightPicker = new ArcDialog.Builder(getContext())
                     .setTitle("身高")
-                    .setView(LayoutInflater.from(getContext()).inflate(
-                            R.layout.dialog_single_picker, null))
+                    .setSubTitle("(单位:cm)")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspHeight.setSelectedItem((String) btnHeight.getText());
+                            dialogHeightPicker.dismiss();
+                        }
+                    })
                     .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             btnHeight.setText(sspHeight.getSelectedItem());
+                            dialogHeightPicker.dismiss();
                         }
-                    })
-                    .show();
-        } else {
-            dialogHeightPicker.show();
+                    }).create();
         }
+        dialogHeightPicker.show();
         setHeightData();
     }
 
     public void showDialogAgePicker() {
         if (dialogAgePicker == null) {
-            dialogAgePicker = new android.support.v7.app.AlertDialog.Builder(getContext())
+            dialogAgePicker = new ArcDialog.Builder(getContext())
                     .setTitle("年龄")
-                    .setView(LayoutInflater.from(getContext()).inflate(
-                            R.layout.dialog_single_picker, null))
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspAge.setSelectedItem((String) btnAge.getText());
+                            dialogAgePicker.dismiss();
+                        }
+                    })
                     .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             btnAge.setText(sspAge.getSelectedItem());
+                            dialogAgePicker.dismiss();
                         }
-                    })
-                    .show();
-        } else {
-            dialogAgePicker.show();
+                    }).create();
         }
+        dialogAgePicker.show();
         setAgeData();
     }
 
     public void showDialogSchoolMajorPicker() {
         if (dialogSchoolMajorPicker == null) {
-            dialogSchoolMajorPicker = new android.support.v7.app.AlertDialog.Builder(getContext())
-                    .setTitle("学校专业")
-                    .setView(LayoutInflater.from(getContext()).inflate(
-                            R.layout.dialog_single_picker, null))
+            dialogSchoolMajorPicker = new ArcDialog.Builder(getContext())
+                    .setTitle("学校")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspSchoolMajor.setSelectedItem(tmpSchool);
+                            dialogSchoolMajorPicker.dismiss();
+                        }
+                    })
                     .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            btnSchoolMajor.setText(sspSchoolMajor.getSelectedItem());
+                            tmpSchool = sspSchoolMajor.getSelectedItem();
+                            if (tmpSchool.length() > 4) {
+                                btnSchoolMajor.setText(tmpSchool.subSequence(0, 4) + "…");
+                            } else {
+                                btnSchoolMajor.setText(tmpSchool);
+                            }
+                            dialogSchoolMajorPicker.dismiss();
                         }
-                    })
-                    .show();
-        } else {
-            dialogSchoolMajorPicker.show();
+                    }).create();
         }
-        presenter.getSchoolMajorData();
+        dialogSchoolMajorPicker.show();
+        presenter.loadSchoolMajorData();
     }
 
     public void showDialogHometownPicker() {
+        if (dialogHometownPicker == null) {
+            dialogHometownPicker = new ArcDialog.Builder(getContext())
+                    .setTitle("家乡")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspHometown.setSelectedItem((String) btnHometown.getText());
+                            dialogHometownPicker.dismiss();
+                        }
+                    })
+                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            btnHometown.setText(sspHometown.getSelectedItem());
+                            dialogHometownPicker.dismiss();
+                        }
+                    }).create();
+        }
+        dialogHometownPicker.show();
+        setHometownData();
     }
 
     public void showDialogConstellationPicker() {
+        if (dialogConstellationPicker == null) {
+            dialogConstellationPicker = new ArcDialog.Builder(getContext())
+                    .setTitle("星座")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspConstellation.setSelectedItem((String) btnConstellation.getText());
+                            dialogConstellationPicker.dismiss();
+                        }
+                    })
+                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            btnConstellation.setText(sspConstellation.getSelectedItem());
+                            dialogConstellationPicker.dismiss();
+                        }
+                    }).create();
+        }
+        dialogConstellationPicker.show();
+        setConstellationData();
     }
 
     public void setHeightData() {
@@ -187,6 +249,7 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
             sspHeight = (StringScrollPicker) dialogHeightPicker.findViewById(R.id.ssp_single);
             sspHeight.setData(new ArrayList<>(Arrays.asList("150以下", "150–154", "155–159",
                     "160–164", "165–169", "170–174", "175–179", "180–184", "185–189", "190及以上")));
+            sspHeight.setSelectedPosition(6);
         }
     }
 
@@ -195,6 +258,27 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
             sspAge = (StringScrollPicker) dialogAgePicker.findViewById(R.id.ssp_single);
             sspAge.setData(new ArrayList<>(Arrays.asList("17", "18", "19", "20", "21", "22", "23",
                     "24", "25", "26", "27", "28")));
+            sspAge.setSelectedPosition(3);
+        }
+    }
+
+    public void setHometownData() {
+        if (dialogHometownPicker != null && sspHometown == null) {
+            sspHometown = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_single);
+            sspHometown.setData(new ArrayList<>(Arrays.asList("澳门", "安徽", "北京", "重庆", "福建",
+                    "甘肃", "广东", "广西", "贵州", "海南", "黑龙江", "河北", "河南", "湖北", "湖南", "吉林",
+                    "江苏", "江西", "辽宁", "内蒙古", "宁夏", "青海", "山东", "山西", "陕西", "上海", "四川",
+                    "台湾", "天津", "西藏", "新疆", "香港", "云南", "浙江")));
+            sspHometown.setSelectedPosition(24);
+        }
+    }
+
+    public void setConstellationData() {
+        if (dialogConstellationPicker != null && sspConstellation == null) {
+            sspConstellation = (StringScrollPicker) dialogConstellationPicker.findViewById(R.id.ssp_single);
+            sspConstellation.setData(new ArrayList<>(Arrays.asList("白羊座", "金牛座", "双子座", "巨蟹座",
+                    "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "摩羯座", "水瓶座", "双鱼座")));
+            sspConstellation.setSelectedPosition(6);
         }
     }
 

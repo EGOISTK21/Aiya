@@ -4,6 +4,8 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -18,7 +20,11 @@ import xyz.egoistk.aiya.bean.User;
 public class OkHttpUtil {
 
     final private static String ROOT = "http://lovefor7days.applinzi.com";
-    final private static OkHttpClient OK_HTTP_CLIENT = new OkHttpClient();
+    final private static OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder()
+            .connectTimeout(500, TimeUnit.MILLISECONDS)
+            .readTimeout(500, TimeUnit.MILLISECONDS)
+            .writeTimeout(500, TimeUnit.MILLISECONDS)
+            .build();
     private static User user;
 
     public static void initUser(String username) {

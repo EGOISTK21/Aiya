@@ -1,15 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp">
+
+        <TextView
+            android:id="@+id/tv_dialog_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/love_unmatched_height"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/common_text_size"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/tv_dialog_title"
+            android:text="@string/love_unmatched_height_unit"
+            android:textColor="@color/colorContentSecondary"
+            android:textSize="11sp"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorDivider"/>
 
     <xyz.egoistk.aiya.base.StringScrollPicker
         android:id="@+id/ssp_single"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="150dp"
         app:spv_max_text_size="30sp"
         app:spv_min_text_size="20sp"/>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_dialog_negative"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/negative_button_selector"
+            android:text="@string/negative"
+            android:textColor="@color/colorContentSecondary"
+            android:textSize="@dimen/dialog_button_text_size"/>
+
+        <Button
+            android:id="@+id/btn_dialog_positive"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/positive_button_selector"
+            android:text="@string/positive"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dialog_button_text_size"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,7 +9,7 @@
     <string name="love_unmatched_single_warn">你当前还是单身状态，快去和你的Ta相遇吧！</string>
     <string name="love_unmatched_filter">筛选条件</string>
     <string name="love_unmatched_DIY">如果给你七块钱，你想DIY一个怎样的Ta？</string>
-    <string name="love_unmatched_default_height">175–180</string>
+    <string name="love_unmatched_default_height">175–179</string>
     <string name="love_unmatched_default_age">20</string>
     <string name="love_unmatched_default_school_major">西安电子…</string>
     <string name="love_unmatched_default_hometown">陕西</string>
@@ -20,6 +20,7 @@
     <string name="love_unmatched_1RMB">1￥</string>
     <string name="love_unmatched_start_match">开始条件匹配</string>
     <string name="love_unmatched_height">身高</string>
+    <string name="love_unmatched_height_unit">(单位:cm)</string>
     <string name="love_unmatched_age">年龄</string>
     <string name="love_unmatched_school">学校</string>
     <string name="love_unmatched_major">专业</string>
@@ -30,4 +31,6 @@
     <string name="love_unmatched_warn_point">本周剩余3次免积分配对成功机会</string>
     <string name="love_matched_today_mission">今日任务</string>
     <string name="me_title">我</string>
+    <string name="negative">取消</string>
+    <string name="positive">确认</string>
 </resources>

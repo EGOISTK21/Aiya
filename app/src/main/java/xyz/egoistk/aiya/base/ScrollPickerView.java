@@ -486,6 +486,12 @@ public abstract class ScrollPickerView<T> extends View {
         }
     }
 
+    public void setSelectedItem(T item) {
+        if (mData.contains(item)) {
+            setSelectedPosition(mData.indexOf(item));
+        }
+    }
+
     public OnSelectedListener getListener() {
         return mListener;
     }
