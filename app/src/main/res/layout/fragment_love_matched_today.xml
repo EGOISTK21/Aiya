@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fadingEdge="vertical"
+    android:fillViewport="true"
     android:scrollbars="vertical">
 
     <LinearLayout
@@ -18,53 +19,167 @@
             android:layout_height="127dp"
             android:background="@color/white">
 
-            <xyz.egoistk.aiya.base.CircleImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentStart="true"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="65dp"
-                android:layout_marginTop="15dp"
-                android:src="@mipmap/soleya"
-                app:border_color="@color/colorPrimary"
-                app:border_width="1dp"/>
+                android:layout_marginEnd="45dp"
+                android:layout_marginTop="@dimen/common_margin_15"
+                android:layout_toStartOf="@+id/ll_intimacy"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-            <xyz.egoistk.aiya.base.CircleImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
+                <xyz.egoistk21.aiya.base.CircleImageView
+                    android:id="@+id/iv_matched_left"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/ic_launcher"
+                    app:border_color="@color/colorPrimary"
+                    app:border_width="0.5dp"/>
+
+                <TextView
+                    android:id="@+id/tv_matched_username_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:id="@+id/tv_matched_school_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_intimacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="32dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="@string/love_matched_intimacy"
+                    android:textColor="@color/colorMatchedPink"
+                    android:textSize="@dimen/common_text_size_13"/>
+
+                <TextView
+                    android:id="@+id/tv_match_intimacy_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:includeFontPadding="false"
+                    android:text="48"
+                    android:textColor="@color/colorMatchedPink"
+                    android:textSize="27sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="65dp"
-                android:layout_marginTop="15dp"
-                android:src="@mipmap/egoistk"
-                app:border_color="@color/colorPrimary"
-                app:border_width="1dp"/>
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="@dimen/common_margin_15"
+                android:layout_toEndOf="@+id/ll_intimacy"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <xyz.egoistk21.aiya.base.CircleImageView
+                    android:id="@+id/iv_matched_right"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/ic_launcher"
+                    app:border_color="@color/colorPrimary"
+                    app:border_width="0.5dp"/>
+
+                <TextView
+                    android:id="@+id/tv_matched_username_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:id="@+id/tv_matched_school_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"/>
+
+            </LinearLayout>
 
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="@dimen/common_margin_15"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_title_today_mission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:text="@string/love_matched_today_mission"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/common_text_size_16"/>
+
+            <TextView
+                android:id="@+id/tv_love_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_10"
+                android:layout_toEndOf="@+id/tv_title_today_mission"
+                android:text="2016.12.12"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/common_margin_15"
+                android:text="DAY 5"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/common_text_size_16"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivider"/>
+
+        <xyz.egoistk21.aiya.base.NestFullListView
+            android:id="@+id/lv_love_matched_today_love_mission"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/divider"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/common_margin_15"
             android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/tv_title_invite_mission"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="@string/love_unmatched_filter"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:text="@string/love_matched_today_mission"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/love_unmatched_DIY"
-                android:textColor="@color/colorPrimary"
-                android:textSize="13sp"/>
+                android:textSize="@dimen/common_text_size_16"/>
 
         </LinearLayout>
 
@@ -73,50 +188,11 @@
             android:layout_height="1dp"
             android:background="@color/colorDivider"/>
 
-        <ListView
-            android:id="@+id/lv_love_matched_today_today_love_mission"
-            android:layout_width="match_parent"
-            android:layout_height="460dp">
-
-        </ListView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="@string/love_unmatched_filter"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/love_unmatched_DIY"
-                android:textColor="@color/colorPrimary"
-                android:textSize="13sp"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorDivider"/>
-
-        <ListView
+        <xyz.egoistk21.aiya.base.NestFullListView
             android:id="@+id/lv_love_matched_today_invite_love_mission"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </ListView>
+            android:layout_height="wrap_content"
+            android:divider="@drawable/divider"/>
 
     </LinearLayout>
 

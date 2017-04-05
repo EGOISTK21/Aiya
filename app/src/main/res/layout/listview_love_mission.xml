@@ -10,6 +10,7 @@
         android:id="@+id/tv_listview_love_matched"
         android:layout_width="wrap_content"
         android:layout_height="46dp"
+        android:gravity="center"
         android:layout_centerVertical="true"
         android:layout_marginStart="15dp"
         android:text="@string/love_unmatched_height"
@@ -17,7 +18,7 @@
         android:textSize="16sp"/>
 
     <ImageButton
-        android:id="@+id/ibtn_listview_love_matched"
+        android:id="@+id/ibn_listview_love_matched"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

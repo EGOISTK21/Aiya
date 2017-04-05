@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingEnd="@dimen/common_margin_15"
+            android:paddingStart="@dimen/common_margin_15"
+            android:text="@string/back"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/love_new_mission"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_new_mission"
+        android:layout_width="match_parent"
+        android:layout_height="92.5dp"
+        android:layout_below="@id/rl_title_bar"
+        android:layout_marginTop="@dimen/common_margin_15"
+        android:background="@color/white"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item_height">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:text="@string/love_unmatched_height"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/common_text_size_16"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item_height">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:text="@string/love_unmatched_height"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/common_text_size_16"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="161dp"
+        android:layout_below="@id/ll_new_mission"
+        android:layout_marginTop="@dimen/common_margin_15">
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_love_start_random_match"
+        android:layout_width="180dp"
+        android:layout_height="36dp"
+        android:layout_below="@id/rl_recommend"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/common_margin_15"
+        android:background="@drawable/button_selector"
+        android:text="@string/love_new_invite"
+        android:textColor="@color/white"
+        android:textSize="@dimen/common_text_size_16"/>
+
+</RelativeLayout>

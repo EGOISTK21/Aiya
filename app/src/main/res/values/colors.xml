@@ -8,4 +8,5 @@
     <color name="colorContentMain">#666666</color>
     <color name="colorAccent">#333333</color>
     <color name="white">#ffffff</color>
+    <color name="colorMatchedPink">#ff8483</color>
 </resources>

@@ -6,10 +6,12 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="xyz.egoistk.aiya.activity.MainActivity">
+    tools:context="xyz.egoistk21.aiya.activity.MainActivity">
 
-    <xyz.egoistk.aiya.base.NoScrollViewPager
+    <xyz.egoistk21.aiya.base.NoScrollViewPager
         android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -19,7 +21,7 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/title_height"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
         app:itemIconTint="@color/selector_color"
