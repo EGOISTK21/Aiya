@@ -37,10 +37,10 @@
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="android:dividerVertical">@drawable/divider</item>
         <item name="tabIndicatorHeight">0dp</item>
-        <item name="tabBackground">@color/white</item>
+        <item name="tabBackground">@color/colorPureWhite</item>
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/colorContentSecondary</item>
-        <item name="tabSelectedTextColor">@color/colorAccent</item>
+        <item name="tabSelectedTextColor">@color/colorTitle</item>
         <item name="tabMode">scrollable</item>
     </style>
 

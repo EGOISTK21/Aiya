@@ -6,13 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+
 /**
  * 懒加载的Fragment,在必要的时候才加载，否则不进行View的绘制和数据的加载。
  * 原因是Viewpager一次只会显示一个页卡，那么刚开始的时候，只需加载第一张Fragment页卡，
  * 其他的不加载，当用户向右滑动切换再进行加载。因为其他Fragment对于用户来说是不可见的，
  * 如果一开始就把全部Fragment一起加载，可能造成启动时卡顿的问题，
  * 更重要的是可能白白耗费用户的流量，因为用户可能并不需要其他Fragment的信息。
- * Created by EGOISTK on 2017/3/14.
+ * Created by EGOISTK21 on 2017/3/14.
  */
 
 public class LazyFragment extends Fragment implements View.OnClickListener {

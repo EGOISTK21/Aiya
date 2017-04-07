@@ -3,8 +3,9 @@ package xyz.egoistk21.aiya.love.matched.presenter.impl;
 import xyz.egoistk21.aiya.love.matched.presenter.i.ILoveMatchedPresenter;
 import xyz.egoistk21.aiya.love.matched.view.ILoveMatchedView;
 
+
 /**
- * Created by EGOISTK on 2017/3/23.
+ * Created by EGOISTK21 on 2017/3/23.
  */
 
 public class LoveMatchedPresenter implements ILoveMatchedPresenter {

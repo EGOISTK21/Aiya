@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 import xyz.egoistk21.aiya.R;
 import xyz.egoistk21.aiya.base.LazyFragment;
 
+
 /**
- * Created by EGOISTK on 2017/3/16.
+ * Created by EGOISTK21 on 2017/3/16.
  */
 
 public class MessageFragment extends LazyFragment {

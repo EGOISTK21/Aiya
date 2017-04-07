@@ -18,8 +18,9 @@ import android.widget.Scroller;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by EGOISTK on 2017/3/19.
+ * Created by EGOISTK21 on 2017/3/19.
  */
 
 public abstract class ScrollPickerView<T> extends View {

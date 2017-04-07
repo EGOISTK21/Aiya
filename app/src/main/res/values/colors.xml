@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#82d5d6</color>
     <color name="colorPrimaryDark">#00b2b4</color>
-    <color name="colorBackground">#f4f4f4</color>
-    <color name="colorDivider">#dddddd</color>
-    <color name="colorContentSecondary">#999999</color>
+    <color name="colorPrimary">#82d5d6</color>
+    <color name="colorTitle">#333333</color>
     <color name="colorContentMain">#666666</color>
-    <color name="colorAccent">#333333</color>
-    <color name="white">#ffffff</color>
-    <color name="colorMatchedPink">#ff8483</color>
+    <color name="colorContentSecondary">#999999</color>
+    <color name="colorDivider">#dddddd</color>
+    <color name="colorBackground">#f4f4f4</color>
+    <color name="colorPureWhite">#ffffff</color>
+    <color name="colorPink">#ff8483</color>
+    <color name="colorDeepOrange">#ffaa71</color>
+    <color name="colorLightGreen">#a0ff72</color>
+    <color name="colorCyan">#82d5d6</color>
+    <color name="colorPurple">#c145f5</color>
+    <color name="colorFutureRed">#cd2d2d</color>
+    <color name="colorFutureDeepOrange">#e45b00</color>
+    <color name="colorFutureGreen">#53bc20</color>
+    <color name="colorFutureCyan">#00b2b4</color>
+    <color name="colorFutureBlue">#2b74d8</color>
+    <color name="colorFutureDeepPurple">#7b0fa8</color>
+    <color name="colorFutureWineRed">#bd0f4c</color>
 </resources>

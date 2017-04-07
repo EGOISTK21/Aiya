@@ -9,12 +9,14 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * 介绍：完全伸展开的ListView（LinearLayout）
  * 作者：zhangxutong
  * 邮箱：zhangxutong@imcoming.com
  * 时间： 2016/9/9.
  */
+
 public class NestFullListView extends LinearLayout {
     private LayoutInflater mInflater;
     private List<NestFullViewHolder> mVHCahces;//缓存ViewHolder,按照add的顺序缓存，
@@ -149,7 +151,7 @@ public class NestFullListView extends LinearLayout {
 
     /**
      * @author EGOISTK
-     * 子项点击事件的接口
+     *         子项点击事件的接口
      */
     public interface OnItemLongClickListener {
 

@@ -8,14 +8,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/white">
+        android:background="@color/colorPureWhite">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/love_matched_title"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorTitle"
             android:textSize="15sp"/>
 
         <ImageButton

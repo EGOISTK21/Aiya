@@ -19,8 +19,9 @@ import xyz.egoistk21.aiya.love.matched.presenter.i.ILoveMatchedPresenter;
 import xyz.egoistk21.aiya.love.matched.presenter.impl.LoveMatchedPresenter;
 import xyz.egoistk21.aiya.love.matched.view.ILoveMatchedView;
 
+
 /**
- * Created by EGOISTK on 2017/3/23.
+ * Created by EGOISTK21 on 2017/3/23.
  */
 
 public class MatchedContainerFragment extends LazyFragment implements ILoveMatchedView {
@@ -79,7 +80,7 @@ public class MatchedContainerFragment extends LazyFragment implements ILoveMatch
         tabLayout.getTabAt(1).select();
         View root = tabLayout.getChildAt(0);
         if (root instanceof LinearLayout) {
-            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
+            root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorPureWhite));
             ((LinearLayout) root).setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
             GradientDrawable drawable = new GradientDrawable();
             drawable.setColor(ContextCompat.getColor(getContext(), R.color.colorDivider));
@@ -92,12 +93,12 @@ public class MatchedContainerFragment extends LazyFragment implements ILoveMatch
 
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         switch (v.getId()) {
             case R.id.ibn_new_mission:
                 ft.addToBackStack(null);
                 ft.replace(R.id.container_love, new NewMissionFragment()).commit();
                 break;
         }
-        super.onClick(v);
     }
 }

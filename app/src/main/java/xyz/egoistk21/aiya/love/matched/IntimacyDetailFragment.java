@@ -1,4 +1,4 @@
-package xyz.egoistk21.aiya.love.unmatched;
+package xyz.egoistk21.aiya.love.matched;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,20 +9,19 @@ import android.view.ViewGroup;
 import xyz.egoistk21.aiya.R;
 import xyz.egoistk21.aiya.base.LazyFragment;
 
-
 /**
- * Created by EGOISTK21 on 2017/3/31.
+ * Created by EGOISTK21 on 2017/4/6.
  */
 
-public class MatchResultFragment extends LazyFragment {
+public class IntimacyDetailFragment extends LazyFragment {
 
     private View rootView;
 
-
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_match_result, container, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_intimacy_detail, container, false);
         initView();
         return rootView;
     }

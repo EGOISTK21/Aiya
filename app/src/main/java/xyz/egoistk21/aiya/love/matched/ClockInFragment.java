@@ -1,4 +1,4 @@
-package xyz.egoistk21.aiya.love.unmatched;
+package xyz.egoistk21.aiya.love.matched;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,26 +9,26 @@ import android.view.ViewGroup;
 import xyz.egoistk21.aiya.R;
 import xyz.egoistk21.aiya.base.LazyFragment;
 
-
 /**
- * Created by EGOISTK21 on 2017/3/31.
+ * Created by EGOISTK21 on 2017/4/7.
  */
 
-public class MatchResultFragment extends LazyFragment {
+public class ClockInFragment extends LazyFragment {
 
     private View rootView;
 
-
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_match_result, container, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_clock_in, container, false);
         initView();
         return rootView;
     }
 
     private void initView() {
         rootView.findViewById(R.id.tv_back).setOnClickListener(this);
+
     }
 
     @Override
@@ -36,6 +36,7 @@ public class MatchResultFragment extends LazyFragment {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_back:
+                getActivity().findViewById(R.id.navigation).setVisibility(View.VISIBLE);
                 getFragmentManager().popBackStack();
                 break;
         }

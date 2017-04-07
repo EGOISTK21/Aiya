@@ -9,8 +9,9 @@ import xyz.egoistk21.aiya.R;
 import xyz.egoistk21.aiya.base.LazyFragment;
 import xyz.egoistk21.aiya.love.matched.view.ILoveMatchedFutureView;
 
+
 /**
- * Created by EGOISTK on 2017/3/21.
+ * Created by EGOISTK21 on 2017/3/21.
  */
 
 public class MatchedFutureFragment extends LazyFragment implements ILoveMatchedFutureView {

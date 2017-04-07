@@ -22,14 +22,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import xyz.egoistk21.aiya.R;
-import xyz.egoistk21.aiya.base.ArcDialog;
+import xyz.egoistk21.aiya.base.FilletDialog;
 import xyz.egoistk21.aiya.base.LazyFragment;
 import xyz.egoistk21.aiya.base.StringScrollPicker;
 import xyz.egoistk21.aiya.love.unmatched.presenter.UnmatchedPresenter;
 import xyz.egoistk21.aiya.love.unmatched.view.UnmatchedContract;
 
+
 /**
- * Created by EGOISTK on 2017/3/16.
+ * Created by EGOISTK21 on 2017/3/16.
  */
 
 public class UnmatchedFragment extends LazyFragment implements UnmatchedContract.View,
@@ -45,7 +46,7 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
     private View rootView;
     private SwitchCompat[] switches;
     private Button btnHeight, btnAge, btnSchoolMajor, btnHometown, btnConstellation;
-    private ArcDialog dialogHeightPicker, dialogAgePicker, dialogSchoolMajorPicker,
+    private FilletDialog dialogHeightPicker, dialogAgePicker, dialogSchoolMajorPicker,
             dialogHometownPicker, dialogConstellationPicker;
     private StringScrollPicker sspHeight, sspAge, sspSchoolMajor, sspHometown, sspConstellation;
 
@@ -53,7 +54,7 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_unmatched, container, false);
+        rootView = inflater.inflate(R.layout.fragment_love_unmatched, container, false);
         initView();
         presenter = new UnmatchedPresenter(this);
         return rootView;
@@ -72,19 +73,19 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
 
         fm = getFragmentManager();
         ft = fm.beginTransaction();
-        TextView tvLoveMatchAtRandom = (TextView) rootView.findViewById(R.id.tv_love_match_at_random);
-        btnHeight = (Button) rootView.findViewById(R.id.btn_love_height);
-        btnAge = (Button) rootView.findViewById(R.id.btn_love_age);
-        btnSchoolMajor = (Button) rootView.findViewById(R.id.btn_love_school_major);
-        btnHometown = (Button) rootView.findViewById(R.id.btn_love_hometown);
-        btnConstellation = (Button) rootView.findViewById(R.id.btn_love_constellation);
-        Button btnLoveStartMatch = (Button) rootView.findViewById(R.id.btn_love_unmatched_start_match);
-        switches[0] = ((SwitchCompat) rootView.findViewById(R.id.switch_love_height));
-        switches[1] = ((SwitchCompat) rootView.findViewById(R.id.switch_love_age));
-        switches[2] = ((SwitchCompat) rootView.findViewById(R.id.switch_love_school_major));
-        switches[3] = ((SwitchCompat) rootView.findViewById(R.id.switch_love_hometown));
-        switches[4] = ((SwitchCompat) rootView.findViewById(R.id.switch_love_constellation));
-        switches[5] = (SwitchCompat) rootView.findViewById(R.id.switch_shield_contact);
+        TextView tvLoveMatchAtRandom = (TextView) rootView.findViewById(R.id.tv_random_match);
+        btnHeight = (Button) rootView.findViewById(R.id.btn_height_picker);
+        btnAge = (Button) rootView.findViewById(R.id.btn_age_picker);
+        btnSchoolMajor = (Button) rootView.findViewById(R.id.btn_school_picker);
+        btnHometown = (Button) rootView.findViewById(R.id.btn_hometown_picker);
+        btnConstellation = (Button) rootView.findViewById(R.id.btn_constellation_picker);
+        Button btnLoveStartMatch = (Button) rootView.findViewById(R.id.btn_start_match);
+        switches[0] = ((SwitchCompat) rootView.findViewById(R.id.sw_height));
+        switches[1] = ((SwitchCompat) rootView.findViewById(R.id.sw_age));
+        switches[2] = ((SwitchCompat) rootView.findViewById(R.id.sw_school));
+        switches[3] = ((SwitchCompat) rootView.findViewById(R.id.sw_hometown));
+        switches[4] = ((SwitchCompat) rootView.findViewById(R.id.sw_constellation));
+        switches[5] = (SwitchCompat) rootView.findViewById(R.id.sw_shield_contact);
 
         tvLoveMatchAtRandom.setOnClickListener(this);
         btnHeight.setOnClickListener(this);
@@ -101,26 +102,25 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
         Spannable spannable = new SpannableString("你当前还是单身状态，快去和你的Ta相遇吧！");
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
                 R.color.colorPrimaryDark)), 5, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ((TextView) rootView.findViewById(R.id.tv_love_warn_single)).setText(spannable);
+        ((TextView) rootView.findViewById(R.id.tv_single_warn)).setText(spannable);
     }
 
     public void showDialogHeightPicker() {
         if (dialogHeightPicker == null) {
-            dialogHeightPicker = new ArcDialog.Builder(getContext())
+            dialogHeightPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("身高")
                     .setSubTitle("(单位:cm)")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             sspHeight.setSelectedItem((String) btnHeight.getText());
-                            dialogHeightPicker.cancel();
+                            dialog.cancel();
                         }
-                    })
-                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             btnHeight.setText(sspHeight.getSelectedItem());
-                            dialogHeightPicker.dismiss();
+                            dialog.dismiss();
                         }
                     }).create();
         }
@@ -130,20 +130,19 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
 
     public void showDialogAgePicker() {
         if (dialogAgePicker == null) {
-            dialogAgePicker = new ArcDialog.Builder(getContext())
+            dialogAgePicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("年龄")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             sspAge.setSelectedItem((String) btnAge.getText());
-                            dialogAgePicker.cancel();
+                            dialog.cancel();
                         }
-                    })
-                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             btnAge.setText(sspAge.getSelectedItem());
-                            dialogAgePicker.dismiss();
+                            dialog.dismiss();
                         }
                     }).create();
         }
@@ -153,16 +152,15 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
 
     public void showDialogSchoolMajorPicker() {
         if (dialogSchoolMajorPicker == null) {
-            dialogSchoolMajorPicker = new ArcDialog.Builder(getContext())
+            dialogSchoolMajorPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("学校")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             sspSchoolMajor.setSelectedItem(tmpSchool);
-                            dialogSchoolMajorPicker.cancel();
+                            dialog.cancel();
                         }
-                    })
-                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             tmpSchool = sspSchoolMajor.getSelectedItem();
@@ -171,7 +169,7 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
                             } else {
                                 btnSchoolMajor.setText(tmpSchool);
                             }
-                            dialogSchoolMajorPicker.dismiss();
+                            dialog.dismiss();
                         }
                     }).create();
         }
@@ -181,20 +179,19 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
 
     public void showDialogHometownPicker() {
         if (dialogHometownPicker == null) {
-            dialogHometownPicker = new ArcDialog.Builder(getContext())
+            dialogHometownPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("家乡")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             sspHometown.setSelectedItem((String) btnHometown.getText());
-                            dialogHometownPicker.cancel();
+                            dialog.cancel();
                         }
-                    })
-                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             btnHometown.setText(sspHometown.getSelectedItem());
-                            dialogHometownPicker.dismiss();
+                            dialog.dismiss();
                         }
                     }).create();
         }
@@ -204,20 +201,19 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
 
     public void showDialogConstellationPicker() {
         if (dialogConstellationPicker == null) {
-            dialogConstellationPicker = new ArcDialog.Builder(getContext())
+            dialogConstellationPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("星座")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             sspConstellation.setSelectedItem((String) btnConstellation.getText());
-                            dialogConstellationPicker.cancel();
+                            dialog.cancel();
                         }
-                    })
-                    .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             btnConstellation.setText(sspConstellation.getSelectedItem());
-                            dialogConstellationPicker.dismiss();
+                            dialog.dismiss();
                         }
                     }).create();
         }
@@ -277,26 +273,26 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_love_match_at_random:
+            case R.id.tv_random_match:
                 ft.addToBackStack(null);
                 ft.replace(R.id.container_love, new RandomMatchFragment()).commit();
                 break;
-            case R.id.btn_love_height:
+            case R.id.btn_height_picker:
                 showDialogHeightPicker();
                 break;
-            case R.id.btn_love_age:
+            case R.id.btn_age_picker:
                 showDialogAgePicker();
                 break;
-            case R.id.btn_love_school_major:
+            case R.id.btn_school_picker:
                 showDialogSchoolMajorPicker();
                 break;
-            case R.id.btn_love_hometown:
+            case R.id.btn_hometown_picker:
                 showDialogHometownPicker();
                 break;
-            case R.id.btn_love_constellation:
+            case R.id.btn_constellation_picker:
                 showDialogConstellationPicker();
                 break;
-            case R.id.btn_love_unmatched_start_match:
+            case R.id.btn_start_match:
                 ft.addToBackStack(null);
                 ft.replace(R.id.container_love, new MatchResultFragment()).commit();
                 break;
@@ -307,22 +303,22 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
-            case R.id.switch_love_height:
+            case R.id.sw_height:
                 updateSwitchesStatus(isChecked, 0);
                 break;
-            case R.id.switch_love_age:
+            case R.id.sw_age:
                 updateSwitchesStatus(isChecked, 1);
                 break;
-            case R.id.switch_love_school_major:
+            case R.id.sw_school:
                 updateSwitchesStatus(isChecked, 2);
                 break;
-            case R.id.switch_love_hometown:
+            case R.id.sw_hometown:
                 updateSwitchesStatus(isChecked, 3);
                 break;
-            case R.id.switch_love_constellation:
+            case R.id.sw_constellation:
                 updateSwitchesStatus(isChecked, 4);
                 break;
-            case R.id.switch_shield_contact:
+            case R.id.sw_shield_contact:
                 isContactShield = isChecked;
                 break;
         }

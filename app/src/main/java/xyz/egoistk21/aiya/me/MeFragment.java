@@ -12,8 +12,9 @@ import xyz.egoistk21.aiya.R;
 import xyz.egoistk21.aiya.base.LazyFragment;
 import xyz.egoistk21.aiya.util.OkHttpUtil;
 
+
 /**
- * Created by EGOISTK on 2017/3/16.
+ * Created by EGOISTK21 on 2017/3/16.
  */
 
 public class MeFragment extends LazyFragment {

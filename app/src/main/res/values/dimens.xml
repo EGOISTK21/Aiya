@@ -1,16 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="title_height">48dp</dimen>
+    <dimen name="title_bar_height">48dp</dimen>
+    <dimen name="common_text_size_27">27sp</dimen>
     <dimen name="common_text_size_16">16sp</dimen>
     <dimen name="common_text_size_13">13sp</dimen>
+    <dimen name="common_text_size_11">11sp</dimen>
+    <dimen name="common_text_size_10">10sp</dimen>
+    <dimen name="common_margin_30">30dp</dimen>
     <dimen name="common_margin_20">20dp</dimen>
-    <dimen name="common_margin_18">15dp</dimen>
+    <dimen name="common_margin_18">18dp</dimen>
+    <dimen name="common_margin_16">16dp</dimen>
     <dimen name="common_margin_15">15dp</dimen>
     <dimen name="common_margin_10">10dp</dimen>
     <dimen name="common_margin_5">5dp</dimen>
-    <dimen name="common_item_height">46dp</dimen>
-    <dimen name="design_bottom_navigation_text_size" tools:override="true">9sp</dimen>
-    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">10sp</dimen>
+    <dimen name="common_item_height_46">46dp</dimen>
+    <dimen name="common_button_width">180dp</dimen>
+    <dimen name="common_button_height">36dp</dimen>
+    <dimen name="common_button_radius">18dp</dimen>
+    <dimen name="picker_button_width">100dp</dimen>
+    <dimen name="picker_button_height">24dp</dimen>
     <dimen name="dialog_button_text_size">15sp</dimen>
     <dimen name="dialog_corner">10dp</dimen>
+    <dimen name="card_corner">6dp</dimen>
+    <dimen name="divider_height">1px</dimen>
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">11sp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">11sp</dimen>
 </resources>

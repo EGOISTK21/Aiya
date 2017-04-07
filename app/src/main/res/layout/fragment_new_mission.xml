@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/rl_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/white">
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/colorPureWhite">
 
         <TextView
             android:id="@+id/tv_back"
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/love_new_mission"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorTitle"
             android:textSize="15sp"/>
 
     </RelativeLayout>
@@ -39,41 +40,69 @@
         android:layout_height="92.5dp"
         android:layout_below="@id/rl_title_bar"
         android:layout_marginTop="@dimen/common_margin_15"
-        android:background="@color/white"
+        android:background="@color/colorPureWhite"
         android:divider="@drawable/divider"
         android:orientation="vertical"
         android:showDividers="middle">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/common_item_height">
+            android:layout_height="@dimen/common_item_height_46"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/common_margin_15"
-                android:text="@string/love_unmatched_height"
-                android:textColor="@color/colorAccent"
+                android:text="@string/love_date"
+                android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_16"/>
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/common_margin_30"
+                android:drawableEnd="@drawable/rightward_32"
+                android:gravity="start|center_vertical"
+                android:hint="@string/love_default_date"
+                android:paddingEnd="@dimen/common_margin_15"
+                android:textColor="@color/colorTitle"
+                android:textColorHint="@color/colorContentSecondary"
+                android:textSize="@dimen/common_text_size_16"/>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/common_item_height">
+            android:layout_height="@dimen/common_item_height_46">
 
             <TextView
+                android:id="@+id/tv_mission"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/common_margin_15"
-                android:text="@string/love_unmatched_height"
-                android:textColor="@color/colorAccent"
+                android:text="@string/love_mission"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_16"/>
+
+            <EditText
+                android:id="@+id/et_mission"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/common_margin_15"
+                android:layout_marginStart="@dimen/common_margin_30"
+                android:layout_toEndOf="@id/tv_mission"
+                android:background="@color/colorPureWhite"
+                android:gravity="start|center_vertical"
+                android:hint="@string/love_default_mission"
+                android:singleLine="true"
+                android:textColor="@color/colorTitle"
+                android:textColorHint="@color/colorContentSecondary"
                 android:textSize="@dimen/common_text_size_16"/>
 
         </RelativeLayout>
-
 
     </LinearLayout>
 
@@ -82,20 +111,47 @@
         android:layout_width="match_parent"
         android:layout_height="161dp"
         android:layout_below="@id/ll_new_mission"
-        android:layout_marginTop="@dimen/common_margin_15">
+        android:layout_marginTop="@dimen/common_margin_15"
+        android:background="@color/colorPureWhite">
+
+        <TextView
+            android:id="@+id/tv_recommend_mission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/common_margin_15"
+            android:layout_marginTop="@dimen/common_margin_15"
+            android:includeFontPadding="false"
+            android:text="@string/love_recommend_mission"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/common_text_size_16"/>
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/tfl_recommend_mission"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv_recommend_mission"
+            android:paddingStart="@dimen/common_margin_5"
+            android:paddingEnd="@dimen/common_margin_15"
+            android:paddingBottom="@dimen/common_margin_15"
+            app:max_select="1">
+
+        </com.zhy.view.flowlayout.TagFlowLayout>
+
 
     </RelativeLayout>
 
     <Button
-        android:id="@+id/btn_love_start_random_match"
+        android:id="@+id/btn_invite"
         android:layout_width="180dp"
         android:layout_height="36dp"
         android:layout_below="@id/rl_recommend"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/common_margin_15"
-        android:background="@drawable/button_selector"
+        android:background="@drawable/button_unclickable"
         android:text="@string/love_new_invite"
-        android:textColor="@color/white"
+        android:textColor="@color/colorPureWhite"
         android:textSize="@dimen/common_text_size_16"/>
 
 </RelativeLayout>

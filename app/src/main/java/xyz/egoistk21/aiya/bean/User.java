@@ -1,7 +1,8 @@
 package xyz.egoistk21.aiya.bean;
 
+
 /**
- * Created by EGOISTK on 2017/3/26.
+ * Created by EGOISTK21 on 2017/3/26.
  */
 
 public class User {

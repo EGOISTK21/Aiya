@@ -18,8 +18,9 @@ import xyz.egoistk21.aiya.R;
 import xyz.egoistk21.aiya.base.LazyFragment;
 import xyz.egoistk21.aiya.love.matched.MatchedContainerFragment;
 
+
 /**
- * Created by EGOISTK on 2017/3/29.
+ * Created by EGOISTK21 on 2017/3/29.
  */
 
 public class RandomMatchFragment extends LazyFragment {
@@ -50,7 +51,7 @@ public class RandomMatchFragment extends LazyFragment {
         });
 
         rootView.findViewById(R.id.tv_back).setOnClickListener(this);
-        rootView.findViewById(R.id.btn_love_start_random_match).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_invite).setOnClickListener(this);
 
         Spannable spannable = new SpannableString("发起后将立即与一名异性随缘成为七天情侣");
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
@@ -65,7 +66,7 @@ public class RandomMatchFragment extends LazyFragment {
             case R.id.tv_back:
                 fm.popBackStack();
                 break;
-            case R.id.btn_love_start_random_match:
+            case R.id.btn_invite:
                 fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 fm.beginTransaction().replace(R.id.container_love, new MatchedContainerFragment()).commit();
                 break;

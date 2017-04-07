@@ -21,11 +21,11 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
+        android:layout_height="@dimen/title_bar_height"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
         app:itemIconTint="@color/selector_color"
         app:itemTextColor="@color/selector_color"
-        app:menu="@menu/navigation"/>
+        app:menu="@menu/botton_navigation"/>
 
 </LinearLayout>

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,6 +24,11 @@ import xyz.egoistk21.aiya.love.matched.MatchedContainerFragment;
 import xyz.egoistk21.aiya.me.MeFragment;
 import xyz.egoistk21.aiya.message.MessageFragment;
 import xyz.egoistk21.aiya.util.BottomNavigationViewHelper;
+
+
+/**
+ * Created by EGOISTK21 on 2017/3/13.
+ */
 
 public class MainActivity extends AppCompatActivity {
 
@@ -115,5 +121,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        findViewById(R.id.navigation).setVisibility(View.VISIBLE);
+        super.onBackPressed();
     }
 }

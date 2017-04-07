@@ -2,8 +2,9 @@ package xyz.egoistk21.aiya;
 
 import android.app.Application;
 
+
 /**
- * Created by EGOISTK on 2017/3/15.
+ * Created by EGOISTK21 on 2017/3/15.
  */
 
 public class MyApplication extends Application {

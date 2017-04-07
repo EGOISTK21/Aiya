@@ -5,9 +5,10 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+
 /**
  * 屏蔽ViewPager对滑动的响应
- * Created by EGOISTK on 2017/3/14.
+ * Created by EGOISTK21 on 2017/3/14.
  */
 
 public class NoScrollViewPager extends ViewPager {

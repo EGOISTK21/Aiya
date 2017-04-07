@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/button_with_rightward_26"
+    android:layout_marginStart="@dimen/common_margin_5"
+    android:layout_marginTop="7.5dp"
+    android:includeFontPadding="false"
+    android:paddingBottom="@dimen/common_margin_5"
+    android:paddingEnd="@dimen/common_margin_10"
+    android:paddingStart="@dimen/common_margin_10"
+    android:paddingTop="@dimen/common_margin_5"
+    android:textColor="@color/colorContentSecondary"
+    android:textSize="@dimen/common_text_size_13"/>

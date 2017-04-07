@@ -13,28 +13,28 @@ import android.widget.TextView;
 
 import xyz.egoistk21.aiya.R;
 
+
 /**
  * Created by EGOISTK on 2017/3/28.
  */
 
-public class ArcDialog extends Dialog {
+public class FilletDialog extends Dialog {
 
-    protected ArcDialog(@NonNull Context context) {
-        super(context);
-    }
 
-    public ArcDialog(@NonNull Context context, @StyleRes int themeResId) {
+    private FilletDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
     }
 
     public static class Builder {
 
         private Context context;
+        private int resourceId;
         private String title, subTitle, negativeButtonText, positiveButtonText;
         private DialogInterface.OnClickListener negativeOnclickListener, positiveOnclickListener;
 
-        public Builder(Context context) {
+        public Builder(Context context, int resourceId) {
             this.context = context;
+            this.resourceId = resourceId;
         }
 
         public Builder setTitle(String title) {
@@ -59,19 +59,19 @@ public class ArcDialog extends Dialog {
             return this;
         }
 
-        public ArcDialog create() {
+        public FilletDialog create() {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final ArcDialog arcDialog = new ArcDialog(context, R.style.ArcDialog);
-            View rootView = inflater.inflate(R.layout.dialog_single_picker, null);
-            arcDialog.addContentView(rootView, new LayoutParams(
+            final FilletDialog filletDialog = new FilletDialog(context, R.style.ArcDialog);
+            View rootView = inflater.inflate(resourceId, null);
+            filletDialog.addContentView(rootView, new LayoutParams(
                     LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
             if (title != null) {
                 ((TextView) rootView.findViewById(R.id.tv_dialog_title)).setText(title);
             }
             if (subTitle != null) {
                 ((TextView) rootView.findViewById(R.id.tv_dialog_sub_title)).setText(subTitle);
-            } else {
+            } else if (rootView.findViewById(R.id.tv_dialog_sub_title) != null){
                 rootView.findViewById(R.id.tv_dialog_sub_title).setVisibility(View.GONE);
             }
             if (negativeButtonText != null) {
@@ -81,7 +81,7 @@ public class ArcDialog extends Dialog {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            negativeOnclickListener.onClick(arcDialog, DialogInterface.BUTTON_NEGATIVE);
+                            negativeOnclickListener.onClick(filletDialog, DialogInterface.BUTTON_NEGATIVE);
                         }
                     });
                 }
@@ -95,15 +95,15 @@ public class ArcDialog extends Dialog {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            positiveOnclickListener.onClick(arcDialog, DialogInterface.BUTTON_POSITIVE);
+                            positiveOnclickListener.onClick(filletDialog, DialogInterface.BUTTON_POSITIVE);
                         }
                     });
                 }
             } else {
                 rootView.findViewById(R.id.btn_dialog_positive).setVisibility(View.GONE);
             }
-            arcDialog.setContentView(rootView);
-            return arcDialog;
+            filletDialog.setContentView(rootView);
+            return filletDialog;
         }
 
     }

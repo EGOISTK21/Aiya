@@ -12,8 +12,9 @@ import java.util.List;
 
 import xyz.egoistk21.aiya.R;
 
+
 /**
- * Created by EGOISTK on 2017/3/19.
+ * Created by EGOISTK21 on 2017/3/19.
  */
 
 public class StringScrollPicker extends ScrollPickerView<String> {
@@ -155,5 +156,16 @@ public class StringScrollPicker extends ScrollPickerView<String> {
                 Math.round(Color.red(startColor) + red * rate),
                 Math.round(Color.green(startColor) + green * rate),
                 Math.round(Color.blue(startColor) + blue * rate));
+    }
+
+    /**
+     *
+     * 糟糕地匹配日期选择被取消时遇到一位数字的情况
+     */
+    public void setSelectedDate(String item) {
+        item = Integer.valueOf(item).toString();
+        if (getData().contains(item)) {
+            setSelectedPosition(getData().indexOf(item));
+        }
     }
 }

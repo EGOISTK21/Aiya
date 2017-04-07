@@ -23,6 +23,7 @@ import android.widget.TextView;
  * Created by zhangxutong .
  * Date: 16/03/11
  */
+
 public class NestFullViewHolder {
     private SparseArray<View> mViews;
     private View mConvertView;
