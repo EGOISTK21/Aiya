@@ -8,19 +8,19 @@ import android.app.Application;
 
 public class MyApplication extends Application {
 
-    private boolean isMatched;
+    private boolean matched;
 
-    public void setIsMatched(boolean isMached) {
-        this.isMatched = isMached;
+    public void setMatched(boolean matched) {
+        this.matched = matched;
     }
 
     public boolean isMatched() {
-        return isMatched;
+        return matched;
     }
 
     @Override
     public void onCreate() {
-        setIsMatched(false);
+        setMatched(false);
         super.onCreate();
     }
 }

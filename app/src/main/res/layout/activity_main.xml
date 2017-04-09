@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/container_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.aiyaschool.aiya.activity.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <com.aiyaschool.aiya.base.NoScrollViewPager
         android:id="@+id/viewpager_main"
@@ -26,6 +26,6 @@
         android:background="?android:attr/windowBackground"
         app:itemIconTint="@color/selector_color"
         app:itemTextColor="@color/selector_color"
-        app:menu="@menu/botton_navigation"/>
+        app:menu="@menu/bottom_navigation"/>
 
 </LinearLayout>

@@ -3,7 +3,6 @@ package com.aiyaschool.aiya.love.unmatched;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
@@ -28,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 /**
  * Created by EGOISTK21 on 2017/3/16.
  */
@@ -41,7 +39,6 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
     private String tmpSchool;
     private static boolean isContactShield = false;
     private UnmatchedContract.Presenter presenter;
-    private FragmentManager fm;
     private FragmentTransaction ft;
     private View rootView;
     private SwitchCompat[] switches;
@@ -70,9 +67,7 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
         sum = 0;
         prices = new int[]{5, 4, 2, 2, 1, 0};
         switches = new SwitchCompat[6];
-
-        fm = getFragmentManager();
-        ft = fm.beginTransaction();
+        ft = getFragmentManager().beginTransaction();
         TextView tvLoveMatchAtRandom = (TextView) rootView.findViewById(R.id.tv_random_match);
         btnHeight = (Button) rootView.findViewById(R.id.btn_height_picker);
         btnAge = (Button) rootView.findViewById(R.id.btn_age_picker);
@@ -275,7 +270,7 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
         switch (v.getId()) {
             case R.id.tv_random_match:
                 ft.addToBackStack(null);
-                ft.replace(R.id.container_love, new RandomMatchFragment()).commit();
+                ft.replace(R.id.container_love_unmatched, new RandomMatchFragment()).commit();
                 break;
             case R.id.btn_height_picker:
                 showDialogHeightPicker();
@@ -294,7 +289,7 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
                 break;
             case R.id.btn_start_match:
                 ft.addToBackStack(null);
-                ft.replace(R.id.container_love, new MatchResultFragment()).commit();
+                ft.replace(R.id.container_love_unmatched, new MatchResultFragment()).commit();
                 break;
         }
         super.onClick(v);

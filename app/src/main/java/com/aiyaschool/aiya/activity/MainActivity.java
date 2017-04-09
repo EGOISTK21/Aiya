@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -13,8 +15,8 @@ import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.NoScrollViewPager;
 import com.aiyaschool.aiya.community.CommunityFragment;
-import com.aiyaschool.aiya.love.LoveContainerFragment;
 import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
+import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
 import com.aiyaschool.aiya.message.MessageFragment;
 import com.aiyaschool.aiya.util.BottomNavigationViewHelper;
@@ -27,6 +29,8 @@ import com.aiyaschool.aiya.util.StatusBarUtil;
 public class MainActivity extends AppCompatActivity {
 
     private NoScrollViewPager vpMain;
+    private FragmentManager fm;
+    private FragmentPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +42,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViewPager() {
-        vpMain = (NoScrollViewPager) findViewById(R.id.viewpager_main);
         final Fragment[] fragments = new Fragment[]{new CommunityFragment(), new MessageFragment(),
-                ((MyApplication) getApplicationContext()).isMatched() ?
-                        new MatchedContainerFragment() :
-                        new LoveContainerFragment(),
-                new MeFragment()};
-        vpMain.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+                new UnmatchedContainerFragment(), new MeFragment()};
+        fm = getSupportFragmentManager();
+        vpMain = (NoScrollViewPager) findViewById(R.id.viewpager_main);
+        vpMain.setOffscreenPageLimit(2);
+        adapter = new FragmentPagerAdapter(fm) {
+
             @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                //每一页fragment实例化之后都不会被销毁
-                //super.destroyItem(container, position, object);
+            public int getItemPosition(Object object) {
+                if ((object instanceof UnmatchedContainerFragment
+                        && ((MyApplication) getApplication()).isMatched())
+                        || (object instanceof MatchedContainerFragment
+                                && !((MyApplication) getApplication()).isMatched())) {
+                    return POSITION_NONE;
+                }
+                return POSITION_UNCHANGED;
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                Fragment fragment = (Fragment) super.instantiateItem(container, position);
+                String fragmentTag = fragment.getTag();
+                if (fragment instanceof UnmatchedContainerFragment && ((MyApplication) getApplication()).isMatched()) {
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.remove(fragment);
+                    fragment = new MatchedContainerFragment();
+                    ft.add(container.getId(), fragment, fragmentTag);
+                    ft.attach(fragment);
+                    ft.commit();
+                } else if (fragment instanceof MatchedContainerFragment && !((MyApplication) getApplication()).isMatched()) {
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.remove(fragment);
+                    fragment = new UnmatchedContainerFragment();
+                    ft.add(container.getId(), fragment, fragmentTag);
+                    ft.attach(fragment);
+                    ft.commit();
+                }
+                return fragment;
             }
 
             @Override
@@ -60,7 +91,8 @@ public class MainActivity extends AppCompatActivity {
             public int getCount() {
                 return 4;
             }
-        });
+        };
+        vpMain.setAdapter(adapter);
     }
 
     private void initBottomNav() {
@@ -75,9 +107,11 @@ public class MainActivity extends AppCompatActivity {
                                 vpMain.setCurrentItem(0);
                                 return true;
                             case R.id.navigation_message:
+                                adapter.notifyDataSetChanged();
                                 vpMain.setCurrentItem(1);
                                 return true;
                             case R.id.navigation_love:
+                                adapter.notifyDataSetChanged();
                                 vpMain.setCurrentItem(2);
                                 return true;
                             case R.id.navigation_me:

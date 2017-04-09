@@ -24,4 +24,11 @@
         android:text="login"
         android:textSize="24sp"/>
 
+    <Button
+        android:id="@+id/btn_change_match"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_login"
+        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>

@@ -14,10 +14,9 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.LazyFragment;
-import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
-
 
 /**
  * Created by EGOISTK21 on 2017/3/29.
@@ -34,7 +33,7 @@ public class RandomMatchFragment extends LazyFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_match_at_random_start, container, false);
+        rootView = inflater.inflate(R.layout.fragment_random_match, container, false);
         initView();
         return rootView;
     }
@@ -67,8 +66,9 @@ public class RandomMatchFragment extends LazyFragment {
                 fm.popBackStack();
                 break;
             case R.id.btn_invite:
-                fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                fm.beginTransaction().replace(R.id.container_love, new MatchedContainerFragment()).commit();
+//                fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                ((MyApplication) getActivity().getApplication()).setMatched(true);
+//                fm.beginTransaction().replace(R.id.container_love_unmatched, new MatchedFragment()).commit();
                 break;
         }
     }

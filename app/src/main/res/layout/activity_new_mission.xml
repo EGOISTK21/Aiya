@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:id="@+id/rl_title_bar"
@@ -128,14 +130,14 @@
             android:textSize="@dimen/common_text_size_16"/>
 
         <!--<com.zhy.view.flowlayout.TagFlowLayout-->
-            <!--android:id="@+id/tfl_recommend_mission"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_below="@id/tv_recommend_mission"-->
-            <!--android:paddingStart="@dimen/common_margin_5"-->
-            <!--android:paddingEnd="@dimen/common_margin_15"-->
-            <!--android:paddingBottom="@dimen/common_margin_15"-->
-            <!--app:max_select="1">-->
+        <!--android:id="@+id/tfl_recommend_mission"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@id/tv_recommend_mission"-->
+        <!--android:paddingStart="@dimen/common_margin_5"-->
+        <!--android:paddingEnd="@dimen/common_margin_15"-->
+        <!--android:paddingBottom="@dimen/common_margin_15"-->
+        <!--app:max_select="1">-->
 
         <!--</com.zhy.view.flowlayout.TagFlowLayout>-->
 

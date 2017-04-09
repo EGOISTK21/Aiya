@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.LazyFragment;
 
-
 /**
  * Created by EGOISTK21 on 2017/3/31.
  */
@@ -17,7 +16,6 @@ import com.aiyaschool.aiya.base.LazyFragment;
 public class MatchResultFragment extends LazyFragment {
 
     private View rootView;
-
 
     @Nullable
     @Override

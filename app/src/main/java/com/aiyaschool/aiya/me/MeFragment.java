@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.util.OkHttpUtil;
@@ -35,6 +36,7 @@ public class MeFragment extends LazyFragment {
         btnLogin = (Button) rootView.findViewById(R.id.btn_login);
         etUsername.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        rootView.findViewById(R.id.btn_change_match).setOnClickListener(this);
     }
 
     @Override
@@ -45,6 +47,9 @@ public class MeFragment extends LazyFragment {
                 break;
             case R.id.btn_login:
                 OkHttpUtil.initUser(etUsername.getText().toString());
+                break;
+            case R.id.btn_change_match:
+                ((MyApplication) getActivity().getApplication()).setMatched(!((MyApplication) getActivity().getApplication()).isMatched());
                 break;
         }
         super.onClick(v);

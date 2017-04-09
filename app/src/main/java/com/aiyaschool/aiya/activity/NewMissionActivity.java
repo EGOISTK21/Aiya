@@ -1,23 +1,21 @@
-package com.aiyaschool.aiya.love.matched;
+package com.aiyaschool.aiya.activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.FilletDialog;
-import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.base.StringScrollPicker;
+import com.aiyaschool.aiya.util.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,10 +26,8 @@ import java.util.List;
  * Created by EGOISTK21 on 2017/4/4.
  */
 
-public class NewMissionFragment extends LazyFragment {
+public class NewMissionActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private View rootView;
-    private FragmentManager fm;
     private TextView tvDate;
     private EditText etMission;
 //    private TagFlowLayout tflRecommendMisson;
@@ -40,24 +36,22 @@ public class NewMissionFragment extends LazyFragment {
     private StringScrollPicker sspYear, sspMonth, sspDate;
     private List<String> data;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_new_mission, container, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_new_mission);
+        StatusBarUtil.init(this);
         initView();
-        return rootView;
     }
 
     private void initView() {
-        fm = getFragmentManager();
-        rootView.findViewById(R.id.tv_back).setOnClickListener(this);
-        tvDate = (TextView) rootView.findViewById(R.id.tv_date);
+        findViewById(R.id.tv_back).setOnClickListener(this);
+        tvDate = (TextView) findViewById(R.id.tv_date);
         tvDate.setOnClickListener(this);
-        btnInvite = (Button) rootView.findViewById(R.id.btn_invite);
+        btnInvite = (Button) findViewById(R.id.btn_invite);
         btnInvite.setOnClickListener(this);
         btnInvite.setClickable(false);
-        etMission = (EditText) rootView.findViewById(R.id.et_mission);
+        etMission = (EditText) findViewById(R.id.et_mission);
         etMission.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -73,10 +67,10 @@ public class NewMissionFragment extends LazyFragment {
             public void afterTextChanged(Editable s) {
                 if (!android.text.TextUtils.isEmpty(s.toString().trim())) {
                     btnInvite.setClickable(true);
-                    btnInvite.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_selector));
+                    btnInvite.setBackground(ContextCompat.getDrawable(NewMissionActivity.this, R.drawable.button_selector));
                 } else {
                     btnInvite.setClickable(false);
-                    btnInvite.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.button_unclickable));
+                    btnInvite.setBackground(ContextCompat.getDrawable(NewMissionActivity.this, R.drawable.button_unclickable));
                 }
             }
         });
@@ -89,7 +83,7 @@ public class NewMissionFragment extends LazyFragment {
 
     private void showDialogDatePicker() {
         if (dialogDatePicker == null) {
-            dialogDatePicker = new FilletDialog.Builder(getContext(), R.layout.dialog_date_picker)
+            dialogDatePicker = new FilletDialog.Builder(this, R.layout.dialog_date_picker)
                     .setTitle("日期")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
@@ -155,10 +149,9 @@ public class NewMissionFragment extends LazyFragment {
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_back:
-                fm.popBackStack();
+                finish();
                 break;
             case R.id.tv_date:
                 showDialogDatePicker();
