@@ -9,9 +9,9 @@
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="xyz.egoistk21.aiya.activity.MainActivity">
+    tools:context="com.aiyaschool.aiya.activity.MainActivity">
 
-    <xyz.egoistk21.aiya.base.NoScrollViewPager
+    <com.aiyaschool.aiya.base.NoScrollViewPager
         android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"

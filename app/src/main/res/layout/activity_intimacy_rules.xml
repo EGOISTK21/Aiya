@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/colorPureWhite">
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingEnd="@dimen/common_margin_15"
+            android:paddingStart="@dimen/common_margin_15"
+            android:text="@string/back"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/intimacy_rules_title"
+            android:textColor="@color/colorTitle"
+            android:textSize="15sp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_rule0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPureWhite"
+        android:includeFontPadding="false"
+        android:paddingBottom="@dimen/common_margin_30"
+        android:paddingStart="@dimen/common_margin_15"
+        android:paddingTop="@dimen/common_margin_30"
+        android:text="@string/intimacy_rule0"
+        android:textColor="@color/colorContentMain"
+        android:textSize="@dimen/common_text_size_13"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/common_margin_15"
+        android:background="@color/colorPureWhite"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_margin_15"
+            android:layout_marginTop="@dimen/common_margin_30"
+            android:includeFontPadding="false"
+            android:text="@string/intimacy_rules_sub_title"
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/common_text_size_16"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_margin_30"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:includeFontPadding="false"
+                android:text="@string/intimacy_rule1"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <TextView
+                android:id="@+id/tv_rule1_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_30"
+                android:includeFontPadding="false"
+                android:text="@string/intimacy_rule1_1"
+                android:textColor="@color/colorContentMain"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <TextView
+                android:id="@+id/tv_rule1_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_18"
+                android:includeFontPadding="false"
+                android:text="@string/intimacy_rule1_2"
+                android:textColor="@color/colorContentMain"
+                android:textSize="@dimen/common_text_size_13"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_margin_20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:includeFontPadding="false"
+                android:text="@string/intimacy_rule2"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <TextView
+                android:id="@+id/tv_rule2_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_30"
+                android:includeFontPadding="false"
+                android:text="@string/intimacy_rule2_1"
+                android:textColor="@color/colorContentMain"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <TextView
+                android:id="@+id/tv_rule2_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_18"
+                android:includeFontPadding="false"
+                android:text="@string/intimacy_rule2_2"
+                android:textColor="@color/colorContentMain"
+                android:textSize="@dimen/common_text_size_13"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_margin_20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:includeFontPadding="false"
+                android:text="@string/intimacy_rule3"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <TextView
+                android:id="@+id/tv_rule3_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_30"
+                android:includeFontPadding="false"
+                android:text="@string/intimacy_rule3_1"
+                android:textColor="@color/colorContentMain"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <TextView
+                android:id="@+id/tv_rule3_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_18"
+                android:includeFontPadding="false"
+                android:text="@string/intimacy_rule3_2"
+                android:textColor="@color/colorContentMain"
+                android:textSize="@dimen/common_text_size_13"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

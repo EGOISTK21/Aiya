@@ -1,10 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+    }
     compileSdkVersion 25
     buildToolsVersion '25.0.2'
     defaultConfig {
-        applicationId 'xyz.egoistk21.aiya'
+        applicationId 'com.aiyaschool.aiya'
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 14
@@ -35,6 +37,5 @@ dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.okio:okio:1.11.0'
-    compile 'com.zhy:flowlayout-lib:1.0.3'
     testCompile 'junit:junit:4.12'
 }

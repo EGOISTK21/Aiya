@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/love_new_mission"
+            android:text="@string/new_mission"
             android:textColor="@color/colorTitle"
             android:textSize="15sp"/>
 
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/common_margin_15"
-                android:text="@string/love_date"
+                android:text="@string/date"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_16"/>
 
@@ -65,7 +65,7 @@
                 android:layout_marginStart="@dimen/common_margin_30"
                 android:drawableEnd="@drawable/rightward_32"
                 android:gravity="start|center_vertical"
-                android:hint="@string/love_default_date"
+                android:hint="@string/default_mission_date"
                 android:paddingEnd="@dimen/common_margin_15"
                 android:textColor="@color/colorTitle"
                 android:textColorHint="@color/colorContentSecondary"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/common_margin_15"
-                android:text="@string/love_mission"
+                android:text="@string/mission"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_16"/>
 
@@ -96,7 +96,7 @@
                 android:layout_toEndOf="@id/tv_mission"
                 android:background="@color/colorPureWhite"
                 android:gravity="start|center_vertical"
-                android:hint="@string/love_default_mission"
+                android:hint="@string/default_mission"
                 android:singleLine="true"
                 android:textColor="@color/colorTitle"
                 android:textColorHint="@color/colorContentSecondary"
@@ -123,21 +123,21 @@
             android:layout_marginStart="@dimen/common_margin_15"
             android:layout_marginTop="@dimen/common_margin_15"
             android:includeFontPadding="false"
-            android:text="@string/love_recommend_mission"
+            android:text="@string/recommend_mission"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/common_text_size_16"/>
 
-        <com.zhy.view.flowlayout.TagFlowLayout
-            android:id="@+id/tfl_recommend_mission"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/tv_recommend_mission"
-            android:paddingStart="@dimen/common_margin_5"
-            android:paddingEnd="@dimen/common_margin_15"
-            android:paddingBottom="@dimen/common_margin_15"
-            app:max_select="1">
+        <!--<com.zhy.view.flowlayout.TagFlowLayout-->
+            <!--android:id="@+id/tfl_recommend_mission"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_below="@id/tv_recommend_mission"-->
+            <!--android:paddingStart="@dimen/common_margin_5"-->
+            <!--android:paddingEnd="@dimen/common_margin_15"-->
+            <!--android:paddingBottom="@dimen/common_margin_15"-->
+            <!--app:max_select="1">-->
 
-        </com.zhy.view.flowlayout.TagFlowLayout>
+        <!--</com.zhy.view.flowlayout.TagFlowLayout>-->
 
 
     </RelativeLayout>
@@ -150,7 +150,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/common_margin_15"
         android:background="@drawable/button_unclickable"
-        android:text="@string/love_new_invite"
+        android:text="@string/new_invite"
         android:textColor="@color/colorPureWhite"
         android:textSize="@dimen/common_text_size_16"/>
 

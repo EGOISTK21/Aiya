@@ -28,12 +28,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/love_intimacy_detail"
+            android:text="@string/intimacy_detail"
             android:textColor="@color/colorTitle"
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/tv_random_match"
+            android:id="@+id/tv_intimacy_rules"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
@@ -41,7 +41,7 @@
             android:gravity="center"
             android:paddingEnd="@dimen/common_margin_15"
             android:paddingStart="@dimen/common_margin_15"
-            android:text="@string/love_intimacy_instructions"
+            android:text="@string/intimacy_play"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp"/>
 
@@ -53,7 +53,7 @@
         android:layout_marginBottom="@dimen/common_margin_5"
         android:layout_marginStart="@dimen/common_margin_10"
         android:gravity="start|center_vertical"
-        android:text="@string/love_default_year"
+        android:text="@string/default_year"
         android:textColor="@color/colorContentSecondary"
         android:textSize="11sp"/>
 

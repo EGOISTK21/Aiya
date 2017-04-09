@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <xyz.egoistk21.aiya.base.StringScrollPicker
+        <com.aiyaschool.aiya.base.StringScrollPicker
             android:id="@+id/ssp_year"
             android:layout_width="0dp"
             android:layout_height="150dp"
@@ -35,7 +35,7 @@
             app:spv_max_text_size="30sp"
             app:spv_min_text_size="20sp"/>
 
-        <xyz.egoistk21.aiya.base.StringScrollPicker
+        <com.aiyaschool.aiya.base.StringScrollPicker
             android:id="@+id/ssp_month"
             android:layout_width="0dp"
             android:layout_height="150dp"
@@ -43,7 +43,7 @@
             app:spv_max_text_size="30sp"
             app:spv_min_text_size="20sp"/>
 
-        <xyz.egoistk21.aiya.base.StringScrollPicker
+        <com.aiyaschool.aiya.base.StringScrollPicker
             android:id="@+id/ssp_date"
             android:layout_width="0dp"
             android:layout_height="150dp"
@@ -64,7 +64,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/negative_button_selector"
-            android:text="@string/negative"
+            android:text="@string/cancel"
             android:textColor="@color/colorContentSecondary"
             android:textSize="@dimen/dialog_button_text_size"/>
 
@@ -74,7 +74,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/positive_button_selector"
-            android:text="@string/positive"
+            android:text="@string/yes"
             android:textColor="@color/colorPureWhite"
             android:textSize="@dimen/dialog_button_text_size"/>
 

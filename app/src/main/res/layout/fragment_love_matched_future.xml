@@ -18,7 +18,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/common_margin_15"
-            android:text="@string/love_matched_today_mission"
+            android:text="@string/today_mission"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/common_text_size_16"/>
 
@@ -40,7 +40,7 @@
         android:layout_height="1dp"
         android:background="@color/colorDivider"/>
 
-    <xyz.egoistk21.aiya.base.NestFullListView
+    <com.aiyaschool.aiya.base.NestFullListView
         android:id="@+id/lv_love_matched_today_love_mission"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

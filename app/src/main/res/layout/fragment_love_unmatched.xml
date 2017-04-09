@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_margin_15"
-            android:text="@string/love_unmatched_filter"
+            android:text="@string/filter_condition"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/common_text_size_16"/>
 
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_margin_5"
-            android:text="@string/love_unmatched_DIY"
+            android:text="@string/DIY_ta"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/common_text_size_13"/>
 
@@ -346,7 +346,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/common_margin_15"
-                android:text="@string/love_unmatched_shield"
+                android:text="@string/shield_contact"
                 android:textColor="@color/colorContentSecondary"
                 android:textSize="@dimen/common_text_size_16"/>
 
@@ -367,7 +367,7 @@
             android:layout_height="@dimen/common_button_height"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/button_selector"
-            android:text="@string/love_unmatched_start_match"
+            android:text="@string/start_condition_match"
             android:textColor="@color/colorPureWhite"
             android:textSize="@dimen/common_text_size_16"/>
 
