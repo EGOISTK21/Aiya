@@ -20,8 +20,8 @@ public class MatchedContainerFragment extends LazyFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        getChildFragmentManager().beginTransaction()
-                .replace(R.id.container_love_matched, new MatchedFragment()).commit();
-        return inflater.inflate(R.layout.fragment_love_matched_container, container, false);
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container_love, MatchedFragment.newInstance()).commit();
+        return inflater.inflate(R.layout.fragment_love_container, container, false);
     }
 }

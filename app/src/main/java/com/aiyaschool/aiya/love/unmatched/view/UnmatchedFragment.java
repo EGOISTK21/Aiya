@@ -332,7 +332,7 @@ public class UnmatchedFragment extends LazyFragment
         switch (v.getId()) {
             case R.id.tv_random_match:
                 ft.addToBackStack(null);
-                ft.replace(R.id.container_love_unmatched, RandomMatchFragment.newInstance()).commit();
+                ft.replace(R.id.container_love, RandomMatchFragment.newInstance()).commit();
                 break;
             case R.id.btn_height_picker:
                 showDialogHeightPicker();
@@ -351,7 +351,7 @@ public class UnmatchedFragment extends LazyFragment
                 break;
             case R.id.btn_start_condition_match:
                 ft.addToBackStack(null);
-                ft.replace(R.id.container_love_unmatched, new MatchResultFragment()).commit();
+                ft.replace(R.id.container_love, new MatchResultFragment()).commit();
                 break;
         }
     }

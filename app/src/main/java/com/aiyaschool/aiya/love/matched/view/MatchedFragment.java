@@ -32,6 +32,11 @@ public class MatchedFragment extends LazyFragment implements ILoveMatchedView {
     private TabLayout tabLayout;
     private FragmentTransaction ft;
 
+    public static MatchedFragment newInstance() {
+        MatchedFragment instance = new MatchedFragment();
+        return instance;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_love_matched, container, false);

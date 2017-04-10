@@ -20,8 +20,8 @@ public class UnmatchedContainerFragment extends LazyFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        getChildFragmentManager().beginTransaction()
-                .replace(R.id.container_love_unmatched, UnmatchedFragment.newInstance()).commit();
-        return inflater.inflate(R.layout.fragment_love_unmatched_container, container, false);
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container_love, UnmatchedFragment.newInstance()).commit();
+        return inflater.inflate(R.layout.fragment_love_container, container, false);
     }
 }
