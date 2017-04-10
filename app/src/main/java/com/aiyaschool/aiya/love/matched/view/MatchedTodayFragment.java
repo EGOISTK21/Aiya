@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.love.matched;
+package com.aiyaschool.aiya.love.matched.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,15 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.ClockInActivity;
-import com.aiyaschool.aiya.activity.IntimacyDetailActivity;
 import com.aiyaschool.aiya.activity.OtherCardActivity;
 import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.base.NestFullListView;
 import com.aiyaschool.aiya.base.NestFullListViewAdapter;
 import com.aiyaschool.aiya.base.NestFullViewHolder;
 import com.aiyaschool.aiya.love.matched.bean.LoveMission;
-import com.aiyaschool.aiya.love.matched.view.ILoveMatchedTodayView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +88,6 @@ public class MatchedTodayFragment extends LazyFragment implements ILoveMatchedTo
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         switch (v.getId()) {
             case R.id.ll_intimacy:
                 startActivity(new Intent(getContext(), IntimacyDetailActivity.class));

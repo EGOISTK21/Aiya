@@ -1,17 +1,16 @@
-package com.aiyaschool.aiya.love.matched;
+package com.aiyaschool.aiya.love.matched.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.base.LazyFragment;
+import com.aiyaschool.aiya.base.StringScrollPicker;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.base.StringScrollPicker;
-import com.aiyaschool.aiya.love.matched.view.ILoveMatchedJournalView;
-import com.aiyaschool.aiya.base.LazyFragment;
 
 
 /**

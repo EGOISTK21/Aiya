@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.love.unmatched;
+package com.aiyaschool.aiya.love.unmatched.view;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,6 @@ import com.aiyaschool.aiya.base.FilletDialog;
 import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.base.StringScrollPicker;
 import com.aiyaschool.aiya.love.unmatched.presenter.UnmatchedPresenter;
-import com.aiyaschool.aiya.love.unmatched.view.UnmatchedContract;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,21 +31,39 @@ import java.util.List;
  * Created by EGOISTK21 on 2017/3/16.
  */
 
-public class UnmatchedFragment extends LazyFragment implements UnmatchedContract.View,
-        CompoundButton.OnCheckedChangeListener {
+public class UnmatchedFragment extends LazyFragment
+        implements UnmatchedContract.View, CompoundButton.OnCheckedChangeListener {
 
     private int sum;
     private int[] prices;
     private String tmpSchool;
-    private static boolean isContactShield = false;
-    private UnmatchedContract.Presenter presenter;
+    private boolean isContactShield;
     private FragmentTransaction ft;
     private View rootView;
+    private UnmatchedContract.Presenter presenter;
+    private TextView tvRandomMatch;
+    private Button btnHeightPicker, btnAgePicker,
+            btnSchoolPicker, btnHometownPicker, btnConstellationPicker, btnStartConditionMatch;
     private SwitchCompat[] switches;
-    private Button btnHeight, btnAge, btnSchoolMajor, btnHometown, btnConstellation;
-    private FilletDialog dialogHeightPicker, dialogAgePicker, dialogSchoolMajorPicker,
-            dialogHometownPicker, dialogConstellationPicker;
-    private StringScrollPicker sspHeight, sspAge, sspSchoolMajor, sspHometown, sspConstellation;
+    private FilletDialog dialogHeightPicker, dialogAgePicker,
+            dialogSchoolPicker, dialogHometownPicker, dialogConstellationPicker;
+    private StringScrollPicker sspHeight, sspAge, sspSchool, sspHometown, sspConstellation;
+
+    public static UnmatchedFragment newInstance() {
+        UnmatchedFragment instance = new UnmatchedFragment();
+        Bundle args = new Bundle();
+        args.putBoolean("isContactShield", false);
+        instance.setArguments(args);
+        return instance;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        sum = 0;
+        prices = new int[]{5, 4, 2, 2, 1, 0};
+        isContactShield = getArguments().getBoolean("isContactShield");
+    }
 
     @Nullable
     @Override
@@ -53,6 +71,7 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_love_unmatched, container, false);
         initView();
+        initListener();
         presenter = new UnmatchedPresenter(this);
         return rootView;
     }
@@ -60,44 +79,44 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        presenter.detachLoveUnmatchedView();
+        presenter.detachView();
     }
 
     private void initView() {
-        sum = 0;
-        prices = new int[]{5, 4, 2, 2, 1, 0};
-        switches = new SwitchCompat[6];
         ft = getFragmentManager().beginTransaction();
-        TextView tvLoveMatchAtRandom = (TextView) rootView.findViewById(R.id.tv_random_match);
-        btnHeight = (Button) rootView.findViewById(R.id.btn_height_picker);
-        btnAge = (Button) rootView.findViewById(R.id.btn_age_picker);
-        btnSchoolMajor = (Button) rootView.findViewById(R.id.btn_school_picker);
-        btnHometown = (Button) rootView.findViewById(R.id.btn_hometown_picker);
-        btnConstellation = (Button) rootView.findViewById(R.id.btn_constellation_picker);
-        Button btnLoveStartMatch = (Button) rootView.findViewById(R.id.btn_start_match);
+        tvRandomMatch = (TextView) rootView.findViewById(R.id.tv_random_match);
+        btnHeightPicker = (Button) rootView.findViewById(R.id.btn_height_picker);
+        btnAgePicker = (Button) rootView.findViewById(R.id.btn_age_picker);
+        btnSchoolPicker = (Button) rootView.findViewById(R.id.btn_school_picker);
+        btnHometownPicker = (Button) rootView.findViewById(R.id.btn_hometown_picker);
+        btnConstellationPicker = (Button) rootView.findViewById(R.id.btn_constellation_picker);
+        btnStartConditionMatch = (Button) rootView.findViewById(R.id.btn_start_condition_match);
+        switches = new SwitchCompat[6];
         switches[0] = ((SwitchCompat) rootView.findViewById(R.id.sw_height));
         switches[1] = ((SwitchCompat) rootView.findViewById(R.id.sw_age));
         switches[2] = ((SwitchCompat) rootView.findViewById(R.id.sw_school));
         switches[3] = ((SwitchCompat) rootView.findViewById(R.id.sw_hometown));
         switches[4] = ((SwitchCompat) rootView.findViewById(R.id.sw_constellation));
         switches[5] = (SwitchCompat) rootView.findViewById(R.id.sw_shield_contact);
+        Spannable spannable = new SpannableString("你当前还是单身状态，快去和你的Ta相遇吧！");
+        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+                R.color.colorPrimaryDark)), 5, 7, Spanned.SPAN_POINT_MARK);
+        ((TextView) rootView.findViewById(R.id.tv_single_warn)).setText(spannable);
+    }
 
-        tvLoveMatchAtRandom.setOnClickListener(this);
-        btnHeight.setOnClickListener(this);
-        btnAge.setOnClickListener(this);
-        btnSchoolMajor.setOnClickListener(this);
-        btnHometown.setOnClickListener(this);
-        btnConstellation.setOnClickListener(this);
-        btnLoveStartMatch.setOnClickListener(this);
+    private void initListener() {
+        tvRandomMatch.setOnClickListener(this);
+        btnHeightPicker.setOnClickListener(this);
+        btnAgePicker.setOnClickListener(this);
+        btnSchoolPicker.setOnClickListener(this);
+        btnHometownPicker.setOnClickListener(this);
+        btnConstellationPicker.setOnClickListener(this);
+        btnStartConditionMatch.setOnClickListener(this);
+        btnStartConditionMatch.setClickable(false);
         switches[5].setChecked(isContactShield);
         for (SwitchCompat s : switches) {
             s.setOnCheckedChangeListener(this);
         }
-
-        Spannable spannable = new SpannableString("你当前还是单身状态，快去和你的Ta相遇吧！");
-        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
-                R.color.colorPrimaryDark)), 5, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ((TextView) rootView.findViewById(R.id.tv_single_warn)).setText(spannable);
     }
 
     public void showDialogHeightPicker() {
@@ -108,13 +127,13 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspHeight.setSelectedItem((String) btnHeight.getText());
+                            sspHeight.setSelectedItem((String) btnHeightPicker.getText());
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            btnHeight.setText(sspHeight.getSelectedItem());
+                            btnHeightPicker.setText(sspHeight.getSelectedItem());
                             dialog.dismiss();
                         }
                     }).create();
@@ -130,13 +149,13 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspAge.setSelectedItem((String) btnAge.getText());
+                            sspAge.setSelectedItem((String) btnAgePicker.getText());
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            btnAge.setText(sspAge.getSelectedItem());
+                            btnAgePicker.setText(sspAge.getSelectedItem());
                             dialog.dismiss();
                         }
                     }).create();
@@ -146,30 +165,30 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
     }
 
     public void showDialogSchoolMajorPicker() {
-        if (dialogSchoolMajorPicker == null) {
-            dialogSchoolMajorPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
+        if (dialogSchoolPicker == null) {
+            dialogSchoolPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("学校")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspSchoolMajor.setSelectedItem(tmpSchool);
+                            sspSchool.setSelectedItem(tmpSchool);
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            tmpSchool = sspSchoolMajor.getSelectedItem();
+                            tmpSchool = sspSchool.getSelectedItem();
                             if (tmpSchool.length() > 4) {
-                                btnSchoolMajor.setText(tmpSchool.subSequence(0, 4) + "…");
+                                btnSchoolPicker.setText(tmpSchool.subSequence(0, 4) + "…");
                             } else {
-                                btnSchoolMajor.setText(tmpSchool);
+                                btnSchoolPicker.setText(tmpSchool);
                             }
                             dialog.dismiss();
                         }
                     }).create();
         }
-        dialogSchoolMajorPicker.show();
-        presenter.loadSchoolMajorData();
+        dialogSchoolPicker.show();
+        presenter.loadSchoolData();
     }
 
     public void showDialogHometownPicker() {
@@ -179,13 +198,13 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspHometown.setSelectedItem((String) btnHometown.getText());
+                            sspHometown.setSelectedItem((String) btnHometownPicker.getText());
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            btnHometown.setText(sspHometown.getSelectedItem());
+                            btnHometownPicker.setText(sspHometown.getSelectedItem());
                             dialog.dismiss();
                         }
                     }).create();
@@ -201,13 +220,13 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspConstellation.setSelectedItem((String) btnConstellation.getText());
+                            sspConstellation.setSelectedItem((String) btnConstellationPicker.getText());
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            btnConstellation.setText(sspConstellation.getSelectedItem());
+                            btnConstellationPicker.setText(sspConstellation.getSelectedItem());
                             dialog.dismiss();
                         }
                     }).create();
@@ -255,44 +274,14 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
     }
 
     @Override
-    public void setSchoolMajorData(List<String> data) {
-        if (dialogSchoolMajorPicker != null && sspSchoolMajor == null) {
-            sspSchoolMajor = (StringScrollPicker) dialogSchoolMajorPicker.findViewById(R.id.ssp_single);
-            if (sspSchoolMajor != null) {
-                sspSchoolMajor.setData(data);
-                btnSchoolMajor.setText(sspSchoolMajor.getSelectedItem().subSequence(0, 4) + "…");
+    public void setSchoolData(List<String> data) {
+        if (dialogSchoolPicker != null && sspSchool == null) {
+            sspSchool = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_single);
+            if (sspSchool != null) {
+                sspSchool.setData(data);
+                btnSchoolPicker.setText(sspSchool.getSelectedItem().subSequence(0, 4) + "…");
             }
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_random_match:
-                ft.addToBackStack(null);
-                ft.replace(R.id.container_love_unmatched, new RandomMatchFragment()).commit();
-                break;
-            case R.id.btn_height_picker:
-                showDialogHeightPicker();
-                break;
-            case R.id.btn_age_picker:
-                showDialogAgePicker();
-                break;
-            case R.id.btn_school_picker:
-                showDialogSchoolMajorPicker();
-                break;
-            case R.id.btn_hometown_picker:
-                showDialogHometownPicker();
-                break;
-            case R.id.btn_constellation_picker:
-                showDialogConstellationPicker();
-                break;
-            case R.id.btn_start_match:
-                ft.addToBackStack(null);
-                ft.replace(R.id.container_love_unmatched, new MatchResultFragment()).commit();
-                break;
-        }
-        super.onClick(v);
     }
 
     @Override
@@ -312,6 +301,7 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
                 break;
             case R.id.sw_constellation:
                 updateSwitchesStatus(isChecked, 4);
+                System.out.println(sum);
                 break;
             case R.id.sw_shield_contact:
                 isContactShield = isChecked;
@@ -333,6 +323,36 @@ public class UnmatchedFragment extends LazyFragment implements UnmatchedContract
             switches[2].setClickable(true);
             switches[3].setClickable(true);
             switches[4].setClickable(true);
+        }
+        btnStartConditionMatch.setClickable(sum != 0);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_random_match:
+                ft.addToBackStack(null);
+                ft.replace(R.id.container_love_unmatched, RandomMatchFragment.newInstance()).commit();
+                break;
+            case R.id.btn_height_picker:
+                showDialogHeightPicker();
+                break;
+            case R.id.btn_age_picker:
+                showDialogAgePicker();
+                break;
+            case R.id.btn_school_picker:
+                showDialogSchoolMajorPicker();
+                break;
+            case R.id.btn_hometown_picker:
+                showDialogHometownPicker();
+                break;
+            case R.id.btn_constellation_picker:
+                showDialogConstellationPicker();
+                break;
+            case R.id.btn_start_condition_match:
+                ft.addToBackStack(null);
+                ft.replace(R.id.container_love_unmatched, new MatchResultFragment()).commit();
+                break;
         }
     }
 

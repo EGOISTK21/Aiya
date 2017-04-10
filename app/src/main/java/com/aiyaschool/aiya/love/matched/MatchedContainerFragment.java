@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.LazyFragment;
+import com.aiyaschool.aiya.love.matched.view.MatchedFragment;
 
 /**
  * Created by EGOISTK21 on 2017/4/9.

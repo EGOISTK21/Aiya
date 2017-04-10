@@ -19,7 +19,7 @@ import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
 import com.aiyaschool.aiya.message.MessageFragment;
-import com.aiyaschool.aiya.util.BottomNavigationViewHelper;
+import com.aiyaschool.aiya.util.BottomNavigationViewUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
 
 /**
@@ -29,32 +29,38 @@ import com.aiyaschool.aiya.util.StatusBarUtil;
 public class MainActivity extends AppCompatActivity {
 
     private NoScrollViewPager vpMain;
+    private Fragment[] fragments;
     private FragmentManager fm;
     private FragmentPagerAdapter adapter;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StatusBarUtil.init(this);
-        initViewPager();
-        initBottomNav();
+        initView();
+        initListener();
     }
 
-    private void initViewPager() {
-        final Fragment[] fragments = new Fragment[]{new CommunityFragment(), new MessageFragment(),
-                new UnmatchedContainerFragment(), new MeFragment()};
-        fm = getSupportFragmentManager();
+    private void initView() {
+        fragments = new Fragment[]{
+                new CommunityFragment(),
+                new MessageFragment(),
+                ((MyApplication) getApplication()).isMatched()
+                        ? new MatchedContainerFragment()
+                        : new UnmatchedContainerFragment(),
+                new MeFragment()
+        };
         vpMain = (NoScrollViewPager) findViewById(R.id.viewpager_main);
-        vpMain.setOffscreenPageLimit(2);
+        fm = getSupportFragmentManager();
         adapter = new FragmentPagerAdapter(fm) {
-
             @Override
             public int getItemPosition(Object object) {
                 if ((object instanceof UnmatchedContainerFragment
                         && ((MyApplication) getApplication()).isMatched())
                         || (object instanceof MatchedContainerFragment
-                                && !((MyApplication) getApplication()).isMatched())) {
+                        && !((MyApplication) getApplication()).isMatched())) {
                     return POSITION_NONE;
                 }
                 return POSITION_UNCHANGED;
@@ -64,14 +70,16 @@ public class MainActivity extends AppCompatActivity {
             public Object instantiateItem(ViewGroup container, int position) {
                 Fragment fragment = (Fragment) super.instantiateItem(container, position);
                 String fragmentTag = fragment.getTag();
-                if (fragment instanceof UnmatchedContainerFragment && ((MyApplication) getApplication()).isMatched()) {
+                if (fragment instanceof UnmatchedContainerFragment
+                        && ((MyApplication) getApplication()).isMatched()) {
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.remove(fragment);
                     fragment = new MatchedContainerFragment();
                     ft.add(container.getId(), fragment, fragmentTag);
                     ft.attach(fragment);
                     ft.commit();
-                } else if (fragment instanceof MatchedContainerFragment && !((MyApplication) getApplication()).isMatched()) {
+                } else if (fragment instanceof MatchedContainerFragment
+                        && !((MyApplication) getApplication()).isMatched()) {
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.remove(fragment);
                     fragment = new UnmatchedContainerFragment();
@@ -92,13 +100,14 @@ public class MainActivity extends AppCompatActivity {
                 return 4;
             }
         };
+        vpMain.setOffscreenPageLimit(3);
         vpMain.setAdapter(adapter);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+        BottomNavigationViewUtil.disableShiftMode(bottomNavigationView);
     }
 
-    private void initBottomNav() {
-        BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.navigation);
-        BottomNavigationViewHelper.disableShiftMode(navigationView);
-        navigationView.setOnNavigationItemSelectedListener(
+    private void initListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -107,11 +116,9 @@ public class MainActivity extends AppCompatActivity {
                                 vpMain.setCurrentItem(0);
                                 return true;
                             case R.id.navigation_message:
-                                adapter.notifyDataSetChanged();
                                 vpMain.setCurrentItem(1);
                                 return true;
                             case R.id.navigation_love:
-                                adapter.notifyDataSetChanged();
                                 vpMain.setCurrentItem(2);
                                 return true;
                             case R.id.navigation_me:
@@ -122,20 +129,30 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         // TODO: 2017/4/4 二次点击刷新
-        navigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_community:
-                        break;
-                    case R.id.navigation_message:
-                        break;
-                    case R.id.navigation_love:
-                        break;
-                    case R.id.navigation_me:
-                        break;
-                }
-            }
-        });
+        bottomNavigationView.setOnNavigationItemReselectedListener(
+                new BottomNavigationView.OnNavigationItemReselectedListener() {
+                    @Override
+                    public void onNavigationItemReselected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.navigation_community:
+                                break;
+                            case R.id.navigation_message:
+                                break;
+                            case R.id.navigation_love:
+                                break;
+                            case R.id.navigation_me:
+                                break;
+                        }
+                    }
+                });
+    }
+
+    public void notifyAdapter() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

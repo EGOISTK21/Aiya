@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.love.matched;
+package com.aiyaschool.aiya.love.matched.view;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
@@ -15,11 +15,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.NewMissionActivity;
 import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.love.matched.presenter.i.ILoveMatchedPresenter;
 import com.aiyaschool.aiya.love.matched.presenter.impl.LoveMatchedPresenter;
-import com.aiyaschool.aiya.love.matched.view.ILoveMatchedView;
 
 
 /**
@@ -95,7 +93,6 @@ public class MatchedFragment extends LazyFragment implements ILoveMatchedView {
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         switch (v.getId()) {
             case R.id.ibn_new_mission:
                 startActivity(new Intent(getContext(), NewMissionActivity.class));

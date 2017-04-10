@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.activity;
+package com.aiyaschool.aiya.love.matched.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +12,7 @@ import com.aiyaschool.aiya.util.StatusBarUtil;
  * Created by EGOISTK21 on 2017/4/8.
  */
 
-public class ClockInActivity extends AppCompatActivity implements View.OnClickListener{
+public class ClockInActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

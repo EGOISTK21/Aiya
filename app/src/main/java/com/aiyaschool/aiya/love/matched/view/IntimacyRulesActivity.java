@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.activity;
+package com.aiyaschool.aiya.love.matched.view;
 
 import android.os.Bundle;
 import android.os.Parcel;

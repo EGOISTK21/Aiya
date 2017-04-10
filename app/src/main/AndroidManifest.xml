@@ -24,11 +24,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ClockInActivity"/>
+        <activity android:name=".love.matched.view.ClockInActivity"/>
         <activity android:name=".activity.OtherCardActivity"/>
-        <activity android:name=".activity.NewMissionActivity"/>
-        <activity android:name=".activity.IntimacyDetailActivity"/>
-        <activity android:name=".activity.IntimacyRulesActivity"/>
+        <activity android:name=".love.matched.view.NewMissionActivity"/>
+        <activity android:name=".love.matched.view.IntimacyDetailActivity"/>
+        <activity android:name=".love.matched.view.IntimacyRulesActivity"/>
     </application>
 
 </manifest>

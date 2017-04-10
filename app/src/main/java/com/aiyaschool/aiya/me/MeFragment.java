@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.MainActivity;
 import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.util.OkHttpUtil;
 
@@ -50,8 +51,8 @@ public class MeFragment extends LazyFragment {
                 break;
             case R.id.btn_change_match:
                 ((MyApplication) getActivity().getApplication()).setMatched(!((MyApplication) getActivity().getApplication()).isMatched());
+                ((MainActivity) getActivity()).notifyAdapter();
                 break;
         }
-        super.onClick(v);
     }
 }

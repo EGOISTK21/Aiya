@@ -2,10 +2,10 @@ package com.aiyaschool.aiya.love.unmatched.presenter;
 
 import android.os.Handler;
 
-import java.util.List;
-
 import com.aiyaschool.aiya.love.unmatched.bean.UnmatchedModel;
 import com.aiyaschool.aiya.love.unmatched.view.UnmatchedContract;
+
+import java.util.List;
 
 
 /**
@@ -19,24 +19,24 @@ public class UnmatchedPresenter implements UnmatchedContract.Presenter {
     private Handler handler;
 
     public UnmatchedPresenter(UnmatchedContract.View loveView) {
-        attachLoveUnmatchedView(loveView);
+        attachView(loveView);
         model = new UnmatchedModel();
         handler = new Handler();
     }
 
     @Override
-    public void attachLoveUnmatchedView(UnmatchedContract.View loveView) {
+    public void attachView(UnmatchedContract.View loveView) {
         this.view = loveView;
     }
 
     @Override
-    public void detachLoveUnmatchedView() {
+    public void detachView() {
         this.view = null;
     }
 
     @Override
-    public void loadSchoolMajorData() {
-        model.getSchoolMajorData(new OnDataListener() {
+    public void loadSchoolData() {
+        model.getSchoolData(new OnDataListener() {
             @Override
             public void onFailure() {
 
@@ -47,7 +47,7 @@ public class UnmatchedPresenter implements UnmatchedContract.Presenter {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        view.setSchoolMajorData(data);
+                        view.setSchoolData(data);
                     }
                 });
             }

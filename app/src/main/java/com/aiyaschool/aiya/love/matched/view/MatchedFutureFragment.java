@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.love.matched;
+package com.aiyaschool.aiya.love.matched.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.LazyFragment;
-import com.aiyaschool.aiya.love.matched.view.ILoveMatchedFutureView;
 
 
 /**

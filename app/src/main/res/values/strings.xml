@@ -55,7 +55,7 @@
     <string name="new_invite">发出邀请</string>
     <string name="browse_ta_activity">看Ta动态</string>
     <string name="mission_picture">任务图册</string>
-    <string name="love_unmatched_single_warn">你当前还是单身状态，快去和你的Ta相遇吧！</string>
+    <string name="single_warn">你当前还是单身状态，快去和你的Ta相遇吧！</string>
     <string name="filter_condition">筛选条件</string>
     <string name="DIY_ta">如果给你七块钱，你想DIY一个怎样的Ta？</string>
     <string name="intimacy">亲密度</string>

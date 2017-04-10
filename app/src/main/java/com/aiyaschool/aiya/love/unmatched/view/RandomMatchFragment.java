@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.love.unmatched;
+package com.aiyaschool.aiya.love.unmatched.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.MainActivity;
 import com.aiyaschool.aiya.base.LazyFragment;
 
 /**
@@ -24,10 +25,17 @@ import com.aiyaschool.aiya.base.LazyFragment;
 
 public class RandomMatchFragment extends LazyFragment {
 
-    private static boolean canRandom = false;
+    private boolean canRandom;
     private View rootView;
     private SwitchCompat swRandom;
     private FragmentManager fm;
+
+    public static RandomMatchFragment newInstance() {
+        RandomMatchFragment instance = new RandomMatchFragment();
+        instance.setCanRandom(false);
+        return instance;
+    }
+
 
     @Nullable
     @Override
@@ -58,18 +66,21 @@ public class RandomMatchFragment extends LazyFragment {
         ((TextView) rootView.findViewById(R.id.tv_love_match_at_random_warn)).setText(spannable);
     }
 
+    private void setCanRandom(boolean canRandom) {
+        this.canRandom = canRandom;
+    }
+
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_back:
                 fm.popBackStack();
                 break;
             case R.id.btn_invite:
-//                fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 ((MyApplication) getActivity().getApplication()).setMatched(true);
-//                fm.beginTransaction().replace(R.id.container_love_unmatched, new MatchedFragment()).commit();
+                ((MainActivity) getActivity()).notifyAdapter();
                 break;
         }
     }
+
 }

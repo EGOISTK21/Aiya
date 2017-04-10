@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.love.unmatched;
+package com.aiyaschool.aiya.love.unmatched.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,11 +31,11 @@ public class MatchResultFragment extends LazyFragment {
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_back:
                 getFragmentManager().popBackStack();
                 break;
         }
     }
+    
 }

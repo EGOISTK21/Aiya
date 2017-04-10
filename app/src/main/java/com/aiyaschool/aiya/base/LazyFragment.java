@@ -1,11 +1,9 @@
 package com.aiyaschool.aiya.base;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
-
 
 /**
  * 懒加载的Fragment,在必要的时候才加载，否则不进行View的绘制和数据的加载。

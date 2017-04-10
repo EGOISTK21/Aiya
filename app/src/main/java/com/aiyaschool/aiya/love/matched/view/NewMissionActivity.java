@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.activity;
+package com.aiyaschool.aiya.love.matched.view;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -30,7 +30,7 @@ public class NewMissionActivity extends AppCompatActivity implements View.OnClic
 
     private TextView tvDate;
     private EditText etMission;
-//    private TagFlowLayout tflRecommendMisson;
+    //    private TagFlowLayout tflRecommendMisson;
     private Button btnInvite;
     private FilletDialog dialogDatePicker;
     private StringScrollPicker sspYear, sspMonth, sspDate;

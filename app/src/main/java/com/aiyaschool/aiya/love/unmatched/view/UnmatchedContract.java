@@ -10,15 +10,15 @@ import java.util.List;
 public abstract class UnmatchedContract {
 
     public interface View {
-        void setSchoolMajorData(List<String> data);
+        void setSchoolData(List<String> data);
     }
 
     public interface Presenter {
-        void attachLoveUnmatchedView(View loveView);
+        void attachView(View loveView);
 
-        void detachLoveUnmatchedView();
+        void detachView();
 
-        void loadSchoolMajorData();
+        void loadSchoolData();
 
         interface OnDataListener {
             void onFailure();

@@ -22,7 +22,7 @@ import com.aiyaschool.aiya.util.OkHttpUtil;
 
 public class UnmatchedModel {
 
-    public void getSchoolMajorData(final UnmatchedContract.Presenter.OnDataListener onDataListener) {
+    public void getSchoolData(final UnmatchedContract.Presenter.OnDataListener onDataListener) {
         OkHttpUtil.post("/Community/GET/searchSchool",
                 new FormBody.Builder().add("keyword", ""),
                 new Callback() {
