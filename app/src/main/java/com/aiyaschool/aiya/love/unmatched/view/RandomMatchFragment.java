@@ -36,6 +36,9 @@ public class RandomMatchFragment extends LazyFragment {
         return instance;
     }
 
+    private void setCanRandom(boolean canRandom) {
+        this.canRandom = canRandom;
+    }
 
     @Nullable
     @Override
@@ -64,10 +67,6 @@ public class RandomMatchFragment extends LazyFragment {
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
                 R.color.colorPrimaryDark)), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ((TextView) rootView.findViewById(R.id.tv_love_match_at_random_warn)).setText(spannable);
-    }
-
-    private void setCanRandom(boolean canRandom) {
-        this.canRandom = canRandom;
     }
 
     @Override

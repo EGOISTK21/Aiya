@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.remove(fragment);
                     fragment = new MatchedContainerFragment();
-                    ft.add(container.getId(), fragment, fragmentTag);
+                    ft.add(container.getId(), fragment, fragmentTag)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.attach(fragment);
                     ft.commit();
                 } else if (fragment instanceof MatchedContainerFragment
@@ -83,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.remove(fragment);
                     fragment = new UnmatchedContainerFragment();
-                    ft.add(container.getId(), fragment, fragmentTag);
+                    ft.add(container.getId(), fragment, fragmentTag)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.attach(fragment);
                     ft.commit();
                 }

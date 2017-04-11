@@ -29,6 +29,6 @@ public class MyApplication extends Application {
         SharedPreferences userInfo = getSharedPreferences("userInfo", MODE_PRIVATE);
         String userName = userInfo.getString("username", null);
         String userSig = userInfo.getString("usersig", null);
-        String loginToken = userInfo.getString("loginToken", null);
+        String loginToken = userInfo.getString("logintoken", null);
     }
 }

@@ -1,6 +1,11 @@
 package com.aiyaschool.aiya.util;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
+
+import com.aiyaschool.aiya.bean.User;
 
 import org.json.JSONObject;
 
@@ -11,8 +16,6 @@ import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import com.aiyaschool.aiya.bean.User;
-
 
 /**
  * Created by EGOISTK21 on 2017/3/26.
@@ -28,6 +31,14 @@ public class OkHttpUtil {
             .build();
     private static User user;
 
+    public static boolean isNetworkReachable(Context context) {
+        NetworkInfo networkInfo = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        if (networkInfo != null) {
+            return networkInfo.isAvailable();
+        }
+        return false;
+    }
+
     public static void initUser(String username) {
         user = new User(username);
         new Thread(new Runnable() {
@@ -39,7 +50,7 @@ public class OkHttpUtil {
                     Response response = OK_HTTP_CLIENT.newCall(new Request
                             .Builder()
                             .url("https://gxwylovesig.applinzi.com/GET/usersig")
-                            .header("AccessToken", "False")
+                            .header("AccessToken", "false")
                             .post((builder.build()))
                             .build())
                             .execute();
@@ -52,21 +63,21 @@ public class OkHttpUtil {
                         response = OK_HTTP_CLIENT.newCall(new Request
                                 .Builder()
                                 .url("https://gxwylovesig.applinzi.com/GET/alltoken")
-                                .header("AccessToken", "False")
+                                .header("AccessToken", "false")
                                 .post((builder.build()))
                                 .build())
                                 .execute();
                         if (response.isSuccessful()) {
                             jsonObject = new JSONObject(response.body().string());
                             user.updateUsersig(jsonObject.getString("usersig"));
-                            user.setLoginToken(jsonObject.getString("LoginToken"));
+                            user.setLoginToken(jsonObject.getString("logintoken"));
                             builder = new FormBody.Builder();
                             builder.add("username", user.getUsername());
                             builder.add("LoginToken", user.getLoginToken());
                             response = OK_HTTP_CLIENT.newCall(new Request
                                     .Builder()
                                     .url("https://lovefor7days.applinzi.com/Home/GET/init")
-                                    .header("AccessToken", "False")
+                                    .header("AccessToken", "false")
                                     .post((builder.build()))
                                     .build())
                                     .execute();
@@ -95,7 +106,7 @@ public class OkHttpUtil {
         OK_HTTP_CLIENT.newCall(new Request
                 .Builder()
                 .url(ROOT + url)
-                .header("AccessToken", user.getAccesstoken())
+                .header("AccessToken", user == null ? "False" : user.getAccesstoken())
                 .post(builder.build())
                 .build())
                 .enqueue(callback);

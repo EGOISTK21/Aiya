@@ -1,6 +1,6 @@
 <resources>
     <!--app专有名词-->
-    <string name="app_name">Aiya</string>
+    <string name="app_name">爱呀</string>
     <string name="sign_up">注册</string>
     <string name="sign_in">登录</string>
     <string name="community_title">社区</string>

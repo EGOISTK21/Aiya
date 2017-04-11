@@ -19,7 +19,6 @@ import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.love.matched.presenter.i.ILoveMatchedPresenter;
 import com.aiyaschool.aiya.love.matched.presenter.impl.LoveMatchedPresenter;
 
-
 /**
  * Created by EGOISTK21 on 2017/3/23.
  */

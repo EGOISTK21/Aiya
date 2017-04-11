@@ -16,12 +16,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.FilletDialog;
 import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.base.StringScrollPicker;
-import com.aiyaschool.aiya.love.unmatched.presenter.UnmatchedPresenter;
+import com.aiyaschool.aiya.love.unmatched.presenter.ConditionMatchPresenter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,8 +32,8 @@ import java.util.List;
  * Created by EGOISTK21 on 2017/3/16.
  */
 
-public class UnmatchedFragment extends LazyFragment
-        implements UnmatchedContract.View, CompoundButton.OnCheckedChangeListener {
+public class ConditionMatchFragment extends LazyFragment
+        implements ConditionMatchContract.View, CompoundButton.OnCheckedChangeListener {
 
     private int sum;
     private int[] prices;
@@ -40,7 +41,7 @@ public class UnmatchedFragment extends LazyFragment
     private boolean isContactShield;
     private FragmentTransaction ft;
     private View rootView;
-    private UnmatchedContract.Presenter presenter;
+    private ConditionMatchContract.Presenter presenter;
     private TextView tvRandomMatch;
     private Button btnHeightPicker, btnAgePicker,
             btnSchoolPicker, btnHometownPicker, btnConstellationPicker, btnStartConditionMatch;
@@ -49,8 +50,8 @@ public class UnmatchedFragment extends LazyFragment
             dialogSchoolPicker, dialogHometownPicker, dialogConstellationPicker;
     private StringScrollPicker sspHeight, sspAge, sspSchool, sspHometown, sspConstellation;
 
-    public static UnmatchedFragment newInstance() {
-        UnmatchedFragment instance = new UnmatchedFragment();
+    public static ConditionMatchFragment newInstance() {
+        ConditionMatchFragment instance = new ConditionMatchFragment();
         Bundle args = new Bundle();
         args.putBoolean("isContactShield", false);
         instance.setArguments(args);
@@ -72,7 +73,7 @@ public class UnmatchedFragment extends LazyFragment
         rootView = inflater.inflate(R.layout.fragment_love_unmatched, container, false);
         initView();
         initListener();
-        presenter = new UnmatchedPresenter(this);
+        presenter = new ConditionMatchPresenter(getContext(), this);
         return rootView;
     }
 
@@ -119,7 +120,7 @@ public class UnmatchedFragment extends LazyFragment
         }
     }
 
-    public void showDialogHeightPicker() {
+    private void showDialogHeightPicker() {
         if (dialogHeightPicker == null) {
             dialogHeightPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("身高")
@@ -142,7 +143,7 @@ public class UnmatchedFragment extends LazyFragment
         setHeightData();
     }
 
-    public void showDialogAgePicker() {
+    private void showDialogAgePicker() {
         if (dialogAgePicker == null) {
             dialogAgePicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("年龄")
@@ -164,7 +165,7 @@ public class UnmatchedFragment extends LazyFragment
         setAgeData();
     }
 
-    public void showDialogSchoolMajorPicker() {
+    private void showDialogSchoolPicker() {
         if (dialogSchoolPicker == null) {
             dialogSchoolPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("学校")
@@ -191,7 +192,7 @@ public class UnmatchedFragment extends LazyFragment
         presenter.loadSchoolData();
     }
 
-    public void showDialogHometownPicker() {
+    private void showDialogHometownPicker() {
         if (dialogHometownPicker == null) {
             dialogHometownPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("家乡")
@@ -213,7 +214,7 @@ public class UnmatchedFragment extends LazyFragment
         setHometownData();
     }
 
-    public void showDialogConstellationPicker() {
+    private void showDialogConstellationPicker() {
         if (dialogConstellationPicker == null) {
             dialogConstellationPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("星座")
@@ -235,7 +236,7 @@ public class UnmatchedFragment extends LazyFragment
         setConstellationData();
     }
 
-    public void setHeightData() {
+    private void setHeightData() {
         if (dialogHeightPicker != null && sspHeight == null) {
             sspHeight = (StringScrollPicker) dialogHeightPicker.findViewById(R.id.ssp_single);
             sspHeight.setData(new ArrayList<>(Arrays.asList("150以下", "150–154", "155–159",
@@ -244,7 +245,7 @@ public class UnmatchedFragment extends LazyFragment
         }
     }
 
-    public void setAgeData() {
+    private void setAgeData() {
         if (dialogAgePicker != null && sspAge == null) {
             sspAge = (StringScrollPicker) dialogAgePicker.findViewById(R.id.ssp_single);
             sspAge.setData(new ArrayList<>(Arrays.asList("17", "18", "19", "20", "21", "22", "23",
@@ -253,7 +254,7 @@ public class UnmatchedFragment extends LazyFragment
         }
     }
 
-    public void setHometownData() {
+    private void setHometownData() {
         if (dialogHometownPicker != null && sspHometown == null) {
             sspHometown = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_single);
             sspHometown.setData(new ArrayList<>(Arrays.asList("澳门", "安徽", "北京", "重庆", "福建",
@@ -264,7 +265,7 @@ public class UnmatchedFragment extends LazyFragment
         }
     }
 
-    public void setConstellationData() {
+    private void setConstellationData() {
         if (dialogConstellationPicker != null && sspConstellation == null) {
             sspConstellation = (StringScrollPicker) dialogConstellationPicker.findViewById(R.id.ssp_single);
             sspConstellation.setData(new ArrayList<>(Arrays.asList("白羊座", "金牛座", "双子座", "巨蟹座",
@@ -285,6 +286,11 @@ public class UnmatchedFragment extends LazyFragment
     }
 
     @Override
+    public void toastNetworkError() {
+        Toast.makeText(getContext(), "网络错误(＞д＜)", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.sw_height:
@@ -301,7 +307,6 @@ public class UnmatchedFragment extends LazyFragment
                 break;
             case R.id.sw_constellation:
                 updateSwitchesStatus(isChecked, 4);
-                System.out.println(sum);
                 break;
             case R.id.sw_shield_contact:
                 isContactShield = isChecked;
@@ -331,8 +336,10 @@ public class UnmatchedFragment extends LazyFragment
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_random_match:
+                sum = 0;
                 ft.addToBackStack(null);
-                ft.replace(R.id.container_love, RandomMatchFragment.newInstance()).commit();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container_love, RandomMatchFragment.newInstance()).commit();
                 break;
             case R.id.btn_height_picker:
                 showDialogHeightPicker();
@@ -341,7 +348,7 @@ public class UnmatchedFragment extends LazyFragment
                 showDialogAgePicker();
                 break;
             case R.id.btn_school_picker:
-                showDialogSchoolMajorPicker();
+                showDialogSchoolPicker();
                 break;
             case R.id.btn_hometown_picker:
                 showDialogHometownPicker();
@@ -350,8 +357,10 @@ public class UnmatchedFragment extends LazyFragment
                 showDialogConstellationPicker();
                 break;
             case R.id.btn_start_condition_match:
+                sum = 0;
                 ft.addToBackStack(null);
-                ft.replace(R.id.container_love, new MatchResultFragment()).commit();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container_love, MatchResultFragment.newInstance()).commit();
                 break;
         }
     }

@@ -17,15 +17,26 @@ public class MatchResultFragment extends LazyFragment {
 
     private View rootView;
 
+    public static MatchResultFragment newInstance() {
+        MatchResultFragment instance = new MatchResultFragment();
+        return instance;
+    }
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_match_result, container, false);
         initView();
+        initListener();
         return rootView;
     }
 
     private void initView() {
+
+    }
+
+    private void initListener() {
         rootView.findViewById(R.id.tv_back).setOnClickListener(this);
     }
 
@@ -37,5 +48,5 @@ public class MatchResultFragment extends LazyFragment {
                 break;
         }
     }
-    
+
 }

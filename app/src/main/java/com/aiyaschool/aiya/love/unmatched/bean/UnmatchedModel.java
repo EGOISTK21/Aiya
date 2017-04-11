@@ -1,5 +1,8 @@
 package com.aiyaschool.aiya.love.unmatched.bean;
 
+import com.aiyaschool.aiya.love.unmatched.view.ConditionMatchContract;
+import com.aiyaschool.aiya.util.OkHttpUtil;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,9 +15,6 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Response;
-import com.aiyaschool.aiya.love.unmatched.view.UnmatchedContract;
-import com.aiyaschool.aiya.util.OkHttpUtil;
-
 
 /**
  * Created by EGOISTK21 on 2017/3/23.
@@ -22,7 +22,7 @@ import com.aiyaschool.aiya.util.OkHttpUtil;
 
 public class UnmatchedModel {
 
-    public void getSchoolData(final UnmatchedContract.Presenter.OnDataListener onDataListener) {
+    public void getSchoolData(final ConditionMatchContract.Presenter.OnDataListener onDataListener) {
         OkHttpUtil.post("/Community/GET/searchSchool",
                 new FormBody.Builder().add("keyword", ""),
                 new Callback() {
