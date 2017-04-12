@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="140px"
+    tools:context="com.aiyaschool.aiya.message.ui.activity.MsgListActivity"
+    >
+    <com.aiyaschool.aiya.message.ui.view.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/circleImageView"
+        android:layout_width="80px"
+        android:layout_height="80px"
+        android:layout_marginRight="20px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="30px"
+        android:layout_marginBottom="30px"
+        android:src="@drawable/message"
+        app:border_width="0dp"
+        app:border_color="#ccc"
+        />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="30px"
+        android:textSize="30px"
+        android:layout_alignTop="@+id/circleImageView"
+        android:layout_toRightOf="@+id/circleImageView"
+        android:layout_toEndOf="@+id/circleImageView"
+        android:id="@+id/msg_title" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="26px"
+        android:textSize="26px"
+        android:layout_below="@+id/msg_title"
+        android:layout_toRightOf="@+id/circleImageView"
+        android:layout_toEndOf="@+id/circleImageView"
+        android:layout_marginTop="12px"
+        android:id="@+id/msg_preview" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="22px"
+        android:textSize="22px"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10px"
+        android:layout_marginTop="60px"
+        android:id="@+id/msg_time" />
+</RelativeLayout>

@@ -1,0 +1,43 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/photo_choose_rc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+
+        <RelativeLayout
+            android:id="@+id/photo_choose_rl"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:background="@color/panelGray"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/photo_choose_dir_tv"
+                style="@style/ItemWhiteTx_style"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="4dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="16dp"
+                android:text="更多"/>
+            <TextView
+                android:id="@+id/photo_choose_complete_tv"
+                style="@style/ItemWhiteTx_style"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:text="完成"/>
+
+        </RelativeLayout>
+    </FrameLayout>
+</RelativeLayout>

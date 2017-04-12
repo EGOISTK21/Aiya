@@ -18,7 +18,7 @@ import com.aiyaschool.aiya.community.CommunityFragment;
 import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
-import com.aiyaschool.aiya.message.MessageFragment;
+import com.aiyaschool.aiya.message.MsgListFragment;
 import com.aiyaschool.aiya.util.BottomNavigationViewUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         fragments = new Fragment[]{
                 new CommunityFragment(),
-                new MessageFragment(),
+                new MsgListFragment(),
                 ((MyApplication) getApplication()).isMatched()
                         ? new MatchedContainerFragment()
                         : new UnmatchedContainerFragment(),

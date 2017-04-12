@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/item_bg"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:padding="2dp">
+    <RelativeLayout
+        android:layout_width="240dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_photos_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+
+    <CheckBox
+        android:id="@+id/ch_photos_item"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="right|top"
+        android:gravity="center"
+        android:background="@null"
+        android:button="@drawable/choice_bg"
+        android:checked="false"
+        android:clickable="false"
+        android:focusable="false" />
+</FrameLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="对方ID"
+        android:layout_width="match_parent"
+        android:layout_height="96px"
+        android:textSize="90px"
+        android:id="@+id/textView2"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:visibility="invisible"
+        android:id="@+id/activity_chat_photos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="96px"
+        android:orientation="vertical">
+        <TextView
+            android:gravity="center_horizontal"
+            android:id="@+id/photo_progress_showText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_pager_index"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="48dp"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/pager_index_bg" />
+            </LinearLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+    <com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard
+        android:id="@+id/ek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="96px"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- ListView、ScrollView、RecyclerView、Other -->
+                <!-- 聊天消息展示界面 -->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rc_chat"
+                    style="@style/ListViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:transcriptMode="normal"/>
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
+    </com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard>
+
+    <TextView
+        android:text="返回"
+        android:layout_marginLeft="30px"
+        android:layout_width="wrap_content"
+        android:layout_height="96px"
+        android:id="@+id/textView3"
+        android:gravity="center"
+        android:clickable="true" />
+
+</FrameLayout>

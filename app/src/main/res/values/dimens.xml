@@ -26,4 +26,53 @@
     <dimen name="divider_height">1px</dimen>
     <dimen name="design_bottom_navigation_text_size" tools:override="true">11sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">11sp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="icon_small">40dp</dimen>
+    <dimen name="icon_normal">48dp</dimen>
+    <dimen name="icon_large">80dp</dimen>
+
+    <!--8+48+16 (左+宽+右间距)-->
+    <dimen name="divider_margin_left">72dp</dimen>
+    <dimen name="divider_margin_right">0dp</dimen>
+
+    <dimen name="item_margin_left">12dp</dimen>
+    <dimen name="item_margin_right">12dp</dimen>
+    <dimen name="layout_margin_top">24dp</dimen>
+    <dimen name="item_h64">64dp</dimen>
+    <dimen name="item_h56">56dp</dimen>
+    <dimen name="item_h48">48dp</dimen>
+    <!--带分割线-->
+    <dimen name="layout_item_divider_height">57dp</dimen>
+    <dimen name="sideBar_width">32dp</dimen>
+
+    <dimen name="layout_search_height">48dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="status_bar_height">0dp</dimen>
+
+    <dimen name="progress_size">16dp</dimen>
+    <dimen name="operation_size">18sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="dimension_40">40dp</dimen>
+    <dimen name="dimension_50">50dp</dimen>
+
+    <dimen name="common_bar_height">@dimen/dimension_50</dimen>
+
+    <dimen name="margin_nomal">10dp</dimen>
+    <dimen name="margin_middle">15dp</dimen>
+
+    <dimen name="text_14">14sp</dimen>
+    <dimen name="text_17">17sp</dimen>
+    <dimen name="text_20">20sp</dimen>
+
+    <dimen name="text_nomal">@dimen/text_14</dimen>
+    <dimen name="text_big">@dimen/text_17</dimen>
+    <dimen name="item_emoticon_size_big">60dp</dimen>
+    <dimen name="item_emoticon_size_40">@dimen/dimension_40</dimen>
+
+
+    <dimen name="bar_height_userdef">@dimen/dimension_50</dimen>
+    <dimen name="bar_icon_height_userdef">28dp</dimen>
 </resources>

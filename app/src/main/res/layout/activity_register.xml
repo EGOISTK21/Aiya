@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    tools:context="com.aiyaschool.aiya.message.ui.activity.RegisterActivity">
+    <EditText
+        android:hint="用户名"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/register_activity_username_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="手机号"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/register_activity_telephonenumber_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="密码"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/register_activity_password_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="确认密码"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/register_activity_repassword_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="验证码"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/register_activity_verify_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="获取验证码"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/register_activity_verify_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="注册"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/register_activity_register_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

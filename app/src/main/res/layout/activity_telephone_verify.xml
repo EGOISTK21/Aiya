@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register_three"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context="com.aiyaschool.aiya.message.ui.activity.RegisterThreeActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp">
+        <TextView
+            android:gravity="center"
+            android:text="手机号"
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
+        <EditText
+            android:id="@+id/telephone_verify_activity_phoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp">
+        <TextView
+            android:gravity="center"
+            android:text="验证码"
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
+
+        <EditText
+            android:id="@+id/telephone_verify_activity_verifyCode"
+            android:layout_width="100dp"
+            android:layout_height="40dp" />
+
+        <Button
+            android:background="#ffffff"
+            android:text="获取验证码"
+            android:id="@+id/telephone_verify_activity_getCode"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/telephone_verify_activity_complete"
+        android:text="下一步"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

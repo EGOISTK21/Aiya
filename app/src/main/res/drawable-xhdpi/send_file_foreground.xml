@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- 圆角 radius-->
+    <corners
+            android:radius="9dp"
+            android:topLeftRadius="2dp"
+            android:topRightRadius="2dp"
+            android:bottomLeftRadius="2dp"
+            android:bottomRightRadius="2dp"/>
+    <!-- 间隔 padding-->
+    <padding
+            android:left="2dp"
+            android:top="2dp"
+            android:right="2dp"
+            android:bottom="2dp"/><!-- 各方向的间隔 -->
+
+    <!-- 大小 size-->
+    <size
+            android:width="50dp"
+            android:height="50dp"/><!-- 宽度和高度 -->
+
+    <!-- 填充 solid-->
+    <solid
+            android:color="#aa605d5d"/><!-- 填充的颜色 -->
+
+    <!-- 描边 stroke-->
+    <!--<stroke-->
+            <!--android:width="2dp"-->
+            <!--android:color="@android:color/black"-->
+            <!--android:dashWidth="1dp"-->
+            <!--android:dashGap="2dp"/>-->
+
+</shape>
