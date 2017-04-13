@@ -84,6 +84,7 @@ public class OkHttpUtil {
                             if (response.isSuccessful()) {
                                 jsonObject = new JSONObject(response.body().string());
                                 user.setAccesstoken(jsonObject.getString("AccessToken"));
+                                DBUtil.saveUser(user);
                                 Log.i("3", "Success");
                             } else {
                                 Log.i("3", "Failure");

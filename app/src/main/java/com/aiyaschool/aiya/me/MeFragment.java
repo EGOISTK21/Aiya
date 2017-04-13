@@ -12,6 +12,7 @@ import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.MainActivity;
 import com.aiyaschool.aiya.base.LazyFragment;
+import com.aiyaschool.aiya.util.DBUtil;
 import com.aiyaschool.aiya.util.OkHttpUtil;
 
 
@@ -47,10 +48,16 @@ public class MeFragment extends LazyFragment {
                 etUsername.setText("");
                 break;
             case R.id.btn_login:
-                OkHttpUtil.initUser(etUsername.getText().toString());
+                String s = DBUtil.getUserName();
+                if (s == null) {
+                    OkHttpUtil.initUser(etUsername.getText().toString());
+                    s = DBUtil.getUserName();
+                    System.out.println("null");
+                }
+                System.out.println(s);
                 break;
             case R.id.btn_change_match:
-                ((MyApplication) getActivity().getApplication()).setMatched(!((MyApplication) getActivity().getApplication()).isMatched());
+                MyApplication.getInstance().setMatched(!((MyApplication) getActivity().getApplication()).isMatched());
                 ((MainActivity) getActivity()).notifyAdapter();
                 break;
         }

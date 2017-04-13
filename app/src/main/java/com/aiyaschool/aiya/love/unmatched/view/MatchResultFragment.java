@@ -1,5 +1,6 @@
 package com.aiyaschool.aiya.love.unmatched.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.OtherCardActivity;
 import com.aiyaschool.aiya.base.LazyFragment;
 
 /**
@@ -38,6 +40,7 @@ public class MatchResultFragment extends LazyFragment {
 
     private void initListener() {
         rootView.findViewById(R.id.tv_back).setOnClickListener(this);
+        rootView.findViewById(R.id.ll_result_card).setOnClickListener(this);
     }
 
     @Override
@@ -45,6 +48,9 @@ public class MatchResultFragment extends LazyFragment {
         switch (v.getId()) {
             case R.id.tv_back:
                 getFragmentManager().popBackStack();
+                break;
+            case R.id.ll_result_card:
+                startActivity(new Intent(getContext(), OtherCardActivity.class));
                 break;
         }
     }

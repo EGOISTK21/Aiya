@@ -46,6 +46,7 @@
         app:cardCornerRadius="6dp">
 
         <LinearLayout
+            android:id="@+id/ll_result_card"
             android:layout_width="300dp"
             android:layout_height="379dp"
             android:orientation="vertical">

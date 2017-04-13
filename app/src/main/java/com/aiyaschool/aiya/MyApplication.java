@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 public class MyApplication extends Application {
 
     private boolean matched;
+    private static MyApplication instance;
 
     public void setMatched(boolean matched) {
         this.matched = matched;
@@ -22,7 +23,12 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         setMatched(false);
+    }
+
+    public static MyApplication getInstance() {
+        return instance;
     }
 
     private void getUserInfo() {

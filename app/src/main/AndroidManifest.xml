@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aiyaschool.aiya">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.aiyaschool.aiya">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -15,9 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.SplashActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,11 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.OtherCardActivity"/>
-        <activity android:name=".love.matched.view.ClockInActivity"/>
-        <activity android:name=".love.matched.view.NewMissionActivity"/>
-        <activity android:name=".love.matched.view.IntimacyDetailActivity"/>
-        <activity android:name=".love.matched.view.IntimacyRulesActivity"/>
         <!-- 消息收发service -->
         <service
             android:name="com.tencent.qalsdk.service.QalService"
@@ -66,26 +59,52 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.LoginActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.RegisterActivity" />
+        <activity android:name=".message.ui.activity.LoginActivity"/>
+        <activity android:name=".message.ui.activity.RegisterActivity"/>
         <activity
-            android:name="com.aiyaschool.aiya.message.ui.activity.ChatQQActivity"
+            android:name=".message.ui.activity.ChatQQActivity"
             android:launchMode="standard"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden|adjustUnspecified" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.PhotosThumbnailActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.MiddleActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.ChatPhotosActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.HelloActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.MsgActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.MsgListActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.RegisterFirstActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.RegisterTwoActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.RegisterThreeActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.ForgetOneActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.PhotoChooseActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.PhotoCropActivity" />
-        <activity android:name="com.aiyaschool.aiya.message.ui.activity.ForgetTwoActivity" />
+        <activity android:name=".message.ui.activity.PhotosThumbnailActivity"/>
+        <activity android:name=".message.ui.activity.MiddleActivity"/>
+        <activity android:name=".message.ui.activity.ChatPhotosActivity"/>
+        <activity android:name=".message.ui.activity.HelloActivity"/>
+        <activity android:name=".message.ui.activity.MsgActivity"/>
+        <activity android:name=".message.ui.activity.MsgListActivity"/>
+        <activity android:name=".message.ui.activity.RegisterFirstActivity"/>
+        <activity android:name=".message.ui.activity.RegisterTwoActivity"/>
+        <activity android:name=".message.ui.activity.RegisterThreeActivity"/>
+        <activity android:name=".message.ui.activity.ForgetOneActivity"/>
+        <activity android:name=".message.ui.activity.PhotoChooseActivity"/>
+        <activity android:name=".message.ui.activity.PhotoCropActivity"/>
+        <activity android:name=".message.ui.activity.ForgetTwoActivity"/>
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.OtherCardActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".love.matched.view.ClockInActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".love.matched.view.NewMissionActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".love.matched.view.IntimacyDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".love.matched.view.IntimacyRulesActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".activity.LoginActivity">
+        </activity>
     </application>
 
 </manifest>

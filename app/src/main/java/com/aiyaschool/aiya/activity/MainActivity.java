@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         fragments = new Fragment[]{
                 new CommunityFragment(),
                 new MsgListFragment(),
-                ((MyApplication) getApplication()).isMatched()
+                MyApplication.getInstance().isMatched()
                         ? new MatchedContainerFragment()
                         : new UnmatchedContainerFragment(),
                 new MeFragment()
@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public int getItemPosition(Object object) {
                 if ((object instanceof UnmatchedContainerFragment
-                        && ((MyApplication) getApplication()).isMatched())
+                        && MyApplication.getInstance().isMatched())
                         || (object instanceof MatchedContainerFragment
-                        && !((MyApplication) getApplication()).isMatched())) {
+                        && !MyApplication.getInstance().isMatched())) {
                     return POSITION_NONE;
                 }
                 return POSITION_UNCHANGED;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = (Fragment) super.instantiateItem(container, position);
                 String fragmentTag = fragment.getTag();
                 if (fragment instanceof UnmatchedContainerFragment
-                        && ((MyApplication) getApplication()).isMatched()) {
+                        && MyApplication.getInstance().isMatched()) {
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.remove(fragment);
                     fragment = new MatchedContainerFragment();
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     ft.attach(fragment);
                     ft.commit();
                 } else if (fragment instanceof MatchedContainerFragment
-                        && !((MyApplication) getApplication()).isMatched()) {
+                        && !MyApplication.getInstance().isMatched()) {
                     FragmentTransaction ft = fm.beginTransaction();
                     ft.remove(fragment);
                     fragment = new UnmatchedContainerFragment();

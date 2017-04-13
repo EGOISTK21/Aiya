@@ -77,7 +77,7 @@ public class RandomMatchFragment extends LazyFragment {
                 break;
             case R.id.btn_invite:
                 fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                ((MyApplication) getActivity().getApplication()).setMatched(true);
+                MyApplication.getInstance().setMatched(true);
                 ((MainActivity) getActivity()).notifyAdapter();
                 break;
         }

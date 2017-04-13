@@ -82,4 +82,5 @@
     <color name="edit_hint_text">#ffacacac</color>
 
     <color name="keyboard_burn_color">#ff5555</color>
+    <color name="colorButtonPressed">#10989A</color>
 </resources>

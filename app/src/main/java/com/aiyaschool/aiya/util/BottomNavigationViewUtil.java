@@ -6,7 +6,6 @@ import android.support.design.widget.BottomNavigationView;
 
 import java.lang.reflect.Field;
 
-
 /**
  * 利用反射机制，改变 item 的 mShiftingMode 变量
  * Created by EGOISTK21 on 2017/3/14.
