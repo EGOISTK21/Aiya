@@ -2,11 +2,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <!--<style name="AppTheme" parent="Theme.Design.Light.NoActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-    <!--</style>-->
+    <style name="AppTheme" parent="Theme.Design.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!--<item name="android:background">@drawable/splash</item>-->
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
 
     <style name="ArcDialog" parent="AlertDialog.AppCompat">
         <item name="android:windowFrame">@null</item>
@@ -43,21 +44,7 @@
         <item name="tabSelectedTextColor">@color/colorTitle</item>
         <item name="tabMode">scrollable</item>
     </style>
-    <style name="AppTheme" parent="Theme.Design.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-    </style>
-    <!-- Base application theme. -->
 
-    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="android:windowNoTitle">true</itemsssf>-->
-        <!---->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-    <!--</style>-->
     <!-- 显示圆角头像 -->
     <style name="RoundAngle_style">
         <item name="android:src">@mipmap/icon_moren</item>

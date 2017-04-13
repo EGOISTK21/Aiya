@@ -9,7 +9,7 @@ android {
         applicationId 'com.aiyaschool.aiya'
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 15
+        versionCode 16
         versionName '0.1beta'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
