@@ -11,6 +11,8 @@
     <string name="back">返回</string>
     <string name="cancel">取消</string>
     <string name="yes">确认</string>
+    <string name="hit_on">撩Ta</string>
+    <string name="send_gift">送Ta礼物</string>
     <!--常见名词-->
     <string name="height">身高</string>
     <string name="height_unit">(单位:cm)</string>
@@ -26,7 +28,9 @@
     <string name="upload_picture">上传图片</string>
     <!--默认内容-->
     <string name="default_year">2017年</string>
-    <string name="default_height">175–179</string>
+    <string name="default_height_range">175–179</string>
+    <string name="default_height">175</string>
+    <string name="default_hobby">喜欢！雪❄真实的魔法</string>
     <string name="default_age">20</string>
     <string name="default_school">西安电子…</string>
     <string name="default_hometown">陕西</string>

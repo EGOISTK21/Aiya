@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
 
     <TextView
-        android:text="对方ID"
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="96px"
-        android:textSize="90px"
-        android:id="@+id/textView2"
-        android:gravity="center" />
+        android:gravity="center"
+        android:text="对方ID"
+        android:textSize="90px"/>
 
     <LinearLayout
-        android:visibility="invisible"
         android:id="@+id/activity_chat_photos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="96px"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
+
         <TextView
-            android:gravity="center_horizontal"
             android:id="@+id/photo_progress_showText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"/>
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,7 +36,7 @@
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
 
             <LinearLayout
                 android:id="@+id/ll_pager_index"
@@ -47,17 +50,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/pager_index_bg" />
+                    android:src="@drawable/pager_index_bg"/>
             </LinearLayout>
 
         </FrameLayout>
     </LinearLayout>
+
     <com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard
         android:id="@+id/ek_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="96px"
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -82,12 +87,12 @@
     </com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard>
 
     <TextView
-        android:text="返回"
-        android:layout_marginLeft="30px"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="96px"
-        android:id="@+id/textView3"
+        android:layout_marginLeft="30px"
+        android:clickable="true"
         android:gravity="center"
-        android:clickable="true" />
+        android:text="返回"/>
 
 </FrameLayout>

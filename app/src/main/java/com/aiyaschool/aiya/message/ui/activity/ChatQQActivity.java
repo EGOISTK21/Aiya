@@ -30,6 +30,7 @@ import com.aiyaschool.aiya.message.ui.view.ChatSelectGiftView;
 import com.aiyaschool.aiya.message.ui.view.ChatSelectImageView;
 import com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard;
 import com.aiyaschool.aiya.message.utils.SimpleCommonUtils;
+import com.aiyaschool.aiya.util.StatusBarUtil;
 import com.sj.emoji.EmojiBean;
 import com.tencent.TIMAddFriendRequest;
 import com.tencent.TIMConversation;
@@ -91,6 +92,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_main);
+        StatusBarUtil.init(this);
         firstLoad = true;
         context = this;
         String identifier = getIntent().getStringExtra("identifier");

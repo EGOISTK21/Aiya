@@ -49,6 +49,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/common_margin_15"
                 android:includeFontPadding="false"
+                android:text="曲无忆"
                 android:textColor="@color/colorPureWhite"
                 android:textSize="18sp"/>
 
@@ -119,7 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
-                        android:text="@string/default_price_height"
+                        android:text="@string/default_school"
                         android:textColor="@color/colorTitle"
                         android:textSize="@dimen/common_text_size_16"/>
 
@@ -143,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
-                        android:text="@string/default_price_height"
+                        android:text="@string/default_age"
                         android:textColor="@color/colorTitle"
                         android:textSize="@dimen/common_text_size_16"/>
 
@@ -167,7 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
-                        android:text="@string/default_price_height"
+                        android:text="@string/default_height"
                         android:textColor="@color/colorTitle"
                         android:textSize="@dimen/common_text_size_16"/>
 
@@ -191,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
-                        android:text="@string/default_price_height"
+                        android:text="@string/default_hometown"
                         android:textColor="@color/colorTitle"
                         android:textSize="@dimen/common_text_size_16"/>
 
@@ -215,7 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
-                        android:text="@string/default_price_height"
+                        android:text="@string/default_hobby"
                         android:textColor="@color/colorTitle"
                         android:textSize="@dimen/common_text_size_16"/>
 
@@ -237,13 +238,23 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/negative_button_selector"/>
+            android:background="@drawable/hit_on_button_selector"
+            android:text="@string/hit_on"
+            android:textColor="@color/colorPureWhite"
+            android:textSize="@dimen/common_text_size_16"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/positive_button_selector"/>
+            android:background="@drawable/send_gift_button_selector"
+            android:drawablePadding="@dimen/common_margin_18"
+            android:drawableStart="@drawable/gift"
+            android:gravity="start|center_vertical"
+            android:paddingStart="32dp"
+            android:text="@string/send_gift"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/common_text_size_15"/>
 
     </LinearLayout>
 

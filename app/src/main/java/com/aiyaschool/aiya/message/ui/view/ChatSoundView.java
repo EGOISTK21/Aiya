@@ -55,7 +55,7 @@ public class ChatSoundView extends ChatMsgItemView{
             //            imgView.setImageResource(R.drawable.chat_audio_from);
             imgView.setBackgroundResource(R.mipmap.chat_audio_from3);
             tvTime.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
-            tvTime.setTextColor(getResources().getColor(R.color.tx_gray));
+            tvTime.setTextColor(getResources().getColor(R.color.colorContentSecondary));
             view.findViewById(R.id.img_sound_to).setVisibility(GONE);
         } else {
 //            tvTime.setText(aux.getDuration() +"'s");

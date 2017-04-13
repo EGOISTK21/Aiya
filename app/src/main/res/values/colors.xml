@@ -25,15 +25,6 @@
     <color name="black">@android:color/black</color>
     <color name="red">@android:color/holo_red_light</color>
 
-
-    <color name="colorAccent">#FF4081</color>
-    <color name="windowBackground">@color/background</color>
-    <!--应用背景-->
-    <color name="background">#F0F0F0</color>
-
-    <color name="tx_black">#333333</color>
-    <color name="tx_gray">#999999</color>
-
     <color name="tab_bg">#f6f6f6</color>
     <color name="tab_normal">#7e7e7e</color>
     <color name="tab_selected">#00b9ed</color>
@@ -41,7 +32,7 @@
     <color name="bt_normal">#00b4ff</color>
     <color name="bt_pressed">#BB00b4ff</color>
 
-    <drawable name="list_normal">#f4f4f4</drawable>
+    <drawable name="colorBackground">#f4f4f4</drawable>
     <drawable name="list_pressed">#1E90FF</drawable>
 
     <!--分割线-->

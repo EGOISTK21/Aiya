@@ -3,6 +3,7 @@
     <dimen name="bottom_bar_height">48dp</dimen>
     <dimen name="common_text_size_27">27sp</dimen>
     <dimen name="common_text_size_16">16sp</dimen>
+    <dimen name="common_text_size_15">15sp</dimen>
     <dimen name="common_text_size_13">13sp</dimen>
     <dimen name="common_text_size_11">11sp</dimen>
     <dimen name="common_text_size_10">10sp</dimen>
@@ -49,7 +50,6 @@
 
     <dimen name="layout_search_height">48dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="status_bar_height">0dp</dimen>
 
     <dimen name="progress_size">16dp</dimen>
     <dimen name="operation_size">18sp</dimen>

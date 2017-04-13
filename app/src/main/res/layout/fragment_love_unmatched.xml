@@ -109,7 +109,7 @@
                 android:gravity="center"
                 android:paddingEnd="@dimen/common_margin_10"
                 android:paddingStart="@dimen/common_margin_10"
-                android:text="@string/default_height"
+                android:text="@string/default_height_range"
                 android:textColor="@color/colorContentSecondary"
                 android:textSize="@dimen/common_text_size_13"/>
 

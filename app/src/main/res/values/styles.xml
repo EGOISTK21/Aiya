@@ -4,7 +4,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Design.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <!--<item name="android:background">@drawable/splash</item>-->
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
@@ -72,7 +71,7 @@
         <!--<item name="android:itemTextAppearance">@style/ToolbarTextStyle_dark</item>-->
         <!--<item name="android:textAppearance">@style/ToolbarTextStyle_dark</item>-->
         <!-- 窗口的背景颜色 -->
-        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
         <!-- SearchView -->
         <!--<item name="searchViewStyle">@style/MySearchViewStyle</item>-->
         <!--<item name="android:actionMenuTextAppearance">@style/menuTextStyle</item>-->
@@ -90,7 +89,7 @@
 
     <!--toolbar 上title的样式-->
     <style name="ToolbarTextStyle_dark">
-        <item name="android:textColor">@color/tx_black</item>
+        <item name="android:textColor">@color/colorTitle</item>
         <item name="android:textSize">18sp</item>
     </style>
     <!--下拉菜单字体大小设置-->
@@ -245,7 +244,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/tx_black</item>
+        <item name="android:textColor">@color/colorTitle</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:singleLine">true</item>
     </style>
@@ -255,7 +254,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/tx_gray</item>
+        <item name="android:textColor">@color/colorContentSecondary</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:singleLine">true</item>
     </style>
@@ -274,13 +273,13 @@
 
     <!--黑色字体-->
     <style name="ItemBlackTx_style" parent="style/ItemTx_style">
-        <item name="android:textColor">@color/tx_black</item>
+        <item name="android:textColor">@color/colorTitle</item>
         <item name="android:textSize">16sp</item>
     </style>
 
     <!--灰色字体-->
     <style name="ItemGrayTx_style" parent="style/ItemTx_style">
-        <item name="android:textColor">@color/tx_gray</item>
+        <item name="android:textColor">@color/colorContentSecondary</item>
         <item name="android:textSize">14sp</item>
         <item name="android:layout_marginRight">8dp</item>
     </style>
@@ -336,13 +335,13 @@
     </style>
 
     <style name="ItemTvStyle" parent="@style/ItemH56Style">
-        <item name="android:textColor">@color/tx_black</item>
+        <item name="android:textColor">@color/colorTitle</item>
         <item name="android:textSize">16sp</item>
         <item name="android:singleLine">true</item>
     </style>
 
     <style name="ItemTvH48Style" parent="@style/ItemH48Style">
-        <item name="android:textColor">@color/tx_black</item>
+        <item name="android:textColor">@color/colorTitle</item>
         <item name="android:textSize">16sp</item>
         <item name="android:singleLine">true</item>
     </style>
