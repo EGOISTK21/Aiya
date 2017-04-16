@@ -62,7 +62,7 @@ public class FilletDialog extends Dialog {
         public FilletDialog create() {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final FilletDialog filletDialog = new FilletDialog(context, R.style.ArcDialog);
+            final FilletDialog filletDialog = new FilletDialog(context, R.style.FilletDialog);
             View rootView = inflater.inflate(resourceId, null);
             filletDialog.addContentView(rootView, new LayoutParams(
                     LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));

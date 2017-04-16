@@ -67,10 +67,10 @@ public class NewMissionActivity extends AppCompatActivity implements View.OnClic
             public void afterTextChanged(Editable s) {
                 if (!android.text.TextUtils.isEmpty(s.toString().trim())) {
                     btnInvite.setClickable(true);
-                    btnInvite.setBackground(ContextCompat.getDrawable(NewMissionActivity.this, R.drawable.button_selector));
+                    btnInvite.setBackground(ContextCompat.getDrawable(NewMissionActivity.this, R.drawable.button_selector_with_corner));
                 } else {
                     btnInvite.setClickable(false);
-                    btnInvite.setBackground(ContextCompat.getDrawable(NewMissionActivity.this, R.drawable.button_unclickable));
+                    btnInvite.setBackground(ContextCompat.getDrawable(NewMissionActivity.this, R.drawable.button_unclickable_with_corner));
                 }
             }
         });

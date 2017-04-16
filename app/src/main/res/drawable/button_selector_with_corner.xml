@@ -3,6 +3,7 @@
     <item
         android:state_pressed="true">
         <shape>
+            <corners android:radius="18dp"/>
             <solid android:color="@color/colorButtonPressed"/>
         </shape>
     </item>
@@ -10,6 +11,7 @@
     <item
         android:state_pressed="false">
         <shape>
+            <corners android:radius="18dp"/>
             <solid android:color="@color/colorPrimaryDark"/>
         </shape>
     </item>

@@ -70,7 +70,7 @@
         android:layout_below="@+id/iv_random"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
-        android:background="@drawable/button_selector"
+        android:background="@drawable/button_selector_with_corner"
         android:text="@string/start_random_match"
         android:textColor="@color/colorPureWhite"
         android:textSize="@dimen/common_text_size_16"/>

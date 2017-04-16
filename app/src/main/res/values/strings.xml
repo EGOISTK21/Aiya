@@ -13,6 +13,11 @@
     <string name="yes">确认</string>
     <string name="hit_on">撩Ta</string>
     <string name="send_gift">送Ta礼物</string>
+    <string name="fill_form">填写个人信息</string>
+    <string name="necessary_info">必填信息</string>
+    <string name="unnecessary_info">选填信息</string>
+    <string name="upload_picture">上传图片</string>
+    <string name="fill_phone_number">请输入手机号</string>
     <!--常见名词-->
     <string name="height">身高</string>
     <string name="height_unit">(单位:cm)</string>
@@ -25,7 +30,6 @@
     <string name="hobby">爱好</string>
     <string name="date">日期</string>
     <string name="edit">编辑</string>
-    <string name="upload_picture">上传图片</string>
     <!--默认内容-->
     <string name="default_year">2017年</string>
     <string name="default_height_range">175–179</string>
@@ -77,4 +81,6 @@
     <string name="intimacy_rule3">完成任务</string>
     <string name="intimacy_rule3_1">≥2次&#160;&#160;+3</string>
     <string name="intimacy_rule3_2">≥5次&#160;&#160;+6</string>
+    <string name="sign_code_warn">验证码已发送至18888888888，60s后可再次发送</string>
+    <string name="sign_warn">注册即表示同意《爱呀用户协议》</string>
 </resources>

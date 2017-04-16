@@ -41,7 +41,7 @@
         android:layout_below="@+id/rl_title_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/common_margin_15"
-        android:background="@drawable/result_layout_background"
+        android:background="@drawable/card_background"
         android:clickable="true"
         app:cardCornerRadius="6dp">
 
@@ -90,7 +90,7 @@
         android:layout_below="@+id/card_match_result"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/common_margin_15"
-        android:background="@drawable/button_selector"
+        android:background="@drawable/button_selector_with_corner"
         android:text="@string/have_a_change"
         android:textColor="@color/colorPureWhite"
         android:textSize="@dimen/common_text_size_16"/>

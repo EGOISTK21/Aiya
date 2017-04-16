@@ -368,7 +368,7 @@
             android:layout_width="@dimen/common_button_width"
             android:layout_height="@dimen/common_button_height"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/button_selector"
+            android:background="@drawable/button_selector_with_corner"
             android:text="@string/start_condition_match"
             android:textColor="@color/colorPureWhite"
             android:textSize="@dimen/common_text_size_16"/>
