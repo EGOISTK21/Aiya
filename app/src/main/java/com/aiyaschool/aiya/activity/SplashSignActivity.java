@@ -1,5 +1,6 @@
 package com.aiyaschool.aiya.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
@@ -26,7 +27,7 @@ import tencent.tls.platform.TLSSmsLoginListener;
 import tencent.tls.platform.TLSSmsRegListener;
 import tencent.tls.platform.TLSUserInfo;
 
-public class SplashSignActivity extends AppCompatActivity implements View.OnClickListener {
+public class SplashSignActivity extends AppCompatActivity {
 
     final private static String TAG = "SplashSignActivity";
 
@@ -40,6 +41,7 @@ public class SplashSignActivity extends AppCompatActivity implements View.OnClic
     private TextView tvBack, tvTitle, tvSubTitle, tvWarn;
     private CountDownTimer timer;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,6 @@ public class SplashSignActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initView() {
-        codeMode = false;
         etAccount = (EditText) findViewById(R.id.et_account);
         btnStart = (Button) findViewById(R.id.btn_start);
         tvBack = (TextView) findViewById(R.id.tv_back);
@@ -133,11 +134,32 @@ public class SplashSignActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void initListener() {
-        tvBack.setOnClickListener(this);
-        btnStart.setOnClickListener(this);
+        tvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputPhoneNumber();
+            }
+        });
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!codeMode) {
+                    account = String.valueOf(etAccount.getText());
+                    if (!SignUtil.isValidPhoneNumber(account)) {
+                        Toast.makeText(SplashSignActivity.this, "请输入有效的手机号", Toast.LENGTH_SHORT).show();
+                    } else {
+                        loginHelper.TLSSmsLoginAskCode(SignUtil.formatPhoneNumber(account), smsLoginListener);
+                        inputCode();
+                    }
+                } else {
+                    startActivity(new Intent(SplashSignActivity.this, MainActivity.class));
+                    finish();
+                }
+            }
+        });
     }
 
-    private void inputPhonenumber() {
+    private void inputPhoneNumber() {
         codeMode = false;
         tvBack.setVisibility(View.INVISIBLE);
         tvTitle.setText("请输入手机号");
@@ -151,41 +173,18 @@ public class SplashSignActivity extends AppCompatActivity implements View.OnClic
         codeMode = true;
         tvBack.setVisibility(View.VISIBLE);
         tvTitle.setText("请输入验证码");
+        tvSubTitle.setVisibility(View.VISIBLE);
         Spannable spannable = new SpannableString("验证码已发送至" + account + "，60s后可再次发送");
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(SplashSignActivity.this,
                 R.color.colorPrimaryDark)), 7, 18, Spanned.SPAN_POINT_MARK);
-        tvSubTitle.setText(spannable);
-        tvSubTitle.setVisibility(View.VISIBLE);
         etAccount.setText("");
         tvWarn.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_back:
-                inputPhonenumber();
-                break;
-            case R.id.btn_start:
-                if (!codeMode) {
-                    account = String.valueOf(etAccount.getText());
-                    if (!SignUtil.isValidPhoneNumber(account)) {
-                        Toast.makeText(SplashSignActivity.this, "请输入有效的手机号", Toast.LENGTH_SHORT).show();
-                    } else {
-                        loginHelper.TLSSmsLoginAskCode(SignUtil.formatPhoneNumber(account), smsLoginListener);
-                        inputCode();
-                    }
-                } else {
-
-                }
-                break;
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         if (codeMode) {
-            inputPhonenumber();
+            inputPhoneNumber();
         } else {
             super.onBackPressed();
         }

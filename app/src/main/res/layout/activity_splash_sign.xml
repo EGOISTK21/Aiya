@@ -1,10 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container_login"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:paddingEnd="@dimen/common_margin_15"
+        android:paddingStart="@dimen/common_margin_15"
+        android:text="@string/back"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15sp"
+        android:visibility="invisible"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:includeFontPadding="false"
+        android:text="@string/fill_phone_number"
+        android:textColor="@color/colorTitle"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:id="@+id/tv_sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/common_margin_10"
+        android:includeFontPadding="false"
+        android:text="@string/sign_code_warn"
+        android:textColor="@color/colorContentMain"
+        android:textSize="13sp"
+        android:visibility="invisible"/>
+
+    <EditText
+        android:id="@+id/et_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="@dimen/common_margin_15"
+        android:layout_marginStart="@dimen/common_margin_15"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:inputType="numberSigned"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_account"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="@dimen/common_margin_15"
+        android:layout_marginStart="@dimen/common_margin_15"
+        android:layout_marginTop="@dimen/common_margin_30"
+        android:background="@drawable/button_selector"
+        android:text="下一步"
+        android:textColor="@color/colorPureWhite"/>
+
+    <TextView
+        android:id="@+id/tv_warn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:includeFontPadding="false"
+        android:text="@string/sign_warn"
+        android:textColor="@color/colorTitle"
+        android:textSize="13sp"
+        android:visibility="invisible"/>
+
+</RelativeLayout>
