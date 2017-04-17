@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
         adapter = new FragmentPagerAdapter(fm) {
             @Override
             public int getItemPosition(Object object) {
-                if ((object instanceof UnmatchedContainerFragment
+                if (((/*object instanceof || */object instanceof UnmatchedContainerFragment)
                         && MyApplication.getInstance().isMatched())
-                        || (object instanceof MatchedContainerFragment
+                        || ((/*object instanceof || */object instanceof MatchedContainerFragment)
                         && !MyApplication.getInstance().isMatched())) {
                     return POSITION_NONE;
                 }
@@ -70,24 +70,30 @@ public class MainActivity extends AppCompatActivity {
             public Object instantiateItem(ViewGroup container, int position) {
                 Fragment fragment = (Fragment) super.instantiateItem(container, position);
                 String fragmentTag = fragment.getTag();
-                if (fragment instanceof UnmatchedContainerFragment
-                        && MyApplication.getInstance().isMatched()) {
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.remove(fragment);
-                    fragment = new MatchedContainerFragment();
-                    ft.add(container.getId(), fragment, fragmentTag)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.attach(fragment);
-                    ft.commit();
-                } else if (fragment instanceof MatchedContainerFragment
-                        && !MyApplication.getInstance().isMatched()) {
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.remove(fragment);
-                    fragment = new UnmatchedContainerFragment();
-                    ft.add(container.getId(), fragment, fragmentTag)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                    ft.attach(fragment);
-                    ft.commit();
+                if (MyApplication.getInstance().isMatched()) {
+                    if (fragment instanceof UnmatchedContainerFragment) {
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.remove(fragment);
+                        fragment = new MatchedContainerFragment();
+                        ft.add(container.getId(), fragment, fragmentTag)
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ft.attach(fragment);
+                        ft.commit();
+                    }/*else if () {
+
+                    }*/
+                } else {
+                    if (fragment instanceof MatchedContainerFragment) {
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.remove(fragment);
+                        fragment = new UnmatchedContainerFragment();
+                        ft.add(container.getId(), fragment, fragmentTag)
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ft.attach(fragment);
+                        ft.commit();
+                    }/*else if () {
+
+                    }*/
                 }
                 return fragment;
             }

@@ -18,9 +18,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/necessary_info"
+        android:layout_marginStart="@dimen/common_margin_15"
         android:layout_marginTop="@dimen/common_margin_10"
-        android:layout_marginStart="@dimen/common_margin_15"/>
+        android:includeFontPadding="false"
+        android:text="@string/necessary_info"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,9 +34,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/unnecessary_info"
+        android:layout_marginStart="@dimen/common_margin_15"
         android:layout_marginTop="@dimen/common_margin_10"
-        android:layout_marginStart="@dimen/common_margin_15"/>
+        android:includeFontPadding="false"
+        android:text="@string/unnecessary_info"/>
 
     <LinearLayout
         android:layout_width="match_parent"

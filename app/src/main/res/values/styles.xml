@@ -4,6 +4,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Design.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/colorContentSecondary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
@@ -42,6 +43,11 @@
         <item name="android:textColor">@color/colorContentSecondary</item>
         <item name="tabSelectedTextColor">@color/colorTitle</item>
         <item name="tabMode">scrollable</item>
+    </style>
+
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/colorContentSecondary</item>
+        <item name="colorControlActivated">@color/colorContentSecondary</item>
     </style>
 
     <!-- 显示圆角头像 -->

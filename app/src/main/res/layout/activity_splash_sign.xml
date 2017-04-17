@@ -17,12 +17,22 @@
         android:textSize="15sp"
         android:visibility="invisible"/>
 
+
+    <com.aiyaschool.aiya.base.CircleImageView
+        android:id="@+id/civ"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@mipmap/ic_launcher"/>
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/civ"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="@dimen/common_margin_20"
         android:includeFontPadding="false"
         android:text="@string/fill_phone_number"
         android:textColor="@color/colorTitle"
@@ -42,7 +52,7 @@
         android:visibility="invisible"/>
 
     <EditText
-        android:id="@+id/et_account"
+        android:id="@+id/et_sign"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_title"
@@ -53,13 +63,14 @@
         android:layout_marginTop="50dp"
         android:gravity="center"
         android:inputType="numberSigned"
-        android:textSize="20sp"/>
+        android:textColor="@color/colorTitle"
+        android:textSize="24sp"/>
 
     <Button
-        android:id="@+id/btn_start"
+        android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/et_account"
+        android:layout_below="@+id/et_sign"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginEnd="@dimen/common_margin_15"

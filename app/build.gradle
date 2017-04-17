@@ -58,6 +58,7 @@ dependencies {
     compile 'com.squareup.okio:okio:1.11.0'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
+    compile 'pub.devrel:easypermissions:0.3.1'
     compile 'top.zibin:Luban:1.0.9'
     compile files('libs/bugly_1.3.0_imsdk_release.jar')
     compile files('libs/imsdk.jar')
