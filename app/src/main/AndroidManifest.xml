@@ -29,9 +29,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="stateVisible">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.SplashSignActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -41,12 +42,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SplashSignActivity"
-            android:windowSoftInputMode="stateVisible"
+            android:name=".activity.FormActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.FormActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -83,8 +83,8 @@
         </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
         <!-- 消息收发service -->

@@ -3,12 +3,8 @@ package com.aiyaschool.aiya.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
-import com.aiyaschool.aiya.bean.User;
-
-import org.json.JSONObject;
-
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Callback;
@@ -29,7 +25,6 @@ public class OkHttpUtil {
             .readTimeout(500, TimeUnit.MILLISECONDS)
             .writeTimeout(500, TimeUnit.MILLISECONDS)
             .build();
-    private static User user;
 
     private OkHttpUtil() {
     }
@@ -42,78 +37,31 @@ public class OkHttpUtil {
         return false;
     }
 
-    public static void initUser(String username) {
-        user = new User(username);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                FormBody.Builder builder = new FormBody.Builder();
-                builder.add("username", user.getUsername());
-                try {
-                    Response response = OK_HTTP_CLIENT.newCall(new Request
-                            .Builder()
-                            .url("https://gxwylovesig.applinzi.com/GET/usersig")
-                            .header("AccessToken", "false")
-                            .post((builder.build()))
-                            .build())
-                            .execute();
-                    if (response.isSuccessful()) {
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        user.setUsersig(jsonObject.getString("usersig"));
-                        builder = new FormBody.Builder();
-                        builder.add("username", user.getUsername());
-                        builder.add("usersig", user.getUsersig());
-                        response = OK_HTTP_CLIENT.newCall(new Request
-                                .Builder()
-                                .url("https://gxwylovesig.applinzi.com/GET/alltoken")
-                                .header("AccessToken", "false")
-                                .post((builder.build()))
-                                .build())
-                                .execute();
-                        if (response.isSuccessful()) {
-                            jsonObject = new JSONObject(response.body().string());
-                            user.updateUsersig(jsonObject.getString("usersig"));
-                            user.setLoginToken(jsonObject.getString("logintoken"));
-                            builder = new FormBody.Builder();
-                            builder.add("username", user.getUsername());
-                            builder.add("LoginToken", user.getLoginToken());
-                            response = OK_HTTP_CLIENT.newCall(new Request
-                                    .Builder()
-                                    .url("https://lovefor7days.applinzi.com/Home/GET/init")
-                                    .header("AccessToken", "false")
-                                    .post((builder.build()))
-                                    .build())
-                                    .execute();
-                            if (response.isSuccessful()) {
-                                jsonObject = new JSONObject(response.body().string());
-                                user.setAccesstoken(jsonObject.getString("AccessToken"));
-                                DBUtil.saveUser(user);
-                                Log.i("3", "Success");
-                            } else {
-                                Log.i("3", "Failure");
-                            }
-                        } else {
-                            Log.i("2", "Failure");
-                        }
-                    } else {
-                        Log.i("1", "Failure");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
+    public static Response initUser(final String phone, final String verification) {
+        Response response = null;
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("phone", phone);
+        builder.add("verification", verification);
+        try {
+            response = OK_HTTP_CLIENT.newCall(new Request.Builder()
+                    .url("https://lovefor7days.applinzi.com/Home/GET/verificationInit")
+                    .header("accesstoken", "false")
+                    .post(builder.build()).build())
+                    .execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 
     public static void post(String url, FormBody.Builder builder, Callback callback) {
-        OK_HTTP_CLIENT.newCall(new Request
-                .Builder()
-                .url(ROOT + url)
-                .header("AccessToken", user == null ? "False" : user.getAccesstoken())
-                .post(builder.build())
-                .build())
-                .enqueue(callback);
+//        OK_HTTP_CLIENT.newCall(new Request
+//                .Builder()
+//                .url(ROOT + url)
+//                .header("AccessToken", user == null ? "False" : user.getAccessToken())
+//                .post(builder.build())
+//                .build())
+//                .enqueue(callback);
     }
 
 }
