@@ -40,17 +40,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Created by wewarriors on 2017/3/16.
  */
 
-public class MeFragment extends android.support.v4.app.Fragment implements View.OnClickListener{
+public class MeFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private Context mContext;
     private RoundImageView mRivMyPhoto;
-    private TextView mTvMyName,mTvSignName,mTVJiFen,mTvGift,mTvMember;
-    private LinearLayout mLlMyPhotoAlbum,mLlMyState,mLlMyGuest,mLlEmotion,mLlMyGift,mLlMoreSetting;
-    private ImageView imageView1,imageView2;
+    private TextView mTvMyName, mTvSignName, mTVJiFen, mTvGift, mTvMember;
+    private LinearLayout mLlMyPhotoAlbum, mLlMyState, mLlMyGuest, mLlEmotion, mLlMyGift, mLlMoreSetting;
+    private ImageView imageView1, imageView2;
 
     @Override
     public void onAttach(Context context) {
@@ -78,11 +77,11 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         List<ImagePathItem> list = DataSupport.findAll(ImagePathItem.class);
-        System.out.println("list.size()"+list.size());
+        System.out.println("list.size()" + list.size());
 
         List<String> mList = getImagePath(list);
-        System.out.println("mList.size()"+mList.size());
-        if(mList.size() == 1){
+        System.out.println("mList.size()" + mList.size());
+        if (mList.size() == 1) {
             File imageFile = new File(mList.get(0));
             Picasso.with(getActivity())
                     .load(imageFile)
@@ -91,7 +90,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     .resize(180, 240)
                     .centerCrop()
                     .into(imageView1);
-        }else if(mList.size() == 2){
+        } else if (mList.size() == 2) {
             File imageFile = new File(mList.get(0));
             Picasso.with(getActivity())
                     .load(imageFile)
@@ -121,15 +120,15 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     private void initView(View view) {
         mRivMyPhoto = (RoundImageView) view.findViewById(R.id.my_photo);
         mTvMyName = (TextView) view.findViewById(R.id.tv_name);
-        mTvSignName = (TextView)view.findViewById(R.id.tv_sign_name);
-        mTVJiFen = (TextView)view.findViewById(R.id.tv_Jifen);
-        mTvGift = (TextView)view.findViewById(R.id.tv_gift);
+        mTvSignName = (TextView) view.findViewById(R.id.tv_sign_name);
+        mTVJiFen = (TextView) view.findViewById(R.id.tv_Jifen);
+        mTvGift = (TextView) view.findViewById(R.id.tv_gift);
         mTvMember = (TextView) view.findViewById(R.id.tv_member);
         mLlMyPhotoAlbum = (LinearLayout) view.findViewById(R.id.my_photo_albun);
         mLlMyState = (LinearLayout) view.findViewById(R.id.my_state);
         mLlMyGuest = (LinearLayout) view.findViewById(R.id.my_guest);
         mLlEmotion = (LinearLayout) view.findViewById(R.id.my_emotion);
-        mLlMyGift  = (LinearLayout) view.findViewById(R.id.my_gift);
+        mLlMyGift = (LinearLayout) view.findViewById(R.id.my_gift);
         mLlMoreSetting = (LinearLayout) view.findViewById(R.id.more_setting);
         imageView1 = (ImageView) view.findViewById(R.id.photo1);
         imageView2 = (ImageView) view.findViewById(R.id.photo2);
@@ -150,20 +149,20 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
 
     private List<String> getImagePath(List<ImagePathItem> list) {
         List<String> sList = new ArrayList<>();
-        int m=0;
-        String s = R.drawable.uploadpic_226x226+"";
-        for(int i=0;i<list.size();i++){
+        int m = 0;
+        String s = R.drawable.uploadpic_226x226 + "";
+        for (int i = 0; i < list.size(); i++) {
             List<String> nList = list.get(i).getImagePath();
-            for(int j=0;j<nList.size();j++){
-                if(!s.equals(nList.get(j))){
+            for (int j = 0; j < nList.size(); j++) {
+                if (!s.equals(nList.get(j))) {
                     sList.add(nList.get(j));
                 }
-                if(sList.size()==2){
-                    m=1;
+                if (sList.size() == 2) {
+                    m = 1;
                     break;
                 }
             }
-            if(m==1){
+            if (m == 1) {
                 break;
             }
         }
@@ -175,47 +174,47 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         int id = v.getId();
 //        Intent intent = new Intent();
         Intent intent;
-        switch (id){
+        switch (id) {
             case R.id.my_photo:
             case R.id.tv_name:
             case R.id.tv_sign_name:
 //                intent.setClass(mContext, PhotoAlbumActivity.class)
-                intent = new Intent(getActivity(),PersonalDataActivity.class);
+                intent = new Intent(getActivity(), PersonalDataActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_Jifen:
             case R.id.tv_gift:
-                intent = new Intent(getActivity(),JifenAndGiftActivity.class);
+                intent = new Intent(getActivity(), JifenAndGiftActivity.class);
                 startActivity(intent);
                 break;
             case R.id.my_photo_albun:
-                intent = new Intent(getActivity(),PhotoAlbumActivity2.class);
+                intent = new Intent(getActivity(), PhotoAlbumActivity2.class);
                 startActivity(intent);
                 break;
             case R.id.tv_member:
-                intent = new Intent(getActivity(),MemberActivity.class);
+                intent = new Intent(getActivity(), MemberActivity.class);
                 startActivity(intent);
 
                 break;
 //            mLlMyPhotoAlbum,mLlMyState,mLlMyGuest,mLlEmotion,mLlMyGift,mLlMoreSetting
             case R.id.my_state:
-                intent = new Intent(getActivity(),MyStateActivity.class);
+                intent = new Intent(getActivity(), MyStateActivity.class);
                 startActivity(intent);
                 break;
             case R.id.my_guest:
-                intent = new Intent(getActivity(),MyGuestActivity.class);
+                intent = new Intent(getActivity(), MyGuestActivity.class);
                 startActivity(intent);
                 break;
             case R.id.my_emotion:
-                intent = new Intent(getActivity(),MyEmotionActivity.class);
+                intent = new Intent(getActivity(), MyEmotionActivity.class);
                 startActivity(intent);
                 break;
             case R.id.my_gift:
-                intent = new Intent(getActivity(),MyGiftActivity.class);
+                intent = new Intent(getActivity(), MyGiftActivity.class);
                 startActivity(intent);
                 break;
             case R.id.more_setting:
-                intent = new Intent(getActivity(),MoreSettingActivity.class);
+                intent = new Intent(getActivity(), MoreSettingActivity.class);
                 startActivity(intent);
                 break;
 

@@ -13,7 +13,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -22,12 +21,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.MessageContentObserver;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
+import com.google.gson.Gson;
 
-import cn.smssdk.EventHandler;
+import java.io.IOException;
+
 import cn.smssdk.SMSSDK;
 
 /**
@@ -36,10 +39,9 @@ import cn.smssdk.SMSSDK;
 
 public class SplashSignActivity extends AppCompatActivity {
 
-    final private static String TAG = "SplashSignActivity";
-
     public static final int CODE_RECEIVED = 1; //收到短信的验证码
-    public static final int SDK_COMPLETE = 2; //mob调用成功
+    public static final int REGISTER = 2;
+    public static final int LOGIN = 3;
     private MessageContentObserver messageContentObserver;    //回调接口
     private boolean codeMode;
     private String mobile, code;
@@ -47,34 +49,27 @@ public class SplashSignActivity extends AppCompatActivity {
     private Button btnNext;
     private TextView tvBack, tvTitle, tvSubTitle, tvWarn;
     private TimeCounter timeCounter;
+    private String json;
 
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (codeMode && msg.what == CODE_RECEIVED) {
-                code = (String) msg.obj;
-                etSign.setText(code);
-                etSign.setSelection(code.length());
-            } else if (msg.what == SDK_COMPLETE) {
-                int event = msg.arg1;
-                int result = msg.arg2;
-                Object data = msg.obj;
-                if (result == SMSSDK.RESULT_COMPLETE) {
-                    //回调完成
-                    Log.i(TAG, "handleMessage: " + event);
-                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                        //提交验证码成功
+            if (codeMode) {
+                switch (msg.what) {
+                    case CODE_RECEIVED:
+                        code = (String) msg.obj;
+                        etSign.setText(code);
+                        etSign.setSelection(code.length());
+                        break;
+                    case REGISTER:
+                        startActivity(new Intent(SplashSignActivity.this, FormActivity.class));
+                        finish();
+                        break;
+                    case LOGIN:
                         startActivity(new Intent(SplashSignActivity.this, MainActivity.class));
                         finish();
-                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                        //获取验证码成功
-                        initCodeView();
-                    } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
-                        //返回支持发送验证码的国家列表
-                    }
-                } else {
-                    ((Throwable) data).printStackTrace();
+                        break;
                 }
             }
         }
@@ -92,22 +87,10 @@ public class SplashSignActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SMSSDK.unregisterAllEventHandler();
         getContentResolver().unregisterContentObserver(messageContentObserver);
     }
 
     private void initSign() {
-        SMSSDK.registerEventHandler(new EventHandler() {
-            @Override
-            public void afterEvent(int event, int result, Object data) {
-                Message msg = Message.obtain();
-                msg.what = SDK_COMPLETE;
-                msg.arg1 = event;
-                msg.arg2 = result;
-                msg.obj = data;
-                handler.sendMessage(msg);
-            }
-        });
         messageContentObserver = new MessageContentObserver(SplashSignActivity.this, handler);
         getContentResolver().registerContentObserver(Uri.parse("content://sms/"), true, messageContentObserver);
     }
@@ -143,7 +126,22 @@ public class SplashSignActivity extends AppCompatActivity {
                 if (!SignUtil.isValidCode(code)) {
                     Toast.makeText(SplashSignActivity.this, "请输入4位验证码", Toast.LENGTH_SHORT).show();
                 } else {
-                    SMSSDK.submitVerificationCode("86", mobile, code);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                json = SignUtil.sign(mobile, code).body().string();
+                                if (json.contains("temptoken")) {
+                                    handler.sendEmptyMessage(REGISTER);
+                                } else {
+                                    handler.sendEmptyMessage(LOGIN);
+                                    MyApplication.getInstance().setUser(new Gson().fromJson(json, User.class));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
                 }
             }
         });
@@ -162,10 +160,11 @@ public class SplashSignActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mobile = String.valueOf(etSign.getText());
-                if (!SignUtil.isValidPhoneNumber(mobile)) {
+                if (!SignUtil.isValidMobile(mobile)) {
                     Toast.makeText(SplashSignActivity.this, "请输入有效的手机号", Toast.LENGTH_SHORT).show();
                 } else {
-                    SMSSDK.getVerificationCode("86", mobile);
+//                    SMSSDK.getVerificationCode("86", mobile);
+                    initCodeView();
                 }
             }
         });

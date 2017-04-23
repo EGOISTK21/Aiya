@@ -23,8 +23,8 @@ public class DBUtil {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("username", user.getUsername());
         editor.putString("usersig", user.getUsersig());
-        editor.putString("logintoken", user.getLoginToken());
-        editor.putString("accesstoken", user.getAccesstoken());
+        editor.putString("logintoken", user.getLogintoken());
+        editor.putString("accesstoken", user.getAccessToken());
         editor.commit();
         //editor.apply();
     }
