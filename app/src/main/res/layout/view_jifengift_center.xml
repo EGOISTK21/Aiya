@@ -87,6 +87,7 @@
             android:id="@+id/iv_buy_int1"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="9dp"
             android:layout_alignParentRight="true"
@@ -140,6 +141,7 @@
             android:layout_height="25dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="9dp"
+            android:layout_marginLeft="15dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/buy"/>
     </RelativeLayout>
@@ -190,6 +192,7 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="9dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/buy"/>
@@ -241,6 +244,7 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="9dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/buy"/>

@@ -33,6 +33,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -123,6 +124,16 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".me.activity.PersonalDataActivity" />
+        <activity android:name=".me.activity.JifenAndGiftActivity" />
+        <activity android:name=".me.activity.MyStateActivity" />
+        <activity android:name=".me.activity.MyGuestActivity" />
+        <activity android:name=".me.activity.MyEmotionActivity" />
+        <activity android:name=".me.activity.MyGiftActivity" />
+        <activity android:name=".me.activity.MoreSettingActivity" />
+        <activity android:name=".me.activity.GiftMethodActivity" />
+        <activity android:name=".me.activity.MemberActivity" />
+        <activity android:name=".me.activity.PhotoAlbumActivity2"></activity>
     </application>
 
 </manifest>

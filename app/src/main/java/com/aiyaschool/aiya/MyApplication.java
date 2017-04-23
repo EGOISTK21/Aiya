@@ -7,6 +7,8 @@ import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.message.utils.TLSService;
 import com.tencent.TIMManager;
 
+import org.litepal.LitePal;
+
 import cn.smssdk.SMSSDK;
 
 /**
@@ -33,6 +35,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SMSSDK.initSDK(this, APPKEY, APPSECRET);
+        LitePal.initialize(this);
         TIMManager.getInstance().init(this);
         TLSService.getInstance().initTlsSdk(this);
         instance = this;
