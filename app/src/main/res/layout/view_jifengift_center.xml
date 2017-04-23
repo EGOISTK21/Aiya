@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+        <TextView
+            android:id="@+id/tvv_integral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:text="当前积分"
+            android:textSize="16dp"
+            android:textColor="@color/colorName"/>
+
+        <TextView
+            android:id="@+id/tv_intergral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2333"
+            android:textSize="16dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_alignBaseline="@+id/tvv_integral"
+            android:layout_alignBottom="@+id/tvv_integral"
+            android:layout_toRightOf="@+id/tvv_integral"
+            android:layout_toEndOf="@+id/tvv_integral"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:id="@+id/tv_get_int"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:text="签到领积分"
+            android:textSize="16dp"
+            android:textColor="@color/colorPrimaryDark"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackGround"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:id="@+id/tvv_i1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="100"
+            android:textSize="13dp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="积分"
+            android:textSize="13dp"
+            android:textColor="#666666"
+            android:layout_alignBaseline="@+id/tvv_i1"
+            android:layout_alignBottom="@+id/tvv_i1"
+            android:layout_toRightOf="@+id/tvv_i1"
+            android:layout_toEndOf="@+id/tvv_i1"
+            android:layout_marginLeft="15dp" />
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_buy_int1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="￥10"
+            android:textSize="13dp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <ImageView
+            android:id="@+id/iv_buy_int1"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="9dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/buy"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackGround"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:id="@+id/tvv_i2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="100"
+            android:textSize="13dp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="积分"
+            android:textSize="13dp"
+            android:textColor="#666666"
+            android:layout_alignBaseline="@+id/tvv_i2"
+            android:layout_alignBottom="@+id/tvv_i2"
+            android:layout_toRightOf="@+id/tvv_i2"
+            android:layout_toEndOf="@+id/tvv_i2"
+            android:layout_marginLeft="15dp" />
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_buy_int2"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="￥10"
+            android:textSize="13dp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <ImageView
+            android:id="@+id/iv_buy_int2"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="9dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/buy"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackGround"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:id="@+id/tvv_i3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="100"
+            android:textSize="13dp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="积分"
+            android:textSize="13dp"
+            android:textColor="#666666"
+            android:layout_alignBaseline="@+id/tvv_i3"
+            android:layout_alignBottom="@+id/tvv_i3"
+            android:layout_toRightOf="@+id/tvv_i3"
+            android:layout_toEndOf="@+id/tvv_i3"
+            android:layout_marginLeft="15dp" />
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_buy_int3"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="￥10"
+            android:textSize="13dp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <ImageView
+            android:id="@+id/iv_buy_int3"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="9dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/buy"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackGround"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:id="@+id/tvv_i4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="100"
+            android:textSize="13dp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="积分"
+            android:textSize="13dp"
+            android:textColor="#666666"
+            android:layout_alignBaseline="@+id/tvv_i4"
+            android:layout_alignBottom="@+id/tvv_i4"
+            android:layout_toRightOf="@+id/tvv_i4"
+            android:layout_toEndOf="@+id/tvv_i4"
+            android:layout_marginLeft="15dp" />
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_buy_int4"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="￥10"
+            android:textSize="13dp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <ImageView
+            android:id="@+id/iv_buy_int4"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="9dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/buy"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

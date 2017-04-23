@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="选填资料"
+            android:textSize="16dp"
+            android:textColor="@color/colorPrimaryDark"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackGround"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_sign_name"
+        android:layout_width="match_parent"
+        android:layout_height="46dp">
+        <TextView
+            android:id="@+id/tvv_signname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="签名"
+            android:textSize="16dp"
+            android:textColor="@color/colorName"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="落霞明 月盈盈 来复无言去不闻"
+            android:textSize="16dp"
+            android:textColor="@color/colorName"
+            android:layout_alignBaseline="@+id/tvv_signname"
+            android:layout_alignBottom="@+id/tvv_signname"
+            android:layout_toRightOf="@+id/tvv_signname"
+            android:layout_toEndOf="@+id/tvv_signname"
+            android:layout_marginLeft="30dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/rightward_32"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackGround"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_height"
+        android:layout_width="match_parent"
+        android:layout_height="46dp">
+        <TextView
+            android:id="@+id/tvv_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="身高"
+            android:textSize="16dp"
+            android:textColor="@color/colorName"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="175"
+            android:textSize="16dp"
+            android:textColor="@color/colorName"
+            android:layout_alignBaseline="@+id/tvv_height"
+            android:layout_alignBottom="@+id/tvv_height"
+            android:layout_toRightOf="@+id/tvv_height"
+            android:layout_toEndOf="@+id/tvv_height"
+            android:layout_marginLeft="30dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/rightward_32"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackGround"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_home_town"
+        android:layout_width="match_parent"
+        android:layout_height="46dp">
+        <TextView
+            android:id="@+id/tvv_hometown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="家乡"
+            android:textSize="16dp"
+            android:textColor="@color/colorName"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="陕西 西安"
+            android:textSize="16dp"
+            android:textColor="@color/colorName"
+            android:layout_alignBaseline="@+id/tvv_hometown"
+            android:layout_alignBottom="@+id/tvv_hometown"
+            android:layout_toRightOf="@+id/tvv_hometown"
+            android:layout_toEndOf="@+id/tvv_hometown"
+            android:layout_marginLeft="30dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/rightward_32"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_hobby"
+        android:layout_width="match_parent"
+        android:layout_height="46dp">
+        <TextView
+            android:id="@+id/tvv_hobby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="爱好"
+            android:textSize="16dp"
+            android:textColor="@color/colorName"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="喜欢什么什么什么"
+            android:textSize="16dp"
+            android:textColor="@color/colorName"
+            android:layout_alignBaseline="@+id/tvv_hobby"
+            android:layout_alignBottom="@+id/tvv_hobby"
+            android:layout_toRightOf="@+id/tvv_hobby"
+            android:layout_toEndOf="@+id/tvv_hobby"
+            android:layout_marginLeft="30dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/rightward_32"/>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

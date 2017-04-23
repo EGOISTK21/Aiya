@@ -77,5 +77,8 @@ dependencies {
     compile files('libs/MobTools-2017.0321.1624.jar')
     compile name: 'SMSSDK-2.1.4', ext: 'aar'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':multi_image_selector')
+    compile 'com.jakewharton:butterknife:5.1.1'
+    compile 'org.litepal.android:core:1.5.1'
 }
 

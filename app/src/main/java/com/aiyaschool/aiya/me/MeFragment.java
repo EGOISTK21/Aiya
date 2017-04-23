@@ -22,44 +22,18 @@ import com.aiyaschool.aiya.util.OkHttpUtil;
 
 public class MeFragment extends LazyFragment {
 
-    private View rootView;
-    private EditText etUsername;
-    private Button btnLogin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_me, container, false);
-        initView();
-        return rootView;
+        View mView = inflater.inflate(R.layout.view_me, container, false);
+        initView(mView);
+        return mView;
     }
 
-    private void initView() {
-        etUsername = (EditText) rootView.findViewById(R.id.et_username);
-        btnLogin = (Button) rootView.findViewById(R.id.btn_login);
-        etUsername.setOnClickListener(this);
-        btnLogin.setOnClickListener(this);
-        rootView.findViewById(R.id.btn_change_match).setOnClickListener(this);
+    private void initView(View mView) {
+
+
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.et_username:
-                etUsername.setText("");
-                break;
-            case R.id.btn_login:
-                String s = DBUtil.getUserName();
-                if (s == null) {
-                    OkHttpUtil.initUser(etUsername.getText().toString());
-                    s = DBUtil.getUserName();
-                    System.out.println("null");
-                }
-                System.out.println(s);
-                break;
-            case R.id.btn_change_match:
-                MyApplication.getInstance().setMatched(!((MyApplication) getActivity().getApplication()).isMatched());
-                ((MainActivity) getActivity()).notifyAdapter();
-                break;
-        }
-    }
+
 }

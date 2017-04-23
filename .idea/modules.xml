@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Aiya.iml" filepath="$PROJECT_DIR$/Aiya.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/multi_image_selector/multi_image_selector.iml" filepath="$PROJECT_DIR$/multi_image_selector/multi_image_selector.iml" />
     </modules>
   </component>
 </project>
