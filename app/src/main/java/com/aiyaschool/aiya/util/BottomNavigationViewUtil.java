@@ -12,6 +12,10 @@ import java.lang.reflect.Field;
  */
 
 public class BottomNavigationViewUtil {
+
+    private BottomNavigationViewUtil() {
+    }
+
     @SuppressWarnings("RestrictedApi")
     public static void disableShiftMode(BottomNavigationView bottomNavigationView) {
         BottomNavigationMenuView menuView =
@@ -25,8 +29,7 @@ public class BottomNavigationViewUtil {
             e.printStackTrace();
         }
         for (int i = 0; i < menuView.getChildCount(); i++) {
-            BottomNavigationItemView itemView =
-                    (BottomNavigationItemView) menuView.getChildAt(i);
+            BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
             itemView.setShiftingMode(false);
             itemView.setChecked(itemView.getItemData().isChecked());
         }

@@ -8,13 +8,17 @@ import android.view.ViewGroup;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.LazyFragment;
-import com.aiyaschool.aiya.love.unmatched.view.ConditionMatchFragment;
+import com.aiyaschool.aiya.love.unmatched.conditionMatch.ConditionMatchFragment;
 
 /**
  * Created by EGOISTK21 on 2017/3/29.
  */
 
 public class UnmatchedContainerFragment extends LazyFragment {
+
+    public static UnmatchedContainerFragment newInstance() {
+        return new UnmatchedContainerFragment();
+    }
 
     @Nullable
     @Override

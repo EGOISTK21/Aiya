@@ -8,13 +8,17 @@ import android.view.ViewGroup;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.LazyFragment;
-import com.aiyaschool.aiya.love.matched.view.MatchedFragment;
+import com.aiyaschool.aiya.love.matched.main.MatchedFragment;
 
 /**
  * Created by EGOISTK21 on 2017/4/9.
  */
 
 public class MatchedContainerFragment extends LazyFragment {
+
+    public static MatchedContainerFragment newInstance() {
+        return new MatchedContainerFragment();
+    }
 
     @Nullable
     @Override

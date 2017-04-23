@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -30,9 +31,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.SplashSignActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateVisible"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -41,11 +41,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.FormActivity"
+            android:name=".activity.SplashSignActivity"
+            android:windowSoftInputMode="stateVisible"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.FormActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -65,21 +66,26 @@
         <activity android:name=".message.ui.activity.PhotoCropActivity"/>
         <activity android:name=".message.ui.activity.ForgetTwoActivity"/>
         <activity
-            android:name=".love.matched.view.ClockInActivity"
+            android:name=".love.matched.today.ClockInActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".love.matched.view.NewMissionActivity"
+            android:name=".love.matched.main.NewMissionActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".love.matched.view.IntimacyDetailActivity"
+            android:name=".love.matched.today.IntimacyDetailActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".love.matched.view.IntimacyRulesActivity"
+            android:name=".love.matched.today.IntimacyRulesActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
 
         <!-- 消息收发service -->
         <service

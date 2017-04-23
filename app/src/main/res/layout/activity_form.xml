@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <TextView
@@ -16,8 +18,10 @@
         android:textSize="15sp"/>
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_margin_10"
         android:layout_marginStart="@dimen/common_margin_15"
         android:layout_marginTop="@dimen/common_margin_10"
         android:includeFontPadding="false"
@@ -25,15 +29,154 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="@dimen/common_margin_15"
-        android:background="@drawable/card_background">
+        android:layout_height="199.5dp"
+        android:layout_marginEnd="@dimen/common_margin_15"
+        android:layout_marginStart="@dimen/common_margin_15"
+        android:background="@drawable/card_background"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_nick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/common_margin_15"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:includeFontPadding="false"
+                android:text="@string/nick"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/common_text_size_15"/>
+
+            <EditText
+                android:id="@+id/et_nick"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_toEndOf="@+id/tv_nick"
+                android:layout_toStartOf="@+id/ibtn_avatar"
+                android:background="@null"
+                android:gravity="bottom"
+                android:paddingBottom="@dimen/common_margin_15"
+                android:paddingStart="24dp"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_15"/>
+
+            <ImageButton
+                android:id="@+id/ibtn_avatar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/common_margin_15"
+                android:background="@color/colorPrimaryTransparent"
+                android:scaleType="center"
+                android:src="@drawable/camera"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:includeFontPadding="false"
+                android:text="@string/sex"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/common_text_size_15"/>
+
+            <TextView
+                android:id="@+id/tv_sex_picker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableEnd="@drawable/rightward_26"
+                android:gravity="center_vertical"
+                android:hint="@string/form_warn"
+                android:paddingEnd="26dp"
+                android:paddingStart="24dp"
+                android:textColor="@color/colorTitle"
+                android:textColorHint="@color/colorContentSecondary"
+                android:textSize="@dimen/common_text_size_15"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:includeFontPadding="false"
+                android:text="@string/school"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/common_text_size_15"/>
+
+            <TextView
+                android:id="@+id/tv_school_picker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableEnd="@drawable/rightward_26"
+                android:gravity="center_vertical"
+                android:paddingEnd="26dp"
+                android:paddingStart="24dp"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_15"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:includeFontPadding="false"
+                android:text="@string/age"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/common_text_size_15"/>
+
+            <TextView
+                android:id="@+id/tv_age_picker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableEnd="@drawable/rightward_26"
+                android:gravity="center_vertical"
+                android:paddingEnd="26dp"
+                android:paddingStart="24dp"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_15"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_margin_10"
         android:layout_marginStart="@dimen/common_margin_15"
         android:layout_marginTop="@dimen/common_margin_10"
         android:includeFontPadding="false"
@@ -41,10 +184,149 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:layout_margin="@dimen/common_margin_15"
-        android:background="@drawable/card_background">
+        android:layout_height="181.5dp"
+        android:layout_marginEnd="@dimen/common_margin_15"
+        android:layout_marginStart="@dimen/common_margin_15"
+        android:background="@drawable/card_background"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:includeFontPadding="false"
+                android:text="@string/height"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/common_text_size_15"/>
+
+            <TextView
+                android:id="@+id/tv_height_picker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableEnd="@drawable/rightward_26"
+                android:gravity="center_vertical"
+                android:paddingEnd="26dp"
+                android:paddingStart="24dp"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_15"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:includeFontPadding="false"
+                android:text="@string/constellation"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/common_text_size_15"/>
+
+            <TextView
+                android:id="@+id/tv_constellation_picker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableEnd="@drawable/rightward_26"
+                android:gravity="center_vertical"
+                android:hint="@string/form_warn"
+                android:paddingEnd="26dp"
+                android:paddingStart="24dp"
+                android:textColor="@color/colorTitle"
+                android:textColorHint="@color/colorContentSecondary"
+                android:textSize="@dimen/common_text_size_15"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:includeFontPadding="false"
+                android:text="@string/hometown"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/common_text_size_15"/>
+
+            <TextView
+                android:id="@+id/tv_hometown_picker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableEnd="@drawable/rightward_26"
+                android:gravity="center_vertical"
+                android:paddingEnd="26dp"
+                android:paddingStart="24dp"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_15"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:includeFontPadding="false"
+                android:text="@string/hobby"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/common_text_size_15"/>
+
+            <EditText
+                android:id="@+id/et_hobby"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingStart="24dp"
+                android:singleLine="true"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_15"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_finish"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="@dimen/common_margin_30"
+        android:layout_marginStart="@dimen/common_margin_30"
+        android:layout_marginTop="@dimen/common_margin_15"
+        android:background="@drawable/button_selector_with_corner_24"
+        android:text="@string/finish"
+        android:textColor="@color/colorPureWhite"
+        android:textSize="@dimen/common_text_size_16"/>
 
 </LinearLayout>

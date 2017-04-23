@@ -9,10 +9,15 @@ import com.aiyaschool.aiya.R;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 /**
+ * 为API20及以下的设备设置状态栏颜色
  * Created by EGOISTK21 on 2017/4/8.
  */
 
 public class StatusBarUtil {
+
+    private StatusBarUtil() {
+    }
+
     public static void init(Activity activity) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             Window win = activity.getWindow();

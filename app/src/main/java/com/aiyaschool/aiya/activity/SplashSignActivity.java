@@ -1,17 +1,14 @@
 package com.aiyaschool.aiya.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -30,27 +27,21 @@ import com.aiyaschool.aiya.util.MessageContentObserver;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
 
-import java.util.List;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 
-import pub.devrel.easypermissions.EasyPermissions;
-import tencent.tls.platform.TLSAccountHelper;
-import tencent.tls.platform.TLSErrInfo;
-import tencent.tls.platform.TLSLoginHelper;
-import tencent.tls.platform.TLSSmsLoginListener;
-import tencent.tls.platform.TLSSmsRegListener;
-import tencent.tls.platform.TLSUserInfo;
+/**
+ * Created by EGOISTK21 on 2017/4/15.
+ */
 
-public class SplashSignActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+public class SplashSignActivity extends AppCompatActivity {
 
     final private static String TAG = "SplashSignActivity";
 
     public static final int CODE_RECEIVED = 1; //收到短信的验证码
+    public static final int SDK_COMPLETE = 2; //mob调用成功
     private MessageContentObserver messageContentObserver;    //回调接口
-    private boolean isSignUp, codeMode;
-    private TLSLoginHelper loginHelper;
-    private TLSSmsLoginListener smsLoginListener;
-    private TLSAccountHelper accountHelper;
-    private TLSSmsRegListener smsRegListener;
+    private boolean codeMode;
     private String mobile, code;
     private EditText etSign;
     private Button btnNext;
@@ -65,6 +56,26 @@ public class SplashSignActivity extends AppCompatActivity implements EasyPermiss
                 code = (String) msg.obj;
                 etSign.setText(code);
                 etSign.setSelection(code.length());
+            } else if (msg.what == SDK_COMPLETE) {
+                int event = msg.arg1;
+                int result = msg.arg2;
+                Object data = msg.obj;
+                if (result == SMSSDK.RESULT_COMPLETE) {
+                    //回调完成
+                    Log.i(TAG, "handleMessage: " + event);
+                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                        //提交验证码成功
+                        startActivity(new Intent(SplashSignActivity.this, MainActivity.class));
+                        finish();
+                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                        //获取验证码成功
+                        initCodeView();
+                    } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
+                        //返回支持发送验证码的国家列表
+                    }
+                } else {
+                    ((Throwable) data).printStackTrace();
+                }
             }
         }
     };
@@ -81,101 +92,28 @@ public class SplashSignActivity extends AppCompatActivity implements EasyPermiss
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SMSSDK.unregisterAllEventHandler();
         getContentResolver().unregisterContentObserver(messageContentObserver);
     }
 
     private void initSign() {
-        loginHelper = TLSLoginHelper.getInstance().init(getApplicationContext(), 1400001533, 792, "1.0");
-        loginHelper.setLocalId(2052);
-        loginHelper.setTimeOut(5000);
-        smsLoginListener = new TLSSmsLoginListener() {
+        SMSSDK.registerEventHandler(new EventHandler() {
             @Override
-            public void OnSmsLoginAskCodeSuccess(int i, int i1) {
-                initCodeView();
-                Log.i(TAG, "OnSmsLoginAskCodeSuccess");
+            public void afterEvent(int event, int result, Object data) {
+                Message msg = Message.obtain();
+                msg.what = SDK_COMPLETE;
+                msg.arg1 = event;
+                msg.arg2 = result;
+                msg.obj = data;
+                handler.sendMessage(msg);
             }
-
-            @Override
-            public void OnSmsLoginReaskCodeSuccess(int i, int i1) {
-                Log.i(TAG, "OnSmsLoginReaskCodeSuccess");
-            }
-
-            @Override
-            public void OnSmsLoginVerifyCodeSuccess() {
-                Log.i(TAG, "OnSmsLoginVerifyCodeSuccess");
-            }
-
-            @Override
-            public void OnSmsLoginSuccess(TLSUserInfo tlsUserInfo) {
-                Log.i(TAG, "OnSmsLoginSuccess");
-                startActivity(new Intent(SplashSignActivity.this, MainActivity.class));
-            }
-
-            @Override
-            public void OnSmsLoginFail(TLSErrInfo tlsErrInfo) {
-                Log.i(TAG, "OnSmsLoginFail");
-                isSignUp = tlsErrInfo.ErrCode == 229;
-                if (isSignUp) {
-                    accountHelper = TLSAccountHelper.getInstance().init(getApplicationContext(), 1400001533, 792, "1.0");
-                    accountHelper.setCountry(86);
-                    accountHelper.setLocalId(2052);
-                    accountHelper.setTimeOut(5000);
-                    smsRegListener = new TLSSmsRegListener() {
-                        @Override
-                        public void OnSmsRegAskCodeSuccess(int i, int i1) {
-                            initCodeView();
-                            Log.i(TAG, "OnSmsRegAskCodeSuccess");
-                        }
-
-                        @Override
-                        public void OnSmsRegReaskCodeSuccess(int i, int i1) {
-                            Log.i(TAG, "OnSmsRegReaskCodeSuccess");
-                        }
-
-                        @Override
-                        public void OnSmsRegVerifyCodeSuccess() {
-                            Log.i(TAG, "OnSmsRegVerifyCodeSuccess");
-                        }
-
-                        @Override
-                        public void OnSmsRegCommitSuccess(TLSUserInfo tlsUserInfo) {
-                            Log.i(TAG, "OnSmsRegCommitSuccess");
-                            startActivity(new Intent(SplashSignActivity.this, FormActivity.class));
-                        }
-
-                        @Override
-                        public void OnSmsRegFail(TLSErrInfo tlsErrInfo) {
-                            Log.i(TAG, "OnSmsRegFail");
-                        }
-
-                        @Override
-                        public void OnSmsRegTimeout(TLSErrInfo tlsErrInfo) {
-                            Log.i(TAG, "OnSmsRegTimeout");
-                        }
-                    };
-                    accountHelper.TLSSmsRegAskCode(SignUtil.formatPhoneNumber(mobile), smsRegListener);
-                } else {
-                    Toast.makeText(SplashSignActivity.this, "网络不通畅，请稍后再试", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void OnSmsLoginTimeout(TLSErrInfo tlsErrInfo) {
-                Log.i(TAG, "OnSmsLoginTimeout");
-            }
-        };
+        });
         messageContentObserver = new MessageContentObserver(SplashSignActivity.this, handler);
         getContentResolver().registerContentObserver(Uri.parse("content://sms/"), true, messageContentObserver);
     }
 
     private void initView() {
-        isSignUp = false;
         mobile = "";
-//        if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_PHONE_STATE)) {
-//            mobile = ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number().substring(3, 14);
-//        } else {
-//            EasyPermissions.requestPermissions(this,"我需要这个权限来自动填充手机号", 1, Manifest.permission.READ_PHONE_STATE);
-//        }
         code = "";
         etSign = (EditText) findViewById(R.id.et_sign);
         btnNext = (Button) findViewById(R.id.btn_next);
@@ -196,24 +134,6 @@ public class SplashSignActivity extends AppCompatActivity implements EasyPermiss
         initMobileView();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-
-    @Override
-    public void onPermissionsGranted(int i, List<String> list) {
-        mobile = ((TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number().substring(3, 14);
-        etSign.setText(mobile);
-        etSign.setSelection(mobile.length());
-    }
-
-    @Override
-    public void onPermissionsDenied(int i, List<String> list) {
-        mobile = "";
-    }
-
     private void initCodeViewButtonNext() {
         btnNext.setText("下一步");
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -223,16 +143,7 @@ public class SplashSignActivity extends AppCompatActivity implements EasyPermiss
                 if (!SignUtil.isValidCode(code)) {
                     Toast.makeText(SplashSignActivity.this, "请输入4位验证码", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (!isSignUp) {
-                        loginHelper.TLSSmsLoginVerifyCode(code, smsLoginListener);
-                        loginHelper.TLSSmsLogin(SignUtil.formatPhoneNumber(mobile), smsLoginListener);
-                    } else {
-                        accountHelper.TLSSmsRegVerifyCode(code, smsRegListener);
-                        accountHelper.TLSSmsRegCommit(smsRegListener);
-                        loginHelper.TLSSmsLoginAskCode(SignUtil.formatPhoneNumber(mobile), smsLoginListener);
-                        loginHelper.TLSSmsLoginVerifyCode(code, smsLoginListener);
-                        loginHelper.TLSSmsLogin(SignUtil.formatPhoneNumber(mobile), smsLoginListener);
-                    }
+                    SMSSDK.submitVerificationCode("86", mobile, code);
                 }
             }
         });
@@ -254,7 +165,7 @@ public class SplashSignActivity extends AppCompatActivity implements EasyPermiss
                 if (!SignUtil.isValidPhoneNumber(mobile)) {
                     Toast.makeText(SplashSignActivity.this, "请输入有效的手机号", Toast.LENGTH_SHORT).show();
                 } else {
-                    loginHelper.TLSSmsLoginAskCode(SignUtil.formatPhoneNumber(mobile), smsLoginListener);
+                    SMSSDK.getVerificationCode("86", mobile);
                 }
             }
         });
@@ -317,11 +228,7 @@ public class SplashSignActivity extends AppCompatActivity implements EasyPermiss
             btnNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!isSignUp) {
-                        loginHelper.TLSSmsLoginReaskCode(SignUtil.formatPhoneNumber(mobile), smsLoginListener);
-                    } else {
-                        accountHelper.TLSSmsRegAskCode(SignUtil.formatPhoneNumber(mobile), smsRegListener);
-                    }
+                    SMSSDK.getVerificationCode("86", mobile);
                     timeCounter.cancel();
                     timeCounter = new TimeCounter(60000, 1000);
                     timeCounter.start();

@@ -31,6 +31,9 @@ public class OkHttpUtil {
             .build();
     private static User user;
 
+    private OkHttpUtil() {
+    }
+
     public static boolean isNetworkReachable(Context context) {
         NetworkInfo networkInfo = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
         if (networkInfo != null) {

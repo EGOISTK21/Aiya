@@ -52,13 +52,13 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/iv_match_result"
+                android:id="@+id/iv_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:src="@mipmap/ic_launcher"/>
 
             <TextView
-                android:id="@+id/tv_match_result_name"
+                android:id="@+id/tv_nick"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/common_margin_15"
@@ -69,7 +69,7 @@
                 android:textSize="@dimen/common_text_size_16"/>
 
             <TextView
-                android:id="@+id/tv_match_result_school"
+                android:id="@+id/tv_school"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/common_margin_15"
@@ -90,7 +90,7 @@
         android:layout_below="@+id/card_match_result"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/common_margin_15"
-        android:background="@drawable/button_selector_with_corner"
+        android:background="@drawable/button_selector_with_corner_18"
         android:text="@string/have_a_change"
         android:textColor="@color/colorPureWhite"
         android:textSize="@dimen/common_text_size_16"/>

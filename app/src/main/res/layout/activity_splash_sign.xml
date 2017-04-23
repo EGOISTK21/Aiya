@@ -2,7 +2,9 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
 
     <TextView
         android:id="@+id/tv_back"
@@ -69,16 +71,17 @@
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_below="@+id/et_sign"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="@dimen/common_margin_15"
-        android:layout_marginStart="@dimen/common_margin_15"
+        android:layout_marginEnd="@dimen/common_margin_30"
+        android:layout_marginStart="@dimen/common_margin_30"
         android:layout_marginTop="@dimen/common_margin_30"
-        android:background="@drawable/button_selector"
-        android:text="下一步"
-        android:textColor="@color/colorPureWhite"/>
+        android:background="@drawable/button_selector_with_corner_24"
+        android:text="@string/next"
+        android:textColor="@color/colorPureWhite"
+        android:textSize="@dimen/common_text_size_16"/>
 
     <TextView
         android:id="@+id/tv_warn"

@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/colorPureWhite">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/love_unmatched_title"
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/common_text_size_16"/>
+
+        <TextView
+            android:id="@+id/tv_random_match"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingEnd="@dimen/common_margin_15"
+            android:paddingStart="@dimen/common_margin_15"
+            android:text="@string/love_match_at_random"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/common_text_size_16"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_single_warn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPureWhite"
+        android:includeFontPadding="false"
+        android:paddingBottom="@dimen/common_margin_15"
+        android:paddingStart="@dimen/common_margin_15"
+        android:paddingTop="@dimen/common_margin_15"
+        android:text="@string/single_warn"
+        android:textColor="@color/colorContentMain"
+        android:textSize="@dimen/common_text_size_13"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_item_height_56"
+        android:layout_marginTop="@dimen/common_margin_15"
+        android:background="@color/colorPureWhite"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_margin_15"
+            android:text="@string/filter_condition"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/common_text_size_16"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_margin_5"
+            android:text="@string/DIY_ta"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/common_text_size_13"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/colorDivider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="232dp"
+        android:background="@color/colorPureWhite"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:text="@string/height"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_16"/>
+
+            <TextView
+                android:id="@+id/tv_height_picker"
+                android:layout_width="@dimen/picker_button_width"
+                android:layout_height="@dimen/picker_button_height"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_with_rightward_26"
+                android:drawableEnd="@mipmap/rightward_26"
+                android:gravity="center"
+                android:paddingEnd="@dimen/common_margin_10"
+                android:paddingStart="@dimen/common_margin_10"
+                android:text="@string/default_height_range"
+                android:textColor="@color/colorContentSecondary"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/sw_height"
+                android:text="@string/default_price_height"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/sw_height"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:paddingEnd="@dimen/common_margin_15"
+                android:paddingStart="@dimen/common_margin_16"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:text="@string/age"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_16"/>
+
+            <TextView
+                android:id="@+id/tv_age_picker"
+                android:layout_width="@dimen/picker_button_width"
+                android:layout_height="@dimen/picker_button_height"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_with_rightward_26"
+                android:drawableEnd="@mipmap/rightward_26"
+                android:gravity="center"
+                android:paddingEnd="@dimen/common_margin_10"
+                android:paddingStart="@dimen/common_margin_10"
+                android:text="@string/default_age"
+                android:textColor="@color/colorContentSecondary"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/sw_age"
+                android:text="@string/default_price_age"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/sw_age"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/common_margin_15"
+                android:paddingStart="@dimen/common_margin_16"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:text="@string/school"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_16"/>
+
+            <TextView
+                android:id="@+id/tv_school_picker"
+                android:layout_width="@dimen/picker_button_width"
+                android:layout_height="@dimen/picker_button_height"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_with_rightward_26"
+                android:drawableEnd="@mipmap/rightward_26"
+                android:gravity="center"
+                android:paddingEnd="@dimen/common_margin_10"
+                android:paddingStart="@dimen/common_margin_10"
+                android:text="@string/default_school"
+                android:textColor="@color/colorContentSecondary"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/sw_school"
+                android:text="@string/default_price_school"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/sw_school"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/common_margin_15"
+                android:paddingStart="@dimen/common_margin_16"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:text="@string/hometown"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_16"/>
+
+            <TextView
+                android:id="@+id/tv_hometown_picker"
+                android:layout_width="@dimen/picker_button_width"
+                android:layout_height="@dimen/picker_button_height"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_with_rightward_26"
+                android:drawableEnd="@mipmap/rightward_26"
+                android:gravity="center"
+                android:paddingEnd="@dimen/common_margin_10"
+                android:paddingStart="@dimen/common_margin_10"
+                android:text="@string/default_hometown"
+                android:textColor="@color/colorContentSecondary"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/sw_hometown"
+                android:text="@string/default_price_hometown"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/sw_hometown"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/common_margin_15"
+                android:paddingStart="@dimen/common_margin_16"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:text="@string/constellation"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_16"/>
+
+            <TextView
+                android:id="@+id/tv_constellation_picker"
+                android:layout_width="@dimen/picker_button_width"
+                android:layout_height="@dimen/picker_button_height"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_with_rightward_26"
+                android:drawableEnd="@mipmap/rightward_26"
+                android:gravity="center"
+                android:paddingEnd="@dimen/common_margin_10"
+                android:paddingStart="@dimen/common_margin_10"
+                android:text="@string/default_constellation"
+                android:textColor="@color/colorContentSecondary"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/sw_constellation"
+                android:text="@string/default_price_constellation"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/common_text_size_13"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/sw_constellation"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/common_margin_15"
+                android:paddingStart="@dimen/common_margin_16"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/colorDivider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPureWhite"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_item_height_56">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/common_margin_15"
+                android:text="@string/shield_contact"
+                android:textColor="@color/colorContentSecondary"
+                android:textSize="@dimen/common_text_size_16"/>
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/sw_shield_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/common_margin_15"
+                android:paddingStart="@dimen/common_margin_15"/>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_start_condition_match"
+            android:layout_width="@dimen/common_button_width"
+            android:layout_height="@dimen/common_button_height"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_selector_with_corner_18"
+            android:text="@string/start_condition_match"
+            android:textColor="@color/colorPureWhite"
+            android:textSize="@dimen/common_text_size_16"/>
+
+        <TextView
+            android:id="@+id/tv_point_warn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/common_margin_10"
+            android:includeFontPadding="false"
+            android:text="@string/love_unmatched_warn_point"
+            android:textColor="@color/colorContentSecondary"
+            android:textSize="@dimen/common_text_size_13"/>
+
+    </LinearLayout>
+
+</LinearLayout>

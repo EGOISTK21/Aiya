@@ -23,13 +23,14 @@ import com.aiyaschool.aiya.util.BottomNavigationViewUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
 
 /**
+ * 主体为NoScrollViewPager+BottomNavigationView的主界面
  * Created by EGOISTK21 on 2017/3/13.
  */
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int PAGE_COUNT = 4;
     private NoScrollViewPager vpMain;
-    private Fragment[] fragments;
     private FragmentManager fm;
     private FragmentPagerAdapter adapter;
     private BottomNavigationView bottomNavigationView;
@@ -44,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        fragments = new Fragment[]{
+        final Fragment[] fragments = new Fragment[]{
                 new CommunityFragment(),
                 new MsgListFragment(),
                 MyApplication.getInstance().isMatched()
-                        ? new MatchedContainerFragment()
-                        : new UnmatchedContainerFragment(),
+                        ? MatchedContainerFragment.newInstance()
+                        : UnmatchedContainerFragment.newInstance(),
                 new MeFragment()
         };
         vpMain = (NoScrollViewPager) findViewById(R.id.viewpager_main);
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     if (fragment instanceof UnmatchedContainerFragment) {
                         FragmentTransaction ft = fm.beginTransaction();
                         ft.remove(fragment);
-                        fragment = new MatchedContainerFragment();
+                        fragment = MatchedContainerFragment.newInstance();
                         ft.add(container.getId(), fragment, fragmentTag)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                         ft.attach(fragment);
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     if (fragment instanceof MatchedContainerFragment) {
                         FragmentTransaction ft = fm.beginTransaction();
                         ft.remove(fragment);
-                        fragment = new UnmatchedContainerFragment();
+                        fragment = UnmatchedContainerFragment.newInstance();
                         ft.add(container.getId(), fragment, fragmentTag)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                         ft.attach(fragment);
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public int getCount() {
-                return 4;
+                return PAGE_COUNT;
             }
         };
         vpMain.setOffscreenPageLimit(3);
@@ -154,6 +155,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    /**
+     * 在fragment里调用((MainActivity) getActivity).notifyAdapter();
+     * 用来通知viewpager的adapter更新其中的fragment
+     */
 
     public void notifyAdapter() {
         adapter.notifyDataSetChanged();

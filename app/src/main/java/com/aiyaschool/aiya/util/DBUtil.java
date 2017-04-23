@@ -14,6 +14,9 @@ public class DBUtil {
 
     private static SharedPreferences preferences;
 
+    private DBUtil() {
+    }
+
     public static void saveUser(User user) {
         preferences = MyApplication.getInstance()
                 .getSharedPreferences("userInfo", Context.MODE_PRIVATE);
