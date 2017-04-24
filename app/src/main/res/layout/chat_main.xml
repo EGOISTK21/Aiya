@@ -87,7 +87,7 @@
     </com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/back_view"
         android:layout_width="wrap_content"
         android:layout_height="96px"
         android:layout_marginLeft="30px"
