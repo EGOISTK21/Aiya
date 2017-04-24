@@ -51,9 +51,7 @@ public class JifenAndGiftActivity extends AppCompatActivity {
         Intent intent;
         switch (view.getId()) {
             case R.id.tv_cancel:
-                intent = new Intent(JifenAndGiftActivity.this,MainActivity.class);
-                intent.putExtra("Flag","Me");
-                startActivity(intent);
+                finish();
                 break;
             case R.id.tv_gift_method:
                 intent = new Intent(JifenAndGiftActivity.this,GiftMethodActivity.class);

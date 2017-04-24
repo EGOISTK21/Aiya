@@ -31,9 +31,7 @@ public class MyGiftActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_back:
-                Intent intent = new Intent(MyGiftActivity.this,MainActivity.class);
-                intent.putExtra("Flag","Me");
-                startActivity(intent);
+                finish();
                 break;
             case R.id.tv_total:
                 break;

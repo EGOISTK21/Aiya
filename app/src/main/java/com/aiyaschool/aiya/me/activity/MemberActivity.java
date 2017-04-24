@@ -26,9 +26,6 @@ public class MemberActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent;
         switch (id){
             case R.id.tv_back:
-                intent = new Intent(MemberActivity.this,MainActivity.class);
-                intent.putExtra("Flag","Me");
-                startActivity(intent);
                 finish();
                 break;
             default:

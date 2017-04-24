@@ -42,9 +42,7 @@ public class MyGuestActivity extends AppCompatActivity {
         mTvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyGuestActivity.this,MainActivity.class);
-                intent.putExtra("Flag","Me");
-                startActivity(intent);
+                finish();
             }
         });
 

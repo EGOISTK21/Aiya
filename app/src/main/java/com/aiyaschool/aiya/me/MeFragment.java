@@ -87,7 +87,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     .load(imageFile)
                     .placeholder(R.drawable.mis_default_error)
                     .tag(MultiImageSelectorFragment.TAG)
-                    .resize(180, 240)
+                    .resize(240, 180)
                     .centerCrop()
                     .into(imageView1);
         } else if (mList.size() == 2) {
@@ -96,7 +96,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     .load(imageFile)
                     .placeholder(R.drawable.mis_default_error)
                     .tag(MultiImageSelectorFragment.TAG)
-                    .resize(180, 240)
+                    .resize(240, 180)
                     .centerCrop()
                     .into(imageView1);
             File imageFile1 = new File(mList.get(1));
@@ -104,7 +104,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     .load(imageFile1)
                     .placeholder(R.drawable.mis_default_error)
                     .tag(MultiImageSelectorFragment.TAG)
-                    .resize(180, 240)
+                    .resize(240, 180)
                     .centerCrop()
                     .into(imageView2);
         }

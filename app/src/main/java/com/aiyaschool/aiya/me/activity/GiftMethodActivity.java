@@ -26,9 +26,7 @@ public class GiftMethodActivity extends AppCompatActivity implements View.OnClic
         Intent intent;
         switch (id){
             case R.id.tv_back:
-                intent = new Intent(GiftMethodActivity.this,MainActivity.class);
-                intent.putExtra("Flag","Me");
-                startActivity(intent);
+                finish();
                 break;
             default:
                 break;
