@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_marginTop="22dp"
+        android:layout_marginLeft="44.5dp"
+        android:layout_marginRight="44.5dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_gift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="礼物"
+            android:textSize="16dp"
+            android:textColor="#333333"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="魅力值"
+            android:textSize="16dp"
+            android:textColor="#333333"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginRight="60dp"
+        
+        android:layout_width="match_parent"
+        android:layout_height="36dp">
+        <ImageView
+            android:id="@+id/iv1"
+            android:src="@drawable/gift"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv1"
+            android:layout_marginLeft="33dp"
+            android:layout_centerVertical="true"
+            android:text="×1"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="10"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimaryDark"/>
+    </RelativeLayout>
+    
+    
+    <RelativeLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginRight="60dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="36dp">
+        <ImageView
+            android:id="@+id/iv2"
+            android:src="@drawable/gift"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv2"
+            android:layout_marginLeft="33dp"
+            android:layout_centerVertical="true"
+            android:text="×2"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="10"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimaryDark"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginRight="60dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="36dp">
+        <ImageView
+            android:id="@+id/iv3"
+            android:src="@drawable/gift"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv3"
+            android:layout_marginLeft="33dp"
+            android:layout_centerVertical="true"
+            android:text="×3"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="10"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimaryDark"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="60dp"
+            android:textColor="#ff6968"
+            android:textSize="30dp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/heart60"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="心动指数"
+            android:textColor="#333333"
+            android:textSize="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+</LinearLayout>

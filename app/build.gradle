@@ -66,7 +66,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'pub.devrel:easypermissions:0.3.1'
     compile 'top.zibin:Luban:1.0.9'
-    compile files('libs/bugly_1.3.0_imsdk_release.jar')
+//    compile files('libs/bugly_1.3.0_imsdk_release.jar')
     compile files('libs/imsdk.jar')
     compile files('libs/mobilepb.jar')
     compile files('libs/qalsdk.jar')
@@ -77,5 +77,8 @@ dependencies {
     compile files('libs/MobTools-2017.0321.1624.jar')
     compile name: 'SMSSDK-2.1.4', ext: 'aar'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':multi_image_selector')
+    compile 'com.jakewharton:butterknife:5.1.1'
+    compile 'org.litepal.android:core:1.5.1'
 }
 

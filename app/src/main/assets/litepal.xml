@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <!-- 数据库库名 -->
+    <dbname value="students" >
+    </dbname>
+    <!-- 版本号 -->
+    <version value="1" >
+    </version>
+
+    <list>
+        <mapping class="com.aiyaschool.aiya.me.bean.ImagePathItem"></mapping>
+    </list>
+
+</litepal>

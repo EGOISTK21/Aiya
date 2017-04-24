@@ -75,4 +75,14 @@
 
     <color name="keyboard_burn_color">#ff5555</color>
     <color name="colorButtonPressed">#10989A</color>
+
+    <!--wewarriors 添加 -->
+
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorBackGroundPicture">#daefef</color>
+    <color name="colorName">#E5000000</color>
+    <color name="colorSignName">#BF000000</color>
+    <color name="colorBackGround">#efeeee</color>
+    <color name="colorData">#333333</color>
+    <color name="colorPhotoBack">#666666</color>
 </resources>

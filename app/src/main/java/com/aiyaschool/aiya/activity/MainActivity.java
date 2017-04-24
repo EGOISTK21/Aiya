@@ -1,5 +1,6 @@
 package com.aiyaschool.aiya.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
@@ -43,6 +45,34 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initListener();
     }
+
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//        super.onNewIntent(intent);
+//        setIntent(intent);
+//        System.out.println("onNewIntent();");
+//    }
+//
+//    @Override
+//    protected void onRestart() {
+//        Intent intent = getIntent();
+//        if(!TextUtils.isEmpty(intent.getStringExtra("Flag"))){
+//            String str = intent.getStringExtra("Flag");
+//            System.out.println(str);
+//            FragmentManager fragmentManager = getSupportFragmentManager();
+//            FragmentTransaction ft = fragmentManager.beginTransaction();
+//            switch (str){
+//                case "Me":
+//                    ft.replace(R.id.container_main,new MeFragment());
+//                    ft.commit();
+//                    bottomNavigationView.getMenu().getItem(3).setChecked(true);
+//                    break;
+//
+//            }
+//        }
+//        super.onRestart();
+//
+//    }
 
     private void initView() {
         final Fragment[] fragments = new Fragment[]{
