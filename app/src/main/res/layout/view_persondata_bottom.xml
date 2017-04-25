@@ -111,9 +111,10 @@
             android:textColor="@color/colorName"/>
 
         <TextView
+            android:id="@+id/tv_hometown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="陕西 西安"
+            android:text="陕西-西安-雁塔区"
             android:textSize="16dp"
             android:textColor="@color/colorName"
             android:layout_alignBaseline="@+id/tvv_hometown"

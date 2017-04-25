@@ -9,45 +9,44 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by wewarriors on 2017/4/24.
  */
 
-public class RegionDbHelper extends SQLiteOpenHelper{
+public class RegionDBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "region.db";
     private static final int DB_VERSION = 1;
 
-    private static RegionDbHelper helper;
+    private static RegionDBHelper helper;
 
-    public static RegionDbHelper getInstance(Context context){
-        if(helper == null){
-            synchronized (RegionDbHelper.class){
-                if(helper == null){
-                    helper = new RegionDbHelper(context.getApplicationContext());
+    public static RegionDBHelper getInstance(Context context) {
+        if (helper == null) {
+            synchronized (RegionDBHelper.class) {
+                if (helper == null) {
+                    helper = new RegionDBHelper(context.getApplicationContext());
                 }
             }
         }
         return helper;
     }
 
+
     /**
-     * 关闭数据库，用在退出登录时。
+     * 关闭数据库, 用在退出登录时
      */
-    public static void closeDb(){
-        if(helper != null){
+    public static void closeDb() {
+        if (helper != null)
             helper.close();
-        }
         helper = null;
     }
 
-    public RegionDbHelper(Context context){
-        this(context,DB_NAME,null,DB_VERSION);
+    public RegionDBHelper(Context context) {
+        this(context, DB_NAME, null, DB_VERSION);
     }
 
-    public RegionDbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public RegionDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
     }
 
     @Override

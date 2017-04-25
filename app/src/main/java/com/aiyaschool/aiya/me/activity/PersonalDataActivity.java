@@ -8,22 +8,30 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.FilletDialog;
+import com.aiyaschool.aiya.base.ScrollPickerView;
 import com.aiyaschool.aiya.base.StringScrollPicker;
+import com.aiyaschool.aiya.me.bean.RegionModel;
+import com.aiyaschool.aiya.me.db.RegionDao;
+import com.aiyaschool.aiya.me.util.DBCopyUtil;
 import com.aiyaschool.aiya.me.view.RoundImageView;
 import com.aiyaschool.aiya.multi_image_selector.MultiImageSelector;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -32,17 +40,26 @@ import butterknife.OnClick;
 public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener {
 
 
+
     private FilletDialog dialogDatePicker, dialogSchoolPicker, dialogAgePicker,
             dialogHeightPicker, dialogConstellationPicker, dialogHometownPicker;
-    private StringScrollPicker sspSex, sspSchool, sspAge, sspHeight, sspConstellation, sspHometown;
+    private StringScrollPicker sspSex, sspSchool, sspAge, sspHeight, sspConstellation;
     private StringScrollPicker sspYear, sspMonth, sspDate;
+    private StringScrollPicker sspProvince, sspCity, sspArea;
 
     private static final int REQUEST_IMAGE = 2;
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
 
-    private ArrayList<String> mSelectPath,mHeightList,mYearDataList,mMonthDataList,mDayDataList;
+    private ArrayList<String> mSelectPath, mHeightList;
+    private ArrayList<String> mYearDataList, mMonthDataList, mDayDataList;
+    private ArrayList<String> mProvinceList,mCityList,mAreaList;
+    private List<RegionModel> mRmProvinceList, mRmCityList, mRmAreaList;
 
+    private RegionDao mRegionDao;
+    private boolean flag = false;
 
+    @InjectView(R.id.tv_hometown)
+    TextView mTvHometown;
     @InjectView(R.id.tv_date)
     TextView mTvDate;
     @InjectView(R.id.tv_constellation)
@@ -76,6 +93,8 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_data);
+
+
         ButterKnife.inject(this);
         mHeightList = new ArrayList<>();
         for (int i = 150; i < 200; i++) {
@@ -86,14 +105,20 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             mYearDataList.add(String.valueOf(i));
         }
         mMonthDataList = new ArrayList<>();
-        for (int i = 1; i < 13; i++){
+        for (int i = 1; i < 13; i++) {
             mMonthDataList.add(String.valueOf(i));
         }
         mDayDataList = new ArrayList<>();
-        for (int i = 1; i < 32; i++){
+        for (int i = 1; i < 32; i++) {
             mDayDataList.add(String.valueOf(i));
         }
-
+        mProvinceList = new ArrayList<>();
+        DBCopyUtil.copyDataBaseFromAssets(this, "region.db");
+        mRegionDao = new RegionDao(this);
+        mRmProvinceList = mRegionDao.loadProvinceList();
+        for (RegionModel regionModel : mRmProvinceList){
+            mProvinceList.add(regionModel.getName());
+        }
     }
 
 
@@ -111,7 +136,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 choosePhoto();
                 break;
             case R.id.rl_birth:
-                showBirthDialogDatePicker();
+                showDialogBirthDatePicker();
                 break;
             case R.id.rl_school:
                 break;
@@ -123,7 +148,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 showDialogHeightPicker();
                 break;
             case R.id.rl_home_town:
-
+                showDialogHomeTownPicker();
                 break;
             case R.id.rl_hobby:
                 showDialogConstellationPicker();
@@ -131,7 +156,62 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void showBirthDialogDatePicker() {
+    private void showDialogHomeTownPicker() {
+        if (dialogHometownPicker == null) {
+            dialogHometownPicker = new FilletDialog.Builder(this, R.layout.dialog_hometown_picker)
+                    .setTitle("家乡")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspProvince.setSelectedItem("陕西省");
+                            sspCity.setSelectedDate("西安市");
+                            sspArea.setSelectedDate("雁塔区");
+                            dialog.cancel();
+                        }
+                    }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String tmp = sspProvince.getSelectedItem() + "–";
+//                            int position = ss
+                            if (sspProvince.getSelectedItem().length() == 1) {
+                                tmp += "0";
+                            }
+                            tmp += sspCity.getSelectedItem() + "–";
+                            if (sspCity.getSelectedItem().length() == 1) {
+                                tmp += "0";
+                            }
+                            tmp += sspArea.getSelectedItem();
+                            mTvHometown.setText(tmp);
+                            dialog.dismiss();
+                        }
+                    }).create();
+        }
+        dialogHometownPicker.show();
+        setHomeTownData();
+    }
+
+    private void setHomeTownData() {
+        if (dialogHometownPicker != null
+                && (sspProvince == null || sspCity == null || sspArea == null)) {
+            sspProvince = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_province);
+            sspCity = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_city);
+            sspArea = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_area);
+            sspProvince.setData(mProvinceList);
+            sspProvince.setSelectedPosition(0);
+            sspProvince.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
+                @Override
+                public void onSelected(ScrollPickerView scrollPickerView, int position) {
+                    System.out.println("position  "+position);
+                    System.out.println("mProvinceList.get(position)  "+mProvinceList.get(position));
+                    RegionModel regionModel = mRmProvinceList.get(position);
+                    System.out.println("regionModel.getName()  "+regionModel.getName());
+
+                }
+            });
+        }
+    }
+
+    private void showDialogBirthDatePicker() {
         if (dialogDatePicker == null) {
             dialogDatePicker = new FilletDialog.Builder(this, R.layout.dialog_date_picker)
                     .setTitle("日期")
