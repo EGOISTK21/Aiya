@@ -91,7 +91,11 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveData();
+                Intent intent = new Intent();
+                intent.putExtra("Flag","Me");
+                setResult(RESULT_OK,intent);
                 finish();
+
 
             }
         });

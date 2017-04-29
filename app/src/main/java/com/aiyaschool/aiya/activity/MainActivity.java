@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentPagerAdapter adapter;
     private BottomNavigationView bottomNavigationView;
 
+    private boolean isMeChanged;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
                         && MyApplication.getInstance().isMatched())
                         || ((/*object instanceof || */object instanceof MatchedContainerFragment)
                         && !MyApplication.getInstance().isMatched())) {
+                    return POSITION_NONE;
+                }
+                if(isMeChanged&&object instanceof MeFragment){
                     return POSITION_NONE;
                 }
                 return POSITION_UNCHANGED;
@@ -195,4 +200,22 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        System.out.println(requestCode);
+        System.out.println(resultCode);
+        System.out.println(RESULT_OK);
+        if(resultCode == RESULT_OK){
+            String s = data.getStringExtra("Flag");
+            isMeChanged = s.equals("Me");
+            System.out.println(isMeChanged);
+            notifyAdapter();
+        }
+    }
 }

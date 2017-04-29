@@ -113,6 +113,8 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             mDayDataList.add(String.valueOf(i));
         }
         mProvinceList = new ArrayList<>();
+        mCityList = new ArrayList<>();
+        mAreaList = new ArrayList<>();
         DBCopyUtil.copyDataBaseFromAssets(this, "region.db");
         mRegionDao = new RegionDao(this);
         mRmProvinceList = mRegionDao.loadProvinceList();
@@ -163,24 +165,24 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspProvince.setSelectedItem("陕西省");
-                            sspCity.setSelectedDate("西安市");
-                            sspArea.setSelectedDate("雁塔区");
+
                             dialog.cancel();
                         }
                     }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            String tmp = sspProvince.getSelectedItem() + "–";
-//                            int position = ss
-                            if (sspProvince.getSelectedItem().length() == 1) {
+                            String tmp = sspProvince.getSelectedItem() ;
+                            if (sspCity.getData().size() == 0) {
                                 tmp += "0";
+                            }else{
+                                tmp += "–"+sspCity.getSelectedItem();
                             }
-                            tmp += sspCity.getSelectedItem() + "–";
-                            if (sspCity.getSelectedItem().length() == 1) {
-                                tmp += "0";
+                            if(sspArea.getData().size() == 0){
+                                tmp += "";
+                            }else{
+                                tmp += "–"+sspArea.getSelectedItem();
                             }
-                            tmp += sspArea.getSelectedItem();
+
                             mTvHometown.setText(tmp);
                             dialog.dismiss();
                         }
@@ -201,11 +203,36 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             sspProvince.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
                 @Override
                 public void onSelected(ScrollPickerView scrollPickerView, int position) {
+                    mCityList.clear();
+                    mAreaList.clear();
+                    sspArea.setData(mAreaList);
                     System.out.println("position  "+position);
                     System.out.println("mProvinceList.get(position)  "+mProvinceList.get(position));
-                    RegionModel regionModel = mRmProvinceList.get(position);
-                    System.out.println("regionModel.getName()  "+regionModel.getName());
+                    RegionModel rmProvince = mRmProvinceList.get(position);
+                    System.out.println("regionModel.getName()  "+rmProvince.getName());
+                    mRmCityList = mRegionDao.loadCityList(rmProvince.getId());
+                    for (RegionModel regionModel : mRmCityList){
+                        mCityList.add(regionModel.getName());
+                    }
+                    sspCity.setData(mCityList);
+                }
+            });
 
+            sspCity.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
+                @Override
+                public void onSelected(ScrollPickerView scrollPickerView, int position) {
+                    mAreaList.clear();
+                    System.out.println(mCityList.size());
+                    if(mCityList.size()>0){
+                        RegionModel rmCity = mRmCityList.get(position);
+                        System.out.println("rmCity.getName()  "+rmCity.getName());
+                        mRmAreaList = mRegionDao.loadCountyList(rmCity.getId());
+                        System.out.println("mRmAreaList.size() "+mRmAreaList.size());
+                        for (RegionModel regionModel : mRmAreaList){
+                            mAreaList.add(regionModel.getName());
+                        }
+                    }
+                    sspArea.setData(mAreaList);
                 }
             });
         }

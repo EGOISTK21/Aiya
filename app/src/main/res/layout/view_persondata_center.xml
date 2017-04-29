@@ -76,7 +76,7 @@
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1995"
+            android:text="1995-11-11"
             android:textSize="16dp"
             android:textColor="@color/colorName"
             android:layout_alignBaseline="@+id/tvv_birth"
