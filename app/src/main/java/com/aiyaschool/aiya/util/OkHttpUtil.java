@@ -14,7 +14,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * jjjjjlllllllssss
  * Created by EGOISTK21 on 2017/3/26.
  */
 
@@ -56,13 +55,7 @@ public class OkHttpUtil {
     }
 
     public static void post(String url, FormBody.Builder builder, Callback callback) {
-//        OK_HTTP_CLIENT.newCall(new Request
-//                .Builder()
-//                .url(ROOT + url)
-//                .header("AccessToken", user == null ? "False" : user.getAccessToken())
-//                .post(builder.build())
-//                .build())
-//                .enqueue(callback);
+
     }
 
 }

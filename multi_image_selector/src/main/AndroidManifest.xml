@@ -8,13 +8,7 @@
     <application android:allowBackup="true">
         <activity
             android:configChanges="orientation|screenSize"
-            android:name=".MultiImageSelectorActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".MultiImageSelectorActivity"/>
     </application>
 
 </manifest>

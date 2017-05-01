@@ -44,7 +44,8 @@ public class ConditionMatchFragment extends LazyFragment
     private View rootView;
     private ConditionMatchContract.Presenter presenter;
     private TextView tvRandomMatch, tvHeightPicker, tvAgePicker,
-            tvSchoolPicker, tvHometownPicker, tvConstellationPicker, tvStartConditionMatch;
+            tvSchoolPicker, tvHometownPicker, tvConstellationPicker;
+    private Button btnStartConditionMatch;
     private SwitchCompat[] switches;
     private FilletDialog dialogHeightPicker, dialogAgePicker,
             dialogSchoolPicker, dialogHometownPicker, dialogConstellationPicker;
@@ -86,7 +87,7 @@ public class ConditionMatchFragment extends LazyFragment
         tvSchoolPicker = (TextView) rootView.findViewById(R.id.tv_school_picker);
         tvHometownPicker = (TextView) rootView.findViewById(R.id.tv_hometown_picker);
         tvConstellationPicker = (TextView) rootView.findViewById(R.id.tv_constellation_picker);
-        tvStartConditionMatch = (Button) rootView.findViewById(R.id.btn_start_condition_match);
+        btnStartConditionMatch = (Button) rootView.findViewById(R.id.btn_start_condition_match);
         switches = new SwitchCompat[6];
         switches[0] = ((SwitchCompat) rootView.findViewById(R.id.sw_height));
         switches[1] = ((SwitchCompat) rootView.findViewById(R.id.sw_age));
@@ -108,8 +109,7 @@ public class ConditionMatchFragment extends LazyFragment
         tvSchoolPicker.setOnClickListener(this);
         tvHometownPicker.setOnClickListener(this);
         tvConstellationPicker.setOnClickListener(this);
-        tvStartConditionMatch.setOnClickListener(this);
-        tvStartConditionMatch.setClickable(false);
+        btnStartConditionMatch.setOnClickListener(this);
         for (SwitchCompat s : switches) {
             s.setOnCheckedChangeListener(this);
         }
@@ -316,7 +316,9 @@ public class ConditionMatchFragment extends LazyFragment
 
     public void updateSwitchesStatus(boolean isChecked, int index) {
         sum += isChecked ? (sum + prices[index] > 7 ? 0 : prices[index]) : -prices[index];
-        ToastUtil.showToast(getContext(), sum == 7 ? "已满7分" : "你已选" + sum + "分");
+        if (sum == 7) {
+            ToastUtil.showToast(getContext(), "你已选满7￥");
+        }
         if (sum > 4) {
             switches[0].setClickable(switches[0].isChecked());
             switches[1].setClickable(switches[1].isChecked());
@@ -330,7 +332,6 @@ public class ConditionMatchFragment extends LazyFragment
             switches[3].setClickable(true);
             switches[4].setClickable(true);
         }
-        tvStartConditionMatch.setClickable(sum != 0);
     }
 
     @Override
@@ -357,6 +358,10 @@ public class ConditionMatchFragment extends LazyFragment
                 showDialogConstellationPicker();
                 break;
             case R.id.btn_start_condition_match:
+                if (sum == 0) {
+                    ToastUtil.showToast(getContext(), "请至少选择一个选项");
+                    break;
+                }
                 ft.addToBackStack(null);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .replace(R.id.container_love, MatchResultFragment.newInstance()).commit();

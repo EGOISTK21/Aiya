@@ -209,7 +209,9 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
         saveData();
         Intent intent = new Intent(PhotoAlbumActivity2.this,MainActivity.class);
         intent.putExtra("Flag","Me");
-        startActivity(intent);
+        setResult(RESULT_OK, intent);
+        //startActivity(intent);
+        finish();
     }
     private void saveData(){
         List<ImagePathItem> list = new ArrayList<>();
