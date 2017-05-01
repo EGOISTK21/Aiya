@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="140px"
-    tools:context="com.aiyaschool.aiya.message.ui.activity.MsgListActivity"
-    >
+    android:layout_height="70dp"
+    tools:context=".message.ui.activity.MsgListActivity">
+
     <com.aiyaschool.aiya.message.ui.view.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/circleImageView"
-        android:layout_width="80px"
-        android:layout_height="80px"
-        android:layout_marginRight="20px"
-        android:layout_marginLeft="20px"
-        android:layout_marginTop="30px"
-        android:layout_marginBottom="30px"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="@dimen/common_margin_15"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/message"
-        app:border_width="0dp"
         app:border_color="#ccc"
-        />
+        app:border_width="0dp" />
 
     <TextView
-        android:text="TextView"
+        android:id="@+id/msg_title"
         android:layout_width="wrap_content"
-        android:layout_height="30px"
-        android:textSize="30px"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/circleImageView"
-        android:layout_toRightOf="@+id/circleImageView"
         android:layout_toEndOf="@+id/circleImageView"
-        android:id="@+id/msg_title" />
+        android:layout_toRightOf="@+id/circleImageView"
+        android:text="TextView"
+        android:textSize="15sp" />
 
     <TextView
-        android:text="TextView"
+        android:id="@+id/msg_preview"
         android:layout_width="wrap_content"
-        android:layout_height="26px"
-        android:textSize="26px"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/msg_title"
-        android:layout_toRightOf="@+id/circleImageView"
+        android:layout_marginTop="6dp"
         android:layout_toEndOf="@+id/circleImageView"
-        android:layout_marginTop="12px"
-        android:id="@+id/msg_preview" />
+        android:layout_toRightOf="@+id/circleImageView"
+        android:text="TextView"
+        android:textSize="13sp" />
 
     <TextView
-        android:text="TextView"
+        android:id="@+id/msg_time"
         android:layout_width="wrap_content"
-        android:layout_height="22px"
-        android:textSize="22px"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="10px"
-        android:layout_marginTop="60px"
-        android:id="@+id/msg_time" />
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="30dp"
+        android:includeFontPadding="false"
+        android:text="TextView"
+        android:textSize="11sp" />
 </RelativeLayout>

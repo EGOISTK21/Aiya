@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/my_state"
         android:layout_width="match_parent"
         android:layout_height="46dp"
@@ -50,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
-            android:text="访客记录"
+            android:text="被撩记录"
             android:textSize="16dp"
             android:textColor="@color/colorName"/>
         <RelativeLayout

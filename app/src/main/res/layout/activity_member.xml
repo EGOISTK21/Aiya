@@ -15,4 +15,71 @@
         android:background="@color/colorBackGround"/>
 
     <include layout="@layout/view_member_center"/>
+    <ImageView
+        android:layout_marginTop="36dp"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/colorBackGround"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="134.5dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/price" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="9dp"
+            android:text="购买会员"
+            android:textColor="#333333"
+            android:textSize="15dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/open12"
+            android:layout_marginTop="30.5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_width="142.5dp"
+            android:layout_height="80dp"
+            android:src="@drawable/open12"/>
+
+        <ImageView
+            android:id="@+id/open30"
+            android:layout_marginTop="30.5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_width="142.5dp"
+            android:layout_height="80dp"
+            android:src="@drawable/open30"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/open60"
+            android:layout_marginLeft="25dp"
+            android:layout_width="142.5dp"
+            android:layout_height="80dp"
+            android:src="@drawable/open60"/>
+
+        <ImageView
+            android:id="@+id/open108"
+            android:layout_marginLeft="25dp"
+            android:layout_width="142.5dp"
+            android:layout_height="80dp"
+            android:src="@drawable/open108"/>
+    </LinearLayout>
 </LinearLayout>

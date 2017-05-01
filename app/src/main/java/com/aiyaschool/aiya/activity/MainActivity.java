@@ -9,16 +9,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.NoScrollViewPager;
+import com.aiyaschool.aiya.community.CommunityFragment;
 import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
 import com.aiyaschool.aiya.message.MsgListFragment;
+import com.aiyaschool.aiya.util.BottomNavigationViewUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
 
 /**
@@ -28,12 +31,13 @@ import com.aiyaschool.aiya.util.StatusBarUtil;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int PAGE_COUNT = 3;
+    private static final int PAGE_COUNT = 4;
     private NoScrollViewPager vpMain;
     private FragmentManager fm;
     private FragmentPagerAdapter adapter;
     private BottomNavigationView bottomNavigationView;
-    private boolean isMeChanged = true;
+
+    private boolean isMeChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         StatusBarUtil.init(this);
         initView();
         initListener();
-        isMeChanged = false;
     }
 
 //    @Override
@@ -75,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         final Fragment[] fragments = new Fragment[]{
-//                new CommunityFragment(),
+                new CommunityFragment(),
+                new MsgListFragment(),
                 MyApplication.getInstance().isMatched()
                         ? MatchedContainerFragment.newInstance()
                         : UnmatchedContainerFragment.newInstance(),
-                new MsgListFragment(),
                 new MeFragment()
         };
         vpMain = (NoScrollViewPager) findViewById(R.id.viewpager_main);
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                         && !MyApplication.getInstance().isMatched())) {
                     return POSITION_NONE;
                 }
-                if (isMeChanged && object instanceof MeFragment) {
+                if(isMeChanged&&object instanceof MeFragment){
                     return POSITION_NONE;
                 }
                 return POSITION_UNCHANGED;
@@ -141,10 +144,10 @@ public class MainActivity extends AppCompatActivity {
                 return PAGE_COUNT;
             }
         };
-        vpMain.setOffscreenPageLimit(PAGE_COUNT - 1);
+        vpMain.setOffscreenPageLimit(3);
         vpMain.setAdapter(adapter);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
-//        BottomNavigationViewUtil.disableShiftMode(bottomNavigationView);
+        BottomNavigationViewUtil.disableShiftMode(bottomNavigationView);
     }
 
     private void initListener() {
@@ -153,17 +156,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-//                            case R.id.navigation_community:
-//                                vpMain.setCurrentItem(0);
-//                                return true;
-                            case R.id.navigation_love:
+                            case R.id.navigation_community:
                                 vpMain.setCurrentItem(0);
                                 return true;
                             case R.id.navigation_message:
                                 vpMain.setCurrentItem(1);
                                 return true;
-                            case R.id.navigation_me:
+                            case R.id.navigation_love:
                                 vpMain.setCurrentItem(2);
+                                return true;
+                            case R.id.navigation_me:
+                                vpMain.setCurrentItem(3);
                                 return true;
                         }
                         return false;
@@ -175,11 +178,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onNavigationItemReselected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-//                            case R.id.navigation_community:
-//                                break;
-                            case R.id.navigation_love:
+                            case R.id.navigation_community:
                                 break;
                             case R.id.navigation_message:
+                                break;
+                            case R.id.navigation_love:
                                 break;
                             case R.id.navigation_me:
                                 break;
@@ -197,11 +200,21 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            isMeChanged = true;
+        System.out.println(requestCode);
+        System.out.println(resultCode);
+        System.out.println(RESULT_OK);
+        if(resultCode == RESULT_OK){
+            String s = data.getStringExtra("Flag");
+            isMeChanged = s.equals("Me");
+            System.out.println(isMeChanged);
             notifyAdapter();
         }
     }

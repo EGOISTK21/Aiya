@@ -40,9 +40,7 @@ public class MyEmotionActivity extends AppCompatActivity {
         mTvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyEmotionActivity.this,MainActivity.class);
-                intent.putExtra("Flag","Me");
-                startActivity(intent);
+                finish();
             }
         });
     }

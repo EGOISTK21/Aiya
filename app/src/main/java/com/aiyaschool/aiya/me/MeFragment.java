@@ -1,5 +1,6 @@
 package com.aiyaschool.aiya.me;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +8,16 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.MainActivity;
+import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.me.activity.JifenAndGiftActivity;
 import com.aiyaschool.aiya.me.activity.MemberActivity;
 import com.aiyaschool.aiya.me.activity.MoreSettingActivity;
@@ -24,6 +30,8 @@ import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity2;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.me.view.RoundImageView;
 import com.aiyaschool.aiya.multi_image_selector.MultiImageSelectorFragment;
+import com.aiyaschool.aiya.util.DBUtil;
+import com.aiyaschool.aiya.util.OkHttpUtil;
 import com.squareup.picasso.Picasso;
 
 import org.litepal.crud.DataSupport;
@@ -79,7 +87,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     .load(imageFile)
                     .placeholder(R.drawable.mis_default_error)
                     .tag(MultiImageSelectorFragment.TAG)
-                    .resize(180, 240)
+                    .resize(238, 181)
                     .centerCrop()
                     .into(imageView1);
         } else if (mList.size() == 2) {
@@ -88,7 +96,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     .load(imageFile)
                     .placeholder(R.drawable.mis_default_error)
                     .tag(MultiImageSelectorFragment.TAG)
-                    .resize(180, 240)
+                    .resize(238, 181)
                     .centerCrop()
                     .into(imageView1);
             File imageFile1 = new File(mList.get(1));
@@ -96,7 +104,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     .load(imageFile1)
                     .placeholder(R.drawable.mis_default_error)
                     .tag(MultiImageSelectorFragment.TAG)
-                    .resize(180, 240)
+                    .resize(238, 181)
                     .centerCrop()
                     .into(imageView2);
         }
@@ -181,18 +189,19 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                 break;
             case R.id.my_photo_albun:
                 intent = new Intent(getActivity(), PhotoAlbumActivity2.class);
-                //startActivity(intent);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent,1);
+
                 break;
             case R.id.tv_member:
                 intent = new Intent(getActivity(), MemberActivity.class);
                 startActivity(intent);
+
                 break;
 //            mLlMyPhotoAlbum,mLlMyState,mLlMyGuest,mLlEmotion,mLlMyGift,mLlMoreSetting
-            case R.id.my_state:
-                intent = new Intent(getActivity(), MyStateActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.my_state:
+//                intent = new Intent(getActivity(), MyStateActivity.class);
+//                startActivity(intent);
+//                break;
             case R.id.my_guest:
                 intent = new Intent(getActivity(), MyGuestActivity.class);
                 startActivity(intent);

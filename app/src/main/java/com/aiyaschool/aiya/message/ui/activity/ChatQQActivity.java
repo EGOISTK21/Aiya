@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,6 +88,8 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
     private ChatPhotosPagerAdapter adapter;
     private ArrayList<TIMImage> imgList = new ArrayList<>();
     private int size;
+    private TextView backView;
+    private Button send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +107,8 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         chatPhotosLayout = (LinearLayout) findViewById(R.id.activity_chat_photos);
         progressTextView = (TextView) findViewById(R.id.photo_progress_showText);
         viewPager =(ViewPager) findViewById(R.id.pager);
+        backView = (TextView) findViewById(R.id.back_view);
+        send = (Button) findViewById(R.id.btn_send);
         //
         ArrayList<TIMAddFriendRequest> aux1024 = new ArrayList<>();
         TIMFriendshipManager.getInstance().addFriend(aux1024, new TIMValueCallBack<List<TIMFriendResult>>() {
@@ -159,6 +164,14 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
     }
 
     protected void setListener(){
+
+        backView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -374,6 +387,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
             if (((TIMImageElem)msg.getElement(0)).getImageList().size()<0)
             return;
         }
+        Log.d("EEEE", "12345aa"+msg);
         chatAdapter.addChatMsg(msg);
     }
 

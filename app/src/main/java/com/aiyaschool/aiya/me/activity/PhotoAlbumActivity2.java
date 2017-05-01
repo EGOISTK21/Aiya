@@ -90,7 +90,13 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
         mTvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToMain();
+                saveData();
+                Intent intent = new Intent();
+                intent.putExtra("Flag","Me");
+                setResult(RESULT_OK,intent);
+                finish();
+
+
             }
         });
 
@@ -156,7 +162,8 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
                 String date = imagePathItem.getDate();
                 List<String> path = imagePathItem.getImagePath();
                 if (!date.equals(dateNow)) {
-                    path.remove(R.drawable.uploadpic_226x226 + "");
+                    boolean a = path.remove(R.drawable.uploadpic_226x226 + "");
+                    System.out.println("boolean"+a);
                     if (path.size() == 0) {
                         continue;
                     }
@@ -197,7 +204,8 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
             return;
         }
         Log.d(TAG, "onBackPressed: "+mSelectedNumber.get(0).size());
-        backToMain();
+        saveData();
+        finish();
     }
 
     private void clearSelected(){
@@ -389,7 +397,7 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
                     getString(R.string.mis_permission_rationale),
                     REQUEST_STORAGE_READ_ACCESS_PERMISSION);
         }else {
-            boolean showCamera = true;
+            boolean showCamera = false;
             int maxNum = 9;
 
             MultiImageSelector selector = MultiImageSelector.create(PhotoAlbumActivity2.this);

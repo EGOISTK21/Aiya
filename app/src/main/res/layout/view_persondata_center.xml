@@ -73,9 +73,10 @@
             android:textColor="@color/colorName"/>
 
         <TextView
+            android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1995-11-5"
+            android:text="1995-11-11"
             android:textSize="16dp"
             android:textColor="@color/colorName"
             android:layout_alignBaseline="@+id/tvv_birth"
@@ -83,6 +84,7 @@
             android:layout_toRightOf="@+id/tvv_birth"
             android:layout_toEndOf="@+id/tvv_birth"
             android:layout_marginLeft="30dp" />
+
 
         <ImageView
             android:layout_width="wrap_content"
