@@ -8,13 +8,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.DragEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,8 +30,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener {
@@ -58,35 +55,35 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     private RegionDao mRegionDao;
     private boolean flag = false;
 
-    @InjectView(R.id.tv_hometown)
+    @BindView(R.id.tv_hometown)
     TextView mTvHometown;
-    @InjectView(R.id.tv_date)
+    @BindView(R.id.tv_date)
     TextView mTvDate;
-    @InjectView(R.id.tv_constellation)
+    @BindView(R.id.tv_constellation)
     TextView mTvConstellation;
-    @InjectView(R.id.tv_height)
+    @BindView(R.id.tv_height)
     TextView mTvHeight;
-    @InjectView(R.id.personal_photo)
+    @BindView(R.id.personal_photo)
     RoundImageView mRvPersonalPhoto;
-    @InjectView(R.id.tv_cancel)
+    @BindView(R.id.tv_cancel)
     TextView tvCancel;
-    @InjectView(R.id.tv_save)
+    @BindView(R.id.tv_save)
     TextView tvSave;
-    @InjectView(R.id.rl_person_photo)
+    @BindView(R.id.rl_person_photo)
     RelativeLayout rlPersonPhoto;
-    @InjectView(R.id.rl_birth)
+    @BindView(R.id.rl_birth)
     RelativeLayout rlBirth;
-    @InjectView(R.id.rl_school)
+    @BindView(R.id.rl_school)
     RelativeLayout rlSchool;
-    @InjectView(R.id.rl_major)
+    @BindView(R.id.rl_major)
     RelativeLayout rlMajor;
-    @InjectView(R.id.rl_sign_name)
+    @BindView(R.id.rl_sign_name)
     RelativeLayout rlSignName;
-    @InjectView(R.id.rl_height)
+    @BindView(R.id.rl_height)
     RelativeLayout rlHeight;
-    @InjectView(R.id.rl_home_town)
+    @BindView(R.id.rl_home_town)
     RelativeLayout rlHomeTown;
-    @InjectView(R.id.rl_hobby)
+    @BindView(R.id.rl_hobby)
     RelativeLayout rlHobby;
 
     @Override
@@ -95,7 +92,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_personal_data);
 
 
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         mHeightList = new ArrayList<>();
         for (int i = 150; i < 200; i++) {
             mHeightList.add(String.valueOf(i));

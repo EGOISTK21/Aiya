@@ -8,22 +8,21 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class JifenAndGiftActivity extends AppCompatActivity {
 
-    @InjectView(R.id.tv_cancel)
+    @BindView(R.id.tv_cancel)
     TextView mTvCancel;
-
-    @InjectView(R.id.buy10)
+    @BindView(R.id.buy10)
     ImageView mIvBuy10;
-    @InjectView(R.id.buy20)
+    @BindView(R.id.buy20)
     ImageView mIvBuy20;
-    @InjectView(R.id.buy50)
+    @BindView(R.id.buy50)
     ImageView mIvBuy50;
-    @InjectView(R.id.buy100)
+    @BindView(R.id.buy100)
     ImageView mIvBuy100;
 
 
@@ -31,7 +30,7 @@ public class JifenAndGiftActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jifen_and_gift);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
     }
 
 
