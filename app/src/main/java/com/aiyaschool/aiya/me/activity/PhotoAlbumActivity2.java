@@ -162,7 +162,8 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
                 String date = imagePathItem.getDate();
                 List<String> path = imagePathItem.getImagePath();
                 if (!date.equals(dateNow)) {
-                    path.remove(R.drawable.uploadpic_226x226 + "");
+                    boolean a = path.remove(R.drawable.uploadpic_226x226 + "");
+                    System.out.println("boolean"+a);
                     if (path.size() == 0) {
                         continue;
                     }
