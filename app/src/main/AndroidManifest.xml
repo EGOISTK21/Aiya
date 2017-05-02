@@ -45,7 +45,7 @@
             android:name=".activity.sign.SignActivity"
             android:windowSoftInputMode="stateVisible"/>
         <activity
-            android:name=".activity.FormActivity"
+            android:name=".activity.form.FormActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity

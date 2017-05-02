@@ -11,11 +11,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ * 登陆注册Model实现类
  * Created by EGOISTK21 on 2017/4/28.
  */
 
-public class SignModel implements SignContract.Model {
-
+class SignModel implements SignContract.Model {
     @Override
     public void sign(String phone, String verification, Observer<HttpResult<User>> observer) {
         APIUtil.getVerificationInitApi()

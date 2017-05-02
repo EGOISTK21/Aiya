@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.message.utils.TLSService;
+import com.aiyaschool.aiya.util.SignUtil;
 import com.tencent.TIMManager;
 
 import org.litepal.LitePal;
@@ -38,6 +39,7 @@ public class MyApplication extends Application {
     }
 
     public static void setUser(User user) {
+        SignUtil.setLoginToken(user.getLogintoken());
         sUser = user;
     }
 

@@ -12,12 +12,13 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
 /**
+ * 登陆注册Presenter实现类
  * Created by EGOISTK21 on 2017/4/28.
  */
 
 class SignPresenter implements SignContract.Presenter {
 
-    private final static String TAG = "SignPresenter";
+    private static final String TAG = "SignPresenter";
     private SignContract.Model mModel;
     private SignContract.View mView;
 
@@ -27,24 +28,24 @@ class SignPresenter implements SignContract.Presenter {
 
     @Override
     public void attach(SignContract.View view) {
-        this.mModel = new SignModel();
-        this.mView = view;
+        mModel = new SignModel();
+        mView = view;
     }
 
     @Override
     public void detach() {
-        this.mView = null;
-        this.mModel = null;
+        mView = null;
+        mModel = null;
     }
 
     @Override
-    public void sign(final String phone, String verification) {
+    public void sign(String phone, String verification) {
+        SignUtil.setPhone(phone);
         mModel.sign(phone, verification, new Observer<HttpResult<User>>() {
             @Override
             public void onSubscribe(@NonNull Disposable disposable) {
                 Log.i(TAG, "onSubscribe: sign");
                 mView.showPD();
-                SignUtil.setPhone(phone);
             }
 
             @Override
@@ -52,7 +53,6 @@ class SignPresenter implements SignContract.Presenter {
                 Log.i(TAG, "onNext: sign");
                 MyApplication.setHttpState(httpResult.getState());
                 MyApplication.setUser(httpResult.getData());
-                SignUtil.setLoginToken(httpResult.getData().getLogintoken());
             }
 
             @Override
@@ -71,8 +71,6 @@ class SignPresenter implements SignContract.Presenter {
                         break;
                     case "2000":
                         mView.startMainView();
-                        break;
-                    default:
                         break;
                 }
             }

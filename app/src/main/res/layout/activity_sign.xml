@@ -11,14 +11,14 @@
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_back"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/common_bar_height"
         android:layout_alignParentStart="true"
         android:gravity="center"
         android:paddingEnd="@dimen/common_margin_15"
         android:paddingStart="@dimen/common_margin_15"
         android:text="@string/back"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="15sp"
+        android:textSize="@dimen/common_text_size_15"
         android:visibility="invisible"/>
 
     <android.support.v7.widget.AppCompatTextView
@@ -42,7 +42,7 @@
         android:layout_marginTop="@dimen/common_margin_10"
         android:includeFontPadding="false"
         android:textColor="@color/colorContentMain"
-        android:textSize="13sp"
+        android:textSize="@dimen/common_text_size_13"
         android:visibility="invisible"/>
 
     <android.support.v7.widget.AppCompatEditText
@@ -86,7 +86,7 @@
         android:includeFontPadding="false"
         android:text="@string/sign_warn"
         android:textColor="@color/colorTitle"
-        android:textSize="13sp"
+        android:textSize="@dimen/common_text_size_13"
         android:visibility="invisible"/>
 
 </RelativeLayout>

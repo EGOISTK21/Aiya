@@ -1,8 +1,10 @@
-package com.aiyaschool.aiya.activity;
+package com.aiyaschool.aiya.activity.form;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -11,21 +13,28 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.FilletDialog;
 import com.aiyaschool.aiya.base.StringScrollPicker;
 import com.aiyaschool.aiya.util.StatusBarUtil;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * 表单Activity，仅在用户注册成功时出现一次
+ * 表单View实现类，仅在用户注册成功时出现一次
  * Created by EGOISTK21 on 2017/4/16.
  */
 
-public class FormActivity extends AppCompatActivity implements View.OnClickListener {
+public class FormActivity extends RxAppCompatActivity
+        implements FormContract.View, View.OnClickListener {
 
+    private static final String TAG = "FormActivity";
+    private ProgressDialog mPD;
+    private FormContract.Presenter mPresenter;
+    private InputMethodManager mInputMethodManager;
     private Button btnFinish;
     private EditText etNick, etHobby;
     private TextView tvSexPicker, tvSchoolPicker, tvAgePicker,
@@ -41,6 +50,13 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
         StatusBarUtil.init(this);
         initView();
         initListener();
+        mPresenter = new FormPresenter(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mPresenter.detach();
+        super.onDestroy();
     }
 
     private void initView() {
@@ -283,9 +299,33 @@ public class FormActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (null != this.getCurrentFocus()) {
-            InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    public void showPD() {
+        Log.i(TAG, "showPD");
+        if (mPD == null) {
+            mPD = new ProgressDialog(this);
+        }
+        if (!mPD.isShowing()) {
+            mPD.show();
+        }
+    }
+
+    @Override
+    public void dismissPD() {
+        Log.i(TAG, "dismissPD");
+        if (mPD != null && mPD.isShowing()) {
+            mPD.dismiss();
+        }
+    }
+
+    @Override
+    public void startMainView() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

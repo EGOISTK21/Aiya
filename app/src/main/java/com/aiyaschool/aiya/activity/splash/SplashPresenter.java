@@ -11,10 +11,12 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
 /**
+ * app启动动画Presenter实现类
  * Created by EGOISTK21 on 2017/5/1.
  */
 
 class SplashPresenter implements SplashContract.Presenter {
+
     private static final String TAG = "SplashPresenter";
     private SplashContract.Model mModel;
     private SplashContract.View mView;
@@ -25,14 +27,14 @@ class SplashPresenter implements SplashContract.Presenter {
 
     @Override
     public void attach(SplashContract.View view) {
-        this.mModel = new SplashModel();
-        this.mView = view;
+        mModel = new SplashModel();
+        mView = view;
     }
 
     @Override
     public void detach() {
-        this.mView = null;
-        this.mModel = null;
+        mView = null;
+        mModel = null;
     }
 
     @Override
@@ -65,6 +67,7 @@ class SplashPresenter implements SplashContract.Presenter {
                             mView.startMainView();
                             break;
                         case "5133":
+
                             mView.startFormView();
                             break;
                         case "3002":

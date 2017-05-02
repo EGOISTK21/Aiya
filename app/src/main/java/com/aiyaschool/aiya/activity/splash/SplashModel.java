@@ -11,6 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ * app启动动画Model实现类
  * Created by EGOISTK21 on 2017/5/1.
  */
 

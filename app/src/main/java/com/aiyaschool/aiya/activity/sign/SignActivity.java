@@ -21,9 +21,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.FormActivity;
+import com.aiyaschool.aiya.activity.form.FormActivity;
 import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.MessageContentObserver;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
@@ -34,8 +38,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
+ * 登陆注册View实现类
  * Created by EGOISTK21 on 2017/4/15.
  */
 
@@ -82,9 +91,8 @@ public class SignActivity extends RxAppCompatActivity implements SignContract.Vi
         setContentView(R.layout.activity_sign);
         StatusBarUtil.init(this);
         ButterKnife.bind(this);
-        initSmsObserver();
-        phone = SignUtil.getPhone();
         initView();
+        initSmsObserver();
     }
 
     @Override
@@ -100,12 +108,13 @@ public class SignActivity extends RxAppCompatActivity implements SignContract.Vi
     }
 
     private void initView() {
+        mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         Spannable spannable = new SpannableString("注册即表示同意《爱呀用户协议》");
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(SignActivity.this,
                 R.color.colorPrimaryDark)), 7, 15, Spanned.SPAN_POINT_MARK);
         tvWarn.setText(spannable);
+        phone = SignUtil.getPhone();
         initPhoneView();
-        mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     }
 
     @OnClick(value = R.id.tv_back)
@@ -169,7 +178,7 @@ public class SignActivity extends RxAppCompatActivity implements SignContract.Vi
         tvBack.setVisibility(View.VISIBLE);
         tvTitle.setText("请输入验证码");
         timeCounter = new TimeCounter(60000, 1000);
-        timeCounter.start();
+        timeCounter.myStart(phone);
         etSign.setText(verification);
         etSign.setSelection(verification.length());
         initVerificationViewBtnNext();
@@ -214,28 +223,47 @@ public class SignActivity extends RxAppCompatActivity implements SignContract.Vi
 
     @Override
     public void startFormView() {
+        Log.i(TAG, "startFormView");
+        APIUtil.getTokenApi()
+                .loadUser(MyApplication.getUser().getPhone(),
+                        MyApplication.getUser().getTemptoken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Consumer<HttpResult<User>>() {
+                    @Override
+                    public void accept(@NonNull HttpResult<User> httpResult) throws Exception {
+                        MyApplication.setUser(httpResult.getData());
+                    }
+                });
         startActivity(new Intent(this, FormActivity.class));
         finish();
     }
 
     @Override
     public void startMainView() {
+        Log.i(TAG, "startMainView");
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
     private class TimeCounter extends CountDownTimer {
 
+        private String fixPhone;
+
         TimeCounter(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
             tvSubTitle.setVisibility(View.VISIBLE);
         }
 
+        void myStart(String phone) {
+            fixPhone = phone;
+            this.start();
+        }
+
         @Override
         public void onTick(long millisUntilFinished) {
-//            Spannable spannable = new SpannableString(String.format("验证码已发送至%s,%2ds后可再次获取",phone, millisUntilFinished / 1000));
-            Spannable spannable = new SpannableString("验证码已发送至" + phone + "，"
-                    + String.format("%2d", millisUntilFinished / 1000) + "s后可再次获取");
+            Spannable spannable = new SpannableString(String.format("验证码已发送至%s，%2ds后可再次获取", fixPhone, millisUntilFinished / 1000));
             spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(SignActivity.this,
                     R.color.colorPrimaryDark)), 7, 18, Spanned.SPAN_POINT_MARK);
             spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(SignActivity.this,
@@ -243,7 +271,6 @@ public class SignActivity extends RxAppCompatActivity implements SignContract.Vi
             tvSubTitle.setText(spannable);
             btnNext.setClickable(!btnNext.getText().equals("获取验证码"));
         }
-
 
         @Override
         public void onFinish() {
@@ -257,9 +284,8 @@ public class SignActivity extends RxAppCompatActivity implements SignContract.Vi
                             mInputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                         }
 //                    SMSSDK.getVerificationCode("86", phone);
-//                    timeCounter.cancel();
-//                    timeCounter = new TimeCounter(60000, 1000);
-                        timeCounter.start();
+                        tvSubTitle.setVisibility(View.VISIBLE);
+                        timeCounter.myStart(phone);
                         initVerificationViewBtnNext();
                     }
                 });

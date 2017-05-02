@@ -6,6 +6,7 @@ import com.aiyaschool.aiya.bean.User;
 import io.reactivex.Observer;
 
 /**
+ * app启动动画MVP契约
  * Created by EGOISTK21 on 2017/5/1.
  */
 

@@ -6,10 +6,11 @@ import com.aiyaschool.aiya.bean.User;
 import io.reactivex.Observer;
 
 /**
+ * 登陆注册MVP契约
  * Created by EGOISTK21 on 2017/4/28.
  */
 
-public interface SignContract {
+interface SignContract {
     interface Model {
         void sign(String phone, String verification, Observer<HttpResult<User>> observer);
     }
