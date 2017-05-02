@@ -14,9 +14,8 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.MainActivity;
+import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.LazyFragment;
 
 /**
@@ -90,7 +89,7 @@ public class RandomMatchFragment extends LazyFragment implements RandomMatchCont
                 break;
             case R.id.btn_invite:
                 fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                MyApplication.getInstance().setMatched(true);
+                //MyApplication.getInstance().setMatched(true);
                 ((MainActivity) getActivity()).notifyAdapter();
                 break;
         }

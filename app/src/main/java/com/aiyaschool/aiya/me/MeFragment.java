@@ -1,6 +1,5 @@
 package com.aiyaschool.aiya.me;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,30 +7,22 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.MainActivity;
-import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.me.activity.JifenAndGiftActivity;
 import com.aiyaschool.aiya.me.activity.MemberActivity;
 import com.aiyaschool.aiya.me.activity.MoreSettingActivity;
 import com.aiyaschool.aiya.me.activity.MyEmotionActivity;
 import com.aiyaschool.aiya.me.activity.MyGiftActivity;
 import com.aiyaschool.aiya.me.activity.MyGuestActivity;
-import com.aiyaschool.aiya.me.activity.MyStateActivity;
 import com.aiyaschool.aiya.me.activity.PersonalDataActivity;
 import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity2;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.me.view.RoundImageView;
 import com.aiyaschool.aiya.multi_image_selector.MultiImageSelectorFragment;
-import com.aiyaschool.aiya.util.DBUtil;
-import com.aiyaschool.aiya.util.OkHttpUtil;
 import com.squareup.picasso.Picasso;
 
 import org.litepal.crud.DataSupport;

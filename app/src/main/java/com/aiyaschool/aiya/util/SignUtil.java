@@ -2,10 +2,8 @@ package com.aiyaschool.aiya.util;
 
 import java.util.regex.Pattern;
 
-import okhttp3.Response;
-
 /**
- * Created by EGOISTK21 on 2017/4/14.
+ * Created by EGOISTK21 on 2017/4/28.
  */
 
 public class SignUtil {
@@ -13,20 +11,30 @@ public class SignUtil {
     private SignUtil() {
     }
 
-    public static boolean isValidMobile(CharSequence mobile) {
-        return Pattern.compile("^1\\d{10}$").matcher(mobile).matches();
+    public static boolean isValidPhone(CharSequence phone) {
+        return null != phone && Pattern.compile("^1\\d{10}$").matcher(phone).matches();
     }
 
-    public static boolean isValidCode(CharSequence code) {
-        return Pattern.compile("\\d{4}$").matcher(code).matches();
+    public static boolean isValidVerification(CharSequence verification) {
+        return null != verification && Pattern.compile("\\d{4}$").matcher(verification).matches();
     }
 
-    public static boolean isValidNick(CharSequence nick) {
-        return Pattern.compile("[\\u4E00-\\u9FA5A-Za-z0-9_]{1,9}").matcher(nick).matches();
+    public static void setPhone(String phone) {
+        if (isValidPhone(phone)) {
+            DBUtil.setPhone(phone);
+        }
     }
 
-    public static Response sign(String phone, String verification) {
-        return OkHttpUtil.initUser(phone, verification);
+    public static void setLoginToken(String loginToken) {
+        DBUtil.setLoginToken(loginToken);
+    }
+
+    public static String getPhone() {
+        return DBUtil.getPhone();
+    }
+
+    public static String getLoginToken() {
+        return DBUtil.getLoginToken();
     }
 
 }

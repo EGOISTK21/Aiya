@@ -22,8 +22,8 @@ import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.FilletDialog;
 import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.base.StringScrollPicker;
-import com.aiyaschool.aiya.love.unmatched.randomMatch.RandomMatchFragment;
 import com.aiyaschool.aiya.love.unmatched.matchResult.MatchResultFragment;
+import com.aiyaschool.aiya.love.unmatched.randomMatch.RandomMatchFragment;
 import com.aiyaschool.aiya.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -317,7 +317,7 @@ public class ConditionMatchFragment extends LazyFragment
     public void updateSwitchesStatus(boolean isChecked, int index) {
         sum += isChecked ? (sum + prices[index] > 7 ? 0 : prices[index]) : -prices[index];
         if (sum == 7) {
-            ToastUtil.showToast(getContext(), "你已选满7￥");
+            ToastUtil.show("你已选满7￥");
         }
         if (sum > 4) {
             switches[0].setClickable(switches[0].isChecked());
@@ -359,7 +359,7 @@ public class ConditionMatchFragment extends LazyFragment
                 break;
             case R.id.btn_start_condition_match:
                 if (sum == 0) {
-                    ToastUtil.showToast(getContext(), "请至少选择一个选项");
+                    ToastUtil.show("请至少选择一个选项");
                     break;
                 }
                 ft.addToBackStack(null);

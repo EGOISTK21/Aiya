@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.MainActivity;
 
 public class GiftMethodActivity extends AppCompatActivity implements View.OnClickListener{
 

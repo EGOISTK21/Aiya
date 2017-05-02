@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.activity;
+package com.aiyaschool.aiya.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         final Fragment[] fragments = new Fragment[]{
                 /*new CommunityFragment(),*/
-                MyApplication.getInstance().isMatched()
+                MyApplication.getUser().isMatched()
                         ? MatchedContainerFragment.newInstance()
                         : UnmatchedContainerFragment.newInstance(),
                 new MsgListFragment(),
@@ -88,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public int getItemPosition(Object object) {
                 if (((/*object instanceof || */object instanceof UnmatchedContainerFragment)
-                        && MyApplication.getInstance().isMatched())
+                        && MyApplication.getUser().isMatched())
                         || ((/*object instanceof || */object instanceof MatchedContainerFragment)
-                        && !MyApplication.getInstance().isMatched())) {
+                        && !MyApplication.getUser().isMatched())) {
                     return POSITION_NONE;
                 }
                 if(isMeChanged&&object instanceof MeFragment){
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             public Object instantiateItem(ViewGroup container, int position) {
                 Fragment fragment = (Fragment) super.instantiateItem(container, position);
                 String fragmentTag = fragment.getTag();
-                if (MyApplication.getInstance().isMatched()) {
+                if (MyApplication.getUser().isMatched()) {
                     if (fragment instanceof UnmatchedContainerFragment) {
                         FragmentTransaction ft = fm.beginTransaction();
                         ft.remove(fragment);

@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 
-import com.aiyaschool.aiya.activity.SplashSignActivity;
+import com.aiyaschool.aiya.activity.sign.SignActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,7 +49,7 @@ public class MessageContentObserver extends ContentObserver {
                 if (matcher.find()) {
                     code = matcher.group(0);
                     Message msg = Message.obtain();
-                    msg.what = SplashSignActivity.CODE_RECEIVED;
+                    msg.what = SignActivity.VERIFICATION_RECEIVED;
                     msg.obj = code;
                     mHandler.sendMessage(msg);
                 } else {

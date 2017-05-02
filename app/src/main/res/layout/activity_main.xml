@@ -9,7 +9,7 @@
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.main.MainActivity">
 
     <com.aiyaschool.aiya.base.NoScrollViewPager
         android:id="@+id/viewpager_main"

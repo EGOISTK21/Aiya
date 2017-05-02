@@ -29,28 +29,28 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:windowSoftInputMode="stateVisible">
+        android:theme="@style/AppTheme">
+
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.splash.SplashActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait">
-
-        </activity>
-        <activity
-            android:name=".activity.FormActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
-            android:name=".activity.SplashSignActivity"
-            android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.sign.SignActivity"
+            android:windowSoftInputMode="stateVisible"/>
+        <activity
+            android:name=".activity.FormActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activity.main.MainActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.OtherCardActivity"
@@ -126,15 +126,15 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".me.activity.PersonalDataActivity" />
-        <activity android:name=".me.activity.JifenAndGiftActivity" />
-        <activity android:name=".me.activity.MyStateActivity" />
-        <activity android:name=".me.activity.MyGuestActivity" />
-        <activity android:name=".me.activity.MyEmotionActivity" />
-        <activity android:name=".me.activity.MyGiftActivity" />
-        <activity android:name=".me.activity.MoreSettingActivity" />
-        <activity android:name=".me.activity.GiftMethodActivity" />
-        <activity android:name=".me.activity.MemberActivity" />
+        <activity android:name=".me.activity.PersonalDataActivity"/>
+        <activity android:name=".me.activity.JifenAndGiftActivity"/>
+        <activity android:name=".me.activity.MyStateActivity"/>
+        <activity android:name=".me.activity.MyGuestActivity"/>
+        <activity android:name=".me.activity.MyEmotionActivity"/>
+        <activity android:name=".me.activity.MyGiftActivity"/>
+        <activity android:name=".me.activity.MoreSettingActivity"/>
+        <activity android:name=".me.activity.GiftMethodActivity"/>
+        <activity android:name=".me.activity.MemberActivity"/>
         <activity android:name=".me.activity.PhotoAlbumActivity2"></activity>
     </application>
 

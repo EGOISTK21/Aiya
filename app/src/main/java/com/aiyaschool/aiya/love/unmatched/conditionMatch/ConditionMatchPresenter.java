@@ -3,12 +3,6 @@ package com.aiyaschool.aiya.love.unmatched.conditionMatch;
 import android.content.Context;
 import android.os.Handler;
 
-import com.aiyaschool.aiya.util.OkHttpUtil;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created by EGOISTK21 on 2017/3/17.
  */
@@ -56,40 +50,40 @@ class ConditionMatchPresenter implements ConditionMatchContract.Presenter {
 
     @Override
     public void loadSchoolData() {
-        if (OkHttpUtil.isNetworkReachable(context)) {
-            model.getSchoolData(new OnServerReachableListener() {
-                @Override
-                public void onFailure() {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            view.toastNetworkError();
-                        }
-                    });
-                }
-
-                @Override
-                public void onSuccess(final List<String> data) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (data.isEmpty()) {
-                                data.add("没有什么大学");
-                                view.toastNetworkError();
-                            }
-                            view.setSchoolData(data);
-                        }
-                    });
-                }
-            });
-        } else {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    view.toastNetworkError();
-                    view.setSchoolData(new ArrayList<>(Arrays.asList("没有什么大学")));
-                }
-            });
-        }
+//        if (OkHttpUtil.isNetworkReachable(context)) {
+//            model.getSchoolData(new OnServerReachableListener() {
+//                @Override
+//                public void onFailure() {
+//                    handler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            view.toastNetworkError();
+//                        }
+//                    });
+//                }
+//
+//                @Override
+//                public void onSuccess(final List<String> data) {
+//                    handler.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (data.isEmpty()) {
+//                                data.add("没有什么大学");
+//                                view.toastNetworkError();
+//                            }
+//                            view.setSchoolData(data);
+//                        }
+//                    });
+//                }
+//            });
+//        } else {
+//            handler.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    view.toastNetworkError();
+//                    view.setSchoolData(new ArrayList<>(Arrays.asList("没有什么大学")));
+//                }
+//            });
+//        }
     }
 }

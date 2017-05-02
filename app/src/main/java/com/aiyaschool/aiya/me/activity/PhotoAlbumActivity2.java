@@ -28,7 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.MainActivity;
+import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.multi_image_selector.MultiImageSelector;
 import com.aiyaschool.aiya.multi_image_selector.MultiImageSelectorFragment;
