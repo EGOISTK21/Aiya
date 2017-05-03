@@ -26,6 +26,7 @@ interface FormContract {
                        String constellation,
                        String hometown,
                        String hobby,
+                       String avatar,
                        Observer<HttpResult<User>> observer);
     }
 
@@ -55,7 +56,8 @@ interface FormContract {
                        String height,
                        String constellation,
                        String hometown,
-                       String hobby);
+                       String hobby,
+                       String avatar);
     }
 
 }

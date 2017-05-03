@@ -5,11 +5,16 @@ import android.util.Log;
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.util.APIUtil;
+import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.ToastUtil;
 
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * app启动动画Presenter实现类
@@ -40,7 +45,6 @@ class SplashPresenter implements SplashContract.Presenter {
 
     @Override
     public void init(String phone, String loginToken) {
-        System.out.println(phone + loginToken);
         if (!phone.equals("") && !loginToken.equals("")) {
             mModel.init(phone, loginToken, new Observer<HttpResult<User>>() {
                 @Override
@@ -51,7 +55,6 @@ class SplashPresenter implements SplashContract.Presenter {
                 @Override
                 public void onNext(@NonNull HttpResult<User> httpResult) {
                     Log.i(TAG, "onNext: init");
-                    System.out.println(httpResult);
                     MyApplication.setHttpState(httpResult.getState());
                     MyApplication.setUser(httpResult.getData());
                 }
@@ -71,6 +74,19 @@ class SplashPresenter implements SplashContract.Presenter {
                             break;
                         case "5133":
                             ToastUtil.show("你好像还没提交注册信息");
+                            APIUtil.getTokenApi()
+                                    .loadUser(SignUtil.getPhone(),
+                                            MyApplication.getUser().getTemptoken())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .unsubscribeOn(Schedulers.io())
+                                    .subscribe(new Consumer<HttpResult<User>>() {
+                                        @Override
+                                        public void accept(@NonNull HttpResult<User> httpResult) throws Exception {
+                                            MyApplication.setHttpState(httpResult.getState());
+                                            MyApplication.setUser(httpResult.getData());
+                                        }
+                                    });
                             mView.startFormView();
                             break;
                         case "3002":

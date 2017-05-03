@@ -14,7 +14,9 @@ import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.FilletDialog;
 import com.aiyaschool.aiya.base.StringScrollPicker;
+import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
+import com.aiyaschool.aiya.util.ToastUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.ArrayList;
@@ -72,7 +74,12 @@ public class FormActivity extends RxAppCompatActivity implements FormContract.Vi
 
     @OnTextChanged(value = R.id.et_username)
     void setUsername(CharSequence username) {
-        mUsername = String.valueOf(username);
+        if (SignUtil.isValidVerification(username)) {
+            ToastUtil.cancle();
+            mUsername = String.valueOf(username);
+        } else {
+            ToastUtil.show("请输入合法用户名");
+        }
     }
 
     @OnTextChanged(value = R.id.et_hobby)
@@ -86,7 +93,7 @@ public class FormActivity extends RxAppCompatActivity implements FormContract.Vi
             mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
         }
         mPresenter.firstInit(MyApplication.getUser().getLogintoken(), MyApplication.getUser().getPhone(),
-                mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mHometown, mHobby);
+                mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mHometown, mHobby, "若头像上传成功，则填对应的URI");
     }
 
     @OnClick(value = R.id.tv_sex_picker)

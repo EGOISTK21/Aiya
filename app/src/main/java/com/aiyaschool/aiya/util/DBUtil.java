@@ -27,20 +27,6 @@ public class DBUtil {
         return sSharedPreferences.getString("phone", "");
     }
 
-    static void setTempToken(String tempToken) {
-        sEditor.putString("tempToken", tempToken);
-        sEditor.apply();
-    }
-
-    static String getTempToken() {
-        return sSharedPreferences.getString("tempToken", "");
-    }
-
-    static void clearTempToken() {
-        sEditor.remove("tempToken");
-        sEditor.apply();
-    }
-
     static void setLoginToken(String loginToken) {
         sEditor.putString("loginToken", loginToken);
         sEditor.apply();

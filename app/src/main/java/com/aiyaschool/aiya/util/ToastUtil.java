@@ -21,4 +21,8 @@ public class ToastUtil {
         sToast.show();
     }
 
+    public static void cancle() {
+        sToast.cancel();
+    }
+
 }

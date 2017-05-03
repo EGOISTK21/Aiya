@@ -7,6 +7,7 @@ import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.SignUtil;
+import com.aiyaschool.aiya.util.ToastUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -70,6 +71,9 @@ class SignPresenter implements SignContract.Presenter {
                 Log.i(TAG, "onComplete: sign");
                 mView.dismissPD();
                 switch (MyApplication.getHttpState()) {
+                    case "5144":
+                        ToastUtil.show("验证码错误");
+                        break;
                     case "5130":
                         APIUtil.getTokenApi()
                                 .loadUser(SignUtil.getPhone(), MyApplication.getUser().getTemptoken())
@@ -81,7 +85,6 @@ class SignPresenter implements SignContract.Presenter {
                                     public void accept(@NonNull HttpResult<User> httpResult) throws Exception {
                                         MyApplication.setHttpState(httpResult.getState());
                                         MyApplication.setUser(httpResult.getData());
-                                        SignUtil.clearTempToken();
                                     }
                                 });
                         mView.startFormView();

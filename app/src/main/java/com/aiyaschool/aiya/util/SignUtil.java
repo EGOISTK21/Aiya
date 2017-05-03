@@ -19,6 +19,10 @@ public class SignUtil {
         return null != verification && Pattern.compile("\\d{4}$").matcher(verification).matches();
     }
 
+    public static boolean isValidUsername(CharSequence username) {
+        return Pattern.compile("[\\u4E00-\\u9FA5A-Za-z0-9_]{1,9}").matcher(username).matches();
+    }
+
     public static void setPhone(String phone) {
         if (isValidPhone(phone)) {
             DBUtil.setPhone(phone);
@@ -27,18 +31,6 @@ public class SignUtil {
 
     public static String getPhone() {
         return DBUtil.getPhone();
-    }
-
-    public static void setTempToken(String tempToken) {
-        DBUtil.setTempToken(tempToken);
-    }
-
-    public static String getTempToken() {
-        return DBUtil.getTempToken();
-    }
-
-    public static void clearTempToken() {
-        DBUtil.clearTempToken();
     }
 
     public static void setLoginToken(String loginToken) {

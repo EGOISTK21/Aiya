@@ -55,7 +55,12 @@ class FormPresenter implements FormContract.Presenter {
             @Override
             public void onNext(@NonNull HttpResult<List<String>> listHttpResult) {
                 Log.i(TAG, "onNext: loadSchoolData");
-                mView.setSchoolData(listHttpResult.getData());
+                if (listHttpResult.getState().equals("2000")) {
+                    mView.setSchoolData(listHttpResult.getData());
+                } else {
+                    mView.setSchoolData(new ArrayList<>(Collections.singletonList("")));
+                    ToastUtil.show("网络错误");
+                }
             }
 
             @Override
@@ -84,9 +89,10 @@ class FormPresenter implements FormContract.Presenter {
                           String height,
                           String constellation,
                           String hometown,
-                          String hobby) {
+                          String hobby,
+                          String avatar) {
         mModel.firstInit(loginToken, phone, username, gender, school, age,
-                height, constellation, hometown, hobby, new Observer<HttpResult<User>>() {
+                height, constellation, hometown, hobby, avatar, new Observer<HttpResult<User>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         Log.i(TAG, "onSubscribe: firstInit");

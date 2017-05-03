@@ -41,12 +41,10 @@ public class MyApplication extends Application {
 
     public static void setUser(User user) {
         switch (sHttpState) {
-            case "5130":
-                SignUtil.setTempToken(user.getTemptoken());
-                break;
             case "2000":
                 SignUtil.setLoginToken(user.getLogintoken());
                 break;
+            case "5130":
             case "5051":
             case "5133":
             case "3002":

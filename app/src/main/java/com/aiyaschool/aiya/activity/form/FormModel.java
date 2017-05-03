@@ -20,7 +20,7 @@ class FormModel implements FormContract.Model {
     @Override
     public void loadSchoolData(Observer<HttpResult<List<String>>> observer) {
         APIUtil.getSearchSchoolApi()
-                .loadSchoolData(null, null)
+                .loadSchoolData(null, "陕西")
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -39,10 +39,11 @@ class FormModel implements FormContract.Model {
                           String constellation,
                           String hometown,
                           String hobby,
+                          String avatar,
                           Observer<HttpResult<User>> observer) {
         APIUtil.getFirstInitApi()
                 .submitUser(loginToken, phone, username, gender, school,
-                        age, height, constellation, hometown, hobby)
+                        age, height, constellation, hometown, hobby, avatar)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

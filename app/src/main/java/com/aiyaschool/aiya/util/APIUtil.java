@@ -90,6 +90,7 @@ public class APIUtil {
      * ['constellation']:星座,
      * ['hometown']:家乡,
      * ['hobby']:爱好
+     * ['avatar']:头像 URI (若头像上传成功，则填对应的URI)
      */
     public interface FirstInitApi {
         @Headers("accessToken:false")
@@ -104,7 +105,8 @@ public class APIUtil {
                                                 @Field("height") String height,
                                                 @Field("constellation") String constellation,
                                                 @Field("hometown") String hometown,
-                                                @Field("hobby") String hobby);
+                                                @Field("hobby") String hobby,
+                                                @Field("avatar") String avatar);
     }
 
     /**
@@ -114,6 +116,7 @@ public class APIUtil {
      * 单独传入province参数时为默认候选列表逻辑
      */
     public interface SearchSchoolApi {
+        @Headers("accessToken:false")
         @POST("Community/GET/searchSchool")
         @FormUrlEncoded
         Observable<HttpResult<List<String>>> loadSchoolData(@Field("keyword") String keyword,
