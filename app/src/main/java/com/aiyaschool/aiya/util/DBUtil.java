@@ -11,61 +11,51 @@ import com.aiyaschool.aiya.MyApplication;
 
 public class DBUtil {
 
-    private static SharedPreferences sSharedPreferences;
-    private static SharedPreferences.Editor sEditor;
+    private static SharedPreferences sSharedPreferences = MyApplication.getInstance().getSharedPreferences("test", Context.MODE_PRIVATE);
+    private static SharedPreferences.Editor sEditor = sSharedPreferences.edit();
 
     private DBUtil() {
 
     }
 
-    public static void setPhone(String phone) {
-        if (sSharedPreferences == null) {
-            sSharedPreferences = MyApplication.getInstance().getSharedPreferences("test", Context.MODE_PRIVATE);
-            sEditor = sSharedPreferences.edit();
-        }
+    static void setPhone(String phone) {
         sEditor.putString("phone", phone);
         sEditor.apply();
     }
 
-    public static void setLoginToken(String loginToken) {
-        if (sSharedPreferences == null) {
-            sSharedPreferences = MyApplication.getInstance().getSharedPreferences("test", Context.MODE_PRIVATE);
-            sEditor = sSharedPreferences.edit();
-        }
+    static String getPhone() {
+        return sSharedPreferences.getString("phone", "");
+    }
+
+    static void setTempToken(String tempToken) {
+        sEditor.putString("tempToken", tempToken);
+        sEditor.apply();
+    }
+
+    static String getTempToken() {
+        return sSharedPreferences.getString("tempToken", "");
+    }
+
+    static void clearTempToken() {
+        sEditor.remove("tempToken");
+        sEditor.apply();
+    }
+
+    static void setLoginToken(String loginToken) {
         sEditor.putString("loginToken", loginToken);
         sEditor.apply();
     }
 
-    public static String getPhone() {
-        if (sSharedPreferences == null) {
-            sSharedPreferences = MyApplication.getInstance().getSharedPreferences("test", Context.MODE_PRIVATE);
-            sEditor = sSharedPreferences.edit();
-        }
-        return sSharedPreferences.getString("phone", null);
+    static String getLoginToken() {
+        return sSharedPreferences.getString("loginToken", "");
     }
 
-    public static String getLoginToken() {
-        if (sSharedPreferences == null) {
-            sSharedPreferences = MyApplication.getInstance().getSharedPreferences("test", Context.MODE_PRIVATE);
-            sEditor = sSharedPreferences.edit();
-        }
-        return sSharedPreferences.getString("loginToken", null);
-    }
-
-    public static void clearLoginToken() {
-        if (sSharedPreferences == null) {
-            sSharedPreferences = MyApplication.getInstance().getSharedPreferences("test", Context.MODE_PRIVATE);
-            sEditor = sSharedPreferences.edit();
-        }
+    static void clearLoginToken() {
         sEditor.remove("loginToken");
         sEditor.apply();
     }
 
     public static void clearAll() {
-        if (sSharedPreferences == null) {
-            sSharedPreferences = MyApplication.getInstance().getSharedPreferences("test", Context.MODE_PRIVATE);
-            sEditor = sSharedPreferences.edit();
-        }
         sEditor.clear();
         sEditor.apply();
     }

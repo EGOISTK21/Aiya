@@ -66,7 +66,7 @@ public class User {
     }
 
     public String getAccessToken() {
-        return AccessToken;
+        return AccessToken == null ? "false" : AccessToken;
     }
 
     public void setAccessToken(String AccessToken) {

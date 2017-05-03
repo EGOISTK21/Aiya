@@ -3,6 +3,7 @@ package com.aiyaschool.aiya.util;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -24,6 +25,7 @@ import retrofit2.http.POST;
 
 public class APIUtil {
 
+    public static final int FILTER_TIMEOUT = 5;
     private static final int TIMEOUT = 5;
     private static final String ROOT = "https://lovefor7days.applinzi.com/";
     private static OkHttpClient sOkHttpClient = new OkHttpClient.Builder().connectTimeout(TIMEOUT, TimeUnit.SECONDS).build();
@@ -105,6 +107,19 @@ public class APIUtil {
                                                 @Field("hobby") String hobby);
     }
 
+    /**
+     * ['keyword']:   学校关键字
+     * ['province']: 学校所在省份
+     * 传入keyword参数时 province将被忽略(搜索逻辑)
+     * 单独传入province参数时为默认候选列表逻辑
+     */
+    public interface SearchSchoolApi {
+        @POST("Community/GET/searchSchool")
+        @FormUrlEncoded
+        Observable<HttpResult<List<String>>> loadSchoolData(@Field("keyword") String keyword,
+                                                            @Field("province") String hometown);
+    }
+
     public static VerificationInitApi getVerificationInitApi() {
         if (sRetrofit == null) {
             sRetrofit = new Retrofit.Builder().client(sOkHttpClient)
@@ -139,6 +154,10 @@ public class APIUtil {
 
     public static FirstInitApi getFirstInitApi() {
         return sRetrofit.create(FirstInitApi.class);
+    }
+
+    public static SearchSchoolApi getSearchSchoolApi() {
+        return sRetrofit.create(SearchSchoolApi.class);
     }
 
 }

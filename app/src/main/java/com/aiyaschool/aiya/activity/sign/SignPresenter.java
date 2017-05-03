@@ -5,11 +5,15 @@ import android.util.Log;
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.SignUtil;
 
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 登陆注册Presenter实现类
@@ -67,6 +71,19 @@ class SignPresenter implements SignContract.Presenter {
                 mView.dismissPD();
                 switch (MyApplication.getHttpState()) {
                     case "5130":
+                        APIUtil.getTokenApi()
+                                .loadUser(SignUtil.getPhone(), MyApplication.getUser().getTemptoken())
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .unsubscribeOn(Schedulers.io())
+                                .subscribe(new Consumer<HttpResult<User>>() {
+                                    @Override
+                                    public void accept(@NonNull HttpResult<User> httpResult) throws Exception {
+                                        MyApplication.setHttpState(httpResult.getState());
+                                        MyApplication.setUser(httpResult.getData());
+                                        SignUtil.clearTempToken();
+                                    }
+                                });
                         mView.startFormView();
                         break;
                     case "2000":

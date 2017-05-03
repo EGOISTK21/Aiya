@@ -4,6 +4,7 @@ import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.APIUtil;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observer;
@@ -16,6 +17,17 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 class FormModel implements FormContract.Model {
+    @Override
+    public void loadSchoolData(Observer<HttpResult<List<String>>> observer) {
+        APIUtil.getSearchSchoolApi()
+                .loadSchoolData(null, null)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
     @Override
     public void firstInit(String loginToken,
                           String phone,
@@ -31,7 +43,7 @@ class FormModel implements FormContract.Model {
         APIUtil.getFirstInitApi()
                 .submitUser(loginToken, phone, username, gender, school,
                         age, height, constellation, hometown, hobby)
-                .debounce(5, TimeUnit.SECONDS)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

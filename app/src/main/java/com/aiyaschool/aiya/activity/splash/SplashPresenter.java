@@ -5,6 +5,7 @@ import android.util.Log;
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.util.ToastUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -39,7 +40,8 @@ class SplashPresenter implements SplashContract.Presenter {
 
     @Override
     public void init(String phone, String loginToken) {
-        if (phone != null && loginToken != null) {
+        System.out.println(phone + loginToken);
+        if (!phone.equals("") && !loginToken.equals("")) {
             mModel.init(phone, loginToken, new Observer<HttpResult<User>>() {
                 @Override
                 public void onSubscribe(@NonNull Disposable disposable) {
@@ -49,6 +51,7 @@ class SplashPresenter implements SplashContract.Presenter {
                 @Override
                 public void onNext(@NonNull HttpResult<User> httpResult) {
                     Log.i(TAG, "onNext: init");
+                    System.out.println(httpResult);
                     MyApplication.setHttpState(httpResult.getState());
                     MyApplication.setUser(httpResult.getData());
                 }
@@ -67,12 +70,12 @@ class SplashPresenter implements SplashContract.Presenter {
                             mView.startMainView();
                             break;
                         case "5133":
-
+                            ToastUtil.show("你好像还没提交注册信息");
                             mView.startFormView();
                             break;
                         case "3002":
                         case "3050":
-                        default:
+                            ToastUtil.show("登录已过期，请重新登录");
                             mView.startSignView();
                             break;
                     }

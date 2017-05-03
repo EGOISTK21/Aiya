@@ -55,7 +55,7 @@
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/tv_nick"
+                        android:id="@+id/tv_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -67,11 +67,11 @@
                         android:textSize="@dimen/common_text_size_15"/>
 
                     <android.support.v7.widget.AppCompatEditText
-                        android:id="@+id/et_nick"
+                        android:id="@+id/et_username"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentBottom="true"
-                        android:layout_toEndOf="@+id/tv_nick"
+                        android:layout_toEndOf="@+id/tv_username"
                         android:layout_toStartOf="@+id/ibn_avatar"
                         android:background="@null"
                         android:gravity="bottom"
@@ -335,7 +335,7 @@
     </ScrollView>
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_finish"
+        android:id="@+id/btn_start"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"

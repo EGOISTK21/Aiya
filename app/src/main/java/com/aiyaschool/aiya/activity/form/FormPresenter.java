@@ -2,8 +2,14 @@ package com.aiyaschool.aiya.activity.form;
 
 import android.util.Log;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.util.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -38,6 +44,37 @@ class FormPresenter implements FormContract.Presenter {
     }
 
     @Override
+    public void loadSchoolData() {
+        mModel.loadSchoolData(new Observer<HttpResult<List<String>>>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.i(TAG, "onSubscribe: loadSchoolData");
+                mView.showPD();
+            }
+
+            @Override
+            public void onNext(@NonNull HttpResult<List<String>> listHttpResult) {
+                Log.i(TAG, "onNext: loadSchoolData");
+                mView.setSchoolData(listHttpResult.getData());
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.i(TAG, "onError: loadSchoolData");
+                mView.dismissPD();
+                mView.setSchoolData(new ArrayList<>(Collections.singletonList("")));
+                ToastUtil.show("网络错误");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "onComplete: loadSchoolData");
+                mView.dismissPD();
+            }
+        });
+    }
+
+    @Override
     public void firstInit(String loginToken,
                           String phone,
                           String username,
@@ -52,22 +89,30 @@ class FormPresenter implements FormContract.Presenter {
                 height, constellation, hometown, hobby, new Observer<HttpResult<User>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-
+                        Log.i(TAG, "onSubscribe: firstInit");
+                        mView.showPD();
                     }
 
                     @Override
                     public void onNext(@NonNull HttpResult<User> httpResult) {
-
+                        Log.i(TAG, "onNext: firstInit");
+                        switch (httpResult.getState()) {
+                            case "2000":
+                                MyApplication.setUser(httpResult.getData());
+                                break;
+                        }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
+                        Log.i(TAG, "onError: firstInit");
+                        mView.dismissPD();
                     }
 
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: firstInit");
+                        mView.dismissPD();
                         mView.startMainView();
                     }
                 });

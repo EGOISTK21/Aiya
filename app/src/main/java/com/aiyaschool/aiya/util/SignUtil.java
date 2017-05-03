@@ -25,16 +25,32 @@ public class SignUtil {
         }
     }
 
-    public static void setLoginToken(String loginToken) {
-        DBUtil.setLoginToken(loginToken);
-    }
-
     public static String getPhone() {
         return DBUtil.getPhone();
     }
 
+    public static void setTempToken(String tempToken) {
+        DBUtil.setTempToken(tempToken);
+    }
+
+    public static String getTempToken() {
+        return DBUtil.getTempToken();
+    }
+
+    public static void clearTempToken() {
+        DBUtil.clearTempToken();
+    }
+
+    public static void setLoginToken(String loginToken) {
+        DBUtil.setLoginToken(loginToken);
+    }
+
     public static String getLoginToken() {
         return DBUtil.getLoginToken();
+    }
+
+    public static void clearLoginToken() {
+        DBUtil.clearLoginToken();
     }
 
 }

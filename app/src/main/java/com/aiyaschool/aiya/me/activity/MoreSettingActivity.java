@@ -8,6 +8,7 @@ import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.sign.SignActivity;
 import com.aiyaschool.aiya.util.DBUtil;
+import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -30,7 +31,7 @@ public class MoreSettingActivity extends RxAppCompatActivity {
 
     @OnClick(value = R.id.btn_login_out)
     void loginOut() {
-        DBUtil.clearLoginToken();
+        SignUtil.clearLoginToken();
         startActivity(new Intent(this, SignActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         finish();
     }

@@ -3,6 +3,8 @@ package com.aiyaschool.aiya.activity.form;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 
+import java.util.List;
+
 import io.reactivex.Observer;
 
 /**
@@ -12,6 +14,8 @@ import io.reactivex.Observer;
 
 interface FormContract {
     interface Model {
+        void loadSchoolData(Observer<HttpResult<List<String>>> observer);
+
         void firstInit(String loginToken,
                        String phone,
                        String username,
@@ -30,6 +34,8 @@ interface FormContract {
 
         void dismissPD();
 
+        void setSchoolData(List<String> schools);
+
         void startMainView();
     }
 
@@ -37,6 +43,8 @@ interface FormContract {
         void attach(View view);
 
         void detach();
+
+        void loadSchoolData();
 
         void firstInit(String loginToken,
                        String phone,

@@ -16,4 +16,12 @@ public class HttpResult<T> {
     public T getData() {
         return data;
     }
+
+    @Override
+    public String toString() {
+        return "HttpResult{" +
+                "state='" + state + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }
