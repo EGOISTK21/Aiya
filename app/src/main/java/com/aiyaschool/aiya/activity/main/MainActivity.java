@@ -8,12 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.base.NoScrollViewPager;
 import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
@@ -26,7 +26,7 @@ import com.aiyaschool.aiya.util.StatusBarUtil;
  * Created by EGOISTK21 on 2017/3/13.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final int PAGE_COUNT = 3;
     private NoScrollViewPager vpMain;

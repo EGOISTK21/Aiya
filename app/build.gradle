@@ -10,8 +10,8 @@ android {
         applicationId 'com.aiyaschool.aiya'
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 16
-        versionName '0.1beta'
+        versionCode 1
+        versionName '1.0'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         ndk {
@@ -19,8 +19,19 @@ android {
         }
     }
     buildTypes {
-        release {
+        debug {
+            debuggable true
+            jniDebuggable true
+            zipAlignEnabled true
             minifyEnabled false
+            shrinkResources false
+        }
+        release {
+            debuggable false
+            jniDebuggable false
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

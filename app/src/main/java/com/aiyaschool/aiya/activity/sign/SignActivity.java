@@ -21,9 +21,9 @@ import android.view.inputmethod.InputMethodManager;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.form.FormActivity;
 import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +35,7 @@ import butterknife.OnTextChanged;
  * Created by EGOISTK21 on 2017/4/15.
  */
 
-public class SignActivity extends RxAppCompatActivity implements SignContract.View {
+public class SignActivity extends BaseActivity implements SignContract.View {
 
     private final static String TAG = "SignActivity";
     private boolean isVerificationView;

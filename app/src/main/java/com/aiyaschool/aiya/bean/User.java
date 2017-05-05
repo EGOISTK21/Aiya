@@ -32,11 +32,11 @@ public class User {
     private String loveid;
     private String group;
     private String province;
-    private AvatarBean avatar;
+    private Avatar avatar;
     private String profile;
     private String points;
     private String gifttickets;
-    private ImgwallBean imgwall;
+    private Imgwall imgwall;
     private String usersig;
     private String logintoken;
 
@@ -109,11 +109,11 @@ public class User {
         this.province = province;
     }
 
-    public AvatarBean getAvatar() {
+    public Avatar getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(AvatarBean avatar) {
+    public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
     }
 
@@ -141,11 +141,11 @@ public class User {
         this.gifttickets = gifttickets;
     }
 
-    public ImgwallBean getImgwall() {
+    public Imgwall getImgwall() {
         return imgwall;
     }
 
-    public void setImgwall(ImgwallBean imgwall) {
+    public void setImgwall(Imgwall imgwall) {
         this.imgwall = imgwall;
     }
 
@@ -165,32 +165,32 @@ public class User {
         this.logintoken = logintoken;
     }
 
-    public static class AvatarBean {
+    public static class Avatar {
         /**
          * normal : {"face":"http://cdn.sinacloud.net/gxwy-user/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=aTVxXyiYsr&Expires=1493558756","background":"http://cdn.sinacloud.net/gxwy-user/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=9%2F2aGPHyih&Expires=1493558756"}
          * thumb : {"face":"http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=k1IE5rKli6&Expires=1493558756","background":"http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=r1nCbOvIRL&Expires=1493558756"}
          */
 
-        private NormalBean normal;
-        private ThumbBean thumb;
+        private Normal normal;
+        private Thumb thumb;
 
-        public NormalBean getNormal() {
+        public Normal getNormal() {
             return normal;
         }
 
-        public void setNormal(NormalBean normal) {
+        public void setNormal(Normal normal) {
             this.normal = normal;
         }
 
-        public ThumbBean getThumb() {
+        public Thumb getThumb() {
             return thumb;
         }
 
-        public void setThumb(ThumbBean thumb) {
+        public void setThumb(Thumb thumb) {
             this.thumb = thumb;
         }
 
-        public static class NormalBean {
+        public static class Normal {
             /**
              * face : http://cdn.sinacloud.net/gxwy-user/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=aTVxXyiYsr&Expires=1493558756
              * background : http://cdn.sinacloud.net/gxwy-user/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=9%2F2aGPHyih&Expires=1493558756
@@ -216,7 +216,7 @@ public class User {
             }
         }
 
-        public static class ThumbBean {
+        public static class Thumb {
             /**
              * face : http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=k1IE5rKli6&Expires=1493558756
              * background : http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=r1nCbOvIRL&Expires=1493558756
@@ -243,7 +243,7 @@ public class User {
         }
     }
 
-    public static class ImgwallBean {
+    public static class Imgwall {
         /**
          * rows : 0
          * url : null

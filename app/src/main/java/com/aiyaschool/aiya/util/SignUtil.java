@@ -20,7 +20,7 @@ public class SignUtil {
     }
 
     public static boolean isValidUsername(CharSequence username) {
-        return Pattern.compile("[\\u4E00-\\u9FA5A-Za-z0-9_]{1,9}").matcher(username).matches();
+        return null != username && Pattern.compile("[\\u4E00-\\u9FA5A-Za-z0-9_]{1,9}").matcher(username).matches();
     }
 
     public static void setPhone(String phone) {

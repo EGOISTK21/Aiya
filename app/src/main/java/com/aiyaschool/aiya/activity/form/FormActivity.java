@@ -3,21 +3,26 @@ package com.aiyaschool.aiya.activity.form;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.base.FilletDialog;
 import com.aiyaschool.aiya.base.StringScrollPicker;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
 import com.aiyaschool.aiya.util.ToastUtil;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,16 +38,21 @@ import butterknife.OnTextChanged;
  * Created by EGOISTK21 on 2017/4/16.
  */
 
-public class FormActivity extends RxAppCompatActivity implements FormContract.View {
+public class FormActivity extends BaseActivity implements FormContract.View {
 
     private static final String TAG = "FormActivity";
+    public static final int CHOOSE_PHOTO = 13;
     private ProgressDialog mPD;
     private FormContract.Presenter mPresenter;
     private InputMethodManager mInputMethodManager;
-    private String mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mHometown, mHobby;
+    private Bitmap mAvatar;
+    private List<String> mSchools;
+    private String mUsername, mSex, mSchool, mAge, mHeight, mConstellation, mHometown, mHobby;
     private FilletDialog dialogSexPicker, dialogSchoolPicker, dialogAgePicker,
             dialogHeightPicker, dialogConstellationPicker, dialogHometownPicker;
     private StringScrollPicker sspSex, sspSchool, sspAge, sspHeight, sspConstellation, sspHometown;
+    @BindView(R.id.ibn_avatar)
+    AppCompatImageButton ibnAvatar;
     @BindView(R.id.tv_sex_picker)
     AppCompatTextView tvSexPicker;
     @BindView(R.id.tv_school_picker)
@@ -72,14 +82,73 @@ public class FormActivity extends RxAppCompatActivity implements FormContract.Vi
         super.onDestroy();
     }
 
+    @OnClick(value = R.id.ibn_avatar)
+    void setAvatar() {
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("scale", true);
+        intent.putExtra("return-data", true);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true); // no face detection
+        startActivityForResult(intent, CHOOSE_PHOTO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CHOOSE_PHOTO && resultCode == RESULT_OK) {
+//            String imagePath = null;
+//            Uri uri = data.getData();
+//            if (DocumentsContract.isDocumentUri(this, uri)) {
+//                String docId = DocumentsContract.getDocumentId(uri);
+//                if (uri.getAuthority().equals("com.android.providers.media.documents")) {
+//                    String id = docId.split(":")[1];
+//                    String selection = MediaStore.Images.Media._ID + "=" + id;
+//                    imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+//                } else if (uri.getAuthority().equals("com.android.providers.downloads.documents")) {
+//                    Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+//                    imagePath = getImagePath(contentUri, null);
+//                }
+//            } else if (uri.getScheme().equals("content")) {
+//                imagePath = getImagePath(uri, null);
+//            } else if (uri.getScheme().equals("file")) {
+//                imagePath = uri.getPath();
+//            }
+//            displayImage(imagePath);
+            Bitmap bitmap = null;
+            bitmap = data.getParcelableExtra("data");
+            ibnAvatar.setImageBitmap(bitmap);
+        }
+    }
+
+    private String getImagePath(Uri uri, String selection) {
+        String path = null;
+        Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
+
+    private void displayImage(String imagePath) {
+        if (imagePath != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            ibnAvatar.setImageBitmap(bitmap);
+        } else {
+            ToastUtil.show("未找到图片");
+        }
+    }
+
     @OnTextChanged(value = R.id.et_username)
     void setUsername(CharSequence username) {
-        if (SignUtil.isValidVerification(username)) {
-            ToastUtil.cancle();
-            mUsername = String.valueOf(username);
-        } else {
-            ToastUtil.show("请输入合法用户名");
-        }
+        mUsername = String.valueOf(username);
     }
 
     @OnTextChanged(value = R.id.et_hobby)
@@ -92,8 +161,27 @@ public class FormActivity extends RxAppCompatActivity implements FormContract.Vi
         if (null != this.getCurrentFocus()) {
             mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
         }
-        mPresenter.firstInit(MyApplication.getUser().getLogintoken(), MyApplication.getUser().getPhone(),
-                mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mHometown, mHobby, "若头像上传成功，则填对应的URI");
+        if (!SignUtil.isValidUsername(mUsername)) {
+            ToastUtil.show("请输入合法用户名");
+        } else if (mSex == null) {
+
+        } else if (mSchool == null) {
+
+        } else if (mAge == null) {
+
+        } else if (mHeight == null) {
+
+        } else if (mConstellation == null) {
+
+        } else if (mHometown == null) {
+
+        } else {
+            String mGender = mSex.equals("男") ? "1" : "2";
+            System.out.println(SignUtil.getLoginToken() + SignUtil.getPhone() +
+                    mUsername + mGender + mSchool + mAge + mHeight + mConstellation + mHometown + mHobby);
+            mPresenter.firstInit(SignUtil.getLoginToken(), SignUtil.getPhone(),
+                    mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mHometown, mHobby, null);
+        }
     }
 
     @OnClick(value = R.id.tv_sex_picker)
@@ -104,16 +192,16 @@ public class FormActivity extends RxAppCompatActivity implements FormContract.Vi
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (mGender != null) {
-                                sspSex.setSelectedItem(mGender);
+                            if (mSex != null) {
+                                sspSex.setSelectedItem(mSex);
                             }
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            mGender = sspSex.getSelectedItem();
-                            tvSexPicker.setText(mGender);
+                            mSex = sspSex.getSelectedItem();
+                            tvSexPicker.setText(mSex);
                             dialog.dismiss();
                         }
                     }).create();
@@ -145,7 +233,11 @@ public class FormActivity extends RxAppCompatActivity implements FormContract.Vi
                     }).create();
         }
         dialogSchoolPicker.show();
-        mPresenter.loadSchoolData();
+        if (mSchool == null) {
+            mPresenter.loadSchoolData();
+        } else {
+            setSchoolData(mSchools);
+        }
     }
 
     @OnClick(value = R.id.tv_age_picker)
@@ -266,9 +358,13 @@ public class FormActivity extends RxAppCompatActivity implements FormContract.Vi
             sspSchool = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_single);
             if (sspSchool != null) {
                 sspSchool.setData(schools);
-                tvSchoolPicker.setText(schools.get(0).equals("")
-                        ? ""
-                        : (sspSchool.getSelectedItem().subSequence(0, 4) + "…"));
+                if (schools.get(0).equals("")) {
+                    mSchools = null;
+                    tvSchoolPicker.setText("");
+                } else {
+                    mSchools = schools;
+                    tvSchoolPicker.setText(sspSchool.getSelectedItem().subSequence(0, 4) + "…");
+                }
             }
         }
     }

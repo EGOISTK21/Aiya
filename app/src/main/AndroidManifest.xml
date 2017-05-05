@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.aiyaschool.aiya">
 
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -135,7 +133,7 @@
         <activity android:name=".me.activity.MoreSettingActivity"/>
         <activity android:name=".me.activity.GiftMethodActivity"/>
         <activity android:name=".me.activity.MemberActivity"/>
-        <activity android:name=".me.activity.PhotoAlbumActivity2"></activity>
+        <activity android:name=".me.activity.PhotoAlbumActivity2"/>
     </application>
 
 </manifest>
