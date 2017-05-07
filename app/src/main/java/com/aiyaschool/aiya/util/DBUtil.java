@@ -28,8 +28,10 @@ public class DBUtil {
     }
 
     static void setLoginToken(String loginToken) {
-        sEditor.putString("loginToken", loginToken);
-        sEditor.apply();
+        if (loginToken != null) {
+            sEditor.putString("loginToken", loginToken);
+            sEditor.apply();
+        }
     }
 
     static String getLoginToken() {

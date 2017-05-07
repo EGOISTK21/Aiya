@@ -45,6 +45,7 @@ class SplashPresenter implements SplashContract.Presenter {
 
     @Override
     public void init(String phone, String loginToken) {
+        Log.i(TAG, "init: " + "phone:" + phone + " logintoken:" + loginToken);
         if (!phone.equals("") && !loginToken.equals("")) {
             mModel.init(phone, loginToken, new Observer<HttpResult<User>>() {
                 @Override
@@ -55,6 +56,7 @@ class SplashPresenter implements SplashContract.Presenter {
                 @Override
                 public void onNext(@NonNull HttpResult<User> httpResult) {
                     Log.i(TAG, "onNext: init");
+                    Log.i(TAG, "onNext: " + httpResult);
                     MyApplication.setHttpState(httpResult.getState());
                     MyApplication.setUser(httpResult.getData());
                 }
@@ -83,6 +85,7 @@ class SplashPresenter implements SplashContract.Presenter {
                                     .subscribe(new Consumer<HttpResult<User>>() {
                                         @Override
                                         public void accept(@NonNull HttpResult<User> httpResult) throws Exception {
+                                            Log.i(TAG, "accept: " + httpResult);
                                             MyApplication.setHttpState(httpResult.getState());
                                             MyApplication.setUser(httpResult.getData());
                                         }

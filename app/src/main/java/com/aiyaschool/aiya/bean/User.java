@@ -10,7 +10,7 @@ public class User {
      * temptoken : f29c1317158d76821e8d11ccd8a007a358fc9984c178e
      * username : xihuan
      * phone : 15000000000
-     * AccessToken : 48f418d380c1cf2ae948732780f6a39815000000000590494641c6de
+     * accesstoken : 48f418d380c1cf2ae948732780f6a39815000000000590494641c6de
      * school : 南京大学
      * loveid : 1
      * group : 1
@@ -27,7 +27,7 @@ public class User {
     private String temptoken;
     private String username;
     private String phone;
-    private String AccessToken;
+    private String accesstoken;
     private String school;
     private String loveid;
     private String group;
@@ -65,12 +65,12 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAccessToken() {
-        return AccessToken == null ? "false" : AccessToken;
+    public String getAccesstoken() {
+        return accesstoken == null ? "false" : accesstoken;
     }
 
-    public void setAccessToken(String AccessToken) {
-        this.AccessToken = AccessToken;
+    public void setAccesstoken(String AccessToken) {
+        this.accesstoken = AccessToken;
     }
 
     public String getSchool() {
@@ -275,7 +275,7 @@ public class User {
                 "temptoken='" + temptoken + '\'' +
                 ", username='" + username + '\'' +
                 ", phone='" + phone + '\'' +
-                ", AccessToken='" + AccessToken + '\'' +
+                ", accesstoken='" + accesstoken + '\'' +
                 ", school='" + school + '\'' +
                 ", loveid='" + loveid + '\'' +
                 ", group='" + group + '\'' +

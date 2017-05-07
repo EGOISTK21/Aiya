@@ -1,6 +1,7 @@
 package com.aiyaschool.aiya;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.message.utils.TLSService;
@@ -42,6 +43,7 @@ public class MyApplication extends Application {
     public static void setUser(User user) {
         switch (sHttpState) {
             case "2000":
+                Log.w("MyApplication", "logintoken: " + user.getLogintoken());
                 SignUtil.setLoginToken(user.getLogintoken());
                 break;
             case "5130":

@@ -56,6 +56,7 @@ class SignPresenter implements SignContract.Presenter {
             @Override
             public void onNext(@NonNull HttpResult<User> httpResult) {
                 Log.i(TAG, "onNext: sign");
+                Log.i(TAG, "onNext: " + httpResult);
                 MyApplication.setHttpState(httpResult.getState());
                 MyApplication.setUser(httpResult.getData());
             }
@@ -83,6 +84,7 @@ class SignPresenter implements SignContract.Presenter {
                                 .subscribe(new Consumer<HttpResult<User>>() {
                                     @Override
                                     public void accept(@NonNull HttpResult<User> httpResult) throws Exception {
+                                        Log.i(TAG, "accept: " + httpResult);
                                         MyApplication.setHttpState(httpResult.getState());
                                         MyApplication.setUser(httpResult.getData());
                                     }
