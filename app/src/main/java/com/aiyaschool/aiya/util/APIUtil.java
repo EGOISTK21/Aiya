@@ -61,7 +61,7 @@ public class APIUtil {
         @POST("Home/GET/init")
         @FormUrlEncoded
         Observable<HttpResult<User>> loadUser(@Field("phone") String phone,
-                                              @Field("LoginToken") String loginToken);
+                                              @Field("logintoken") String loginToken);
     }
 
     /**
@@ -96,7 +96,7 @@ public class APIUtil {
         @Headers("accessToken:false")
         @POST("Home/GET/firstInit")
         @FormUrlEncoded
-        Observable<HttpResult<User>> submitUser(@Field("LoginToken") String loginToken,
+        Observable<HttpResult<User>> submitUser(@Field("logintoken") String loginToken,
                                                 @Field("phone") String phone,
                                                 @Field("username") String username,
                                                 @Field("gender") String gender,

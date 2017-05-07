@@ -161,6 +161,7 @@ public class FormActivity extends BaseActivity implements FormContract.View {
         if (null != this.getCurrentFocus()) {
             mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
         }
+        System.out.println(SignUtil.getLoginToken());
         if (!SignUtil.isValidUsername(mUsername)) {
             ToastUtil.show("请输入合法用户名");
         } else if (mSex == null) {
@@ -177,8 +178,6 @@ public class FormActivity extends BaseActivity implements FormContract.View {
 
         } else {
             String mGender = mSex.equals("男") ? "1" : "2";
-            System.out.println(SignUtil.getLoginToken() + SignUtil.getPhone() +
-                    mUsername + mGender + mSchool + mAge + mHeight + mConstellation + mHometown + mHobby);
             mPresenter.firstInit(SignUtil.getLoginToken(), SignUtil.getPhone(),
                     mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mHometown, mHobby, null);
         }
@@ -381,9 +380,14 @@ public class FormActivity extends BaseActivity implements FormContract.View {
     private void setHeightData() {
         if (dialogHeightPicker != null && sspHeight == null) {
             sspHeight = (StringScrollPicker) dialogHeightPicker.findViewById(R.id.ssp_single);
-            sspHeight.setData(new ArrayList<>(Arrays.asList("150以下", "150–154", "155–159",
-                    "160–164", "165–169", "170–174", "175–179", "180–184", "185–189", "190及以上")));
-            sspHeight.setSelectedPosition(6);
+            sspHeight.setData(new ArrayList<>(Arrays.asList("140", "141", "142", "143", "144", "145",
+                    "146", "147", "148", "149", "150", "151", "152", "153", "154", "155", "156", "157",
+                    "158", "159", "160", "161", "162", "163", "164", "165", "166", "167", "168", "169",
+                    "170", "171", "172", "173", "174", "175", "176", "177", "178", "179", "180", "181",
+                    "182", "183", "184", "185", "186", "187", "188", "189", "190", "191", "192", "193",
+                    "194", "195", "196", "197", "198", "199", "200", "201", "202", "203", "204", "205",
+                    "206", "207", "208", "209", "210")));
+            sspHeight.setSelectedPosition(30);
         }
     }
 

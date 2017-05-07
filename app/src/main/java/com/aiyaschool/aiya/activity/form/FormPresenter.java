@@ -102,6 +102,7 @@ class FormPresenter implements FormContract.Presenter {
                     @Override
                     public void onNext(@NonNull HttpResult<User> httpResult) {
                         Log.i(TAG, "onNext: firstInit");
+                        Log.i(TAG, "onNext: " + httpResult);
                         switch (httpResult.getState()) {
                             case "2000":
                                 MyApplication.setUser(httpResult.getData());
