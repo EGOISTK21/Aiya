@@ -8,7 +8,7 @@
 
     <include layout="@layout/view_me_center"/>
 
-    <include layout="@layout/view_me_bottom"/>
+    <include layout="@layout/view_me_bottom" />
 
 
 </LinearLayout>

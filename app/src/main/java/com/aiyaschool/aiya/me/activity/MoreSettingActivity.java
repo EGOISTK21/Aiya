@@ -43,6 +43,7 @@ public class MoreSettingActivity extends RxAppCompatActivity {
 
     @OnClick(value = R.id.btn_print)
     void print() {
+
         tv.setText(MyApplication.getUser().toString());
     }
 }

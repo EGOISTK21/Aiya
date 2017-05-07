@@ -17,6 +17,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        multiDexEnabled true
     }
     buildTypes {
         debug {
@@ -89,7 +90,6 @@ dependencies {
     compile name: 'SMSSDK-2.1.4', ext: 'aar'
     compile project(path: ':multi_image_selector')
     compile 'org.litepal.android:core:1.5.1'
-    compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'

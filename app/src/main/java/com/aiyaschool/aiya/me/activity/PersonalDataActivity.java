@@ -49,7 +49,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 
     private ArrayList<String> mSelectPath, mHeightList;
     private ArrayList<String> mYearDataList, mMonthDataList, mDayDataList;
-    private ArrayList<String> mProvinceList,mCityList,mAreaList;
+    private ArrayList<String> mProvinceList, mCityList, mAreaList;
     private List<RegionModel> mRmProvinceList, mRmCityList, mRmAreaList;
 
     private RegionDao mRegionDao;
@@ -75,8 +75,6 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     RelativeLayout rlBirth;
     @BindView(R.id.rl_school)
     RelativeLayout rlSchool;
-    @BindView(R.id.rl_major)
-    RelativeLayout rlMajor;
     @BindView(R.id.rl_sign_name)
     RelativeLayout rlSignName;
     @BindView(R.id.rl_height)
@@ -85,6 +83,10 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     RelativeLayout rlHomeTown;
     @BindView(R.id.rl_hobby)
     RelativeLayout rlHobby;
+    @BindView(R.id.tv_hobby)
+    TextView mTvHobby;
+    @BindView(R.id.rl_constellation)
+    RelativeLayout rlConstellation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,13 +117,13 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         DBCopyUtil.copyDataBaseFromAssets(this, "region.db");
         mRegionDao = new RegionDao(this);
         mRmProvinceList = mRegionDao.loadProvinceList();
-        for (RegionModel regionModel : mRmProvinceList){
+        for (RegionModel regionModel : mRmProvinceList) {
             mProvinceList.add(regionModel.getName());
         }
     }
 
 
-    @OnClick({R.id.tv_cancel, R.id.tv_save, R.id.rl_person_photo, R.id.rl_birth, R.id.rl_school, R.id.rl_major, R.id.rl_sign_name, R.id.rl_height, R.id.rl_home_town, R.id.rl_hobby})
+    @OnClick({R.id.tv_cancel, R.id.tv_save, R.id.rl_person_photo, R.id.rl_birth, R.id.rl_school, R.id.rl_sign_name, R.id.rl_height, R.id.rl_home_town, R.id.rl_hobby, R.id.rl_constellation})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_cancel:
@@ -139,8 +141,6 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.rl_school:
                 break;
-            case R.id.rl_major:
-                break;
             case R.id.rl_sign_name:
                 break;
             case R.id.rl_height:
@@ -149,9 +149,12 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             case R.id.rl_home_town:
                 showDialogHomeTownPicker();
                 break;
-            case R.id.rl_hobby:
+            case R.id.rl_constellation:
                 showDialogConstellationPicker();
                 break;
+            case R.id.rl_hobby:
+                break;
+
         }
     }
 
@@ -168,16 +171,16 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                     }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            String tmp = sspProvince.getSelectedItem() ;
+                            String tmp = sspProvince.getSelectedItem();
                             if (sspCity.getData().size() == 0) {
                                 tmp += "0";
-                            }else{
-                                tmp += "–"+sspCity.getSelectedItem();
+                            } else {
+                                tmp += "–" + sspCity.getSelectedItem();
                             }
-                            if(sspArea.getData().size() == 0){
+                            if (sspArea.getData().size() == 0) {
                                 tmp += "";
-                            }else{
-                                tmp += "–"+sspArea.getSelectedItem();
+                            } else {
+                                tmp += "–" + sspArea.getSelectedItem();
                             }
 
                             mTvHometown.setText(tmp);
@@ -203,12 +206,12 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                     mCityList.clear();
                     mAreaList.clear();
                     sspArea.setData(mAreaList);
-                    System.out.println("position  "+position);
-                    System.out.println("mProvinceList.get(position)  "+mProvinceList.get(position));
+                    System.out.println("position  " + position);
+                    System.out.println("mProvinceList.get(position)  " + mProvinceList.get(position));
                     RegionModel rmProvince = mRmProvinceList.get(position);
-                    System.out.println("regionModel.getName()  "+rmProvince.getName());
+                    System.out.println("regionModel.getName()  " + rmProvince.getName());
                     mRmCityList = mRegionDao.loadCityList(rmProvince.getId());
-                    for (RegionModel regionModel : mRmCityList){
+                    for (RegionModel regionModel : mRmCityList) {
                         mCityList.add(regionModel.getName());
                     }
                     sspCity.setData(mCityList);
@@ -220,12 +223,12 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 public void onSelected(ScrollPickerView scrollPickerView, int position) {
                     mAreaList.clear();
                     System.out.println(mCityList.size());
-                    if(mCityList.size()>0){
+                    if (mCityList.size() > 0) {
                         RegionModel rmCity = mRmCityList.get(position);
-                        System.out.println("rmCity.getName()  "+rmCity.getName());
+                        System.out.println("rmCity.getName()  " + rmCity.getName());
                         mRmAreaList = mRegionDao.loadCountyList(rmCity.getId());
-                        System.out.println("mRmAreaList.size() "+mRmAreaList.size());
-                        for (RegionModel regionModel : mRmAreaList){
+                        System.out.println("mRmAreaList.size() " + mRmAreaList.size());
+                        for (RegionModel regionModel : mRmAreaList) {
                             mAreaList.add(regionModel.getName());
                         }
                     }
@@ -426,7 +429,5 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    @OnClick(R.id.tvv_height)
-    public void onClick() {
-    }
+
 }

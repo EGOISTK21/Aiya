@@ -134,40 +134,7 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/rightward_32"/>
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rl_major"
-        android:layout_width="match_parent"
-        android:layout_height="46dp">
-        <TextView
-            android:id="@+id/tvv_major"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:text="专业"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="智能科学与技术"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"
-            android:layout_alignBaseline="@+id/tvv_major"
-            android:layout_alignBottom="@+id/tvv_major"
-            android:layout_toRightOf="@+id/tvv_major"
-            android:layout_toEndOf="@+id/tvv_major"
-            android:layout_marginLeft="30dp" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/rightward_32"/>
-    </RelativeLayout>
 
 
 </LinearLayout>
