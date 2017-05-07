@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.aiyaschool.aiya.MyApplication;
+import com.aiyaschool.aiya.bean.UpLoad;
 
 /**
  * Created by EGOISTK21 on 2017/4/28.
@@ -25,6 +26,24 @@ public class DBUtil {
 
     static String getPhone() {
         return sSharedPreferences.getString("phone", "");
+    }
+
+    static void setUpLoad(UpLoad upLoad) {
+        if (upLoad != null) {
+            sEditor.putString("upurl", upLoad.getUpurl());
+            sEditor.putString("imgname", upLoad.getImgname());
+            sEditor.apply();
+        }
+    }
+
+    static UpLoad getUpLoad() {
+        return new UpLoad(sSharedPreferences.getString("upurl", ""), sSharedPreferences.getString("upurl", ""));
+    }
+
+    static void clearUpLoad() {
+        sEditor.remove("upurl");
+        sEditor.remove("upurl");
+        sEditor.apply();
     }
 
     static void setLoginToken(String loginToken) {

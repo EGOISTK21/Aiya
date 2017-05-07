@@ -19,6 +19,7 @@ import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
 import com.aiyaschool.aiya.message.MsgListFragment;
+import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
 
 /**
@@ -41,6 +42,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StatusBarUtil.init(this);
+        SignUtil.addAccessToken();
         initView();
         initListener();
     }

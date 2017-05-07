@@ -1,5 +1,6 @@
 package com.aiyaschool.aiya.love.unmatched.conditionMatch;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -50,6 +51,7 @@ public class ConditionMatchFragment extends LazyFragment
     private FilletDialog dialogHeightPicker, dialogAgePicker,
             dialogSchoolPicker, dialogHometownPicker, dialogConstellationPicker;
     private StringScrollPicker sspHeight, sspAge, sspSchool, sspHometown, sspConstellation;
+    private ProgressDialog mPD;
 
     public static ConditionMatchFragment newInstance() {
         return new ConditionMatchFragment();
@@ -331,6 +333,23 @@ public class ConditionMatchFragment extends LazyFragment
             switches[2].setClickable(true);
             switches[3].setClickable(true);
             switches[4].setClickable(true);
+        }
+    }
+
+    @Override
+    public void showPD() {
+        if (mPD == null) {
+            mPD = new ProgressDialog(getContext());
+        }
+        if (!mPD.isShowing()) {
+            mPD.show();
+        }
+    }
+
+    @Override
+    public void dismissPD() {
+        if (mPD != null && mPD.isShowing()) {
+            mPD.dismiss();
         }
     }
 

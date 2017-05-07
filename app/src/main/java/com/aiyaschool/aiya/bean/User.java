@@ -1,5 +1,7 @@
 package com.aiyaschool.aiya.bean;
 
+import java.util.List;
+
 /**
  * Created by EGOISTK21 on 2017/4/26.
  */
@@ -25,6 +27,8 @@ public class User {
      */
 
     private String temptoken;
+    private UpLoad upload;
+    private String id;
     private String username;
     private String phone;
     private String accesstoken;
@@ -36,7 +40,7 @@ public class User {
     private String profile;
     private String points;
     private String gifttickets;
-    private Imgwall imgwall;
+    private ImgWall imgwall;
     private String usersig;
     private String logintoken;
 
@@ -47,6 +51,22 @@ public class User {
 
     public void setTemptoken(String temptoken) {
         this.temptoken = temptoken;
+    }
+
+    public UpLoad getUpload() {
+        return upload;
+    }
+
+    public void setUpload(UpLoad upload) {
+        this.upload = upload;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -141,11 +161,11 @@ public class User {
         this.gifttickets = gifttickets;
     }
 
-    public Imgwall getImgwall() {
+    public ImgWall getImgwall() {
         return imgwall;
     }
 
-    public void setImgwall(Imgwall imgwall) {
+    public void setImgwall(ImgWall imgwall) {
         this.imgwall = imgwall;
     }
 
@@ -165,7 +185,7 @@ public class User {
         this.logintoken = logintoken;
     }
 
-    public static class Avatar {
+    private class Avatar {
         /**
          * normal : {"face":"http://cdn.sinacloud.net/gxwy-user/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=aTVxXyiYsr&Expires=1493558756","background":"http://cdn.sinacloud.net/gxwy-user/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=9%2F2aGPHyih&Expires=1493558756"}
          * thumb : {"face":"http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=k1IE5rKli6&Expires=1493558756","background":"http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=r1nCbOvIRL&Expires=1493558756"}
@@ -190,7 +210,7 @@ public class User {
             this.thumb = thumb;
         }
 
-        public static class Normal {
+        private class Normal {
             /**
              * face : http://cdn.sinacloud.net/gxwy-user/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=aTVxXyiYsr&Expires=1493558756
              * background : http://cdn.sinacloud.net/gxwy-user/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=9%2F2aGPHyih&Expires=1493558756
@@ -216,7 +236,7 @@ public class User {
             }
         }
 
-        public static class Thumb {
+        private class Thumb {
             /**
              * face : http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=k1IE5rKli6&Expires=1493558756
              * background : http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=r1nCbOvIRL&Expires=1493558756
@@ -243,14 +263,14 @@ public class User {
         }
     }
 
-    public static class Imgwall {
+    private class ImgWall {
         /**
          * rows : 0
          * url : null
          */
 
         private int rows;
-        private Object url;
+        private List<String> url;
 
         public int getRows() {
             return rows;
@@ -264,8 +284,16 @@ public class User {
             return url;
         }
 
-        public void setUrl(Object url) {
+        public void setUrl(List<String> url) {
             this.url = url;
+        }
+
+        @Override
+        public String toString() {
+            return "ImgWall{" +
+                    "rows=" + rows +
+                    ", url=" + url +
+                    '}';
         }
     }
 
@@ -273,6 +301,8 @@ public class User {
     public String toString() {
         return "User{" +
                 "temptoken='" + temptoken + '\'' +
+                ", upload=" + upload +
+                ", id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", phone='" + phone + '\'' +
                 ", accesstoken='" + accesstoken + '\'' +

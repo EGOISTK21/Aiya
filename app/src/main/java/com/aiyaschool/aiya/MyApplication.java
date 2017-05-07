@@ -45,6 +45,7 @@ public class MyApplication extends Application {
             case "2000":
                 Log.w("MyApplication", "logintoken: " + user.getLogintoken());
                 SignUtil.setLoginToken(user.getLogintoken());
+                SignUtil.setUpLoad(user.getUpload());
                 break;
             case "5130":
             case "5051":

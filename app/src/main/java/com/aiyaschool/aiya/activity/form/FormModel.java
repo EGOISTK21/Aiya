@@ -3,6 +3,7 @@ package com.aiyaschool.aiya.activity.form;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.APIUtil;
+import com.aiyaschool.aiya.util.SignUtil;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -10,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 /**
  * 表单Model实现类
@@ -17,6 +20,17 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 class FormModel implements FormContract.Model {
+    @Override
+    public void submitAvatar(RequestBody img, Observer<ResponseBody> observer) {
+        APIUtil.getIMGApi()
+                .submitIMG(SignUtil.getUpLoad().getImgname(), img)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
     @Override
     public void loadSchoolData(Observer<HttpResult<List<String>>> observer) {
         APIUtil.getSearchSchoolApi()
