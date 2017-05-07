@@ -1,22 +1,31 @@
 package com.aiyaschool.aiya.util;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Url;
 
 /**
  * 基于Retrofit2的网络请求工具类，通过getXXXApi返回对应api请求接口
@@ -35,6 +44,30 @@ public class APIUtil {
 
     private APIUtil() {
 
+    }
+
+    static void addAccessToken() {
+        sOkHttpClient = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                return chain.proceed(chain.request().newBuilder()
+                        .addHeader("accesstoken", MyApplication.getUser().getAccesstoken()).build());
+            }
+        }).connectTimeout(TIMEOUT, TimeUnit.SECONDS).build();
+        sRetrofit = new Retrofit.Builder().client(sOkHttpClient)
+                .baseUrl(ROOT)
+                .addConverterFactory(sGsonConverterFactory)
+                .addCallAdapterFactory(sRxJavaCallAdapterFactory)
+                .build();
+    }
+
+    static void removeAccessToken() {
+        sOkHttpClient = new OkHttpClient.Builder().connectTimeout(TIMEOUT, TimeUnit.SECONDS).build();
+        sRetrofit = new Retrofit.Builder().client(sOkHttpClient)
+                .baseUrl(ROOT)
+                .addConverterFactory(sGsonConverterFactory)
+                .addCallAdapterFactory(sRxJavaCallAdapterFactory)
+                .build();
     }
 
     /**
@@ -76,6 +109,12 @@ public class APIUtil {
         @FormUrlEncoded
         Observable<HttpResult<User>> loadUser(@Field("phone") String phone,
                                               @Field("temptoken") String tempToken);
+    }
+
+    public interface IMGApi {
+        @Headers("Content-Type:image/jpeg")
+        @PUT()
+        Observable<ResponseBody> submitIMG(@Url String upurl, @Body RequestBody img);
     }
 
     /**
@@ -123,6 +162,36 @@ public class APIUtil {
                                                             @Field("province") String hometown);
     }
 
+    /**
+     * #匹配条件
+     * ['minHeight']:身高下限，默认0/cm
+     * ['maxHeight']:身高上限，默认210/cm
+     * ['minAge']:年龄下限，默认0
+     * ['maxAge']:年龄上限,默认1000
+     * #下四个条件模糊匹配
+     * ['major']:专业
+     * ['school']:学校
+     * ['province']:家乡-省份
+     * ['constellation']:星座
+     * ['page']:同前
+     * ['lines']:同前
+     */
+
+    public interface MatchingApi {
+        @POST("Love/GET/matching")
+        @FormUrlEncoded
+        Observable<HttpResult<User>> startConditionMatch(@Field("minHeight") String minHeight,
+                                                         @Field("maxHeight") String maxHeight,
+                                                         @Field("minAge") String minAge,
+                                                         @Field("maxAge") String maxAge,
+                                                         @Field("major") String major,
+                                                         @Field("school") String school,
+                                                         @Field("province") String hometown,
+                                                         @Field("constellation") String constellation,
+                                                         @Field("page") String page,
+                                                         @Field("line") String line);
+    }
+
     public static VerificationInitApi getVerificationInitApi() {
         if (sRetrofit == null) {
             sRetrofit = new Retrofit.Builder().client(sOkHttpClient)
@@ -152,7 +221,18 @@ public class APIUtil {
                 .baseUrl("https://gxwylovesig.applinzi.com/")
                 .addConverterFactory(sGsonConverterFactory)
                 .addCallAdapterFactory(sRxJavaCallAdapterFactory)
-                .build().create(TokenApi.class);
+                .build()
+                .create(TokenApi.class);
+    }
+
+    public static IMGApi getIMGApi() {
+        return new Retrofit
+                .Builder()
+                .client(new OkHttpClient())
+                .addCallAdapterFactory(sRxJavaCallAdapterFactory)
+                .baseUrl("http://up.sinacloud.net/gxwy-dynamic/photo/")
+                .build()
+                .create(IMGApi.class);
     }
 
     public static FirstInitApi getFirstInitApi() {
@@ -161,6 +241,10 @@ public class APIUtil {
 
     public static SearchSchoolApi getSearchSchoolApi() {
         return sRetrofit.create(SearchSchoolApi.class);
+    }
+
+    public static MatchingApi getMatchingApi() {
+        return sRetrofit.create(MatchingApi.class);
     }
 
 }

@@ -32,6 +32,7 @@ public class MoreSettingActivity extends RxAppCompatActivity {
     @OnClick(value = R.id.btn_login_out)
     void loginOut() {
         SignUtil.clearLoginToken();
+        SignUtil.removeAccessToken();
         startActivity(new Intent(this, SignActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
         finish();
     }

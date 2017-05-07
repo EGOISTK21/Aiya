@@ -5,8 +5,10 @@ import android.util.Log;
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.ToastUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +16,9 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 /**
  * 表单Presenter实现类
@@ -41,6 +46,33 @@ class FormPresenter implements FormContract.Presenter {
     public void detach() {
         mView = null;
         mModel = null;
+    }
+
+    @Override
+    public void submitAvatar(File file) {
+        mModel.submitAvatar(RequestBody.create(MediaType.parse("image/jpg"), file),
+                new Observer<ResponseBody>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.i(TAG, "onSubscribe: ");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull ResponseBody responseBody) {
+                        Log.i(TAG, "onNext: " + responseBody);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError: " + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "onComplete: ");
+                        SignUtil.clearUpLoad();
+                    }
+                });
     }
 
     @Override

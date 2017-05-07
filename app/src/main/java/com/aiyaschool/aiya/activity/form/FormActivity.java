@@ -3,11 +3,10 @@ package com.aiyaschool.aiya.activity.form;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
@@ -24,6 +23,7 @@ import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
 import com.aiyaschool.aiya.util.ToastUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,6 +45,7 @@ public class FormActivity extends BaseActivity implements FormContract.View {
     private ProgressDialog mPD;
     private FormContract.Presenter mPresenter;
     private InputMethodManager mInputMethodManager;
+    private Uri imgUri;
     private Bitmap mAvatar;
     private List<String> mSchools;
     private String mUsername, mSex, mSchool, mAge, mHeight, mConstellation, mHometown, mHobby;
@@ -84,6 +85,7 @@ public class FormActivity extends BaseActivity implements FormContract.View {
 
     @OnClick(value = R.id.ibn_avatar)
     void setAvatar() {
+        imgUri = getTmpUri();
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
         intent.setType("image/*");
         intent.putExtra("crop", "true");
@@ -93,56 +95,30 @@ public class FormActivity extends BaseActivity implements FormContract.View {
         intent.putExtra("outputY", 300);
         intent.putExtra("scale", true);
         intent.putExtra("return-data", true);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         intent.putExtra("noFaceDetection", true); // no face detection
         startActivityForResult(intent, CHOOSE_PHOTO);
     }
 
+    private Uri getTmpUri() {
+        String IMAGE_FILE_DIR = Environment.getExternalStorageDirectory() + "/" + "app_name";
+        File dir = new File(IMAGE_FILE_DIR);
+        File file = new File(IMAGE_FILE_DIR, Long.toString(System.currentTimeMillis()));
+        //非常重要！！！如果文件夹不存在必须先手动创建
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        return Uri.fromFile(file);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CHOOSE_PHOTO && resultCode == RESULT_OK) {
-//            String imagePath = null;
-//            Uri uri = data.getData();
-//            if (DocumentsContract.isDocumentUri(this, uri)) {
-//                String docId = DocumentsContract.getDocumentId(uri);
-//                if (uri.getAuthority().equals("com.android.providers.media.documents")) {
-//                    String id = docId.split(":")[1];
-//                    String selection = MediaStore.Images.Media._ID + "=" + id;
-//                    imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
-//                } else if (uri.getAuthority().equals("com.android.providers.downloads.documents")) {
-//                    Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
-//                    imagePath = getImagePath(contentUri, null);
-//                }
-//            } else if (uri.getScheme().equals("content")) {
-//                imagePath = getImagePath(uri, null);
-//            } else if (uri.getScheme().equals("file")) {
-//                imagePath = uri.getPath();
-//            }
-//            displayImage(imagePath);
-            Bitmap bitmap = null;
-            bitmap = data.getParcelableExtra("data");
-            ibnAvatar.setImageBitmap(bitmap);
-        }
-    }
-
-    private String getImagePath(Uri uri, String selection) {
-        String path = null;
-        Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-            }
-            cursor.close();
-        }
-        return path;
-    }
-
-    private void displayImage(String imagePath) {
-        if (imagePath != null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-            ibnAvatar.setImageBitmap(bitmap);
-        } else {
-            ToastUtil.show("未找到图片");
+            mAvatar = data.getParcelableExtra("data");
+            ibnAvatar.setImageBitmap(mAvatar);
+            Log.i(TAG, "onActivityResult: " + imgUri);
+            mPresenter.submitAvatar(new File(String.valueOf(imgUri)));
         }
     }
 

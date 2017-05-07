@@ -1,5 +1,7 @@
 package com.aiyaschool.aiya.util;
 
+import com.aiyaschool.aiya.bean.UpLoad;
+
 import java.util.regex.Pattern;
 
 /**
@@ -33,12 +35,32 @@ public class SignUtil {
         return DBUtil.getPhone();
     }
 
+    public static void setUpLoad(UpLoad upLoad) {
+        DBUtil.setUpLoad(upLoad);
+    }
+
+    public static UpLoad getUpLoad() {
+        return DBUtil.getUpLoad();
+    }
+
+    public static void clearUpLoad() {
+        DBUtil.clearUpLoad();
+    }
+
     public static void setLoginToken(String loginToken) {
         DBUtil.setLoginToken(loginToken);
     }
 
     public static String getLoginToken() {
         return DBUtil.getLoginToken();
+    }
+
+    public static void addAccessToken() {
+        APIUtil.addAccessToken();
+    }
+
+    public static void removeAccessToken() {
+        APIUtil.removeAccessToken();
     }
 
     public static void clearLoginToken() {
