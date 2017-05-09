@@ -1,10 +1,17 @@
 package com.aiyaschool.aiya.message.ui.activity;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,12 +62,19 @@ import java.util.List;
 
 import sj.keyboard.data.EmoticonEntity;
 import sj.keyboard.interfaces.EmoticonClickListener;
+import sj.keyboard.utils.EmoticonsKeyboardUtils;
 import sj.keyboard.widget.EmoticonsEditText;
 import sj.keyboard.widget.FuncLayout;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
+import static com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard.FUNC_TYPE_IMAGE;
+
 public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFuncKeyBoardListener{
+
+    public final int APPS_HEIGHT = 256;
+
+    protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
 
     private static ChatAdapter chatAdapter;//保持了一个chatAdapter的引用
     private SwipeRefreshLayout refreshLayout;//页面刷新时使用
@@ -247,7 +261,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         ekBar.setAdapter(utils.getCommonAdapter(this, emojiCLickListener));
 
         ekBar.addOnFuncKeyBoardListener(this);
-        ekBar.addFuncView(QqEmoticonsKeyBoard.FUNC_TYPE_IMAGE,new ChatSelectImageView(this,conversation));
+        ekBar.addFuncView(FUNC_TYPE_IMAGE,new ChatSelectImageView(this,conversation));
         ekBar.addFuncView(QqEmoticonsKeyBoard.FUNC_TYPE_VOICE,new ChatRecordVoiceView(this,conversation));
         ChatSelectGiftView selectGiftView = new ChatSelectGiftView(this,conversation);
         ekBar.addFuncView(QqEmoticonsKeyBoard.FUNC_TYPE_GIFT,selectGiftView);
@@ -290,7 +304,53 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
                 scrollToBottom();
             }
         });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
+                && ActivityCompat.checkSelfPermission(ChatQQActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED){
+            ekBar.getBtnImage().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+                            getString(R.string.mis_permission_rationale),
+                            REQUEST_STORAGE_READ_ACCESS_PERMISSION);
+            }
+        });
+        }
     }
+
+    //申请权限
+    private void requestPermission(final String permission, String rationale, final int requestCode){
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, permission)){
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.mis_permission_dialog_title)
+                    .setMessage(rationale)
+                    .setPositiveButton(R.string.mis_permission_dialog_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(ChatQQActivity.this, new String[]{permission}, requestCode);
+                        }
+                    })
+                    .setNegativeButton(R.string.mis_permission_dialog_cancel, null)
+                    .create().show();
+        }else{
+            ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == REQUEST_STORAGE_READ_ACCESS_PERMISSION){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                ekBar.reset();
+             ekBar.toggleFuncView(FUNC_TYPE_IMAGE);
+                ekBar.setFuncViewHeight(EmoticonsKeyboardUtils.dip2px(ekBar.getContext(), APPS_HEIGHT));
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
 
     private void sendGift(){
         TIMCustomElem customElem = new TIMCustomElem();

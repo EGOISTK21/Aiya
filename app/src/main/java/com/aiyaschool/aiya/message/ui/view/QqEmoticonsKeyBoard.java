@@ -35,6 +35,7 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
         EmoticonsToolBarView.OnToolBarItemClickListener, EmoticonsEditText.OnBackKeyClickListener, FuncLayout.OnFuncChangeListener{
     public final int APPS_HEIGHT = 256;
 
+
     public static final int FUNC_TYPE_IMAGE = 1;
     public static final int FUNC_TYPE_VOICE = 2;
     public static final int FUNC_TYPE_EMOTICON = 3;
@@ -92,6 +93,7 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 toggleFuncView(FUNC_TYPE_IMAGE);
                 setFuncViewHeight(EmoticonsKeyboardUtils.dip2px(getContext(), APPS_HEIGHT));
             }
@@ -116,6 +118,7 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
         initEmoticonFuncView();
         initEditView();
     }
+
 
     protected void initEmoticonFuncView(){
         View keyboardView = inflateFunc();
@@ -158,9 +161,9 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
             @Override
             public void afterTextChanged(Editable s) {
                 if (!TextUtils.isEmpty(s)) {
-                    btnSend.setBackgroundResource(R.drawable.btn_send_bg);
+                    btnSend.setBackgroundResource(R.drawable.send);
                 } else {
-                    btnSend.setBackgroundResource(R.drawable.btn_send_bg_disable);
+                    btnSend.setBackgroundResource(R.drawable.send_gray);
                 }
             }
         });
@@ -194,7 +197,7 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
         btnEmoticon.setImageResource(R.drawable.qq_skin_aio_panel_emotion);
     }
 
-    protected void toggleFuncView(int key) {
+    public void toggleFuncView(int key) {
         lyKvml.toggleFuncView(key, isSoftKeyboardPop(), etChat);
     }
 
@@ -214,7 +217,7 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
         }
     }
 
-    protected void setFuncViewHeight(int height) {
+    public void setFuncViewHeight(int height) {
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) lyKvml.getLayoutParams();
         params.height = height;
         lyKvml.setLayoutParams(params);
@@ -303,6 +306,9 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
 
     public Button getBtnSend() {
         return btnSend;
+    }
+    public ImageView getBtnImage() {
+        return btnImage;
     }
 
 

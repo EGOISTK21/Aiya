@@ -123,6 +123,8 @@ public class PhotosThumbnailActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
     }
+
+
     @Override
     protected void onStop() {
         if (dirPop != null) {
@@ -232,7 +234,7 @@ public class PhotosThumbnailActivity extends AppCompatActivity {
             ContentResolver cr = PhotosThumbnailActivity.this.getContentResolver();
 
             String[] projection = {MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA};
-            // Add xa zxj 2015/12/23 增加 orderby 按 最后修改时间降序排序
+            // Add xzy 2017/4/23 增加 orderby 按 最后修改时间降序排序
             String orderBy = MediaStore.Images.Media.DATE_MODIFIED + " DESC";
             Cursor cursor = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, orderBy);
             if (cursor == null) {

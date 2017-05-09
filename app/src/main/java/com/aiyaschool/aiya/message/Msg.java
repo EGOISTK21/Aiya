@@ -51,28 +51,28 @@ public class Msg {
         msg.setmTitle("情侣聊天");
 //        此处从后台取得头像
         msg.setmImageView(R.drawable.message);
-        msg.setmPreview("1 分钟前");
+        msg.setmTime("1 分钟前");
         msg.setmPreview("哈哈哈哈哈哈哈");
         list.add(msg);
 
         Msg msg1 = new Msg();
         msg1.setmTitle("消息通知");
         msg1.setmImageView(R.drawable.notice);
-        msg1.setmPreview("1 分钟前");
+        msg1.setmTime("1 分钟前");
         msg1.setmPreview("哈哈哈哈哈哈哈");
         list.add(msg1);
 
         Msg msg2 = new Msg();
         msg2.setmTitle("任务消息");
         msg2.setmImageView(R.drawable.task);
-        msg2.setmPreview("1 分钟前");
+        msg2.setmTime("1 分钟前");
         msg2.setmPreview("哈哈哈哈哈哈哈");
         list.add(msg2);
 
         Msg msg3 = new Msg();
         msg3.setmTitle("攻略指南");
         msg3.setmImageView(R.drawable.bulb);
-        msg3.setmPreview("1 分钟前");
+        msg3.setmTime("1 分钟前");
         msg3.setmPreview("哈哈哈哈哈哈哈");
         list.add(msg3);
 
@@ -84,28 +84,28 @@ public class Msg {
         Msg msg = new Msg();
         msg.setmTitle("情侣聊天");
         msg.setmImageView(R.drawable.message);
-        msg.setmPreview("1 分钟前");
+        msg.setmTime("1 分钟前");
         msg.setmPreview("哈哈哈哈哈哈哈");
         list.add(msg);
 
         Msg msg1 = new Msg();
         msg1.setmTitle("消息通知");
         msg1.setmImageView(R.drawable.notice);
-        msg1.setmPreview("1 分钟前");
+        msg1.setmTime("1 分钟前");
         msg1.setmPreview("哈哈哈哈哈哈哈");
         list.add(msg1);
 
         Msg msg2 = new Msg();
         msg2.setmTitle("任务消息");
         msg2.setmImageView(R.drawable.love_red);
-        msg2.setmPreview("1 分钟前");
+        msg2.setmTime("1 分钟前");
         msg2.setmPreview("哈哈哈哈哈哈哈");
         list.add(msg2);
 
         Msg msg3 = new Msg();
         msg3.setmTitle("攻略指南");
         msg3.setmImageView(R.drawable.bulb);
-        msg3.setmPreview("1 分钟前");
+        msg3.setmTime("1 分钟前");
         msg3.setmPreview("哈哈哈哈哈哈哈");
         list.add(msg3);
 

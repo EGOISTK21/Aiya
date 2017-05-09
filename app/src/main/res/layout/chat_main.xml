@@ -6,13 +6,35 @@
     android:clipToPadding="false"
     android:fitsSystemWindows="true">
 
-    <TextView
-        android:id="@+id/textView2"
+    <RelativeLayout
+        android:id="@+id/rl_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="96px"
-        android:gravity="center"
-        android:text="对方ID"
-        android:textSize="90px"/>
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/colorPureWhite">
+
+        <TextView
+            android:id="@+id/back_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingEnd="@dimen/common_margin_15"
+            android:paddingStart="@dimen/common_margin_15"
+            android:text="@string/back"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/common_text_size_16"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/oppositeID"
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/common_text_size_16"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/activity_chat_photos"
@@ -86,13 +108,5 @@
         </LinearLayout>
     </com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard>
 
-    <TextView
-        android:id="@+id/back_view"
-        android:layout_width="wrap_content"
-        android:layout_height="96px"
-        android:layout_marginLeft="30px"
-        android:clickable="true"
-        android:gravity="center"
-        android:text="返回"/>
 
 </FrameLayout>

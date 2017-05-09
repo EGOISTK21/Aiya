@@ -1,6 +1,7 @@
 package com.aiyaschool.aiya.message;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,10 +48,14 @@ public class MsgListFragment extends android.support.v4.app.Fragment{
 //        }else{
 //            List<Msg> msgList = new Msg().getMsgs();
 //        }
-        mAdapter = new MsgAdapter(msgList);
-        mMsgRecyclerView.setAdapter(mAdapter);
+            mAdapter = new MsgAdapter(msgList);
+            //RecycleView 增加边距
+            int spacingInPixels = 30;
+            mMsgRecyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
 
-    }
+            mMsgRecyclerView.setAdapter(mAdapter);
+
+        }
 //
 //    @Override
 //    public void OnItemClick(int position, View view) {
@@ -59,24 +64,24 @@ public class MsgListFragment extends android.support.v4.app.Fragment{
 //    }
 
 
-    private class MsgHolder extends RecyclerView.ViewHolder{
-        private TextView mTitle;
-        private TextView mTime;
-        private TextView mPreView;
-        private CircleImageView mCircleImageView;
-        private Msg mMsg;
+        private class MsgHolder extends RecyclerView.ViewHolder{
+            private TextView mTitle;
+            private TextView mTime;
+            private TextView mPreView;
+            private CircleImageView mCircleImageView;
+            private Msg mMsg;
 //        private OnItemClickListener mListenter;
 
-        public MsgHolder(View itemView) {
-            super(itemView);
+            public MsgHolder(View itemView) {
+                super(itemView);
 //            itemView.setOnClickListener(this);
-            mTitle = (TextView)
-                    itemView.findViewById(R.id.msg_title);
-            mTime = (TextView)
-                    itemView.findViewById(R.id.msg_time);
-            mPreView = (TextView)
-                    itemView.findViewById(R.id.msg_preview);
-            mCircleImageView = (CircleImageView) itemView.findViewById(R.id.circleImageView);
+                mTitle = (TextView)
+                        itemView.findViewById(R.id.msg_title);
+                mTime = (TextView)
+                        itemView.findViewById(R.id.msg_time);
+                mPreView = (TextView)
+                        itemView.findViewById(R.id.msg_preview);
+                mCircleImageView = (CircleImageView) itemView.findViewById(R.id.circleImageView);
         }
 
         public void bindCrime(Msg msg) {
@@ -100,7 +105,25 @@ public class MsgListFragment extends android.support.v4.app.Fragment{
 
     }
 
+    public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+        private int space;
 
+        public SpacesItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view,
+                                   RecyclerView parent, RecyclerView.State state) {
+//            outRect.left = space;
+//            outRect.right = space;
+            outRect.bottom = space;
+
+            // Add top margin only for the first item to avoid double space between items
+            if (parent.getChildPosition(view) == 0)
+                outRect.top = space;
+        }
+    }
 
     private class MsgAdapter extends RecyclerView.Adapter<MsgHolder> {
 

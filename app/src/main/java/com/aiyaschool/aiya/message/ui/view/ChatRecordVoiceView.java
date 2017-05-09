@@ -35,6 +35,8 @@ import com.tencent.TIMMessage;
 import com.tencent.TIMSoundElem;
 import com.tencent.TIMValueCallBack;
 
+import java.text.SimpleDateFormat;
+
 
 /**
  * Created by ShootHzj on 2016/10/20.
@@ -221,11 +223,17 @@ public class ChatRecordVoiceView extends RelativeLayout implements View.OnClickL
             @Override
             public void tryPlayNoRelase() {
                 mTextTip.setText("松手试听");
+
             }
 
             @Override
             public void tryPlayRelase() {
+                audioUtils.isRecording=true;
                 audioInfo = audioUtils.stopRecord();
+                System.out.println("123+___"+audioInfo);
+                SimpleDateFormat df = new SimpleDateFormat("mm:ss");
+                String audioTime = df.format(audioInfo/(long)100);
+                mTimeTextView.setText(audioTime);
             }
 
             @Override
@@ -242,7 +250,13 @@ public class ChatRecordVoiceView extends RelativeLayout implements View.OnClickL
 
         cancleBtn.setOnClickListener(this);
         sendBtn.setOnClickListener(this);
-        playImageView.setOnClickListener(this);
+        playImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                mTimeTextView.setText((int) audioInfo);
+//                mTextTip.setText((int) audioInfo);
+            }
+        });
     }
 
     private void createAndSendMsg() {

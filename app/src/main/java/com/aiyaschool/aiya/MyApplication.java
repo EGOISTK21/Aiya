@@ -5,6 +5,7 @@ import android.app.Application;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.message.utils.TLSService;
 import com.tencent.TIMManager;
+import com.tencent.TIMUser;
 
 import org.litepal.LitePal;
 
@@ -21,6 +22,10 @@ public class MyApplication extends Application {
     private static MyApplication instance;
     private final String APPKEY = "1d3c277c6bde4";
     private final String APPSECRET = "3b295b8b0455bdf9c6aedf8ecc33f3cc";
+    private final String TIMAppID = "140029084";
+    private TIMUser mTIMuser = new TIMUser();
+
+
 
     public void setMatched(boolean matched) {
         this.matched = matched;

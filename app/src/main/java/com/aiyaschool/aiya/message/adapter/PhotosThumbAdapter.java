@@ -48,6 +48,7 @@ public class PhotosThumbAdapter extends BaseRecyclerAdapter<PhotosThumbAdapter.P
     private void initSelectData() {
         selectList.clear();
         selectMap.clear();
+
     }
 
     public String getItemObject(int position) {

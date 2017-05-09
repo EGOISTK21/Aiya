@@ -88,4 +88,7 @@
     <string name="intimacy_rule3_2">≥5次&#160;&#160;+6</string>
     <string name="sign_code_warn">验证码已发送至18888888888，60s后可再次发送</string>
     <string name="sign_warn">注册即表示同意《爱呀用户协议》</string>
+    <string name="message">消息</string>
+    <string name="oppositeID">对方ID</string>
+    <string name="btn_text_send">发送</string>
 </resources>

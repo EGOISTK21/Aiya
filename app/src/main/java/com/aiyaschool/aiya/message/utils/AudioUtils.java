@@ -37,7 +37,7 @@ public class AudioUtils {
     //最大录音时长 1分钟
     private static final int MAX_DURATIONS = 1 * 60 * 1000;
     private static MediaRecorder mRecorder = null;
-    private static boolean isRecording = false;
+    public static boolean isRecording = false;
     private static long startTime = 0;
     private static String oldAudioUrl="";
 
@@ -192,7 +192,7 @@ public class AudioUtils {
             }
             mCurrentDuration = (SystemClock.elapsedRealtime() - startTime)/1000;
             int i = (int) mCurrentDuration;
-            return SystemClock.elapsedRealtime() - startTime;
+            return i;
         } else {
             return 0;
         }
