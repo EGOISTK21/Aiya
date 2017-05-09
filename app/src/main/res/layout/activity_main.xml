@@ -9,7 +9,7 @@
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".activity.MainActivity">
+    tools:context=".activity.main.MainActivity">
 
     <com.aiyaschool.aiya.base.NoScrollViewPager
         android:id="@+id/viewpager_main"
@@ -24,8 +24,6 @@
         android:layout_height="@dimen/bottom_bar_height"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
-        app:itemIconTint="@color/selector_color"
-        app:itemTextColor="@color/selector_color"
         app:menu="@menu/menu_bottom_navigation"/>
 
 </LinearLayout>

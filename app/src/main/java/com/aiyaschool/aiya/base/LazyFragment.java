@@ -2,8 +2,9 @@ package com.aiyaschool.aiya.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.View;
+
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 /**
  * 懒加载的Fragment,在必要的时候才加载，否则不进行View的绘制和数据的加载。
@@ -14,7 +15,7 @@ import android.view.View;
  * Created by EGOISTK21 on 2017/3/14.
  */
 
-public class LazyFragment extends Fragment implements View.OnClickListener {
+public class LazyFragment extends RxFragment implements View.OnClickListener {
     // 标志位，标志已经初始化完成，因为setUserVisibleHint是在onCreateView之前调用的，
     // 在视图未初始化的时候，在lazyLoad当中就使用的话，就会有空指针的异常
     private boolean isPrepared;

@@ -1,6 +1,10 @@
 package com.aiyaschool.aiya.love.unmatched.conditionMatch;
 
+import com.aiyaschool.aiya.bean.HttpResult;
+
 import java.util.List;
+
+import io.reactivex.Observer;
 
 /**
  * Created by EGOISTK21 on 2017/3/27.
@@ -13,10 +17,14 @@ interface ConditionMatchContract {
 
         void commitIsContactShield(boolean isContactShield);
 
-        void getSchoolData(Presenter.OnServerReachableListener listener);
+        void loadSchoolData(Observer<HttpResult<List<String>>> observer);
     }
 
     interface View {
+        void showPD();
+
+        void dismissPD();
+
         void setIsContactShield(boolean isContactShield);
 
         void setSchoolData(List<String> data);

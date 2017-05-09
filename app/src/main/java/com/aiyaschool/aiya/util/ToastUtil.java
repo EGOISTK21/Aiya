@@ -1,26 +1,28 @@
 package com.aiyaschool.aiya.util;
 
-import android.content.Context;
 import android.widget.Toast;
 
+import com.aiyaschool.aiya.MyApplication;
+
 /**
- * Created by EGOISTK21 on 2017/4/19.
+ * Created by EGOISTK21 on 2017/4/28.
  */
 
 public class ToastUtil {
 
-    private static Toast toast = null;
+    private static Toast sToast = Toast.makeText(MyApplication.getInstance(), null, Toast.LENGTH_SHORT);
 
     private ToastUtil() {
 
     }
 
-    public static void showToast(Context context, String s) {
-        if (toast == null) {
-            toast = Toast.makeText(context, null, Toast.LENGTH_SHORT);
-        }
-        toast.setText(s);
-        toast.show();
+    public static void show(String s) {
+        sToast.setText(s);
+        sToast.show();
+    }
+
+    public static void cancle() {
+        sToast.cancel();
     }
 
 }

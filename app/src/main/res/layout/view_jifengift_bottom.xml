@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <!--
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="56dp">
@@ -239,6 +240,64 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/buy"/>
     </RelativeLayout>
+
+    -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_buy"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="#2A2A2B"
+            android:text="购买礼物卷"
+            android:textSize="15dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/buy10"
+            android:layout_marginLeft="25dp"
+            android:layout_width="142.5dp"
+            android:layout_height="80dp"
+            android:src="@drawable/buy10"/>
+        <ImageView
+            android:id="@+id/buy20"
+            android:layout_toRightOf="@+id/buy10"
+            android:layout_marginLeft="25dp"
+            android:layout_width="142.5dp"
+            android:layout_height="80dp"
+            android:src="@drawable/buy20"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/buy50"
+            android:layout_marginLeft="25dp"
+            android:layout_width="142.5dp"
+            android:layout_height="80dp"
+            android:src="@drawable/buy10"/>
+        <ImageView
+            android:id="@+id/buy100"
+            android:layout_toRightOf="@+id/buy50"
+            android:layout_marginLeft="25dp"
+            android:layout_width="142.5dp"
+            android:layout_height="80dp"
+            android:src="@drawable/buy20"/>
+    </RelativeLayout>
+
+
+
 
 
 </LinearLayout>

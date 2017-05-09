@@ -70,7 +70,7 @@ public class NewMissionActivity extends AppCompatActivity implements View.OnClic
                     btnInvite.setBackground(ContextCompat.getDrawable(NewMissionActivity.this, R.drawable.button_selector_with_corner_18));
                 } else {
                     btnInvite.setClickable(false);
-                    btnInvite.setBackground(ContextCompat.getDrawable(NewMissionActivity.this, R.drawable.button_unclickable_with_corner));
+                    btnInvite.setBackground(ContextCompat.getDrawable(NewMissionActivity.this, R.drawable.button_unclickable_with_corner_18));
                 }
             }
         });

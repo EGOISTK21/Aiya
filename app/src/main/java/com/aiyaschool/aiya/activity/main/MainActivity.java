@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.activity;
+package com.aiyaschool.aiya.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,20 +8,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.base.NoScrollViewPager;
-import com.aiyaschool.aiya.community.CommunityFragment;
 import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
 import com.aiyaschool.aiya.message.MsgListFragment;
-import com.aiyaschool.aiya.util.BottomNavigationViewUtil;
+import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
 
 /**
@@ -29,9 +27,9 @@ import com.aiyaschool.aiya.util.StatusBarUtil;
  * Created by EGOISTK21 on 2017/3/13.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
-    private static final int PAGE_COUNT = 4;
+    private static final int PAGE_COUNT = 3;
     private NoScrollViewPager vpMain;
     private FragmentManager fm;
     private FragmentPagerAdapter adapter;
@@ -44,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StatusBarUtil.init(this);
+        SignUtil.addAccessToken();
         initView();
         initListener();
     }
@@ -78,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         final Fragment[] fragments = new Fragment[]{
-                new CommunityFragment(),
-                new MsgListFragment(),
-                MyApplication.getInstance().isMatched()
+                /*new CommunityFragment(),*/
+                MyApplication.getUser().isMatched()
                         ? MatchedContainerFragment.newInstance()
                         : UnmatchedContainerFragment.newInstance(),
+                new MsgListFragment(),
                 new MeFragment()
         };
         vpMain = (NoScrollViewPager) findViewById(R.id.viewpager_main);
@@ -91,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public int getItemPosition(Object object) {
                 if (((/*object instanceof || */object instanceof UnmatchedContainerFragment)
-                        && MyApplication.getInstance().isMatched())
+                        && MyApplication.getUser().isMatched())
                         || ((/*object instanceof || */object instanceof MatchedContainerFragment)
-                        && !MyApplication.getInstance().isMatched())) {
+                        && !MyApplication.getUser().isMatched())) {
                     return POSITION_NONE;
                 }
                 if(isMeChanged&&object instanceof MeFragment){
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             public Object instantiateItem(ViewGroup container, int position) {
                 Fragment fragment = (Fragment) super.instantiateItem(container, position);
                 String fragmentTag = fragment.getTag();
-                if (MyApplication.getInstance().isMatched()) {
+                if (MyApplication.getUser().isMatched()) {
                     if (fragment instanceof UnmatchedContainerFragment) {
                         FragmentTransaction ft = fm.beginTransaction();
                         ft.remove(fragment);
@@ -144,10 +143,10 @@ public class MainActivity extends AppCompatActivity {
                 return PAGE_COUNT;
             }
         };
-        vpMain.setOffscreenPageLimit(3);
+        vpMain.setOffscreenPageLimit(PAGE_COUNT - 1);
         vpMain.setAdapter(adapter);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
-        BottomNavigationViewUtil.disableShiftMode(bottomNavigationView);
+        //BottomNavigationViewUtil.disableShiftMode(bottomNavigationView);
     }
 
     private void initListener() {
@@ -156,17 +155,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.navigation_community:
+//                            case R.id.navigation_community:
+//                                vpMain.setCurrentItem(0);
+//                                return true;
+                            case R.id.navigation_love:
                                 vpMain.setCurrentItem(0);
                                 return true;
                             case R.id.navigation_message:
                                 vpMain.setCurrentItem(1);
                                 return true;
-                            case R.id.navigation_love:
-                                vpMain.setCurrentItem(2);
-                                return true;
                             case R.id.navigation_me:
-                                vpMain.setCurrentItem(3);
+                                vpMain.setCurrentItem(2);
                                 return true;
                         }
                         return false;
@@ -178,8 +177,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onNavigationItemReselected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.navigation_community:
-                                break;
+//                            case R.id.navigation_community:
+//                                break;
                             case R.id.navigation_message:
                                 break;
                             case R.id.navigation_love:

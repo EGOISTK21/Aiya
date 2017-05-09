@@ -1,19 +1,14 @@
 package com.aiyaschool.aiya.love.unmatched.conditionMatch;
 
-import com.aiyaschool.aiya.util.OkHttpUtil;
+import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.util.APIUtil;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.Response;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by EGOISTK21 on 2017/3/23.
@@ -32,28 +27,14 @@ class ConditionMatchModel implements ConditionMatchContract.Model {
     }
 
     @Override
-    public void getSchoolData(final ConditionMatchContract.Presenter.OnServerReachableListener listener) {
-        OkHttpUtil.post("/Community/GET/searchSchool",
-                new FormBody.Builder().add("keyword", ""),
-                new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        listener.onFailure();
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        List<String> data = new ArrayList<>();
-                        try {
-                            JSONArray jsonArray = new JSONObject(response.body().string()).getJSONArray("data");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                data.add(jsonArray.getString(i));
-                            }
-                        } catch (JSONException | IOException e) {
-                            e.printStackTrace();
-                        }
-                        listener.onSuccess(data);
-                    }
-                });
+    public void loadSchoolData(Observer<HttpResult<List<String>>> observer) {
+        APIUtil.getSearchSchoolApi()
+                .loadSchoolData(null, "陕西")
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
     }
+
 }

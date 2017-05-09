@@ -1,59 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context=".activity.sign.SignActivity">
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_back"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="@dimen/common_bar_height"
         android:layout_alignParentStart="true"
         android:gravity="center"
         android:paddingEnd="@dimen/common_margin_15"
         android:paddingStart="@dimen/common_margin_15"
         android:text="@string/back"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="15sp"
+        android:textSize="@dimen/common_text_size_15"
         android:visibility="invisible"/>
 
-
-    <com.aiyaschool.aiya.base.CircleImageView
-        android:id="@+id/civ"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:src="@mipmap/ic_launcher"/>
-
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/civ"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/common_margin_20"
+        android:layout_below="@id/tv_back"
+        android:layout_marginTop="@dimen/common_margin_30"
         android:includeFontPadding="false"
         android:text="@string/fill_phone_number"
         android:textColor="@color/colorTitle"
         android:textSize="24sp"/>
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_sub_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/common_margin_10"
+        android:paddingTop="@dimen/common_margin_10"
         android:includeFontPadding="false"
-        android:text="@string/sign_code_warn"
         android:textColor="@color/colorContentMain"
-        android:textSize="13sp"
+        android:textSize="@dimen/common_text_size_13"
         android:visibility="invisible"/>
 
-    <EditText
+    <android.support.v7.widget.AppCompatEditText
         android:id="@+id/et_sign"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,7 +60,7 @@
         android:textColor="@color/colorTitle"
         android:textSize="24sp"/>
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -79,22 +71,23 @@
         android:layout_marginStart="@dimen/common_margin_30"
         android:layout_marginTop="@dimen/common_margin_30"
         android:background="@drawable/button_selector_with_corner_24"
-        android:text="@string/next"
+        android:text="@string/get_verification"
         android:textColor="@color/colorPureWhite"
         android:textSize="@dimen/common_text_size_16"/>
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_warn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_next"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginTop="@dimen/common_margin_10"
+        android:layout_marginTop="@dimen/common_margin_15"
+        android:paddingBottom="@dimen/common_margin_15"
         android:includeFontPadding="false"
         android:text="@string/sign_warn"
         android:textColor="@color/colorTitle"
-        android:textSize="13sp"
+        android:textSize="@dimen/common_text_size_13"
         android:visibility="invisible"/>
 
 </RelativeLayout>

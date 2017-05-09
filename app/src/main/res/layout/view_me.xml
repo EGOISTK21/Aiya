@@ -4,12 +4,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <include layout="@layout/view_me_top"/>
 
     <include layout="@layout/view_me_center"/>
 
-    <include layout="@layout/view_me_bottom"/>
+    <include layout="@layout/view_me_bottom" />
 
 
 </LinearLayout>

@@ -1,6 +1,5 @@
 package com.aiyaschool.aiya.me.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.MainActivity;
 
 public class MyEmotionActivity extends AppCompatActivity {
 

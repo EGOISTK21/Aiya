@@ -151,7 +151,7 @@
         android:layout_below="@id/rl_recommend"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/common_margin_15"
-        android:background="@drawable/button_unclickable_with_corner"
+        android:background="@drawable/button_unclickable_with_corner_18"
         android:text="@string/new_invite"
         android:textColor="@color/colorPureWhite"
         android:textSize="@dimen/common_text_size_16"/>

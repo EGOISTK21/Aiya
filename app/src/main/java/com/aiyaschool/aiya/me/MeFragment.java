@@ -1,37 +1,31 @@
 package com.aiyaschool.aiya.me;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.MainActivity;
-import com.aiyaschool.aiya.base.LazyFragment;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.activity.JifenAndGiftActivity;
 import com.aiyaschool.aiya.me.activity.MemberActivity;
 import com.aiyaschool.aiya.me.activity.MoreSettingActivity;
 import com.aiyaschool.aiya.me.activity.MyEmotionActivity;
 import com.aiyaschool.aiya.me.activity.MyGiftActivity;
 import com.aiyaschool.aiya.me.activity.MyGuestActivity;
-import com.aiyaschool.aiya.me.activity.MyStateActivity;
 import com.aiyaschool.aiya.me.activity.PersonalDataActivity;
 import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity2;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.me.view.RoundImageView;
 import com.aiyaschool.aiya.multi_image_selector.MultiImageSelectorFragment;
-import com.aiyaschool.aiya.util.DBUtil;
-import com.aiyaschool.aiya.util.OkHttpUtil;
 import com.squareup.picasso.Picasso;
 
 import org.litepal.crud.DataSupport;
@@ -87,7 +81,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     .load(imageFile)
                     .placeholder(R.drawable.mis_default_error)
                     .tag(MultiImageSelectorFragment.TAG)
-                    .resize(240, 180)
+                    .resize(238, 181)
                     .centerCrop()
                     .into(imageView1);
         } else if (mList.size() == 2) {
@@ -96,7 +90,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     .load(imageFile)
                     .placeholder(R.drawable.mis_default_error)
                     .tag(MultiImageSelectorFragment.TAG)
-                    .resize(240, 180)
+                    .resize(238, 181)
                     .centerCrop()
                     .into(imageView1);
             File imageFile1 = new File(mList.get(1));
@@ -104,7 +98,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     .load(imageFile1)
                     .placeholder(R.drawable.mis_default_error)
                     .tag(MultiImageSelectorFragment.TAG)
-                    .resize(240, 180)
+                    .resize(238, 181)
                     .centerCrop()
                     .into(imageView2);
         }
@@ -144,6 +138,42 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         mLlMyGift.setOnClickListener(this);
         mLlMoreSetting.setOnClickListener(this);
         mTvMember.setOnClickListener(this);
+
+        /**
+         * temptoken : f29c1317158d76821e8d11ccd8a007a358fc9984c178e
+         * username : xihuan
+         * phone : 15000000000
+         * AccessToken : 48f418d380c1cf2ae948732780f6a39815000000000590494641c6de
+         * school : 南京大学
+         * loveid : 1
+         * group : 1
+         * province : 陕西
+         * avatar : {"normal":{"face":"http://cdn.sinacloud.net/gxwy-user/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=aTVxXyiYsr&Expires=1493558756","background":"http://cdn.sinacloud.net/gxwy-user/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=9%2F2aGPHyih&Expires=1493558756"},"thumb":{"face":"http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=k1IE5rKli6&Expires=1493558756","background":"http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=r1nCbOvIRL&Expires=1493558756"}}
+         * profile : 亨利就坐在那里，满眼望去，都是自己二十岁的影子
+         * points : 200
+         * gifttickets : 0
+         * imgwall : {"rows":0,"url":null}
+         * usersig : eJxNjV1PgzAYRv9Lb2dcCy0LJl4AY4A6EzLddtdUeCF1ArUUlBj-uw3B6O05z8cXeno4XIui6IbWcDMpQDcIo6sZyxJaIysJ2sJXofW0CKGULLkw3NXlv3xfXvisLCMUY0wYxu4i4VNJDVxUZp4jjDHHRhY7gu5l11rhYOIRTAj*k0Y2ME-6tsF8x--9k7XF*-g5yvJom95Dr8ZT9eHs3U36GJ5fgnW5CldTUt-R0BspOQRBErP3PKthRzu-b1Rz2ubFdFmnO*qF3ZCwWMTDJi*OEZEZHt6gqm-R9w-MC1Zg
+         * logintoken : 03b0761c6c915924907bb9ebabdebad3160b4f30-1f89-11e7-967b-ebe175c2a0263b946bfe-d0fb-4357-aa30-42cdaef6dc50
+         */
+
+        //从MyApplication 中读取数据
+        if (MyApplication.getUser() != null) {
+            User user = MyApplication.getUser();
+            if (TextUtils.isEmpty(user.getUsername())) {
+                mTvMyName.setText(user.getUsername());
+            }
+            if (TextUtils.isEmpty(user.getProfile())) {
+                mTvSignName.setText(user.getProfile());
+            }
+            if (TextUtils.isEmpty(user.getGifttickets())) {
+
+            }
+            mTVJiFen.setText(user.getGifttickets());
+            System.out.println(user.getUsername());
+        } else {
+            //如果没有数据的话，可以从sharepreference中读取
+        }
 
     }
 
@@ -198,10 +228,10 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
 
                 break;
 //            mLlMyPhotoAlbum,mLlMyState,mLlMyGuest,mLlEmotion,mLlMyGift,mLlMoreSetting
-            case R.id.my_state:
-                intent = new Intent(getActivity(), MyStateActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.my_state:
+//                intent = new Intent(getActivity(), MyStateActivity.class);
+//                startActivity(intent);
+//                break;
             case R.id.my_guest:
                 intent = new Intent(getActivity(), MyGuestActivity.class);
                 startActivity(intent);

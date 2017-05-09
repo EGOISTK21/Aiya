@@ -53,7 +53,7 @@ public class MatchResultFragment extends LazyFragment implements MatchResultCont
 
     private void initView() {
         ivAvatar = (ImageView) rootView.findViewById(R.id.iv_avatar);
-        tvNick = (TextView) rootView.findViewById(R.id.tv_nick);
+        tvNick = (TextView) rootView.findViewById(R.id.tv_username);
         tvSchool = (TextView) rootView.findViewById(R.id.tv_school);
         presenter.loadData();
     }

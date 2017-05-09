@@ -4,36 +4,66 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.aiyaschool.aiya.MyApplication;
-import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.bean.UpLoad;
 
 /**
- * Created by EGOISTK21 on 2017/4/12.
+ * Created by EGOISTK21 on 2017/4/28.
  */
 
 public class DBUtil {
 
-    private static SharedPreferences preferences;
+    private static SharedPreferences sSharedPreferences = MyApplication.getInstance().getSharedPreferences("test", Context.MODE_PRIVATE);
+    private static SharedPreferences.Editor sEditor = sSharedPreferences.edit();
 
     private DBUtil() {
+
     }
 
-    public static void saveUser(User user) {
-        preferences = MyApplication.getInstance()
-                .getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("username", user.getUsername());
-        editor.putString("usersig", user.getUsersig());
-        editor.putString("logintoken", user.getLogintoken());
-        editor.putString("accesstoken", user.getAccessToken());
-        editor.commit();
-        //editor.apply();
+    static void setPhone(String phone) {
+        sEditor.putString("phone", phone);
+        sEditor.apply();
     }
 
-    public static String getUserName() {
-        String s = null;
-        if (preferences != null) {
-            s = preferences.getString("username", null);
+    static String getPhone() {
+        return sSharedPreferences.getString("phone", "");
+    }
+
+    static void setUpLoad(UpLoad upLoad) {
+        if (upLoad != null) {
+            sEditor.putString("upurl", upLoad.getUpurl());
+            sEditor.putString("imgname", upLoad.getImgname());
+            sEditor.apply();
         }
-        return s;
+    }
+
+    static UpLoad getUpLoad() {
+        return new UpLoad(sSharedPreferences.getString("upurl", ""), sSharedPreferences.getString("upurl", ""));
+    }
+
+    static void clearUpLoad() {
+        sEditor.remove("upurl");
+        sEditor.remove("upurl");
+        sEditor.apply();
+    }
+
+    static void setLoginToken(String loginToken) {
+        if (loginToken != null) {
+            sEditor.putString("loginToken", loginToken);
+            sEditor.apply();
+        }
+    }
+
+    static String getLoginToken() {
+        return sSharedPreferences.getString("loginToken", "");
+    }
+
+    static void clearLoginToken() {
+        sEditor.remove("loginToken");
+        sEditor.apply();
+    }
+
+    public static void clearAll() {
+        sEditor.clear();
+        sEditor.apply();
     }
 }

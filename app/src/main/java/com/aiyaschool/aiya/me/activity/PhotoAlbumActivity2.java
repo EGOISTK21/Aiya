@@ -28,7 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.MainActivity;
+import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.multi_image_selector.MultiImageSelector;
 import com.aiyaschool.aiya.multi_image_selector.MultiImageSelectorFragment;
@@ -162,7 +162,8 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
                 String date = imagePathItem.getDate();
                 List<String> path = imagePathItem.getImagePath();
                 if (!date.equals(dateNow)) {
-                    path.remove(R.drawable.uploadpic_226x226 + "");
+                    boolean a = path.remove(R.drawable.uploadpic_226x226 + "");
+                    System.out.println("boolean"+a);
                     if (path.size() == 0) {
                         continue;
                     }
@@ -216,7 +217,9 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
         saveData();
         Intent intent = new Intent(PhotoAlbumActivity2.this,MainActivity.class);
         intent.putExtra("Flag","Me");
-        startActivity(intent);
+        setResult(RESULT_OK, intent);
+        //startActivity(intent);
+        finish();
     }
     private void saveData(){
         List<ImagePathItem> list = new ArrayList<>();
