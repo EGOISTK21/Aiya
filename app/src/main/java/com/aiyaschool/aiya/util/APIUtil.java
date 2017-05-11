@@ -51,7 +51,7 @@ public class APIUtil {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 return chain.proceed(chain.request().newBuilder()
-                        .addHeader("accesstoken", MyApplication.getUser().getAccesstoken()).build());
+                        .addHeader("accesstoken", MyApplication.getUser().getAccessToken()).build());
             }
         }).connectTimeout(TIMEOUT, TimeUnit.SECONDS).build();
         sRetrofit = new Retrofit.Builder().client(sOkHttpClient)

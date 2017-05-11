@@ -78,7 +78,7 @@ class SplashPresenter implements SplashContract.Presenter {
                             ToastUtil.show("你好像还没提交注册信息");
                             APIUtil.getTokenApi()
                                     .loadUser(SignUtil.getPhone(),
-                                            MyApplication.getUser().getTemptoken())
+                                            MyApplication.getUser().getTempToken())
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .unsubscribeOn(Schedulers.io())

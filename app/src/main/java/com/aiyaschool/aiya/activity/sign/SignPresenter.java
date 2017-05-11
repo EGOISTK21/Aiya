@@ -77,7 +77,7 @@ class SignPresenter implements SignContract.Presenter {
                         break;
                     case "5130":
                         APIUtil.getTokenApi()
-                                .loadUser(SignUtil.getPhone(), MyApplication.getUser().getTemptoken())
+                                .loadUser(SignUtil.getPhone(), MyApplication.getUser().getTempToken())
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .unsubscribeOn(Schedulers.io())

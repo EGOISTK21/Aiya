@@ -414,7 +414,7 @@ public class FormActivity extends BaseActivity implements FormContract.View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (null != this.getCurrentFocus()) {
+        if (this.getCurrentFocus() != null) {
             return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
         }
         return super.onTouchEvent(event);
