@@ -14,6 +14,11 @@ public class ImgWall {
     private int rows;
     private List<String> url;
 
+    public ImgWall(int rows, List<String> url) {
+        this.rows = rows;
+        this.url = url;
+    }
+
     public int getRows() {
         return rows;
     }
@@ -22,7 +27,7 @@ public class ImgWall {
         this.rows = rows;
     }
 
-    public Object getUrl() {
+    public List<String> getUrl() {
         return url;
     }
 

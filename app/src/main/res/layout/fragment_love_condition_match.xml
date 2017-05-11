@@ -240,12 +240,12 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/common_margin_15"
-                android:text="@string/hometown"
+                android:text="@string/character"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_16"/>
 
             <TextView
-                android:id="@+id/tv_hometown_picker"
+                android:id="@+id/tv_character_picker"
                 android:layout_width="@dimen/picker_button_width"
                 android:layout_height="@dimen/picker_button_height"
                 android:layout_centerInParent="true"
@@ -254,7 +254,7 @@
                 android:gravity="center"
                 android:paddingEnd="@dimen/common_margin_10"
                 android:paddingStart="@dimen/common_margin_10"
-                android:text="@string/default_hometown"
+                android:text="@string/default_character"
                 android:textColor="@color/colorContentSecondary"
                 android:textSize="@dimen/common_text_size_13"/>
 
@@ -262,13 +262,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/sw_hometown"
+                android:layout_toStartOf="@+id/sw_character"
                 android:text="@string/default_price_hometown"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_13"/>
 
             <android.support.v7.widget.SwitchCompat
-                android:id="@+id/sw_hometown"
+                android:id="@+id/sw_character"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"

@@ -7,7 +7,7 @@
     android:clipToPadding="false"
     android:fitsSystemWindows="true">
 
-    <android.support.v7.widget.AppCompatTextView
+    <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/tv_necessary_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                     android:layout_height="63.5dp"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:id="@+id/tv_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/common_text_size_15"/>
 
-                    <android.support.v7.widget.AppCompatEditText
+                    <EditText
                         android:id="@+id/et_username"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -74,14 +74,16 @@
                         android:layout_toEndOf="@+id/tv_username"
                         android:layout_toStartOf="@+id/ibn_avatar"
                         android:background="@null"
+                        android:ellipsize="end"
                         android:gravity="bottom"
+                        android:maxLines="1"
                         android:paddingBottom="@dimen/common_margin_15"
                         android:paddingStart="24dp"
                         android:singleLine="true"
                         android:textColor="@color/colorTitle"
                         android:textSize="@dimen/common_text_size_15"/>
 
-                    <android.support.v7.widget.AppCompatImageButton
+                    <ImageButton
                         android:id="@+id/ibn_avatar"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
@@ -100,7 +102,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_15"
@@ -109,7 +111,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/common_text_size_15"/>
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:id="@+id/tv_sex_picker"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -131,7 +133,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_15"
@@ -140,7 +142,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/common_text_size_15"/>
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:id="@+id/tv_school_picker"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -160,7 +162,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_15"
@@ -169,7 +171,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/common_text_size_15"/>
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:id="@+id/tv_age_picker"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -185,7 +187,7 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/tv_unnecessary_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -213,7 +215,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_15"
@@ -222,7 +224,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/common_text_size_15"/>
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:id="@+id/tv_height_picker"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -243,7 +245,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_15"
@@ -252,7 +254,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/common_text_size_15"/>
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:id="@+id/tv_constellation_picker"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -275,17 +277,17 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_15"
                         android:includeFontPadding="false"
-                        android:text="@string/hometown"
+                        android:text="@string/character"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/common_text_size_15"/>
 
-                    <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/tv_hometown_picker"
+                    <TextView
+                        android:id="@+id/tv_character_picker"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -305,7 +307,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_15"
@@ -314,11 +316,12 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/common_text_size_15"/>
 
-                    <android.support.v7.widget.AppCompatEditText
+                    <EditText
                         android:id="@+id/et_hobby"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:paddingStart="24dp"

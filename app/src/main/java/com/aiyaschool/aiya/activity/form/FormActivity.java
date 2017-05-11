@@ -8,20 +8,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.widget.AppCompatImageButton;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.BaseActivity;
-import com.aiyaschool.aiya.base.FilletDialog;
-import com.aiyaschool.aiya.base.StringScrollPicker;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.StatusBarUtil;
 import com.aiyaschool.aiya.util.ToastUtil;
+import com.aiyaschool.aiya.widget.FilletDialog;
+import com.aiyaschool.aiya.widget.StringScrollPicker;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,24 +48,24 @@ public class FormActivity extends BaseActivity implements FormContract.View {
     private Uri imgUri;
     private Bitmap mAvatar;
     private List<String> mSchools;
-    private String mUsername, mSex, mSchool, mAge, mHeight, mConstellation, mHometown, mHobby;
+    private String mUsername, mSex, mSchool, mAge, mHeight, mConstellation, mCharacter, mHobby;
     private FilletDialog dialogSexPicker, dialogSchoolPicker, dialogAgePicker,
             dialogHeightPicker, dialogConstellationPicker, dialogHometownPicker;
     private StringScrollPicker sspSex, sspSchool, sspAge, sspHeight, sspConstellation, sspHometown;
     @BindView(R.id.ibn_avatar)
-    AppCompatImageButton ibnAvatar;
+    ImageButton ibnAvatar;
     @BindView(R.id.tv_sex_picker)
-    AppCompatTextView tvSexPicker;
+    TextView tvSexPicker;
     @BindView(R.id.tv_school_picker)
-    AppCompatTextView tvSchoolPicker;
+    TextView tvSchoolPicker;
     @BindView(R.id.tv_age_picker)
-    AppCompatTextView tvAgePicker;
+    TextView tvAgePicker;
     @BindView(R.id.tv_height_picker)
-    AppCompatTextView tvHeightPicker;
+    TextView tvHeightPicker;
     @BindView(R.id.tv_constellation_picker)
-    AppCompatTextView tvConstellationPicker;
-    @BindView(R.id.tv_hometown_picker)
-    AppCompatTextView tvHometownPicker;
+    TextView tvConstellationPicker;
+    @BindView(R.id.tv_character_picker)
+    TextView tvCharacterPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,12 +150,12 @@ public class FormActivity extends BaseActivity implements FormContract.View {
 
         } else if (mConstellation == null) {
 
-        } else if (mHometown == null) {
+        } else if (mCharacter == null) {
 
         } else {
             String mGender = mSex.equals("男") ? "1" : "2";
             mPresenter.firstInit(SignUtil.getLoginToken(), SignUtil.getPhone(),
-                    mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mHometown, mHobby, null);
+                    mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mCharacter, mHobby, null);
         }
     }
 
@@ -294,30 +294,30 @@ public class FormActivity extends BaseActivity implements FormContract.View {
         setConstellationData();
     }
 
-    @OnClick(value = R.id.tv_hometown_picker)
-    void showDialogHometownPicker() {
+    @OnClick(value = R.id.tv_character_picker)
+    void showDialogCharacterPicker() {
         if (dialogHometownPicker == null) {
             dialogHometownPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
                     .setTitle("家乡")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (mHometown != null) {
-                                sspHometown.setSelectedItem(mHometown);
+                            if (mCharacter != null) {
+                                sspHometown.setSelectedItem(mCharacter);
                             }
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            mHometown = sspHometown.getSelectedItem();
-                            tvHometownPicker.setText(mHometown);
+                            mCharacter = sspHometown.getSelectedItem();
+                            tvCharacterPicker.setText(mCharacter);
                             dialog.dismiss();
                         }
                     }).create();
         }
         dialogHometownPicker.show();
-        setHometownData();
+        setCharacterData();
     }
 
     private void setSexData() {
@@ -376,13 +376,10 @@ public class FormActivity extends BaseActivity implements FormContract.View {
         }
     }
 
-    private void setHometownData() {
+    private void setCharacterData() {
         if (dialogHometownPicker != null && sspHometown == null) {
             sspHometown = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_single);
-            sspHometown.setData(new ArrayList<>(Arrays.asList("澳门", "安徽", "北京", "重庆", "福建",
-                    "甘肃", "广东", "广西", "贵州", "海南", "黑龙江", "河北", "河南", "湖北", "湖南", "吉林",
-                    "江苏", "江西", "辽宁", "内蒙古", "宁夏", "青海", "山东", "山西", "陕西", "上海", "四川",
-                    "台湾", "天津", "西藏", "新疆", "香港", "云南", "浙江")));
+            sspHometown.setData(new ArrayList<>(Arrays.asList("幽默", "温柔", "活跃", "呆萌", "内涵", "安静")));
             sspHometown.setSelectedPosition(24);
         }
     }

@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     tools:context=".activity.sign.SignActivity">
 
-    <android.support.v7.widget.AppCompatTextView
+    <TextView
         android:id="@+id/tv_back"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/common_bar_height"
@@ -21,7 +21,7 @@
         android:textSize="@dimen/common_text_size_15"
         android:visibility="invisible"/>
 
-    <android.support.v7.widget.AppCompatTextView
+    <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:textColor="@color/colorTitle"
         android:textSize="24sp"/>
 
-    <android.support.v7.widget.AppCompatTextView
+    <TextView
         android:id="@+id/tv_sub_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         android:textSize="@dimen/common_text_size_13"
         android:visibility="invisible"/>
 
-    <android.support.v7.widget.AppCompatEditText
+    <EditText
         android:id="@+id/et_sign"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         android:textColor="@color/colorTitle"
         android:textSize="24sp"/>
 
-    <android.support.v7.widget.AppCompatButton
+    <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -75,7 +75,7 @@
         android:textColor="@color/colorPureWhite"
         android:textSize="@dimen/common_text_size_16"/>
 
-    <android.support.v7.widget.AppCompatTextView
+    <TextView
         android:id="@+id/tv_warn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -17,19 +17,23 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.base.FilletDialog;
 import com.aiyaschool.aiya.base.LazyFragment;
-import com.aiyaschool.aiya.base.StringScrollPicker;
 import com.aiyaschool.aiya.love.unmatched.matchResult.MatchResultFragment;
 import com.aiyaschool.aiya.love.unmatched.randomMatch.RandomMatchFragment;
 import com.aiyaschool.aiya.util.ToastUtil;
+import com.aiyaschool.aiya.widget.FilletDialog;
+import com.aiyaschool.aiya.widget.StringScrollPicker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by EGOISTK21 on 2017/3/16.
@@ -39,18 +43,30 @@ public class ConditionMatchFragment extends LazyFragment
         implements ConditionMatchContract.View, CompoundButton.OnCheckedChangeListener {
 
     private int sum;
-    private int[] prices;
+    private int[] prices = new int[]{5, 4, 2, 2, 1, 0};
     private String tmpSchool;
     private FragmentTransaction ft;
     private View rootView;
     private ConditionMatchContract.Presenter presenter;
-    private TextView tvRandomMatch, tvHeightPicker, tvAgePicker,
-            tvSchoolPicker, tvHometownPicker, tvConstellationPicker;
-    private Button btnStartConditionMatch;
-    private SwitchCompat[] switches;
+    @BindView(R.id.tv_random_match)
+    TextView tvRandomMatch;
+    @BindView(R.id.tv_height_picker)
+    TextView tvHeightPicker;
+    @BindView(R.id.tv_age_picker)
+    TextView tvAgePicker;
+    @BindView(R.id.tv_school_picker)
+    TextView tvSchoolPicker;
+    @BindView(R.id.tv_character_picker)
+    TextView tvCharacterPicker;
+    @BindView(R.id.tv_constellation_picker)
+    TextView tvConstellationPicker;
+    @BindView(R.id.btn_start_condition_match)
+    Button btnStartConditionMatch;
+    @BindViews({R.id.sw_height, R.id.sw_age, R.id.sw_school, R.id.sw_character, R.id.sw_constellation, R.id.sw_shield_contact})
+    SwitchCompat[] switches;
     private FilletDialog dialogHeightPicker, dialogAgePicker,
-            dialogSchoolPicker, dialogHometownPicker, dialogConstellationPicker;
-    private StringScrollPicker sspHeight, sspAge, sspSchool, sspHometown, sspConstellation;
+            dialogSchoolPicker, dialogCharacterPicker, dialogConstellationPicker;
+    private StringScrollPicker sspHeight, sspAge, sspSchool, sspCharacter, sspConstellation;
     private ProgressDialog mPD;
 
     public static ConditionMatchFragment newInstance() {
@@ -60,14 +76,13 @@ public class ConditionMatchFragment extends LazyFragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prices = new int[]{5, 4, 2, 2, 1, 0};
-        presenter = new ConditionMatchPresenter(getContext(), this);
+        presenter = new ConditionMatchPresenter(this);
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         presenter.detachView();
+        super.onDestroy();
     }
 
     @Nullable
@@ -75,28 +90,15 @@ public class ConditionMatchFragment extends LazyFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_love_condition_match, container, false);
+        ButterKnife.bind(this, rootView);
         initView();
         initListener();
         return rootView;
     }
 
     private void initView() {
-        sum = 0;
         ft = getFragmentManager().beginTransaction();
-        tvRandomMatch = (TextView) rootView.findViewById(R.id.tv_random_match);
-        tvHeightPicker = (TextView) rootView.findViewById(R.id.tv_height_picker);
-        tvAgePicker = (TextView) rootView.findViewById(R.id.tv_age_picker);
-        tvSchoolPicker = (TextView) rootView.findViewById(R.id.tv_school_picker);
-        tvHometownPicker = (TextView) rootView.findViewById(R.id.tv_hometown_picker);
-        tvConstellationPicker = (TextView) rootView.findViewById(R.id.tv_constellation_picker);
-        btnStartConditionMatch = (Button) rootView.findViewById(R.id.btn_start_condition_match);
-        switches = new SwitchCompat[6];
-        switches[0] = ((SwitchCompat) rootView.findViewById(R.id.sw_height));
-        switches[1] = ((SwitchCompat) rootView.findViewById(R.id.sw_age));
-        switches[2] = ((SwitchCompat) rootView.findViewById(R.id.sw_school));
-        switches[3] = ((SwitchCompat) rootView.findViewById(R.id.sw_hometown));
-        switches[4] = ((SwitchCompat) rootView.findViewById(R.id.sw_constellation));
-        switches[5] = (SwitchCompat) rootView.findViewById(R.id.sw_shield_contact);
+        sum = 0;
         presenter.initIsContactShield();
         Spannable spannable = new SpannableString("你当前还是单身状态，快去和你的Ta相遇吧！");
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
@@ -105,24 +107,20 @@ public class ConditionMatchFragment extends LazyFragment
     }
 
     private void initListener() {
-        tvRandomMatch.setOnClickListener(this);
-        tvHeightPicker.setOnClickListener(this);
-        tvAgePicker.setOnClickListener(this);
-        tvSchoolPicker.setOnClickListener(this);
-        tvHometownPicker.setOnClickListener(this);
-        tvConstellationPicker.setOnClickListener(this);
-        btnStartConditionMatch.setOnClickListener(this);
         for (SwitchCompat s : switches) {
             s.setOnCheckedChangeListener(this);
         }
     }
 
-    @Override
-    public void setIsContactShield(boolean isContactShield) {
-        switches[5].setChecked(isContactShield);
+    @OnClick(R.id.tv_random_match)
+    void randomMatch() {
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.container_love, RandomMatchFragment.newInstance()).commit();
     }
 
-    private void showDialogHeightPicker() {
+    @OnClick(value = R.id.tv_height_picker)
+    void showDialogHeightPicker() {
         if (dialogHeightPicker == null) {
             dialogHeightPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("身高")
@@ -145,7 +143,8 @@ public class ConditionMatchFragment extends LazyFragment
         setHeightData();
     }
 
-    private void showDialogAgePicker() {
+    @OnClick(value = R.id.tv_age_picker)
+    void showDialogAgePicker() {
         if (dialogAgePicker == null) {
             dialogAgePicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("年龄")
@@ -167,7 +166,8 @@ public class ConditionMatchFragment extends LazyFragment
         setAgeData();
     }
 
-    private void showDialogSchoolPicker() {
+    @OnClick(value = R.id.tv_school_picker)
+    void showDialogSchoolPicker() {
         if (dialogSchoolPicker == null) {
             dialogSchoolPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("学校")
@@ -194,29 +194,31 @@ public class ConditionMatchFragment extends LazyFragment
         presenter.loadSchoolData();
     }
 
-    private void showDialogHometownPicker() {
-        if (dialogHometownPicker == null) {
-            dialogHometownPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
-                    .setTitle("家乡")
+    @OnClick(R.id.tv_character_picker)
+    void showDialogCharacterPicker() {
+        if (dialogCharacterPicker == null) {
+            dialogCharacterPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
+                    .setTitle("性格")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspHometown.setSelectedItem((String) tvHometownPicker.getText());
+                            sspCharacter.setSelectedItem((String) tvCharacterPicker.getText());
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            tvHometownPicker.setText(sspHometown.getSelectedItem());
+                            tvCharacterPicker.setText(sspCharacter.getSelectedItem());
                             dialog.dismiss();
                         }
                     }).create();
         }
-        dialogHometownPicker.show();
-        setHometownData();
+        dialogCharacterPicker.show();
+        setCharacterData();
     }
 
-    private void showDialogConstellationPicker() {
+    @OnClick(R.id.tv_constellation_picker)
+    void showDialogConstellationPicker() {
         if (dialogConstellationPicker == null) {
             dialogConstellationPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
                     .setTitle("星座")
@@ -238,6 +240,22 @@ public class ConditionMatchFragment extends LazyFragment
         setConstellationData();
     }
 
+    @OnClick(R.id.btn_start_condition_match)
+    void startConditionMatch() {
+        if (sum == 0) {
+            ToastUtil.show("请至少选择一个选项");
+            return;
+        }
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.container_love, MatchResultFragment.newInstance()).commit();
+    }
+
+    @Override
+    public void setIsContactShield(boolean isContactShield) {
+        switches[5].setChecked(isContactShield);
+    }
+
     private void setHeightData() {
         if (dialogHeightPicker != null && sspHeight == null) {
             sspHeight = (StringScrollPicker) dialogHeightPicker.findViewById(R.id.ssp_single);
@@ -256,14 +274,11 @@ public class ConditionMatchFragment extends LazyFragment
         }
     }
 
-    private void setHometownData() {
-        if (dialogHometownPicker != null && sspHometown == null) {
-            sspHometown = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_single);
-            sspHometown.setData(new ArrayList<>(Arrays.asList("澳门", "安徽", "北京", "重庆", "福建",
-                    "甘肃", "广东", "广西", "贵州", "海南", "黑龙江", "河北", "河南", "湖北", "湖南", "吉林",
-                    "江苏", "江西", "辽宁", "内蒙古", "宁夏", "青海", "山东", "山西", "陕西", "上海", "四川",
-                    "台湾", "天津", "西藏", "新疆", "香港", "云南", "浙江")));
-            sspHometown.setSelectedPosition(24);
+    private void setCharacterData() {
+        if (dialogCharacterPicker != null && sspCharacter == null) {
+            sspCharacter = (StringScrollPicker) dialogCharacterPicker.findViewById(R.id.ssp_single);
+            sspCharacter.setData(new ArrayList<>(Arrays.asList("幽默", "温柔", "活跃", "呆萌", "内涵", "安静")));
+            sspCharacter.setSelectedPosition(2);
         }
     }
 
@@ -288,11 +303,6 @@ public class ConditionMatchFragment extends LazyFragment
     }
 
     @Override
-    public void toastNetworkError() {
-        Toast.makeText(getContext(), "网络错误(＞д＜)", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.sw_height:
@@ -304,7 +314,7 @@ public class ConditionMatchFragment extends LazyFragment
             case R.id.sw_school:
                 updateSwitchesStatus(isChecked, 2);
                 break;
-            case R.id.sw_hometown:
+            case R.id.sw_character:
                 updateSwitchesStatus(isChecked, 3);
                 break;
             case R.id.sw_constellation:
@@ -317,10 +327,10 @@ public class ConditionMatchFragment extends LazyFragment
     }
 
     public void updateSwitchesStatus(boolean isChecked, int index) {
-        sum += isChecked ? (sum + prices[index] > 7 ? 0 : prices[index]) : -prices[index];
-        if (sum == 7) {
-            ToastUtil.show("你已选满7￥");
+        if (sum + prices[index] > 7) {
+            ToastUtil.show("你只有七块钱哦");
         }
+        sum += isChecked ? (sum + prices[index] > 7 ? 0 : prices[index]) : -prices[index];
         if (sum > 4) {
             switches[0].setClickable(switches[0].isChecked());
             switches[1].setClickable(switches[1].isChecked());
@@ -350,41 +360,6 @@ public class ConditionMatchFragment extends LazyFragment
     public void dismissPD() {
         if (mPD != null && mPD.isShowing()) {
             mPD.dismiss();
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_random_match:
-                ft.addToBackStack(null);
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container_love, RandomMatchFragment.newInstance()).commit();
-                break;
-            case R.id.tv_height_picker:
-                showDialogHeightPicker();
-                break;
-            case R.id.tv_age_picker:
-                showDialogAgePicker();
-                break;
-            case R.id.tv_school_picker:
-                showDialogSchoolPicker();
-                break;
-            case R.id.tv_hometown_picker:
-                showDialogHometownPicker();
-                break;
-            case R.id.tv_constellation_picker:
-                showDialogConstellationPicker();
-                break;
-            case R.id.btn_start_condition_match:
-                if (sum == 0) {
-                    ToastUtil.show("请至少选择一个选项");
-                    break;
-                }
-                ft.addToBackStack(null);
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container_love, MatchResultFragment.newInstance()).commit();
-                break;
         }
     }
 

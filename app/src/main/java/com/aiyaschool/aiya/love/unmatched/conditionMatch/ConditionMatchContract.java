@@ -1,6 +1,7 @@
 package com.aiyaschool.aiya.love.unmatched.conditionMatch;
 
 import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.User;
 
 import java.util.List;
 
@@ -18,6 +19,15 @@ interface ConditionMatchContract {
         void commitIsContactShield(boolean isContactShield);
 
         void loadSchoolData(Observer<HttpResult<List<String>>> observer);
+
+        void startConditionMatch(String minHeight,
+                                 String maxHeight,
+                                 String minAge,
+                                 String maxAge,
+                                 String school,
+                                 String character,
+                                 String constellation,
+                                 Observer<HttpResult<List<User>>> observer);
     }
 
     interface View {
@@ -29,7 +39,6 @@ interface ConditionMatchContract {
 
         void setSchoolData(List<String> data);
 
-        void toastNetworkError();
     }
 
     interface Presenter {
@@ -42,12 +51,6 @@ interface ConditionMatchContract {
         void commitIsContactShield(boolean isContactShield);
 
         void loadSchoolData();
-
-        interface OnServerReachableListener {
-            void onFailure();
-
-            void onSuccess(List<String> data);
-        }
     }
 
 }

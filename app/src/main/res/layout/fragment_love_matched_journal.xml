@@ -7,7 +7,7 @@
     android:background="@color/colorPureWhite"
     android:orientation="horizontal">
 
-    <com.aiyaschool.aiya.base.StringScrollPicker
+    <com.aiyaschool.aiya.widget.StringScrollPicker
         android:id="@+id/ssp_date"
         android:layout_width="120dp"
         android:layout_height="match_parent"

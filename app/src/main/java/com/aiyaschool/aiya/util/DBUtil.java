@@ -3,11 +3,15 @@ package com.aiyaschool.aiya.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.Avatar;
 import com.aiyaschool.aiya.bean.ImgWall;
+import com.aiyaschool.aiya.bean.Normal;
+import com.aiyaschool.aiya.bean.Thumb;
 import com.aiyaschool.aiya.bean.UpLoad;
 import com.aiyaschool.aiya.bean.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by EGOISTK21 on 2017/4/28.
@@ -15,66 +19,71 @@ import com.aiyaschool.aiya.bean.User;
 
 public class DBUtil {
 
-    private static SharedPreferences sSharedPreferences = MyApplication.getInstance().getSharedPreferences("test", Context.MODE_PRIVATE);
-    private static SharedPreferences.Editor sEditor = sSharedPreferences.edit();
-    private static User sUser = new User();
+    private static SharedPreferences sSharedPreferences;
+    private static SharedPreferences.Editor sEditor;
+    private static User sUser;
 
     private DBUtil() {
 
     }
 
+    public static void init(Context context) {
+        sSharedPreferences = context.getSharedPreferences("test", Context.MODE_PRIVATE);
+        sEditor = sSharedPreferences.edit();
+        sUser = new User();
+        sUser.setLoginToken(DBUtil.getLoginToken());
+        sUser.setUserSig(DBUtil.getUserSig());
+        sUser.setAccessToken(DBUtil.getAccessToken());
+        sUser.setUpLoad(DBUtil.getUpLoad());
+        sUser.setId(DBUtil.getId());
+        sUser.setUsername(DBUtil.getUsername());
+        sUser.setPhone(DBUtil.getPhone());
+        sUser.setSchool(DBUtil.getSchool());
+        sUser.setLoveId(DBUtil.getLoveId());
+        sUser.setGroup(DBUtil.getGroup());
+        sUser.setCharacter(DBUtil.getCharacter());
+        sUser.setAvatar(DBUtil.getAvatar());
+        sUser.setProfile(DBUtil.getProfile());
+        sUser.setPoints(DBUtil.getPoints());
+        sUser.setGiftTickets(DBUtil.getGiftTickets());
+        sUser.setFateSwitch(DBUtil.getFateSwitch());
+        sUser.setImgWall(DBUtil.getImgWall());
+    }
+
     static void setUser(User user) {
-        setTempToken(user.getTempToken());
         setLoginToken(user.getLoginToken());
-        setUserSig(user.getUsersig());
+        setUserSig(user.getUserSig());
         setAccessToken(user.getAccessToken());
-        setUpLoad(user.getUpload());
-        setPhone(user.getPhone());
+        setUpLoad(user.getUpLoad());
         setId(user.getId());
         setUsername(user.getUsername());
-        setProfile(user.getProfile());
+        setPhone(user.getPhone());
+        setSchool(user.getSchool());
         setLoveId(user.getLoveId());
         setGroup(user.getGroup());
-        setSchool(user.getSchool());
-        setHomeTown(user.getProvince());
+        setCharacter(user.getCharacter());
+        setAvatar(user.getAvatar());
+        setProfile(user.getProfile());
         setPoints(user.getPoints());
         setGiftTickets(user.getGiftTickets());
-        setAvatar(user.getAvatar());
-        setImageWall(user.getImgwall());
+        setFateSwitch(user.getFateSwitch());
+        setImgWall(user.getImgWall());
     }
 
     static User getUser() {
         return sUser;
     }
 
-    static void setTempToken(String tempToken) {
-        if (tempToken != null && !sUser.getTempToken().equals(tempToken)) {
-            sUser.setTempToken(tempToken);
-            sEditor.putString("temptoken", tempToken);
-            sEditor.apply();
-        }
-    }
-
-    static String getTempToken() {
-        return sSharedPreferences.getString("temptoken", "");
-    }
-
-    static void clearTempToken() {
-        sUser.setTempToken(null);
-        sEditor.remove("temptoken");
-        sEditor.apply();
-    }
-
     static void setLoginToken(String loginToken) {
-        if (loginToken != null && !sUser.getLoginToken().equals(loginToken)) {
+        if (loginToken != null && !loginToken.equals(sUser.getLoginToken())) {
             sUser.setLoginToken(loginToken);
-            sEditor.putString("loginToken", loginToken);
+            sEditor.putString("logintoken", loginToken);
             sEditor.apply();
         }
     }
 
     static String getLoginToken() {
-        return sSharedPreferences.getString("logintoken", "");
+        return sSharedPreferences.getString("logintoken", null);
     }
 
     static void clearLoginToken() {
@@ -84,7 +93,7 @@ public class DBUtil {
     }
 
     static void setAccessToken(String accessToken) {
-        if (accessToken != null && !sUser.getAccessToken().equals(accessToken)) {
+        if (accessToken != null && !accessToken.equals(sUser.getAccessToken())) {
             sUser.setAccessToken(accessToken);
             sEditor.putString("accesstoken", "");
             sEditor.apply();
@@ -92,23 +101,23 @@ public class DBUtil {
     }
 
     static String getAccessToken() {
-        return sSharedPreferences.getString("accesstoken", "");
+        return sSharedPreferences.getString("accesstoken", null);
     }
 
     static void setUserSig(String userSig) {
-        if (userSig != null && !sUser.getUsersig().equals(userSig)) {
-            sUser.setUsersig(userSig);
+        if (userSig != null && !userSig.equals(sUser.getUserSig())) {
+            sUser.setUserSig(userSig);
             sEditor.putString("usersig", userSig);
             sEditor.apply();
         }
     }
 
     static String getUserSig() {
-        return sSharedPreferences.getString("usersig", "");
+        return sSharedPreferences.getString("usersig", null);
     }
 
     static void setPhone(String phone) {
-        if (phone != null && !sUser.getPhone().equals(phone)) {
+        if (phone != null && !phone.equals(sUser.getPhone())) {
             sUser.setPhone(phone);
             sEditor.putString("phone", phone);
             sEditor.apply();
@@ -116,11 +125,12 @@ public class DBUtil {
     }
 
     static String getPhone() {
-        return sSharedPreferences.getString("phone", "");
+        return sSharedPreferences.getString("phone", null);
     }
 
     static void setUpLoad(UpLoad upLoad) {
-        if (upLoad != null) {
+        if (upLoad != null && !upLoad.equals(sUser.getUpLoad())) {
+            sUser.setUpLoad(upLoad);
             sEditor.putString("upurl", upLoad.getUpurl());
             sEditor.putString("imgname", upLoad.getImgname());
             sEditor.apply();
@@ -128,17 +138,17 @@ public class DBUtil {
     }
 
     static UpLoad getUpLoad() {
-        return new UpLoad(sSharedPreferences.getString("upurl", ""), sSharedPreferences.getString("upurl", ""));
+        return new UpLoad(sSharedPreferences.getString("upurl", null), sSharedPreferences.getString("upurl", null));
     }
 
     static void clearUpLoad() {
         sEditor.remove("upurl");
-        sEditor.remove("upurl");
+        sEditor.remove("imgname");
         sEditor.apply();
     }
 
     static void setId(String id) {
-        if (id != null && !sUser.getId().equals(id)) {
+        if (id != null && !id.equals(sUser.getId())) {
             sUser.setId(id);
             sEditor.putString("id", id);
             sEditor.apply();
@@ -146,11 +156,11 @@ public class DBUtil {
     }
 
     static String getId() {
-        return sSharedPreferences.getString("id", "");
+        return sSharedPreferences.getString("id", null);
     }
 
     static void setUsername(String username) {
-        if (username != null && !sUser.getUsername().equals(username)) {
+        if (username != null && !username.equals(sUser.getUsername())) {
             sUser.setUsername(username);
             sEditor.putString("username", username);
             sEditor.apply();
@@ -158,11 +168,11 @@ public class DBUtil {
     }
 
     static String getUsername() {
-        return sSharedPreferences.getString("username", "");
+        return sSharedPreferences.getString("username", null);
     }
 
     static void setLoveId(String loveId) {
-        if (loveId != null && !sUser.getLoveId().equals(loveId)) {
+        if (loveId != null && !loveId.equals(sUser.getLoveId())) {
             sUser.setLoveId(loveId);
             sEditor.putString("loveid", loveId);
             sEditor.apply();
@@ -170,11 +180,11 @@ public class DBUtil {
     }
 
     static String getLoveId() {
-        return sSharedPreferences.getString("loveid", "");
+        return sSharedPreferences.getString("loveid", null);
     }
 
     static void setGroup(String group) {
-        if (group != null && !sUser.getGroup().equals(group)) {
+        if (group != null && !group.equals(sUser.getGroup())) {
             sUser.setGroup(group);
             sEditor.putString("group", group);
             sEditor.apply();
@@ -182,47 +192,50 @@ public class DBUtil {
     }
 
     static String getGroup() {
-        return sSharedPreferences.getString("group", "");
+        return sSharedPreferences.getString("group", null);
     }
 
     static void setSchool(String school) {
-        if (school != null && !sUser.getSchool().equals(school)) {
+        if (school != null && !school.equals(sUser.getSchool())) {
             sUser.setSchool(school);
-            sEditor.putString("school", "");
+            sEditor.putString("school", school);
             sEditor.apply();
         }
     }
 
     static String getSchool() {
-        return sSharedPreferences.getString("school", "");
+        return sSharedPreferences.getString("school", null);
     }
 
-    static void setHomeTown(String homeTown) {
-        if (homeTown != null && !sUser.getProvince().equals(homeTown)) {
-            sUser.setProvince(homeTown);
-            sEditor.putString("hometown", homeTown);
+    static void setCharacter(String character) {
+        if (character != null && !character.equals(sUser.getCharacter())) {
+            sUser.setCharacter(character);
+            sEditor.putString("character", character);
             sEditor.apply();
         }
     }
 
-    static String getHomeTown() {
-        return sSharedPreferences.getString("hometown", "");
+    static String getCharacter() {
+        return sSharedPreferences.getString("character", null);
     }
 
     static void setAvatar(Avatar avatar) {
-        if (avatar != null) {
-//            sEditor.putString("normal", avatar.getNormal());
-//            sEditor.putString("thumb", avatar.getThumb());
+        if (avatar != null && !avatar.equals(sUser.getAvatar())) {
+            sEditor.putString("normal_face", avatar.getNormal().getFace());
+            sEditor.putString("normal_background", avatar.getNormal().getBackground());
+            sEditor.putString("thumb_face", avatar.getThumb().getFace());
+            sEditor.putString("thumb_background", avatar.getThumb().getBackground());
             sEditor.apply();
         }
     }
 
-    static String getAvatar() {
-        return sSharedPreferences.getString("avatar", "");
+    static Avatar getAvatar() {
+        return new Avatar(new Normal(sSharedPreferences.getString("normal_face", null), sSharedPreferences.getString("normal_background", null)),
+                new Thumb(sSharedPreferences.getString("thumb_face", null), sSharedPreferences.getString("thumb_background", null)));
     }
 
     static void setProfile(String profile) {
-        if (profile != null && !sUser.getProfile().equals(profile)) {
+        if (profile != null && !profile.equals(sUser.getProfile())) {
             sUser.setProfile(profile);
             sEditor.putString("profile", profile);
             sEditor.apply();
@@ -230,11 +243,11 @@ public class DBUtil {
     }
 
     static String getProfile() {
-        return sSharedPreferences.getString("profile", "");
+        return sSharedPreferences.getString("profile", null);
     }
 
     static void setPoints(String points) {
-        if (points != null && !sUser.getPoints().equals(points)) {
+        if (points != null && !points.equals(sUser.getPoints())) {
             sUser.setPoints(points);
             sEditor.putString("points", points);
             sEditor.apply();
@@ -242,11 +255,11 @@ public class DBUtil {
     }
 
     static String getPoints() {
-        return sSharedPreferences.getString("points", "");
+        return sSharedPreferences.getString("points", null);
     }
 
     static void setGiftTickets(String giftTickets) {
-        if (giftTickets != null && !sUser.getGiftTickets().equals(giftTickets)) {
+        if (giftTickets != null && !giftTickets.equals(sUser.getGiftTickets())) {
             sUser.setGiftTickets(giftTickets);
             sEditor.putString("gifttickets", giftTickets);
             sEditor.apply();
@@ -254,18 +267,49 @@ public class DBUtil {
     }
 
     static String getGiftTickets() {
-        return sSharedPreferences.getString("gifttickets", "");
+        return sSharedPreferences.getString("gifttickets", null);
     }
 
-    static void setImageWall(ImgWall imgWall) {
-        if (imgWall != null) {
-            //sEditor.putString("imagewall", imgWall.getUrl());
+    static void setFateSwitch(String fateSwitch) {
+        if (fateSwitch != null && !fateSwitch.equals(sUser.getFateSwitch())) {
+            sUser.setFateSwitch(fateSwitch);
+            sEditor.putString("fateswitch", fateSwitch);
             sEditor.apply();
         }
     }
 
-    static String getImageWall() {
-        return sSharedPreferences.getString("imagewall", "");
+    static String getFateSwitch() {
+        return sSharedPreferences.getString("fateswitch", null);
+    }
+
+    static void setImgWall(ImgWall imgWall) {
+        if (imgWall != null && !imgWall.equals(sUser.getImgWall())) {
+            clearImgWall();
+            sEditor.putInt("rows", imgWall.getRows());
+            for (int i = 0; i < imgWall.getRows(); i++) {
+                sEditor.putString("url_" + i, imgWall.getUrl().get(i));
+            }
+            sEditor.apply();
+        }
+    }
+
+    static ImgWall getImgWall() {
+        int rows = sSharedPreferences.getInt("rows", 0);
+        List<String> urls = new ArrayList<>();
+        for (int i = 0; i < rows; i++) {
+            urls.add(sSharedPreferences.getString("url_" + i, null));
+        }
+        return new ImgWall(rows, urls);
+    }
+
+    static void clearImgWall() {
+        int rows = sSharedPreferences.getInt("rows", 0);
+        if (rows != 0) {
+            for (int i = 0; i < rows; i++) {
+                sEditor.remove("url_" + i);
+            }
+            sEditor.apply();
+        }
     }
 
     public static void clearAll() {

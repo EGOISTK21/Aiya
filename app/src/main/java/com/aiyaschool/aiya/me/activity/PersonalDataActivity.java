@@ -17,9 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.base.FilletDialog;
-import com.aiyaschool.aiya.base.ScrollPickerView;
-import com.aiyaschool.aiya.base.StringScrollPicker;
+import com.aiyaschool.aiya.widget.FilletDialog;
+import com.aiyaschool.aiya.widget.ScrollPickerView;
+import com.aiyaschool.aiya.widget.StringScrollPicker;
 import com.aiyaschool.aiya.me.bean.RegionModel;
 import com.aiyaschool.aiya.me.db.RegionDao;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
