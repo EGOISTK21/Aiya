@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.LazyFragment;
-import com.aiyaschool.aiya.base.StringScrollPicker;
+import com.aiyaschool.aiya.widget.StringScrollPicker;
 
 import java.util.ArrayList;
 import java.util.Arrays;

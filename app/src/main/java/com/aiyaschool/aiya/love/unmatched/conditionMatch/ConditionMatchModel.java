@@ -1,6 +1,7 @@
 package com.aiyaschool.aiya.love.unmatched.conditionMatch;
 
 import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.APIUtil;
 
 import java.util.List;
@@ -30,6 +31,24 @@ class ConditionMatchModel implements ConditionMatchContract.Model {
     public void loadSchoolData(Observer<HttpResult<List<String>>> observer) {
         APIUtil.getSearchSchoolApi()
                 .loadSchoolData(null, "陕西")
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void startConditionMatch(String minHeight,
+                                    String maxHeight,
+                                    String minAge,
+                                    String maxAge,
+                                    String school,
+                                    String character,
+                                    String constellation,
+                                    Observer<HttpResult<List<User>>> observer) {
+        APIUtil.getMatchingApi()
+                .startConditionMatch(minHeight, maxHeight, minAge, maxAge, school, character, constellation, null, null)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

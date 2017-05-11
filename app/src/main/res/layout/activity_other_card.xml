@@ -31,7 +31,7 @@
                 android:textColor="@color/colorPureWhite"
                 android:textSize="15sp"/>
 
-            <com.aiyaschool.aiya.base.CircleImageView
+            <com.aiyaschool.aiya.widget.CircleImageView
                 android:id="@+id/iv_other"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -184,7 +184,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
-                        android:text="@string/hometown"
+                        android:text="@string/character"
                         android:textColor="@color/colorTitle"
                         android:textSize="@dimen/common_text_size_16"/>
 
@@ -192,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
-                        android:text="@string/default_hometown"
+                        android:text="@string/default_character"
                         android:textColor="@color/colorTitle"
                         android:textSize="@dimen/common_text_size_16"/>
 

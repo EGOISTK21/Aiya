@@ -127,7 +127,7 @@ public class APIUtil {
      * 'age':年龄,
      * ['height']:身高,
      * ['constellation']:星座,
-     * ['hometown']:家乡,
+     * ['character']:性格,
      * ['hobby']:爱好
      * ['avatar']:头像 URI (若头像上传成功，则填对应的URI)
      */
@@ -143,7 +143,7 @@ public class APIUtil {
                                                 @Field("age") String age,
                                                 @Field("height") String height,
                                                 @Field("constellation") String constellation,
-                                                @Field("hometown") String hometown,
+                                                @Field("character") String character,
                                                 @Field("hobby") String hobby,
                                                 @Field("avatar") String avatar);
     }
@@ -180,16 +180,15 @@ public class APIUtil {
     public interface MatchingApi {
         @POST("Love/GET/matching")
         @FormUrlEncoded
-        Observable<HttpResult<User>> startConditionMatch(@Field("minHeight") String minHeight,
-                                                         @Field("maxHeight") String maxHeight,
-                                                         @Field("minAge") String minAge,
-                                                         @Field("maxAge") String maxAge,
-                                                         @Field("major") String major,
-                                                         @Field("school") String school,
-                                                         @Field("province") String hometown,
-                                                         @Field("constellation") String constellation,
-                                                         @Field("page") String page,
-                                                         @Field("line") String line);
+        Observable<HttpResult<List<User>>> startConditionMatch(@Field("minHeight") String minHeight,
+                                                               @Field("maxHeight") String maxHeight,
+                                                               @Field("minAge") String minAge,
+                                                               @Field("maxAge") String maxAge,
+                                                               @Field("school") String school,
+                                                               @Field("character") String character,
+                                                               @Field("constellation") String constellation,
+                                                               @Field("page") String page,
+                                                               @Field("line") String line);
     }
 
     public static VerificationInitApi getVerificationInitApi() {

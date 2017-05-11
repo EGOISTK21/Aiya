@@ -32,7 +32,7 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <com.aiyaschool.aiya.base.CircleImageView
+                    <com.aiyaschool.aiya.widget.CircleImageView
                         android:id="@+id/iv_matched_left"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -67,7 +67,7 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <com.aiyaschool.aiya.base.CircleImageView
+                    <com.aiyaschool.aiya.widget.CircleImageView
                         android:id="@+id/iv_matched_right"
                         android:layout_width="50dp"
                         android:layout_height="50dp"

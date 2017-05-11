@@ -35,7 +35,6 @@ class FormPresenter implements FormContract.Presenter {
         attach(view);
     }
 
-
     @Override
     public void attach(FormContract.View view) {
         mModel = new FormModel();
@@ -120,11 +119,11 @@ class FormPresenter implements FormContract.Presenter {
                           String age,
                           String height,
                           String constellation,
-                          String hometown,
+                          String character,
                           String hobby,
                           String avatar) {
         mModel.firstInit(loginToken, phone, username, gender, school, age,
-                height, constellation, hometown, hobby, avatar, new Observer<HttpResult<User>>() {
+                height, constellation, character, hobby, avatar, new Observer<HttpResult<User>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         Log.i(TAG, "onSubscribe: firstInit");
@@ -133,11 +132,12 @@ class FormPresenter implements FormContract.Presenter {
 
                     @Override
                     public void onNext(@NonNull HttpResult<User> httpResult) {
-                        Log.i(TAG, "onNext: firstInit");
-                        Log.i(TAG, "onNext: " + httpResult);
+                        Log.i(TAG, "onNext: firstInit " + httpResult);
+                        mView.dismissPD();
                         switch (httpResult.getState()) {
                             case "2000":
                                 MyApplication.setUser(httpResult.getData());
+                                mView.startMainView();
                                 break;
                         }
                     }
@@ -151,8 +151,6 @@ class FormPresenter implements FormContract.Presenter {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: firstInit");
-                        mView.dismissPD();
-                        mView.startMainView();
                     }
                 });
     }

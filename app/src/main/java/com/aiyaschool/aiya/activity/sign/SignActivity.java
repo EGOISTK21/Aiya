@@ -6,9 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -17,6 +14,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.form.FormActivity;
@@ -45,17 +45,17 @@ public class SignActivity extends BaseActivity implements SignContract.View {
     private SignContract.Presenter mPresenter;
     private InputMethodManager mInputMethodManager;
     @BindView(R.id.tv_back)
-    AppCompatTextView tvBack;
+    TextView tvBack;
     @BindView(R.id.tv_title)
-    AppCompatTextView tvTitle;
+    TextView tvTitle;
     @BindView(R.id.tv_sub_title)
-    AppCompatTextView tvSubTitle;
+    TextView tvSubTitle;
     @BindView(R.id.tv_warn)
-    AppCompatTextView tvWarn;
+    TextView tvWarn;
     @BindView(R.id.et_sign)
-    AppCompatEditText etSign;
+    EditText etSign;
     @BindView(R.id.btn_next)
-    AppCompatButton btnNext;
+    Button btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,13 +102,13 @@ public class SignActivity extends BaseActivity implements SignContract.View {
     void etSignChanged(CharSequence sign) {
         if (!isVerificationView) {
             phone = String.valueOf(sign);
-            btnNext.setBackgroundDrawable(SignUtil.isValidPhone(phone)
+            btnNext.setBackground(SignUtil.isValidPhone(phone)
                     ? ContextCompat.getDrawable(this, R.drawable.button_selector_with_corner_24)
                     : ContextCompat.getDrawable(this, R.drawable.button_unclickable_with_corner_24));
             btnNext.setClickable(SignUtil.isValidPhone(phone));
         } else {
             verification = String.valueOf(sign);
-            btnNext.setBackgroundDrawable(SignUtil.isValidVerification(verification)
+            btnNext.setBackground(SignUtil.isValidVerification(verification)
                     ? ContextCompat.getDrawable(this, R.drawable.button_selector_with_corner_24)
                     : ContextCompat.getDrawable(this, R.drawable.button_unclickable_with_corner_24));
             btnNext.setClickable(SignUtil.isValidVerification(verification));
@@ -160,6 +160,7 @@ public class SignActivity extends BaseActivity implements SignContract.View {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SignUtil.setPhone(phone);
                 mPresenter.sign(phone, verification);
             }
         });

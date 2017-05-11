@@ -2,6 +2,7 @@ package com.aiyaschool.aiya.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.trello.rxlifecycle2.components.support.RxFragment;
@@ -16,6 +17,8 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
  */
 
 public class LazyFragment extends RxFragment implements View.OnClickListener {
+
+    private static final String TAG = "LazyFragment";
     // 标志位，标志已经初始化完成，因为setUserVisibleHint是在onCreateView之前调用的，
     // 在视图未初始化的时候，在lazyLoad当中就使用的话，就会有空指针的异常
     private boolean isPrepared;
@@ -25,6 +28,7 @@ public class LazyFragment extends RxFragment implements View.OnClickListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.i(TAG, "onViewCreated: " + getClass().getSimpleName());
         isPrepared = true;
         lazyLoad();
     }

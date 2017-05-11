@@ -1,6 +1,7 @@
 package com.aiyaschool.aiya.util;
 
 import com.aiyaschool.aiya.bean.UpLoad;
+import com.aiyaschool.aiya.bean.User;
 
 import java.util.regex.Pattern;
 
@@ -25,6 +26,14 @@ public class SignUtil {
         return null != username && Pattern.compile("[\\u4E00-\\u9FA5A-Za-z0-9_]{1,9}").matcher(username).matches();
     }
 
+    public static void setUser(User user) {
+        DBUtil.setUser(user);
+    }
+
+    public static User getUser() {
+        return DBUtil.getUser();
+    }
+
     public static void setPhone(String phone) {
         if (isValidPhone(phone)) {
             DBUtil.setPhone(phone);
@@ -35,10 +44,6 @@ public class SignUtil {
         return DBUtil.getPhone();
     }
 
-    public static void setUpLoad(UpLoad upLoad) {
-        DBUtil.setUpLoad(upLoad);
-    }
-
     public static UpLoad getUpLoad() {
         return DBUtil.getUpLoad();
     }
@@ -47,12 +52,12 @@ public class SignUtil {
         DBUtil.clearUpLoad();
     }
 
-    public static void setLoginToken(String loginToken) {
-        DBUtil.setLoginToken(loginToken);
-    }
-
     public static String getLoginToken() {
         return DBUtil.getLoginToken();
+    }
+
+    public static void clearLoginToken() {
+        DBUtil.clearLoginToken();
     }
 
     public static void addAccessToken() {
@@ -61,10 +66,6 @@ public class SignUtil {
 
     public static void removeAccessToken() {
         APIUtil.removeAccessToken();
-    }
-
-    public static void clearLoginToken() {
-        DBUtil.clearLoginToken();
     }
 
 }

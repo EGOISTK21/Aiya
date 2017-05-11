@@ -1,11 +1,11 @@
 package com.aiyaschool.aiya.bean;
 
 /**
+ * 用户实体类
  * Created by EGOISTK21 on 2017/4/26.
  */
 
 public class User {
-
     /**
      * temptoken : f29c1317158d76821e8d11ccd8a007a358fc9984c178e
      * username : xihuan
@@ -29,17 +29,18 @@ public class User {
     private String usersig;
     private String accesstoken;
     private UpLoad upload;
-    private String phone;
     private String id;
     private String username;
-    private String profile;
+    private String phone;
+    private String school;
     private String loveid;
     private String group;
-    private String school;
-    private String province;
+    private String character;
+    private Avatar avatar;
+    private String profile;
     private String points;
     private String gifttickets;
-    private Avatar avatar;
+    private String fateswitch;
     private ImgWall imgwall;
 
 
@@ -47,16 +48,36 @@ public class User {
         return temptoken;
     }
 
-    public void setTempToken(String tempToken) {
-        this.temptoken = tempToken;
+    public String getLoginToken() {
+        return logintoken;
     }
 
-    public UpLoad getUpload() {
+    public void setLoginToken(String loginToken) {
+        this.logintoken = loginToken;
+    }
+
+    public String getUserSig() {
+        return usersig;
+    }
+
+    public void setUserSig(String userSig) {
+        this.usersig = userSig;
+    }
+
+    public String getAccessToken() {
+        return accesstoken == null ? "false" : accesstoken;
+    }
+
+    public void setAccessToken(String AccessToken) {
+        this.accesstoken = AccessToken;
+    }
+
+    public UpLoad getUpLoad() {
         return upload;
     }
 
-    public void setUpload(UpLoad upload) {
-        this.upload = upload;
+    public void setUpLoad(UpLoad upLoad) {
+        this.upload = upLoad;
     }
 
     public String getId() {
@@ -83,14 +104,6 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAccessToken() {
-        return accesstoken == null ? "false" : accesstoken;
-    }
-
-    public void setAccessToken(String AccessToken) {
-        this.accesstoken = AccessToken;
-    }
-
     public String getSchool() {
         return school;
     }
@@ -99,12 +112,12 @@ public class User {
         this.school = school;
     }
 
-    public String getLoveId() {
-        return loveid;
+    public boolean isMatched() {
+        return !"0".equals(loveid);
     }
 
-    public boolean isMatched() {
-        return !loveid.equals("0");
+    public String getLoveId() {
+        return loveid;
     }
 
     public void setLoveId(String loveId) {
@@ -119,12 +132,12 @@ public class User {
         this.group = group;
     }
 
-    public String getProvince() {
-        return province;
+    public String getCharacter() {
+        return character;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setCharacter(String character) {
+        this.character = character;
     }
 
     public Avatar getAvatar() {
@@ -159,50 +172,43 @@ public class User {
         this.gifttickets = giftTickets;
     }
 
-    public ImgWall getImgwall() {
+    public String getFateSwitch() {
+        return fateswitch;
+    }
+
+    public void setFateSwitch(String fateSwitch) {
+        this.fateswitch = fateSwitch;
+    }
+
+    public ImgWall getImgWall() {
         return imgwall;
     }
 
-    public void setImgwall(ImgWall imgwall) {
-        this.imgwall = imgwall;
-    }
-
-    public String getUsersig() {
-        return usersig;
-    }
-
-    public void setUsersig(String userSig) {
-        this.usersig = userSig;
-    }
-
-    public String getLoginToken() {
-        return logintoken;
-    }
-
-    public void setLoginToken(String loginToken) {
-        this.logintoken = loginToken;
+    public void setImgWall(ImgWall imgWall) {
+        this.imgwall = imgWall;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "temptoken='" + temptoken + '\'' +
+                ", logintoken='" + logintoken + '\'' +
+                ", usersig='" + usersig + '\'' +
+                ", accesstoken='" + accesstoken + '\'' +
                 ", upload=" + upload +
                 ", id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", phone='" + phone + '\'' +
-                ", accesstoken='" + accesstoken + '\'' +
                 ", school='" + school + '\'' +
                 ", loveid='" + loveid + '\'' +
                 ", group='" + group + '\'' +
-                ", province='" + province + '\'' +
+                ", character='" + character + '\'' +
                 ", avatar=" + avatar +
                 ", profile='" + profile + '\'' +
                 ", points='" + points + '\'' +
                 ", gifttickets='" + gifttickets + '\'' +
+                ", fateswitch='" + fateswitch + '\'' +
                 ", imgwall=" + imgwall +
-                ", usersig='" + usersig + '\'' +
-                ", logintoken='" + logintoken + '\'' +
                 '}';
     }
 }

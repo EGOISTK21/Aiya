@@ -20,7 +20,7 @@ class SignModel implements SignContract.Model {
     public void sign(String phone, String verification, Observer<HttpResult<User>> observer) {
         APIUtil.getVerificationInitApi()
                 .loadUser(phone, verification)
-                .debounce(5, TimeUnit.SECONDS)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())

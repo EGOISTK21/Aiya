@@ -1,7 +1,5 @@
 package com.aiyaschool.aiya.love.unmatched.conditionMatch;
 
-import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 
 import com.aiyaschool.aiya.bean.HttpResult;
@@ -22,38 +20,29 @@ import io.reactivex.disposables.Disposable;
 class ConditionMatchPresenter implements ConditionMatchContract.Presenter {
 
     private static final String TAG = "ConditionMatchPresenter";
-    private Context context;
     private ConditionMatchContract.View mView;
     private ConditionMatchModel mModel;
-    private Handler handler;
 
-    ConditionMatchPresenter(Context context, ConditionMatchContract.View view) {
-        this.context = context;
+    ConditionMatchPresenter(ConditionMatchContract.View view) {
         attachView(view);
-        mModel = new ConditionMatchModel();
-        handler = new Handler();
     }
 
     @Override
     public void attachView(ConditionMatchContract.View view) {
+        this.mModel = new ConditionMatchModel();
         this.mView = view;
     }
 
     @Override
     public void detachView() {
         this.mView = null;
+        this.mModel = null;
     }
 
     @Override
     public void initIsContactShield() {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (mView != null) {
-                    mView.setIsContactShield(mModel.getIsContactShield());
-                }
-            }
-        });
+        // TODO: 2017/5/11 本地存储通讯录匹配开关
+        mView.setIsContactShield(true);
     }
 
     @Override

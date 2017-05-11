@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.base;
+package com.aiyaschool.aiya.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,9 +8,9 @@ import android.graphics.Paint;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
-import java.util.List;
-
 import com.aiyaschool.aiya.R;
+
+import java.util.List;
 
 
 /**
