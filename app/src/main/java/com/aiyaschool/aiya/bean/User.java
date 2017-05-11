@@ -1,7 +1,5 @@
 package com.aiyaschool.aiya.bean;
 
-import java.util.List;
-
 /**
  * Created by EGOISTK21 on 2017/4/26.
  */
@@ -27,30 +25,30 @@ public class User {
      */
 
     private String temptoken;
+    private String logintoken;
+    private String usersig;
+    private String accesstoken;
     private UpLoad upload;
+    private String phone;
     private String id;
     private String username;
-    private String phone;
-    private String accesstoken;
-    private String school;
+    private String profile;
     private String loveid;
     private String group;
+    private String school;
     private String province;
-    private Avatar avatar;
-    private String profile;
     private String points;
     private String gifttickets;
+    private Avatar avatar;
     private ImgWall imgwall;
-    private String usersig;
-    private String logintoken;
 
 
-    public String getTemptoken() {
+    public String getTempToken() {
         return temptoken;
     }
 
-    public void setTemptoken(String temptoken) {
-        this.temptoken = temptoken;
+    public void setTempToken(String tempToken) {
+        this.temptoken = tempToken;
     }
 
     public UpLoad getUpload() {
@@ -85,11 +83,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getAccesstoken() {
+    public String getAccessToken() {
         return accesstoken == null ? "false" : accesstoken;
     }
 
-    public void setAccesstoken(String AccessToken) {
+    public void setAccessToken(String AccessToken) {
         this.accesstoken = AccessToken;
     }
 
@@ -101,7 +99,7 @@ public class User {
         this.school = school;
     }
 
-    public String getLoveid() {
+    public String getLoveId() {
         return loveid;
     }
 
@@ -109,8 +107,8 @@ public class User {
         return !loveid.equals("0");
     }
 
-    public void setLoveid(String loveid) {
-        this.loveid = loveid;
+    public void setLoveId(String loveId) {
+        this.loveid = loveId;
     }
 
     public String getGroup() {
@@ -153,12 +151,12 @@ public class User {
         this.points = points;
     }
 
-    public String getGifttickets() {
+    public String getGiftTickets() {
         return gifttickets;
     }
 
-    public void setGifttickets(String gifttickets) {
-        this.gifttickets = gifttickets;
+    public void setGiftTickets(String giftTickets) {
+        this.gifttickets = giftTickets;
     }
 
     public ImgWall getImgwall() {
@@ -173,128 +171,16 @@ public class User {
         return usersig;
     }
 
-    public void setUsersig(String usersig) {
-        this.usersig = usersig;
+    public void setUsersig(String userSig) {
+        this.usersig = userSig;
     }
 
-    public String getLogintoken() {
+    public String getLoginToken() {
         return logintoken;
     }
 
-    public void setLogintoken(String logintoken) {
-        this.logintoken = logintoken;
-    }
-
-    private class Avatar {
-        /**
-         * normal : {"face":"http://cdn.sinacloud.net/gxwy-user/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=aTVxXyiYsr&Expires=1493558756","background":"http://cdn.sinacloud.net/gxwy-user/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=9%2F2aGPHyih&Expires=1493558756"}
-         * thumb : {"face":"http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=k1IE5rKli6&Expires=1493558756","background":"http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=r1nCbOvIRL&Expires=1493558756"}
-         */
-
-        private Normal normal;
-        private Thumb thumb;
-
-        public Normal getNormal() {
-            return normal;
-        }
-
-        public void setNormal(Normal normal) {
-            this.normal = normal;
-        }
-
-        public Thumb getThumb() {
-            return thumb;
-        }
-
-        public void setThumb(Thumb thumb) {
-            this.thumb = thumb;
-        }
-
-        private class Normal {
-            /**
-             * face : http://cdn.sinacloud.net/gxwy-user/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=aTVxXyiYsr&Expires=1493558756
-             * background : http://cdn.sinacloud.net/gxwy-user/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=9%2F2aGPHyih&Expires=1493558756
-             */
-
-            private String face;
-            private String background;
-
-            public String getFace() {
-                return face;
-            }
-
-            public void setFace(String face) {
-                this.face = face;
-            }
-
-            public String getBackground() {
-                return background;
-            }
-
-            public void setBackground(String background) {
-                this.background = background;
-            }
-        }
-
-        private class Thumb {
-            /**
-             * face : http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=k1IE5rKli6&Expires=1493558756
-             * background : http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=r1nCbOvIRL&Expires=1493558756
-             */
-
-            private String face;
-            private String background;
-
-            public String getFace() {
-                return face;
-            }
-
-            public void setFace(String face) {
-                this.face = face;
-            }
-
-            public String getBackground() {
-                return background;
-            }
-
-            public void setBackground(String background) {
-                this.background = background;
-            }
-        }
-    }
-
-    private class ImgWall {
-        /**
-         * rows : 0
-         * url : null
-         */
-
-        private int rows;
-        private List<String> url;
-
-        public int getRows() {
-            return rows;
-        }
-
-        public void setRows(int rows) {
-            this.rows = rows;
-        }
-
-        public Object getUrl() {
-            return url;
-        }
-
-        public void setUrl(List<String> url) {
-            this.url = url;
-        }
-
-        @Override
-        public String toString() {
-            return "ImgWall{" +
-                    "rows=" + rows +
-                    ", url=" + url +
-                    '}';
-        }
+    public void setLoginToken(String loginToken) {
+        this.logintoken = loginToken;
     }
 
     @Override

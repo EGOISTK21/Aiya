@@ -30,6 +30,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SMSSDK.initSDK(this, APP_KEY, APP_SECRET);
+
         LitePal.initialize(this);
         TIMManager.getInstance().init(this);
         TLSService.getInstance().initTlsSdk(this);
@@ -43,8 +44,8 @@ public class MyApplication extends Application {
     public static void setUser(User user) {
         switch (sHttpState) {
             case "2000":
-                Log.w("MyApplication", "logintoken: " + user.getLogintoken());
-                SignUtil.setLoginToken(user.getLogintoken());
+                Log.w("MyApplication", "logintoken: " + user.getLoginToken());
+                SignUtil.setLoginToken(user.getLoginToken());
                 SignUtil.setUpLoad(user.getUpload());
                 break;
             case "5130":
@@ -55,6 +56,7 @@ public class MyApplication extends Application {
                 break;
         }
         sUser = user;
+        System.out.println(user);
     }
 
     public static User getUser() {

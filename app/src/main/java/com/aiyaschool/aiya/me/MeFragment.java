@@ -166,10 +166,10 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
             if (TextUtils.isEmpty(user.getProfile())) {
                 mTvSignName.setText(user.getProfile());
             }
-            if (TextUtils.isEmpty(user.getGifttickets())) {
+            if (TextUtils.isEmpty(user.getGiftTickets())) {
 
             }
-            mTVJiFen.setText(user.getGifttickets());
+            mTVJiFen.setText(user.getGiftTickets());
             System.out.println(user.getUsername());
         } else {
             //如果没有数据的话，可以从sharepreference中读取
