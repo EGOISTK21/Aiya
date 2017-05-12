@@ -18,6 +18,9 @@ import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.LazyFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by EGOISTK21 on 2017/3/29.
  */
@@ -26,8 +29,9 @@ public class RandomMatchFragment extends LazyFragment implements RandomMatchCont
 
     private View rootView;
     private RandomMatchContract.Presenter presenter;
-    private SwitchCompat swRandom;
     private FragmentManager fm;
+    @BindView(R.id.switch_random)
+    SwitchCompat swRandom;
 
     public static RandomMatchFragment newInstance() {
         return new RandomMatchFragment();
@@ -36,7 +40,7 @@ public class RandomMatchFragment extends LazyFragment implements RandomMatchCont
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new RandomMatchPresenter(getContext(), this);
+        presenter = new RandomMatchPresenter(this);
     }
 
     @Override
@@ -50,6 +54,7 @@ public class RandomMatchFragment extends LazyFragment implements RandomMatchCont
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_random_match, container, false);
+        ButterKnife.bind(this, rootView);
         initView();
         initListener();
         return rootView;
@@ -57,7 +62,7 @@ public class RandomMatchFragment extends LazyFragment implements RandomMatchCont
 
     private void initView() {
         fm = getFragmentManager();
-        swRandom = (SwitchCompat) rootView.findViewById(R.id.switch_can_random);
+        swRandom = (SwitchCompat) rootView.findViewById(R.id.switch_random);
         presenter.initCanRandom();
         Spannable spannable = new SpannableString("发起后将立即与一名异性随缘成为七天情侣");
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
@@ -67,7 +72,7 @@ public class RandomMatchFragment extends LazyFragment implements RandomMatchCont
 
     private void initListener() {
         rootView.findViewById(R.id.tv_back).setOnClickListener(this);
-        rootView.findViewById(R.id.btn_invite).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_have_a_change).setOnClickListener(this);
         swRandom.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -87,7 +92,7 @@ public class RandomMatchFragment extends LazyFragment implements RandomMatchCont
             case R.id.tv_back:
                 fm.popBackStack();
                 break;
-            case R.id.btn_invite:
+            case R.id.btn_have_a_change:
                 fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 //MyApplication.getInstance().setMatched(true);
                 ((MainActivity) getActivity()).notifyAdapter();

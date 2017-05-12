@@ -1,12 +1,16 @@
 package com.aiyaschool.aiya;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.message.utils.TLSService;
 import com.aiyaschool.aiya.util.DBUtil;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.tencent.TIMManager;
+import com.tencent.TIMOfflinePushListener;
+import com.tencent.TIMOfflinePushNotification;
+import com.tencent.qalsdk.sdk.MsfSdkUtils;
 
 import org.litepal.LitePal;
 
@@ -31,6 +35,16 @@ public class MyApplication extends Application {
         LitePal.initialize(this);
         TIMManager.getInstance().init(this);
         TLSService.getInstance().initTlsSdk(this);
+        if (MsfSdkUtils.isMainProcess(this)) {
+            Log.d("MyApplication", "main process");
+            TIMManager.getInstance().setOfflinePushListener(new TIMOfflinePushListener() {
+                @Override
+                public void handleNotification(TIMOfflinePushNotification notification) {
+                    Log.e("MyApplication", "recv offline push");
+                    notification.doNotify(getApplicationContext(), R.drawable.ic_launcher);
+                }
+            });
+        }
         DBUtil.init(this);
         instance = this;
     }

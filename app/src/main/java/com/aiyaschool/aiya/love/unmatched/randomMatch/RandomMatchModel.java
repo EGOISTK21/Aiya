@@ -7,7 +7,7 @@ package com.aiyaschool.aiya.love.unmatched.randomMatch;
 class RandomMatchModel implements RandomMatchContract.Model {
 
     @Override
-    public boolean getCanRandom(RandomMatchContract.Presenter.OnServerReachableListener listener) {
+    public boolean getCanRandom() {
         return true;
     }
 

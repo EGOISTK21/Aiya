@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.LazyFragment;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.love.unmatched.matchResult.MatchResultFragment;
 import com.aiyaschool.aiya.love.unmatched.randomMatch.RandomMatchFragment;
 import com.aiyaschool.aiya.util.ToastUtil;
@@ -47,7 +48,7 @@ public class ConditionMatchFragment extends LazyFragment
     private String tmpSchool;
     private FragmentTransaction ft;
     private View rootView;
-    private ConditionMatchContract.Presenter presenter;
+    private ConditionMatchContract.Presenter mPresenter;
     @BindView(R.id.tv_random_match)
     TextView tvRandomMatch;
     @BindView(R.id.tv_height_picker)
@@ -76,12 +77,12 @@ public class ConditionMatchFragment extends LazyFragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new ConditionMatchPresenter(this);
+        mPresenter = new ConditionMatchPresenter(this);
     }
 
     @Override
     public void onDestroy() {
-        presenter.detachView();
+        mPresenter.detachView();
         super.onDestroy();
     }
 
@@ -97,9 +98,9 @@ public class ConditionMatchFragment extends LazyFragment
     }
 
     private void initView() {
-        ft = getFragmentManager().beginTransaction();
         sum = 0;
-        presenter.initIsContactShield();
+        mPresenter.initContactShield();
+        ft = getFragmentManager().beginTransaction();
         Spannable spannable = new SpannableString("你当前还是单身状态，快去和你的Ta相遇吧！");
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
                 R.color.colorPrimaryDark)), 5, 7, Spanned.SPAN_POINT_MARK);
@@ -191,7 +192,7 @@ public class ConditionMatchFragment extends LazyFragment
                     }).create();
         }
         dialogSchoolPicker.show();
-        presenter.loadSchoolData();
+        mPresenter.loadSchoolData();
     }
 
     @OnClick(R.id.tv_character_picker)
@@ -244,16 +245,25 @@ public class ConditionMatchFragment extends LazyFragment
     void startConditionMatch() {
         if (sum == 0) {
             ToastUtil.show("请至少选择一个选项");
-            return;
+        } else {
+            mPresenter.startConditionMatch(null, null, null, null, null, null, null);
         }
-        ft.addToBackStack(null);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .replace(R.id.container_love, MatchResultFragment.newInstance()).commit();
     }
 
     @Override
-    public void setIsContactShield(boolean isContactShield) {
-        switches[5].setChecked(isContactShield);
+    public void showMatchResult(ArrayList<User> users) {
+        MatchResultFragment matchResultFragment = MatchResultFragment.newInstance();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("result", users);
+        matchResultFragment.setArguments(bundle);
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.container_love, matchResultFragment).commit();
+    }
+
+    @Override
+    public void setContactShield(boolean contactShield) {
+        switches[5].setChecked(contactShield);
     }
 
     private void setHeightData() {
@@ -321,7 +331,7 @@ public class ConditionMatchFragment extends LazyFragment
                 updateSwitchesStatus(isChecked, 4);
                 break;
             case R.id.sw_shield_contact:
-                presenter.commitIsContactShield(isChecked);
+                mPresenter.commitContactShield(isChecked);
                 break;
         }
     }

@@ -7,7 +7,7 @@ package com.aiyaschool.aiya.love.unmatched.randomMatch;
 interface RandomMatchContract {
 
     interface Model {
-        boolean getCanRandom(Presenter.OnServerReachableListener listener);
+        boolean getCanRandom();
 
         void commitCanRandom(boolean canRandom);
     }
@@ -25,11 +25,5 @@ interface RandomMatchContract {
         void initCanRandom();
 
         void commitCanRandom(boolean canRandom);
-
-        interface OnServerReachableListener {
-            void onFailure();
-
-            void onSuccess();
-        }
     }
 }

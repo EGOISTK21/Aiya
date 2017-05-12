@@ -137,25 +137,14 @@ public class FormActivity extends BaseActivity implements FormContract.View {
         if (null != this.getCurrentFocus()) {
             mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
         }
-        System.out.println(SignUtil.getLoginToken());
         if (!SignUtil.isValidUsername(mUsername)) {
             ToastUtil.show("请输入合法用户名");
-        } else if (mSex == null) {
-
-        } else if (mSchool == null) {
-
-        } else if (mAge == null) {
-
-        } else if (mHeight == null) {
-
-        } else if (mConstellation == null) {
-
-        } else if (mCharacter == null) {
-
-        } else {
+        } else if (mSex != null && mSchool != null && mAge != null) {
             String mGender = mSex.equals("男") ? "1" : "2";
             mPresenter.firstInit(SignUtil.getLoginToken(), SignUtil.getPhone(),
                     mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mCharacter, mHobby, null);
+        } else {
+            ToastUtil.show("请至少完善必填信息");
         }
     }
 
@@ -380,7 +369,7 @@ public class FormActivity extends BaseActivity implements FormContract.View {
         if (dialogHometownPicker != null && sspHometown == null) {
             sspHometown = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_single);
             sspHometown.setData(new ArrayList<>(Arrays.asList("幽默", "温柔", "活跃", "呆萌", "内涵", "安静")));
-            sspHometown.setSelectedPosition(24);
+            sspHometown.setSelectedPosition(2);
         }
     }
 

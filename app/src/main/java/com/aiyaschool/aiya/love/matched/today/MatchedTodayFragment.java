@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.OtherCardActivity;
+import com.aiyaschool.aiya.activity.OtherDetailActivity;
 import com.aiyaschool.aiya.base.LazyFragment;
 import com.aiyaschool.aiya.base.NestFullListView;
 import com.aiyaschool.aiya.base.NestFullListViewAdapter;
@@ -95,7 +95,7 @@ public class MatchedTodayFragment extends LazyFragment implements ILoveMatchedTo
             case R.id.iv_matched_left:
                 break;
             case R.id.iv_matched_right:
-                startActivity(new Intent(getContext(), OtherCardActivity.class));
+                startActivity(new Intent(getContext(), OtherDetailActivity.class));
         }
     }
 }

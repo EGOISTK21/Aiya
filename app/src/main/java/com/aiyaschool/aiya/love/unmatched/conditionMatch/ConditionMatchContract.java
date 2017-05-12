@@ -3,6 +3,7 @@ package com.aiyaschool.aiya.love.unmatched.conditionMatch;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -14,9 +15,9 @@ import io.reactivex.Observer;
 interface ConditionMatchContract {
 
     interface Model {
-        boolean getIsContactShield();
+        boolean getContactShield();
 
-        void commitIsContactShield(boolean isContactShield);
+        void commitContactShield(boolean contactShield);
 
         void loadSchoolData(Observer<HttpResult<List<String>>> observer);
 
@@ -27,7 +28,7 @@ interface ConditionMatchContract {
                                  String school,
                                  String character,
                                  String constellation,
-                                 Observer<HttpResult<List<User>>> observer);
+                                 Observer<HttpResult<ArrayList<User>>> observer);
     }
 
     interface View {
@@ -35,9 +36,11 @@ interface ConditionMatchContract {
 
         void dismissPD();
 
-        void setIsContactShield(boolean isContactShield);
+        void setContactShield(boolean contactShield);
 
         void setSchoolData(List<String> data);
+
+        void showMatchResult(ArrayList<User> users);
 
     }
 
@@ -46,11 +49,19 @@ interface ConditionMatchContract {
 
         void detachView();
 
-        void initIsContactShield();
+        void initContactShield();
 
-        void commitIsContactShield(boolean isContactShield);
+        void commitContactShield(boolean contactShield);
 
         void loadSchoolData();
+
+        void startConditionMatch(String minHeight,
+                                 String maxHeight,
+                                 String minAge,
+                                 String maxAge,
+                                 String school,
+                                 String character,
+                                 String constellation);
     }
 
 }

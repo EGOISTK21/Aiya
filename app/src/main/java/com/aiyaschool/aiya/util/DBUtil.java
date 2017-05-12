@@ -74,6 +74,15 @@ public class DBUtil {
         return sUser;
     }
 
+    public static void setContactShield(boolean contactShield) {
+        sEditor.putBoolean("contactShield", contactShield);
+        sEditor.apply();
+    }
+
+    public static boolean getContactShield() {
+        return sSharedPreferences.getBoolean("contactShield", true);
+    }
+
     static void setLoginToken(String loginToken) {
         if (loginToken != null && !loginToken.equals(sUser.getLoginToken())) {
             sUser.setLoginToken(loginToken);
@@ -313,7 +322,7 @@ public class DBUtil {
     }
 
     public static void clearAll() {
-        sUser = new User();
+        //sUser = new User();
         sEditor.clear();
         sEditor.apply();
     }

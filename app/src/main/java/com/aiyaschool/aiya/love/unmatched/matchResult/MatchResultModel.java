@@ -33,9 +33,4 @@ class MatchResultModel implements MatchResultContract.Model {
     public String getSchool() {
         return school;
     }
-
-    @Override
-    public MatchResultModel getData(MatchResultContract.Presenter.OnServerReachableListener listener) {
-        return null;
-    }
 }

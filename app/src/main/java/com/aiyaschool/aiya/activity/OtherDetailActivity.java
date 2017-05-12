@@ -12,7 +12,7 @@ import com.aiyaschool.aiya.util.StatusBarUtil;
  * Created by EGOISTK21 on 2017/4/8.
  */
 
-public class OtherCardActivity extends AppCompatActivity implements View.OnClickListener {
+public class OtherDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
