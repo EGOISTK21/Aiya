@@ -47,7 +47,7 @@
         android:textSize="13sp"/>
 
     <android.support.v7.widget.SwitchCompat
-        android:id="@+id/switch_can_random"
+        android:id="@+id/switch_random"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tv_random_warn"
@@ -56,20 +56,21 @@
         android:paddingStart="@dimen/common_margin_15"/>
 
     <ImageView
+        android:layout_below="@id/tv_random_warn"
         android:id="@+id/iv_random"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/ic_launcher"/>
-
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/fate_bg"/>
 
     <Button
-        android:id="@+id/btn_invite"
+        android:id="@+id/btn_have_a_change"
         android:layout_width="180dp"
         android:layout_height="36dp"
         android:layout_below="@+id/iv_random"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/button_selector_with_corner_18"
         android:text="@string/start_random_match"
         android:textColor="@color/colorPureWhite"
@@ -79,13 +80,12 @@
         android:id="@+id/tv_love_match_at_random_warn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_invite"
+        android:layout_below="@+id/btn_have_a_change"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:includeFontPadding="false"
         android:text="@string/random_match_instant_warn"
         android:textColor="@color/colorContentMain"
         android:textSize="13sp"/>
-
 
 </RelativeLayout>

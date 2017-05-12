@@ -51,7 +51,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.OtherCardActivity"
+            android:name=".activity.OtherDetailActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity

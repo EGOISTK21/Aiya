@@ -1,11 +1,14 @@
 package com.aiyaschool.aiya.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * 用户实体类
  * Created by EGOISTK21 on 2017/4/26.
  */
 
-public class User {
+public class User implements Parcelable {
     /**
      * temptoken : f29c1317158d76821e8d11ccd8a007a358fc9984c178e
      * username : xihuan
@@ -43,6 +46,43 @@ public class User {
     private String fateswitch;
     private ImgWall imgwall;
 
+
+    public User() {
+
+    }
+
+    protected User(Parcel in) {
+        temptoken = in.readString();
+        logintoken = in.readString();
+        usersig = in.readString();
+        accesstoken = in.readString();
+        upload = in.readParcelable(UpLoad.class.getClassLoader());
+        id = in.readString();
+        username = in.readString();
+        phone = in.readString();
+        school = in.readString();
+        loveid = in.readString();
+        group = in.readString();
+        character = in.readString();
+        avatar = in.readParcelable(Avatar.class.getClassLoader());
+        profile = in.readString();
+        points = in.readString();
+        gifttickets = in.readString();
+        fateswitch = in.readString();
+        imgwall = in.readParcelable(ImgWall.class.getClassLoader());
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getTempToken() {
         return temptoken;
@@ -186,6 +226,33 @@ public class User {
 
     public void setImgWall(ImgWall imgWall) {
         this.imgwall = imgWall;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(temptoken);
+        dest.writeString(logintoken);
+        dest.writeString(usersig);
+        dest.writeString(accesstoken);
+        dest.writeParcelable(upload, flags);
+        dest.writeString(id);
+        dest.writeString(username);
+        dest.writeString(phone);
+        dest.writeString(school);
+        dest.writeString(loveid);
+        dest.writeString(group);
+        dest.writeString(character);
+        dest.writeParcelable(avatar, flags);
+        dest.writeString(profile);
+        dest.writeString(points);
+        dest.writeString(gifttickets);
+        dest.writeString(fateswitch);
+        dest.writeParcelable(imgwall, flags);
     }
 
     @Override

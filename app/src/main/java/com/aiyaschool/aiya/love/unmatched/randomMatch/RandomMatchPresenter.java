@@ -1,21 +1,18 @@
 package com.aiyaschool.aiya.love.unmatched.randomMatch;
 
-import android.content.Context;
 import android.os.Handler;
 
 /**
  * Created by EGOISTK21 on 2017/4/18.
  */
 
-public class RandomMatchPresenter implements RandomMatchContract.Presenter {
+class RandomMatchPresenter implements RandomMatchContract.Presenter {
 
-    private Context context;
     private RandomMatchContract.View view;
     private RandomMatchContract.Model model;
     private Handler handler;
 
-    RandomMatchPresenter(Context context, RandomMatchContract.View view) {
-        this.context = context;
+    RandomMatchPresenter(RandomMatchContract.View view) {
         attachView(view);
         model = new RandomMatchModel();
         handler = new Handler();
@@ -36,17 +33,7 @@ public class RandomMatchPresenter implements RandomMatchContract.Presenter {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                view.setCanRandom(model.getCanRandom(new OnServerReachableListener() {
-                    @Override
-                    public void onFailure() {
-
-                    }
-
-                    @Override
-                    public void onSuccess() {
-
-                    }
-                }));
+                view.setCanRandom(model.getCanRandom());
             }
         });
     }

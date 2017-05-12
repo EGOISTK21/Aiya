@@ -5,6 +5,7 @@ import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -180,15 +181,15 @@ public class APIUtil {
     public interface MatchingApi {
         @POST("Love/GET/matching")
         @FormUrlEncoded
-        Observable<HttpResult<List<User>>> startConditionMatch(@Field("minHeight") String minHeight,
-                                                               @Field("maxHeight") String maxHeight,
-                                                               @Field("minAge") String minAge,
-                                                               @Field("maxAge") String maxAge,
-                                                               @Field("school") String school,
-                                                               @Field("character") String character,
-                                                               @Field("constellation") String constellation,
-                                                               @Field("page") String page,
-                                                               @Field("line") String line);
+        Observable<HttpResult<ArrayList<User>>> startConditionMatch(@Field("minHeight") String minHeight,
+                                                                    @Field("maxHeight") String maxHeight,
+                                                                    @Field("minAge") String minAge,
+                                                                    @Field("maxAge") String maxAge,
+                                                                    @Field("school") String school,
+                                                                    @Field("character") String character,
+                                                                    @Field("constellation") String constellation,
+                                                                    @Field("page") String page,
+                                                                    @Field("line") String line);
     }
 
     public static VerificationInitApi getVerificationInitApi() {

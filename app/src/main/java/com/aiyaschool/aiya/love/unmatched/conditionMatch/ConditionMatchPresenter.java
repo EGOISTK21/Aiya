@@ -3,6 +3,7 @@ package com.aiyaschool.aiya.love.unmatched.conditionMatch;
 import android.util.Log;
 
 import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ class ConditionMatchPresenter implements ConditionMatchContract.Presenter {
 
     private static final String TAG = "ConditionMatchPresenter";
     private ConditionMatchContract.View mView;
-    private ConditionMatchModel mModel;
+    private ConditionMatchContract.Model mModel;
 
     ConditionMatchPresenter(ConditionMatchContract.View view) {
         attachView(view);
@@ -40,14 +41,13 @@ class ConditionMatchPresenter implements ConditionMatchContract.Presenter {
     }
 
     @Override
-    public void initIsContactShield() {
-        // TODO: 2017/5/11 本地存储通讯录匹配开关
-        mView.setIsContactShield(true);
+    public void initContactShield() {
+        mView.setContactShield(mModel.getContactShield());
     }
 
     @Override
-    public void commitIsContactShield(boolean isContactShield) {
-        mModel.commitIsContactShield(isContactShield);
+    public void commitContactShield(boolean contactShield) {
+        mModel.commitContactShield(contactShield);
     }
 
     @Override
@@ -82,6 +82,36 @@ class ConditionMatchPresenter implements ConditionMatchContract.Presenter {
             public void onComplete() {
                 Log.i(TAG, "onComplete: loadSchoolData");
                 mView.dismissPD();
+            }
+        });
+    }
+
+    @Override
+    public void startConditionMatch(String minHeight, String maxHeight, String minAge, String maxAge,
+                                    String school, String character, String constellation) {
+        mModel.startConditionMatch(minHeight, maxHeight, minAge, maxAge, school, character, constellation,
+                new Observer<HttpResult<ArrayList<User>>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.i(TAG, "onSubscribe: startConditionMatch");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull HttpResult<ArrayList<User>> listHttpResult) {
+                        Log.i(TAG, "onNext: startConditionMatch");
+                        if ("2000".equals(listHttpResult.getState())) {
+                            mView.showMatchResult(listHttpResult.getData());
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError: startConditionMatch");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "onComplete: startConditionMatch");
             }
         });
     }

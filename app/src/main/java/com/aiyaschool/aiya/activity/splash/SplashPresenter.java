@@ -53,6 +53,7 @@ class SplashPresenter implements SplashContract.Presenter {
                     Log.i(TAG, "onNext: init " + httpResult);
                     switch (httpResult.getState()) {
                         case "2000":
+                            MyApplication.setUser(httpResult.getData());
                             mView.startMainView();
                             break;
                         case "5133":
