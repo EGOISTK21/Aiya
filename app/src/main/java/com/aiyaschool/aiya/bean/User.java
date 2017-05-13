@@ -44,8 +44,53 @@ public class User implements Parcelable {
     private String points;
     private String gifttickets;
     private String fateswitch;
+    private String birthday;
+    private String enteryear;
+    private String major;
+    private String height;
+    private String province;
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
     private ImgWall imgwall;
 
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getEnteryear() {
+        return enteryear;
+    }
+
+    public void setEnteryear(String enteryear) {
+        this.enteryear = enteryear;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public String getHeight() {
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
+    }
 
     public User() {
 

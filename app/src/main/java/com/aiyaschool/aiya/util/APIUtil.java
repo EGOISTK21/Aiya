@@ -192,6 +192,26 @@ public class APIUtil {
                                                                     @Field("line") String line);
     }
 
+    /**
+     * #以下所有参数均为可选参数,但不可一个参数都不传
+     * ['username']:用户名
+     * ['age']:年龄,
+     * ['height']:身高,
+     * ['birthday']:生日 //格式 xxxx-xx-xx
+     * ['constellation']:星座
+     * ['school']:学校
+     * ['enteryear']:入学年份 //格式 xxxx
+     * ['major']:专业
+     * ['avatar']:头像图URI
+     * ['profile']:个人说明
+     * ['character']:性格
+     */
+    public interface UpdateUserApi {
+        @POST("Me/PUT/userinfo")
+        @FormUrlEncoded
+        Observable<HttpResult> startUpdateUser(@Field("height") String height);
+    }
+
     public static VerificationInitApi getVerificationInitApi() {
         if (sRetrofit == null) {
             sRetrofit = new Retrofit.Builder().client(sOkHttpClient)
@@ -245,6 +265,10 @@ public class APIUtil {
 
     public static MatchingApi getMatchingApi() {
         return sRetrofit.create(MatchingApi.class);
+    }
+
+    public static UpdateUserApi getUpdateUserApi() {
+        return sRetrofit.create(UpdateUserApi.class);
     }
 
 }

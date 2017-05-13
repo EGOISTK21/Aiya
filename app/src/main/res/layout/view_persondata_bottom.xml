@@ -36,6 +36,7 @@
             android:textColor="@color/colorName"/>
 
         <TextView
+            android:id="@+id/tv_sign_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="落霞明 月盈盈 来复无言去不闻"

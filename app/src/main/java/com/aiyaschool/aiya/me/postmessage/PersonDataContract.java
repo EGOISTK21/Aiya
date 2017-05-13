@@ -5,59 +5,35 @@ import com.aiyaschool.aiya.bean.User;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 
 /**
  * Created by wewarriors on 2017/5/7.
  */
 
-interface PersonDataContract {
+public interface PersonDataContract {
 
     interface Model {
-        void loadSchoolData(Observer<HttpResult<List<String>>> observer);
+        void loadSchoolData(String hometown, Observer<HttpResult<List<String>>> observer);
 
-        void firstInit(String loginToken,
-                       String phone,
-                       String username,
-                       String gender,
-                       String school,
-                       String age,
-                       String height,
-                       String constellation,
-                       String hometown,
-                       String hobby,
-                       String avatar,
-                       Observer<HttpResult<User>> observer);
+        void updateUserData(String height, Observer<HttpResult> observer);
     }
 
     interface View {
-        void showPD();
-
-        void dismissPD();
 
         void setSchoolData(List<String> schools);
 
-        void startMainView();
     }
 
-    interface Presenter {
-        void attach(View view);
+    public interface Presenter {
 
+        void loadSchoolData(String hometown);
+
+        void updateUserData(String height);
         void detach();
 
-        void loadSchoolData();
 
-        void firstInit(String loginToken,
-                       String phone,
-                       String username,
-                       String gender,
-                       String school,
-                       String age,
-                       String height,
-                       String constellation,
-                       String hometown,
-                       String hobby,
-                       String avatar);
     }
 
 }

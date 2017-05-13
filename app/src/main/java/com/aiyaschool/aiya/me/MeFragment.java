@@ -44,6 +44,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     private TextView mTvMyName, mTvSignName, mTVJiFen, mTvGift, mTvMember;
     private LinearLayout mLlMyPhotoAlbum, mLlMyState, mLlMyGuest, mLlEmotion, mLlMyGift, mLlMoreSetting;
     private ImageView imageView1, imageView2;
+    private ImageView mMember_icon;
 
     @Override
     public void onAttach(Context context) {
@@ -126,6 +127,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         mLlMoreSetting = (LinearLayout) view.findViewById(R.id.more_setting);
         imageView1 = (ImageView) view.findViewById(R.id.photo1);
         imageView2 = (ImageView) view.findViewById(R.id.photo2);
+        mMember_icon = (ImageView) view.findViewById(R.id.member_icon);
         mRivMyPhoto.setOnClickListener(this);
         mTvMyName.setOnClickListener(this);
         mTvSignName.setOnClickListener(this);
@@ -160,16 +162,18 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         //从MyApplication 中读取数据
         if (MyApplication.getUser() != null) {
             User user = MyApplication.getUser();
-            if (TextUtils.isEmpty(user.getUsername())) {
+            if (!TextUtils.isEmpty(user.getUsername())) {
                 mTvMyName.setText(user.getUsername());
             }
-            if (TextUtils.isEmpty(user.getProfile())) {
-                mTvSignName.setText(user.getProfile());
+            if (!TextUtils.isEmpty(user.getProfile())) {
+                mTvSignName.setText("签名：" + user.getProfile());
             }
-            if (TextUtils.isEmpty(user.getGiftTickets())) {
-
+            if (!TextUtils.isEmpty(user.getGroup())) {
+                if (user.getGroup().equals("1")) {
+                    mTvMember.setText("会员");
+                    mMember_icon.setImageResource(R.drawable.huanggaun);
+                }
             }
-            mTVJiFen.setText(user.getGiftTickets());
             System.out.println(user.getUsername());
         } else {
             //如果没有数据的话，可以从sharepreference中读取

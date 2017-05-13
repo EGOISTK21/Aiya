@@ -12,19 +12,24 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.widget.FilletDialog;
-import com.aiyaschool.aiya.widget.ScrollPickerView;
-import com.aiyaschool.aiya.widget.StringScrollPicker;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.RegionModel;
 import com.aiyaschool.aiya.me.db.RegionDao;
+import com.aiyaschool.aiya.me.postmessage.PersonDataContract;
+import com.aiyaschool.aiya.me.postmessage.PersonDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
 import com.aiyaschool.aiya.me.view.RoundImageView;
 import com.aiyaschool.aiya.multi_image_selector.MultiImageSelector;
+import com.aiyaschool.aiya.widget.FilletDialog;
+import com.aiyaschool.aiya.widget.ScrollPickerView;
+import com.aiyaschool.aiya.widget.StringScrollPicker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,8 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener, PersonDataContract.View {
 
 
     private FilletDialog dialogDatePicker, dialogSchoolPicker, dialogAgePicker,
@@ -55,6 +59,12 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     private RegionDao mRegionDao;
     private boolean flag = false;
 
+    @BindView(R.id.tv_name)
+    TextView mTvName;
+    @BindView(R.id.tv_school)
+    TextView mTvSchool;
+    @BindView(R.id.tv_sign_name)
+    TextView mTvSignName;
     @BindView(R.id.tv_hometown)
     TextView mTvHometown;
     @BindView(R.id.tv_date)
@@ -88,6 +98,12 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.rl_constellation)
     RelativeLayout rlConstellation;
 
+    private PersonDataContract.Presenter mPresenter;
+    private List<String> mSchools;
+    private String mSchool;
+    private String mProvince;
+    private Boolean mProvinceChange;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +136,42 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         for (RegionModel regionModel : mRmProvinceList) {
             mProvinceList.add(regionModel.getName());
         }
+
+        //从MyApplication 中读取数据
+        if (MyApplication.getUser() != null) {
+            User user = MyApplication.getUser();
+            if (!TextUtils.isEmpty(user.getUsername())) {
+                mTvName.setText(user.getUsername());
+            }
+            if (!TextUtils.isEmpty(user.getProfile())) {
+                mTvSignName.setText(user.getProfile());
+            }
+            if (!TextUtils.isEmpty(user.getBirthday())) {
+                mTvDate.setText(user.getBirthday());
+            }
+            if (!TextUtils.isEmpty(user.getSchool())) {
+                mTvSchool.setText(user.getSchool());
+                mSchool = user.getSchool();
+            }
+            if (!TextUtils.isEmpty(user.getProfile())) {
+                mTvSignName.setText(user.getProfile());
+            }
+            if (!TextUtils.isEmpty(user.getHeight())) {
+                mTvHeight.setText(user.getHeight());
+            }
+            if (!TextUtils.isEmpty(user.getProvince())) {
+                mTvHometown.setText(user.getProvince());
+                mProvince = user.getProvince();
+            }
+            System.out.println(user.getUsername());
+        } else {
+            //如果没有数据的话，可以从sharepreference中读取
+        }
+
+        mPresenter = new PersonDataPresenter(this);
+        mPresenter.updateUserData("175");
+        System.out.println("mSchool" + mSchool + "mProvince" + mProvince);
+
     }
 
 
@@ -140,6 +192,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 showDialogBirthDatePicker();
                 break;
             case R.id.rl_school:
+                showDialogSchoolPicker();
                 break;
             case R.id.rl_sign_name:
                 break;
@@ -158,6 +211,42 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
+    void showDialogSchoolPicker() {
+        if (dialogSchoolPicker == null) {
+            dialogSchoolPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
+                    .setTitle("学校")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (mSchool != null) {
+                                sspSchool.setSelectedItem(mSchool);
+                            }
+                            dialog.cancel();
+                        }
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mSchool = sspSchool.getSelectedItem();
+                            mTvSchool.setText(mSchool);
+                            dialog.dismiss();
+                        }
+                    }).create();
+        }
+        dialogSchoolPicker.show();
+
+        if (mSchools == null || mProvinceChange) {
+            mProvinceChange = false;
+            if (!TextUtils.isEmpty(mProvince)) {
+                mPresenter.loadSchoolData(mProvince);
+            } else {
+                mPresenter.loadSchoolData("陕西");
+            }
+
+        } else {
+            setSchoolData(mSchools);
+        }
+    }
+
     private void showDialogHomeTownPicker() {
         if (dialogHometownPicker == null) {
             dialogHometownPicker = new FilletDialog.Builder(this, R.layout.dialog_hometown_picker)
@@ -172,6 +261,8 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String tmp = sspProvince.getSelectedItem();
+                            mProvince = tmp.substring(0, tmp.length() - 1);
+                            mProvinceChange = true;
                             if (sspCity.getData().size() == 0) {
                                 tmp += "0";
                             } else {
@@ -430,4 +521,24 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     }
 
 
+    @Override
+    public void setSchoolData(List<String> schools) {
+        for (String s : schools) {
+            System.out.println(s);
+        }
+
+        if (dialogSchoolPicker != null && sspSchool == null) {
+            sspSchool = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_single);
+            if (sspSchool != null) {
+                sspSchool.setData(schools);
+                if (schools.get(0).equals("")) {
+                    mSchools = null;
+                    mTvSchool.setText("");
+                } else {
+                    mSchools = schools;
+                    mTvSchool.setText(sspSchool.getSelectedItem());
+                }
+            }
+        }
+    }
 }

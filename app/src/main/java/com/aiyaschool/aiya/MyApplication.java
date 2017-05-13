@@ -54,6 +54,7 @@ public class MyApplication extends Application {
     }
 
     public static void setUser(User user) {
+        System.out.println("User" + user.getUsername());
         SignUtil.setUser(user);
     }
 
