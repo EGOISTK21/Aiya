@@ -170,6 +170,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 
         mPresenter = new PersonDataPresenter(this);
         mPresenter.updateUserData("175");
+        mPresenter.getGuestRecord("1","6");
         System.out.println("mSchool" + mSchool + "mProvince" + mProvince);
 
     }

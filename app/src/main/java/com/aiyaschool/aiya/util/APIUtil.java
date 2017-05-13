@@ -2,6 +2,7 @@ package com.aiyaschool.aiya.util;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.bean.User;
 
 import java.io.IOException;
@@ -212,6 +213,12 @@ public class APIUtil {
         Observable<HttpResult> startUpdateUser(@Field("height") String height);
     }
 
+    public interface GetGuestRecordApi{
+        @POST("Me/GET/touchPeople")
+        @FormUrlEncoded
+        Observable<HttpResult<ArrayList<OuInfo>>> startGetGuestRecord(@Field("page") String page, @Field("lines") String lines);
+    }
+
     public static VerificationInitApi getVerificationInitApi() {
         if (sRetrofit == null) {
             sRetrofit = new Retrofit.Builder().client(sOkHttpClient)
@@ -271,4 +278,7 @@ public class APIUtil {
         return sRetrofit.create(UpdateUserApi.class);
     }
 
+    public static GetGuestRecordApi getGuestRecordApi(){
+        return sRetrofit.create(GetGuestRecordApi.class);
+    }
 }

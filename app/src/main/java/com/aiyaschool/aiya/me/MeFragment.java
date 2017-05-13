@@ -169,7 +169,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                 mTvSignName.setText("签名：" + user.getProfile());
             }
             if (!TextUtils.isEmpty(user.getGroup())) {
-                if (user.getGroup().equals("1")) {
+                if (user.getGroup().equals("2")) {
                     mTvMember.setText("会员");
                     mMember_icon.setImageResource(R.drawable.huanggaun);
                 }

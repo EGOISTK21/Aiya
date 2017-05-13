@@ -1,8 +1,10 @@
 package com.aiyaschool.aiya.me.postmessage;
 
 import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.util.APIUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -37,5 +39,16 @@ public class PersonDataModel implements PersonDataContract.Model {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
 
+    }
+
+    @Override
+    public void getGuestRecord(String page, String lines, Observer<HttpResult<ArrayList<OuInfo>>> observer) {
+        APIUtil.getGuestRecordApi()
+                .startGetGuestRecord(page, lines)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
     }
 }
