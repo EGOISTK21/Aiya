@@ -15,7 +15,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         ndk {
-            abiFilters "armeabi-v7a", "x86"
+            abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "x86", "x86_64"
         }
         multiDexEnabled true
     }
@@ -74,7 +74,6 @@ dependencies {
     compile 'com.afollestad.material-dialogs:commons:0.9.0.1'
     //图片裁剪 https://github.com/edmodo/cropper
     compile 'com.edmodo:cropper:1.0.1'
-    compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     compile 'com.squareup.okio:okio:1.11.0'
     compile 'pub.devrel:easypermissions:0.3.1'
     compile 'top.zibin:Luban:1.0.9'

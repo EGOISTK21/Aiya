@@ -19,7 +19,7 @@
             android:textSize="@dimen/common_text_size_16"/>
 
         <TextView
-            android:id="@+id/tv_random_match"
+            android:id="@+id/tv_fate_match"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
@@ -374,7 +374,7 @@
             android:textSize="@dimen/common_text_size_16"/>
 
         <TextView
-            android:id="@+id/tv_point_warn"
+            android:id="@+id/tv_free_matching_times_warn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

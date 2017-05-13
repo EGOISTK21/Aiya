@@ -36,25 +36,27 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_match_result"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin_30"
+        android:layout_marginEnd="@dimen/common_margin_30"
         android:layout_below="@+id/rl_title_bar"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/common_margin_15"
-        android:background="@drawable/card_background"
+        android:background="@color/colorPureWhite"
         android:clickable="true"
-        app:cardCornerRadius="6dp">
+        app:cardCornerRadius="6dp"
+        app:cardElevation="1dp">
 
         <LinearLayout
-            android:id="@+id/ll_result_card"
-            android:layout_width="300dp"
-            android:layout_height="379dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_avatar"
+                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="wrap_content"
                 android:src="@mipmap/ic_launcher"/>
 
             <TextView
@@ -64,7 +66,7 @@
                 android:layout_marginStart="@dimen/common_margin_15"
                 android:layout_marginTop="@dimen/common_margin_15"
                 android:includeFontPadding="false"
-                android:text="曲无忆"
+                android:text="@string/default_username"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_16"/>
 
@@ -74,8 +76,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/common_margin_15"
                 android:layout_marginTop="@dimen/common_margin_15"
+                android:layout_marginBottom="@dimen/common_margin_15"
                 android:includeFontPadding="false"
-                android:text="云滇寒江城大学"
+                android:text="@string/default_school_full"
                 android:textColor="@color/colorContentMain"
                 android:textSize="13sp"/>
 

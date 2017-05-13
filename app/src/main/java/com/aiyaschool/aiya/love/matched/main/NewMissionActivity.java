@@ -48,7 +48,7 @@ public class NewMissionActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.tv_back).setOnClickListener(this);
         tvDate = (TextView) findViewById(R.id.tv_date);
         tvDate.setOnClickListener(this);
-        btnInvite = (Button) findViewById(R.id.btn_have_a_change);
+        btnInvite = (Button) findViewById(R.id.btn_invite);
         btnInvite.setOnClickListener(this);
         btnInvite.setClickable(false);
         etMission = (EditText) findViewById(R.id.et_mission);
@@ -156,7 +156,7 @@ public class NewMissionActivity extends AppCompatActivity implements View.OnClic
             case R.id.tv_date:
                 showDialogDatePicker();
                 break;
-            case R.id.btn_have_a_change:
+            case R.id.btn_start_fate_match:
                 break;
         }
     }

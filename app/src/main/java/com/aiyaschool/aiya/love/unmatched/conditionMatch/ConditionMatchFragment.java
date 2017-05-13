@@ -3,7 +3,6 @@ package com.aiyaschool.aiya.love.unmatched.conditionMatch;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
@@ -11,18 +10,15 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.base.LazyFragment;
+import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.love.unmatched.fateMatch.FateMatchFragment;
 import com.aiyaschool.aiya.love.unmatched.matchResult.MatchResultFragment;
-import com.aiyaschool.aiya.love.unmatched.randomMatch.RandomMatchFragment;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
@@ -33,24 +29,22 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.BindViews;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * Created by EGOISTK21 on 2017/3/16.
  */
 
-public class ConditionMatchFragment extends LazyFragment
+public class ConditionMatchFragment extends BaseFragment
         implements ConditionMatchContract.View, CompoundButton.OnCheckedChangeListener {
 
     private int sum;
     private int[] prices = new int[]{5, 4, 2, 2, 1, 0};
     private String tmpSchool;
     private FragmentTransaction ft;
-    private View rootView;
     private ConditionMatchContract.Presenter mPresenter;
-    @BindView(R.id.tv_random_match)
-    TextView tvRandomMatch;
+    @BindView(R.id.tv_fate_match)
+    TextView tvFateMatch;
     @BindView(R.id.tv_height_picker)
     TextView tvHeightPicker;
     @BindView(R.id.tv_age_picker)
@@ -63,6 +57,8 @@ public class ConditionMatchFragment extends LazyFragment
     TextView tvConstellationPicker;
     @BindView(R.id.btn_start_condition_match)
     Button btnStartConditionMatch;
+    @BindView(R.id.tv_free_matching_times_warn)
+    TextView tvFreeMatchingTimes;
     @BindViews({R.id.sw_height, R.id.sw_age, R.id.sw_school, R.id.sw_character, R.id.sw_constellation, R.id.sw_shield_contact})
     SwitchCompat[] switches;
     private FilletDialog dialogHeightPicker, dialogAgePicker,
@@ -75,36 +71,21 @@ public class ConditionMatchFragment extends LazyFragment
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mPresenter = new ConditionMatchPresenter(this);
+    protected int getLayoutId() {
+        return R.layout.fragment_love_condition_match;
     }
 
     @Override
-    public void onDestroy() {
-        mPresenter.detachView();
-        super.onDestroy();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_love_condition_match, container, false);
-        ButterKnife.bind(this, rootView);
-        initView();
-        initListener();
-        return rootView;
-    }
-
-    private void initView() {
+    protected void initView() {
         sum = 0;
+        mPresenter = new ConditionMatchPresenter(this);
         mPresenter.initContactShield();
         ft = getFragmentManager().beginTransaction();
         Spannable spannable = new SpannableString("你当前还是单身状态，快去和你的Ta相遇吧！");
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
                 R.color.colorPrimaryDark)), 5, 7, Spanned.SPAN_POINT_MARK);
         ((TextView) rootView.findViewById(R.id.tv_single_warn)).setText(spannable);
+        initListener();
     }
 
     private void initListener() {
@@ -113,11 +94,17 @@ public class ConditionMatchFragment extends LazyFragment
         }
     }
 
-    @OnClick(R.id.tv_random_match)
-    void randomMatch() {
+    @Override
+    public void onDestroy() {
+        mPresenter.detachView();
+        super.onDestroy();
+    }
+
+    @OnClick(R.id.tv_fate_match)
+    void fateMatch() {
         ft.addToBackStack(null);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .replace(R.id.container_love, RandomMatchFragment.newInstance()).commit();
+                .replace(R.id.container_love, FateMatchFragment.newInstance()).commit();
     }
 
     @OnClick(value = R.id.tv_height_picker)
