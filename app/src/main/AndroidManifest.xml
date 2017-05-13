@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.aiyaschool.aiya">
 
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -88,17 +85,19 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
-        <!-- 消息收发service -->
+        <!--  消息收发service -->
         <service
             android:name="com.tencent.qalsdk.service.QalService"
             android:exported="false"
-            android:process=":QALSERVICE"/>
-        <!-- 消息收发辅助service -->
+            android:process=":QALSERVICE">
+        </service>
+        <!--  消息收发辅助service -->
         <service
             android:name="com.tencent.qalsdk.service.QalAssistService"
             android:exported="false"
-            android:process=":QALSERVICE"/>
-        <!-- 离线消息广播接收器 -->
+            android:process=":QALSERVICE">
+        </service>
+        <!--  离线消息广播接收器 -->
         <receiver
             android:name="com.tencent.qalsdk.QALBroadcastReceiver"
             android:exported="false">
@@ -106,7 +105,7 @@
                 <action android:name="com.tencent.qalsdk.broadcast.qal"/>
             </intent-filter>
         </receiver>
-        <!-- 系统消息广播接收器 -->
+        <!--  系统消息广播接收器 -->
         <receiver
             android:name="com.tencent.qalsdk.core.NetConnInfoCenter"
             android:process=":QALSERVICE">

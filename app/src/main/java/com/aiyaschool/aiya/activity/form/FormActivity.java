@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -18,7 +17,6 @@ import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.util.SignUtil;
-import com.aiyaschool.aiya.util.StatusBarUtil;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
@@ -29,7 +27,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
@@ -68,12 +65,13 @@ public class FormActivity extends BaseActivity implements FormContract.View {
     TextView tvCharacterPicker;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_form);
+    protected int getLayoutId() {
+        return R.layout.activity_form;
+    }
+
+    @Override
+    protected void initView() {
         mPresenter = new FormPresenter(this);
-        StatusBarUtil.init(this);
-        ButterKnife.bind(this);
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     }
 

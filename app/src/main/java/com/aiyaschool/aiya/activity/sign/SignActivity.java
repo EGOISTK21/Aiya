@@ -3,7 +3,6 @@ package com.aiyaschool.aiya.activity.sign;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
@@ -23,10 +22,8 @@ import com.aiyaschool.aiya.activity.form.FormActivity;
 import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.util.SignUtil;
-import com.aiyaschool.aiya.util.StatusBarUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
@@ -58,22 +55,13 @@ public class SignActivity extends BaseActivity implements SignContract.View {
     Button btnNext;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign);
-        mPresenter = new SignPresenter(this);
-        StatusBarUtil.init(this);
-        ButterKnife.bind(this);
-        initView();
+    protected int getLayoutId() {
+        return R.layout.activity_sign;
     }
 
     @Override
-    protected void onDestroy() {
-        mPresenter.detach();
-        super.onDestroy();
-    }
-
-    private void initView() {
+    protected void initView() {
+        mPresenter = new SignPresenter(this);
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         Spannable spannable = new SpannableString("注册即表示同意《爱呀用户协议》");
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(SignActivity.this,
@@ -83,6 +71,12 @@ public class SignActivity extends BaseActivity implements SignContract.View {
         verification = "";
         timeCounter = new TimeCounter(60000, 1000);
         initPhoneView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mPresenter.detach();
+        super.onDestroy();
     }
 
     @OnClick(value = R.id.tv_back)

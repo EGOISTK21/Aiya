@@ -34,6 +34,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.aiyaschool.aiya.activity.main.MainActivity.DESTROY_LOVE;
+
 /**
  * Created by wewarriors on 2017/3/16.
  */
@@ -246,7 +248,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                 break;
             case R.id.more_setting:
                 intent = new Intent(getActivity(), MoreSettingActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, DESTROY_LOVE);
                 break;
 
         }

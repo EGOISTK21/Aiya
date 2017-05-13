@@ -98,7 +98,7 @@ class ConditionMatchPresenter implements ConditionMatchContract.Presenter {
 
                     @Override
                     public void onNext(@NonNull HttpResult<ArrayList<User>> listHttpResult) {
-                        Log.i(TAG, "onNext: startConditionMatch");
+                        Log.i(TAG, "onNext: startConditionMatch " + listHttpResult);
                         if ("2000".equals(listHttpResult.getState())) {
                             mView.showMatchResult(listHttpResult.getData());
                         }

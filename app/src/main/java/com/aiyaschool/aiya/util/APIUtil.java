@@ -1,5 +1,7 @@
 package com.aiyaschool.aiya.util;
 
+import android.util.Log;
+
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
@@ -48,6 +50,7 @@ public class APIUtil {
     }
 
     static void addAccessToken() {
+        Log.i("addAccessToken: ", MyApplication.getUser().getAccessToken());
         sOkHttpClient = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
@@ -192,6 +195,17 @@ public class APIUtil {
                                                                     @Field("line") String line);
     }
 
+    public interface FateMatchApi {
+        @POST("Love/GET/fateMatching")
+        Observable<HttpResult<User>> startFateMatch();
+    }
+
+    public interface DestroyLoveApi {
+        @POST("Me/PUT/destroyLove")
+        @FormUrlEncoded
+        Observable<HttpResult> destroyLove(@Field("loveid") String loveId);
+    }
+
     public static VerificationInitApi getVerificationInitApi() {
         if (sRetrofit == null) {
             sRetrofit = new Retrofit.Builder().client(sOkHttpClient)
@@ -245,6 +259,14 @@ public class APIUtil {
 
     public static MatchingApi getMatchingApi() {
         return sRetrofit.create(MatchingApi.class);
+    }
+
+    public static FateMatchApi getFateMatchingApi() {
+        return sRetrofit.create(FateMatchApi.class);
+    }
+
+    public static DestroyLoveApi getDestroyLoveApi() {
+        return sRetrofit.create(DestroyLoveApi.class);
     }
 
 }

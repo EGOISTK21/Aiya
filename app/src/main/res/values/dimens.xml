@@ -8,6 +8,7 @@
     <dimen name="common_text_size_11">11sp</dimen>
     <dimen name="common_text_size_10">10sp</dimen>
     <dimen name="common_margin_30">30dp</dimen>
+    <dimen name="common_margin_25">25dp</dimen>
     <dimen name="common_margin_20">20dp</dimen>
     <dimen name="common_margin_18">18dp</dimen>
     <dimen name="common_margin_16">16dp</dimen>

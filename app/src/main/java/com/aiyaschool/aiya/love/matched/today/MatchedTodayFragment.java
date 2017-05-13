@@ -1,17 +1,14 @@
 package com.aiyaschool.aiya.love.matched.today;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.OtherDetailActivity;
-import com.aiyaschool.aiya.base.LazyFragment;
+import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.base.NestFullListView;
 import com.aiyaschool.aiya.base.NestFullListViewAdapter;
 import com.aiyaschool.aiya.base.NestFullViewHolder;
@@ -25,9 +22,8 @@ import java.util.List;
  * Created by EGOISTK21 on 2017/3/21.
  */
 
-public class MatchedTodayFragment extends LazyFragment implements ILoveMatchedTodayView {
+public class MatchedTodayFragment extends BaseFragment implements ILoveMatchedTodayView {
 
-    private View rootView;
     private ImageView ivLeft, ivRight;
     private NestFullListView nflvTodayMission, nflvInviteMission;
     private List<Mission> mMissions;
@@ -35,14 +31,13 @@ public class MatchedTodayFragment extends LazyFragment implements ILoveMatchedTo
     private FragmentTransaction ft;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_love_matched_today, container, false);
-        initData();
-        initView();
-        return rootView;
+    protected int getLayoutId() {
+        return R.layout.fragment_love_matched_today;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        initData();
         fm = getParentFragment().getFragmentManager();
         ft = fm.beginTransaction();
         rootView.findViewById(R.id.ll_intimacy).setOnClickListener(this);

@@ -4,7 +4,6 @@ import android.app.Application;
 import android.util.Log;
 
 import com.aiyaschool.aiya.bean.User;
-import com.aiyaschool.aiya.message.utils.TLSService;
 import com.aiyaschool.aiya.util.DBUtil;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.tencent.TIMManager;
@@ -25,7 +24,7 @@ public class MyApplication extends Application {
 
     private static final String APP_KEY = "1d3c277c6bde4";
     private static final String APP_SECRET = "3b295b8b0455bdf9c6aedf8ecc33f3cc";
-    private static final String APP_ID = "1400029084";
+    private static final int APP_ID = 1400029084;
     private static MyApplication instance;
 
     @Override
@@ -34,7 +33,7 @@ public class MyApplication extends Application {
         SMSSDK.initSDK(this, APP_KEY, APP_SECRET);
         LitePal.initialize(this);
         TIMManager.getInstance().init(this);
-        TLSService.getInstance().initTlsSdk(this);
+//        TLSService.getInstance().initTlsSdk(this);
         if (MsfSdkUtils.isMainProcess(this)) {
             Log.d("MyApplication", "main process");
             TIMManager.getInstance().setOfflinePushListener(new TIMOfflinePushListener() {
