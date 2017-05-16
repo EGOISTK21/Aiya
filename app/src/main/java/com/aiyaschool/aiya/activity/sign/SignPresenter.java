@@ -54,6 +54,7 @@ class SignPresenter implements SignContract.Presenter {
             @Override
             public void onNext(@NonNull HttpResult<User> httpResult) {
                 Log.i(TAG, "onNext: sign " + httpResult);
+                mView.dismissPD();
                 switch (httpResult.getState()) {
                     case "5144":
                         ToastUtil.show("验证码错误");
@@ -68,7 +69,6 @@ class SignPresenter implements SignContract.Presenter {
                                     @Override
                                     public void accept(@NonNull HttpResult<User> httpResult) throws Exception {
                                         Log.i(TAG, "accept: token " + httpResult);
-                                        mView.dismissPD();
                                         switch (httpResult.getState()) {
                                             case "2000":
                                                 MyApplication.setUser(httpResult.getData());
@@ -83,7 +83,6 @@ class SignPresenter implements SignContract.Presenter {
                         break;
                     case "2000":
                         MyApplication.setUser(httpResult.getData());
-                        mView.dismissPD();
                         mView.startMainView();
                         break;
                 }

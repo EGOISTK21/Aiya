@@ -198,6 +198,7 @@ public abstract class ScrollPickerView<T> extends View {
 
     // 检测当前选择的item位置
     private void checkCirculation() {
+        if (mData == null) return;
         if (mMoveLength >= mItemHeight) { // 向下滑动
             // 该次滚动距离中越过的item数量
             int span = (int) (mMoveLength / mItemHeight);
@@ -300,7 +301,7 @@ public abstract class ScrollPickerView<T> extends View {
      * @param speed    每毫秒移动的像素点
      */
     public void autoScrollFast(final int position, long duration, float speed, final Interpolator interpolator) {
-        if (mIsAutoScrolling || !mIsCirculation) return;
+        if (mData == null || mIsAutoScrolling || !mIsCirculation) return;
         cancelScroll();
         mIsAutoScrolling = true;
 
@@ -357,6 +358,7 @@ public abstract class ScrollPickerView<T> extends View {
      * @param interpolator
      */
     public void autoScrollToPosition(int toPosition, long duration, final Interpolator interpolator) {
+        if (mData == null) return;
         toPosition = toPosition % mData.size();
         final int endY = (mSelected - toPosition) * mItemHeight;
         autoScrollTo(endY, duration, interpolator, false);
@@ -477,7 +479,7 @@ public abstract class ScrollPickerView<T> extends View {
     }
 
     public void setSelectedPosition(int position) {
-        if (position < 0 || position > mData.size() - 1 || position == mSelected) {
+        if (mData == null || position < 0 || position > mData.size() - 1 || position == mSelected) {
             return;
         }
         mSelected = position;

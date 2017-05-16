@@ -19,7 +19,7 @@ interface FormContract {
     interface Model {
         void submitAvatar(RequestBody img, Observer<ResponseBody> observer);
 
-        void loadSchoolData(Observer<HttpResult<List<String>>> observer);
+        List<String> loadSchoolData(String province);
 
         void firstInit(String loginToken,
                        String phone,
@@ -52,7 +52,7 @@ interface FormContract {
 
         void submitAvatar(File file);
 
-        void loadSchoolData();
+        void loadSchoolData(String province);
 
         void firstInit(String loginToken,
                        String phone,

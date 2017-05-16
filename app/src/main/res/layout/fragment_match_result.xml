@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_title_bar"
@@ -34,68 +34,62 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_match_result"
+    <LinearLayout
+        android:id="@+id/ll_result_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/common_margin_30"
         android:layout_marginEnd="@dimen/common_margin_30"
-        android:layout_below="@+id/rl_title_bar"
+        android:layout_marginStart="@dimen/common_margin_30"
         android:layout_marginTop="@dimen/common_margin_15"
-        android:background="@color/colorPureWhite"
-        android:clickable="true"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="1dp">
+        android:background="@drawable/card_background"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/iv_avatar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"/>
 
-            <ImageView
-                android:id="@+id/iv_avatar"
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_margin_15"
+            android:layout_marginTop="@dimen/common_margin_15"
+            android:includeFontPadding="false"
+            android:text="@string/default_username"
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/common_text_size_16"/>
 
-            <TextView
-                android:id="@+id/tv_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/common_margin_15"
-                android:layout_marginTop="@dimen/common_margin_15"
-                android:includeFontPadding="false"
-                android:text="@string/default_username"
-                android:textColor="@color/colorTitle"
-                android:textSize="@dimen/common_text_size_16"/>
+        <TextView
+            android:id="@+id/tv_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_margin_15"
+            android:layout_marginStart="@dimen/common_margin_15"
+            android:layout_marginTop="@dimen/common_margin_15"
+            android:includeFontPadding="false"
+            android:text="@string/default_school_full"
+            android:textColor="@color/colorContentMain"
+            android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/tv_school"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/common_margin_15"
-                android:layout_marginTop="@dimen/common_margin_15"
-                android:layout_marginBottom="@dimen/common_margin_15"
-                android:includeFontPadding="false"
-                android:text="@string/default_school_full"
-                android:textColor="@color/colorContentMain"
-                android:textSize="13sp"/>
+    </LinearLayout>
 
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
-    </android.support.v7.widget.CardView>
+        <Button
+            android:id="@+id/btn_have_a_change"
+            android:layout_width="180dp"
+            android:layout_height="36dp"
+            android:background="@drawable/button_selector_with_corner_18"
+            android:text="@string/have_a_change"
+            android:textColor="@color/colorPureWhite"
+            android:textSize="@dimen/common_text_size_16"/>
 
-    <Button
-        android:id="@+id/btn_have_a_change"
-        android:layout_width="180dp"
-        android:layout_height="36dp"
-        android:layout_below="@+id/card_match_result"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/common_margin_15"
-        android:background="@drawable/button_selector_with_corner_18"
-        android:text="@string/have_a_change"
-        android:textColor="@color/colorPureWhite"
-        android:textSize="@dimen/common_text_size_16"/>
+    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

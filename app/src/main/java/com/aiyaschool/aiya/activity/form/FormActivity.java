@@ -16,9 +16,11 @@ import android.widget.TextView;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.BaseActivity;
+import com.aiyaschool.aiya.util.SchoolDBHelper;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
+import com.aiyaschool.aiya.widget.ScrollPickerView;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
 
 import java.io.File;
@@ -44,11 +46,12 @@ public class FormActivity extends BaseActivity implements FormContract.View {
     private InputMethodManager mInputMethodManager;
     private Uri imgUri;
     private Bitmap mAvatar;
-    private List<String> mSchools;
+    private static int mProvince;
+    private static int[] mSchoolNo;
     private String mUsername, mSex, mSchool, mAge, mHeight, mConstellation, mCharacter, mHobby;
     private FilletDialog dialogSexPicker, dialogSchoolPicker, dialogAgePicker,
             dialogHeightPicker, dialogConstellationPicker, dialogHometownPicker;
-    private StringScrollPicker sspSex, sspSchool, sspAge, sspHeight, sspConstellation, sspHometown;
+    private StringScrollPicker sspSex, sspProvince, sspSchool, sspAge, sspHeight, sspConstellation, sspHometown;
     @BindView(R.id.ibn_avatar)
     ImageButton ibnAvatar;
     @BindView(R.id.tv_sex_picker)
@@ -71,12 +74,15 @@ public class FormActivity extends BaseActivity implements FormContract.View {
 
     @Override
     protected void initView() {
+        mProvince = 0;
+        mSchoolNo = new int[31];
         mPresenter = new FormPresenter(this);
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
     }
 
     @Override
     protected void onDestroy() {
+        SchoolDBHelper.closeDB();
         mPresenter.detach();
         super.onDestroy();
     }
@@ -125,8 +131,154 @@ public class FormActivity extends BaseActivity implements FormContract.View {
         mUsername = String.valueOf(username);
     }
 
+    @OnClick(value = R.id.tv_sex_picker)
+    void showDialogSexPicker() {
+        if (dialogSexPicker == null) {
+            dialogSexPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
+                    .setTitle("性别")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspSex.setSelectedItem(mSex);
+                            dialog.cancel();
+                        }
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mSex = sspSex.getSelectedItem();
+                            tvSexPicker.setText(mSex);
+                            dialog.dismiss();
+                        }
+                    }).create();
+            setSexData();
+        }
+        dialogSexPicker.show();
+    }
+
+    @OnClick(value = R.id.tv_school_picker)
+    void showDialogSchoolPicker() {
+        if (dialogSchoolPicker == null) {
+            dialogSchoolPicker = new FilletDialog.Builder(this, R.layout.dialog_school_picker)
+                    .setTitle("学校")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspSchool.setSelectedItem(mSchool);
+                            dialog.cancel();
+                        }
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mSchool = sspSchool.getSelectedItem();
+                            tvSchoolPicker.setText(mSchool);
+                            dialog.dismiss();
+                        }
+                    }).create();
+            setProvinceData();
+        }
+        dialogSchoolPicker.show();
+    }
+
+    @OnClick(value = R.id.tv_age_picker)
+    void showDialogAgePicker() {
+        if (dialogAgePicker == null) {
+            dialogAgePicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
+                    .setTitle("年龄")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspAge.setSelectedItem(mAge);
+                            dialog.cancel();
+                        }
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mAge = sspAge.getSelectedItem();
+                            tvAgePicker.setText(mAge);
+                            dialog.dismiss();
+                        }
+                    }).create();
+            setAgeData();
+        }
+        dialogAgePicker.show();
+    }
+
+    @OnClick(value = R.id.tv_height_picker)
+    void showDialogHeightPicker() {
+        if (dialogHeightPicker == null) {
+            dialogHeightPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
+                    .setTitle("身高")
+                    .setSubTitle("(单位:cm)")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspHeight.setSelectedItem(mHeight);
+                            dialog.cancel();
+                        }
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mHeight = sspHeight.getSelectedItem();
+                            tvHeightPicker.setText(mHeight);
+                            dialog.dismiss();
+                        }
+                    }).create();
+            setHeightData();
+        }
+        dialogHeightPicker.show();
+    }
+
+    @OnClick(value = R.id.tv_constellation_picker)
+    void showDialogConstellationPicker() {
+        if (dialogConstellationPicker == null) {
+            dialogConstellationPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
+                    .setTitle("星座")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspConstellation.setSelectedItem(mConstellation);
+                            dialog.cancel();
+                        }
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mConstellation = sspConstellation.getSelectedItem();
+                            tvConstellationPicker.setText(mConstellation);
+                            dialog.dismiss();
+                        }
+                    }).create();
+            setConstellationData();
+        }
+        dialogConstellationPicker.show();
+    }
+
+    @OnClick(value = R.id.tv_character_picker)
+    void showDialogCharacterPicker() {
+        if (dialogHometownPicker == null) {
+            dialogHometownPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
+                    .setTitle("家乡")
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sspHometown.setSelectedItem(mCharacter);
+                            dialog.cancel();
+                        }
+                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mCharacter = sspHometown.getSelectedItem();
+                            tvCharacterPicker.setText(mCharacter);
+                            dialog.dismiss();
+                        }
+                    }).create();
+            setCharacterData();
+        }
+        dialogHometownPicker.show();
+    }
+
     @OnTextChanged(value = R.id.et_hobby)
     void setHobby(CharSequence hobby) {
+        // TODO: 2017/5/15 爱好自动加空格
         mHobby = String.valueOf(hobby);
     }
 
@@ -146,193 +298,45 @@ public class FormActivity extends BaseActivity implements FormContract.View {
         }
     }
 
-    @OnClick(value = R.id.tv_sex_picker)
-    void showDialogSexPicker() {
-        if (dialogSexPicker == null) {
-            dialogSexPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
-                    .setTitle("性别")
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (mSex != null) {
-                                sspSex.setSelectedItem(mSex);
-                            }
-                            dialog.cancel();
-                        }
-                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mSex = sspSex.getSelectedItem();
-                            tvSexPicker.setText(mSex);
-                            dialog.dismiss();
-                        }
-                    }).create();
-        }
-        dialogSexPicker.show();
-        setSexData();
-    }
-
-    @OnClick(value = R.id.tv_school_picker)
-    void showDialogSchoolPicker() {
-        if (dialogSchoolPicker == null) {
-            dialogSchoolPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
-                    .setTitle("学校")
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (mSchool != null) {
-                                sspSchool.setSelectedItem(mSchool);
-                            }
-                            dialog.cancel();
-                        }
-                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mSchool = sspSchool.getSelectedItem();
-                            tvSchoolPicker.setText(mSchool);
-                            dialog.dismiss();
-                        }
-                    }).create();
-        }
-        dialogSchoolPicker.show();
-        if (mSchool == null) {
-            mPresenter.loadSchoolData();
-        } else {
-            setSchoolData(mSchools);
-        }
-    }
-
-    @OnClick(value = R.id.tv_age_picker)
-    void showDialogAgePicker() {
-        if (dialogAgePicker == null) {
-            dialogAgePicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
-                    .setTitle("年龄")
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (mAge != null) {
-                                sspAge.setSelectedItem(mAge);
-                            }
-                            dialog.cancel();
-                        }
-                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mAge = sspAge.getSelectedItem();
-                            tvAgePicker.setText(mAge);
-                            dialog.dismiss();
-                        }
-                    }).create();
-        }
-        dialogAgePicker.show();
-        setAgeData();
-    }
-
-    @OnClick(value = R.id.tv_height_picker)
-    void showDialogHeightPicker() {
-        if (dialogHeightPicker == null) {
-            dialogHeightPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
-                    .setTitle("身高")
-                    .setSubTitle("(单位:cm)")
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (mHeight != null) {
-                                sspHeight.setSelectedItem(mHeight);
-                            }
-                            dialog.cancel();
-                        }
-                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mHeight = sspHeight.getSelectedItem();
-                            tvHeightPicker.setText(mHeight);
-                            dialog.dismiss();
-                        }
-                    }).create();
-        }
-        dialogHeightPicker.show();
-        setHeightData();
-    }
-
-    @OnClick(value = R.id.tv_constellation_picker)
-    void showDialogConstellationPicker() {
-        if (dialogConstellationPicker == null) {
-            dialogConstellationPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
-                    .setTitle("星座")
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (mConstellation != null) {
-                                sspConstellation.setSelectedItem(mConstellation);
-                            }
-                            dialog.cancel();
-                        }
-                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mConstellation = sspConstellation.getSelectedItem();
-                            tvConstellationPicker.setText(mConstellation);
-                            dialog.dismiss();
-                        }
-                    }).create();
-        }
-        dialogConstellationPicker.show();
-        setConstellationData();
-    }
-
-    @OnClick(value = R.id.tv_character_picker)
-    void showDialogCharacterPicker() {
-        if (dialogHometownPicker == null) {
-            dialogHometownPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
-                    .setTitle("家乡")
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (mCharacter != null) {
-                                sspHometown.setSelectedItem(mCharacter);
-                            }
-                            dialog.cancel();
-                        }
-                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mCharacter = sspHometown.getSelectedItem();
-                            tvCharacterPicker.setText(mCharacter);
-                            dialog.dismiss();
-                        }
-                    }).create();
-        }
-        dialogHometownPicker.show();
-        setCharacterData();
-    }
-
     private void setSexData() {
-        if (dialogSexPicker != null && sspSex == null) {
+        if (sspSex == null) {
             sspSex = (StringScrollPicker) dialogSexPicker.findViewById(R.id.ssp_single);
             sspSex.setData(new ArrayList<>(Arrays.asList("男", "女")));
             sspSex.setSelectedPosition(0);
         }
     }
 
-    public void setSchoolData(List<String> schools) {
-        if (dialogSchoolPicker != null && sspSchool == null) {
-            sspSchool = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_single);
-            if (sspSchool != null) {
-                sspSchool.setData(schools);
-                if (schools.get(0).equals("")) {
-                    mSchools = null;
-                    tvSchoolPicker.setText("");
-                } else {
-                    mSchools = schools;
-                    tvSchoolPicker.setText(sspSchool.getSelectedItem().subSequence(0, 4) + "…");
+    public void setProvinceData() {
+        if (sspProvince == null || sspSchool == null) {
+            sspProvince = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_province);
+            sspSchool = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_school);
+            sspProvince.setData(SchoolDBHelper.PROVINCE);
+            sspProvince.setSelectedPosition(mProvince);
+            mPresenter.loadSchoolData(SchoolDBHelper.PROVINCE.get(mProvince));
+            sspProvince.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
+                @Override
+                public void onSelected(ScrollPickerView scrollPickerView, int position) {
+                    mProvince = position;
+                    mPresenter.loadSchoolData(SchoolDBHelper.PROVINCE.get(position));
                 }
-            }
+            });
         }
     }
 
+    @Override
+    public void setSchoolData(List<String> schools) {
+        sspSchool.setData(schools);
+        sspSchool.setSelectedPosition(mSchoolNo[mProvince]);
+        sspSchool.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
+            @Override
+            public void onSelected(ScrollPickerView scrollPickerView, int position) {
+                mSchoolNo[mProvince] = position;
+            }
+        });
+    }
+
     private void setAgeData() {
-        if (dialogAgePicker != null && sspAge == null) {
+        if (sspAge == null) {
             sspAge = (StringScrollPicker) dialogAgePicker.findViewById(R.id.ssp_single);
             sspAge.setData(new ArrayList<>(Arrays.asList("17", "18", "19", "20", "21", "22", "23",
                     "24", "25", "26", "27", "28")));
@@ -341,7 +345,7 @@ public class FormActivity extends BaseActivity implements FormContract.View {
     }
 
     private void setHeightData() {
-        if (dialogHeightPicker != null && sspHeight == null) {
+        if (sspHeight == null) {
             sspHeight = (StringScrollPicker) dialogHeightPicker.findViewById(R.id.ssp_single);
             sspHeight.setData(new ArrayList<>(Arrays.asList("140", "141", "142", "143", "144", "145",
                     "146", "147", "148", "149", "150", "151", "152", "153", "154", "155", "156", "157",
@@ -355,7 +359,7 @@ public class FormActivity extends BaseActivity implements FormContract.View {
     }
 
     private void setConstellationData() {
-        if (dialogConstellationPicker != null && sspConstellation == null) {
+        if (sspConstellation == null) {
             sspConstellation = (StringScrollPicker) dialogConstellationPicker.findViewById(R.id.ssp_single);
             sspConstellation.setData(new ArrayList<>(Arrays.asList("白羊座", "金牛座", "双子座", "巨蟹座",
                     "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "摩羯座", "水瓶座", "双鱼座")));
@@ -364,7 +368,7 @@ public class FormActivity extends BaseActivity implements FormContract.View {
     }
 
     private void setCharacterData() {
-        if (dialogHometownPicker != null && sspHometown == null) {
+        if (sspHometown == null) {
             sspHometown = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_single);
             sspHometown.setData(new ArrayList<>(Arrays.asList("幽默", "温柔", "活跃", "呆萌", "内涵", "安静")));
             sspHometown.setSelectedPosition(2);

@@ -1,8 +1,6 @@
 package com.aiyaschool.aiya.love.unmatched.matchResult;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,10 +36,8 @@ public class MatchResultFragment extends BaseFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mCount = 0;
-        mResult = getArguments().getParcelableArrayList("result");
+    protected int getLayoutId() {
+        return R.layout.fragment_match_result;
     }
 
     private void initIvAvatar() {
@@ -56,6 +52,8 @@ public class MatchResultFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        mCount = 0;
+        mResult = getArguments().getParcelableArrayList("result");
         initIvAvatar();
         if (mResult != null && mCount < mResult.size()) {
             User current = mResult.get(mCount++);
@@ -71,18 +69,12 @@ public class MatchResultFragment extends BaseFragment {
         super.onDestroy();
     }
 
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_match_result;
-    }
-
     @OnClick(value = R.id.tv_back)
     void back() {
         getFragmentManager().popBackStack();
     }
 
-    @OnClick(value = R.id.card_match_result)
+    @OnClick(value = R.id.ll_result_card)
     void showOtherDetail() {
         startActivity(new Intent(getContext(), OtherDetailActivity.class));
     }

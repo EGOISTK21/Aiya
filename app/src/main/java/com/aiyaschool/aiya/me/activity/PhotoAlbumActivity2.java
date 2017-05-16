@@ -92,7 +92,7 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 saveData();
                 Intent intent = new Intent();
-                intent.putExtra("Flag","Me");
+                intent.putExtra("flag", "me");
                 setResult(RESULT_OK,intent);
                 finish();
 

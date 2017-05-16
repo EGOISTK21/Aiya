@@ -13,7 +13,7 @@ interface FateMatchContract {
     interface Model {
         boolean getCanRandom();
 
-        void commitCanRandom(boolean canRandom);
+        void commitCanRandom(String canRandom, Observer<HttpResult> observer);
 
         void startFateMatch(Observer<HttpResult<User>> observer);
     }
@@ -22,7 +22,7 @@ interface FateMatchContract {
     interface View {
         void setCanRandom(boolean canRandom);
 
-        void fate();
+        void fate(User user);
     }
 
     interface Presenter {

@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity {
                         && !MyApplication.getUser().isMatched())) {
                     return POSITION_NONE;
                 }
-                if(isMeChanged&&object instanceof MeFragment){
+                if (isMeChanged && object instanceof MeFragment) {
                     return POSITION_NONE;
                 }
                 return POSITION_UNCHANGED;
@@ -77,13 +77,14 @@ public class MainActivity extends BaseActivity {
                 String fragmentTag = fragment.getTag();
                 if (MyApplication.getUser().isMatched()) {
                     if (fragment instanceof UnmatchedContainerFragment) {
+                        Log.i(TAG, "instantiateItem: " + fragmentTag);
                         FragmentTransaction ft = fm.beginTransaction();
                         ft.remove(fragment);
                         fragment = MatchedContainerFragment.newInstance();
                         ft.add(container.getId(), fragment, fragmentTag)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                         ft.attach(fragment);
-                        ft.commit();
+                        ft.commitAllowingStateLoss();
                     }/*else if () {
 
                     }*/
@@ -95,7 +96,7 @@ public class MainActivity extends BaseActivity {
                         ft.add(container.getId(), fragment, fragmentTag)
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                         ft.attach(fragment);
-                        ft.commit();
+                        ft.commitAllowingStateLoss();
                     }/*else if () {
 
                     }*/
@@ -172,17 +173,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println(requestCode);
-        System.out.println(resultCode);
-        System.out.println(RESULT_OK);
-        if(resultCode == RESULT_OK){
-            String s = data.getStringExtra("Flag");
-            isMeChanged = s.equals("Me");
-            System.out.println(isMeChanged);
-            notifyAdapter();
-        } else if (resultCode == DESTROY_LOVE) {
-            Log.i(TAG, "onActivityResult: ");
-            notifyAdapter();
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, "onActivityResult: " + requestCode + " " + resultCode + " " + data.getDataString());
+        if (resultCode == RESULT_OK) {
+            String s = data.getStringExtra("flag");
+            switch (s) {
+                case "me":
+                case "destroyLove":
+                    notifyAdapter();
+                    break;
+            }
         }
     }
 }
