@@ -1,6 +1,7 @@
 package com.aiyaschool.aiya.util;
 
 import com.aiyaschool.aiya.MyApplication;
+import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.bean.User;
@@ -219,6 +220,23 @@ public class APIUtil {
         Observable<HttpResult<ArrayList<OuInfo>>> startGetGuestRecord(@Field("page") String page, @Field("lines") String lines);
     }
 
+    public interface GetEmotionRecordApi {
+        @POST("Me/GET/loveHistory")
+        @FormUrlEncoded
+        Observable<HttpResult<ArrayList<EmotionRecordBean>>> startGetEmotionRecord(@Field("sex") String sex,
+                                                                                   @Field("page") String page,
+                                                                                   @Field("lines") String lines);
+    }
+
+
+//    public interface GetEmotionRecordApi{
+//        @POST("Me/GET/loveHistory")
+//        @FormUrlEncoded
+//        Observable<HttpResult> startGetEmotionRecord(@Field("sex") String sex,
+//                                                                                   @Field("page") String page,
+//                                                                                   @Field("lines") String lines);
+//    }
+
     public static VerificationInitApi getVerificationInitApi() {
         if (sRetrofit == null) {
             sRetrofit = new Retrofit.Builder().client(sOkHttpClient)
@@ -280,5 +298,9 @@ public class APIUtil {
 
     public static GetGuestRecordApi getGuestRecordApi(){
         return sRetrofit.create(GetGuestRecordApi.class);
+    }
+
+    public static GetEmotionRecordApi getEmotionRecordApi() {
+        return sRetrofit.create(GetEmotionRecordApi.class);
     }
 }

@@ -3,6 +3,8 @@ package com.aiyaschool.aiya.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 /**
  * Created by EGOISTK21 on 2017/5/9.
  */

@@ -1,13 +1,11 @@
-package com.aiyaschool.aiya.me.postmessage;
+package com.aiyaschool.aiya.me.mvpPersonData;
 
+import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
-import com.aiyaschool.aiya.bean.OuInfo;
-import com.aiyaschool.aiya.bean.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 
 /**
@@ -21,12 +19,12 @@ public interface PersonDataContract {
 
         void updateUserData(String height, Observer<HttpResult> observer);
 
-        void getGuestRecord(String page, String lines, Observer<HttpResult<ArrayList<OuInfo>>> observer);
     }
 
     interface View {
 
         void setSchoolData(List<String> schools);
+
 
     }
 
@@ -36,7 +34,6 @@ public interface PersonDataContract {
 
         void updateUserData(String height);
 
-        void getGuestRecord(String page, String lines);
 
         void detach();
 

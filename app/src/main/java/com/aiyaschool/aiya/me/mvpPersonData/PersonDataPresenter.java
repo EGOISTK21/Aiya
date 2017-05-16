@@ -1,7 +1,8 @@
-package com.aiyaschool.aiya.me.postmessage;
+package com.aiyaschool.aiya.me.mvpPersonData;
 
 import android.util.Log;
 
+import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
 
@@ -90,33 +91,7 @@ public class PersonDataPresenter implements PersonDataContract.Presenter {
         });
     }
 
-    @Override
-    public void getGuestRecord(String page, String lines) {
-        mModel.getGuestRecord(page, lines, new Observer<HttpResult<ArrayList<OuInfo>>>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
 
-            }
 
-            @Override
-            public void onNext(@NonNull HttpResult<ArrayList<OuInfo>> arrayListHttpResult) {
-                Log.d(TAG, "onNext: "+arrayListHttpResult.getState());
-                Log.d(TAG, "onNext: rows"+arrayListHttpResult.getRows());
-                Log.d(TAG, "onNext: data"+arrayListHttpResult.getData().size());
-                for (OuInfo o:arrayListHttpResult.getData()){
-                    System.out.println(o.getUsername());
-                }
-            }
 
-            @Override
-            public void onError(@NonNull Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-    }
 }

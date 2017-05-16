@@ -1,35 +1,19 @@
 package com.aiyaschool.aiya.bean;
 
-/**
- * Created by wewarriors on 2017/5/13.
- * 访客记录中访客的信息
- */
-
 import com.aiyaschool.aiya.me.bean.MyAvatar;
 
 /**
- *  "data": [
- {
- "ouinfo": { //对方信息
- "username": "janie",
- "avatar": {
- "normal": [
- "http://cdn.sinacloud.net/gxwy-user/avatar/face1.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=5DvWaYp8Uo&Expires=1493751318"
- ],
- "thumb": [
- "http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/avatar/face1.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=s1BJZSV8QS&Expires=1493751318"
- ]
- },
- "school": "清华大学"
- }
- },
+ * Created by wewarriors on 2017/5/13.
  */
-public class OuInfo {
+
+public class EmotionRecordBean {
     private String username;
     private MyAvatar avatar;
     private String school;
     private String userid;
-    private String createtime;
+    private String starttime;
+    private String endtime;
+    private String intimacy;
 
     public String getUsername() {
         return username;
@@ -63,11 +47,27 @@ public class OuInfo {
         this.userid = userid;
     }
 
-    public String getCreatetime() {
-        return createtime;
+    public String getStarttime() {
+        return starttime;
     }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime;
+    public void setStarttime(String starttime) {
+        this.starttime = starttime;
+    }
+
+    public String getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime = endtime;
+    }
+
+    public String getIntimacy() {
+        return intimacy;
+    }
+
+    public void setIntimacy(String intimacy) {
+        this.intimacy = intimacy;
     }
 }

@@ -5,17 +5,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.bean.EmotionRecordBean;
+import com.aiyaschool.aiya.me.mvpEmotionRecord.EmotionRecordContract;
+import com.aiyaschool.aiya.me.mvpEmotionRecord.EmotionRecordPresenter;
 
-public class MyEmotionActivity extends AppCompatActivity {
+import java.util.List;
+
+public class MyEmotionActivity extends AppCompatActivity implements EmotionRecordContract.View {
+
+    private static final String TAG = "MyEmotionActivity";
 
     private TextView mTvBack;
     private RecyclerView mRvEmotion;
+
+    private EmotionRecordContract.Presenter mPresenter;
 
     private final static int TOP = 0;
     private final static int NORMAL = 1;
@@ -25,6 +35,9 @@ public class MyEmotionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_emotion);
         initView();
+
+        mPresenter = new EmotionRecordPresenter(this);
+        mPresenter.getEmotionRecord("1", "1", "3");
     }
 
     private void initView() {
@@ -41,6 +54,11 @@ public class MyEmotionActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void setEmotionRecordData(List<EmotionRecordBean> emotionRecordData) {
+        Log.d(TAG, "setEmotionRecordData: " + emotionRecordData.size());
     }
 
     class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionViewHolder>{

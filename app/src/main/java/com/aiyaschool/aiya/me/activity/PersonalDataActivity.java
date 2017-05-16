@@ -19,11 +19,12 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.RegionModel;
 import com.aiyaschool.aiya.me.db.RegionDao;
-import com.aiyaschool.aiya.me.postmessage.PersonDataContract;
-import com.aiyaschool.aiya.me.postmessage.PersonDataPresenter;
+import com.aiyaschool.aiya.me.mvpPersonData.PersonDataContract;
+import com.aiyaschool.aiya.me.mvpPersonData.PersonDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
 import com.aiyaschool.aiya.me.view.RoundImageView;
 import com.aiyaschool.aiya.multi_image_selector.MultiImageSelector;
@@ -169,8 +170,9 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         }
 
         mPresenter = new PersonDataPresenter(this);
-        mPresenter.updateUserData("175");
-        mPresenter.getGuestRecord("1","6");
+//        mPresenter.updateUserData("175");
+//        mPresenter.getGuestRecord("1","6");
+//        mPresenter.getEmotionRecord("1", "1", "3");
         System.out.println("mSchool" + mSchool + "mProvince" + mProvince);
 
     }
@@ -542,4 +544,6 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             }
         }
     }
+
+
 }

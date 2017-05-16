@@ -5,37 +5,57 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.me.bean.GuestItem;
+import com.aiyaschool.aiya.me.mvpGuestRecord.GuestDataContract;
+import com.aiyaschool.aiya.me.mvpGuestRecord.GuestDataPresenter;
+import com.aiyaschool.aiya.me.mvpPersonData.PersonDataContract;
+import com.aiyaschool.aiya.me.mvpPersonData.PersonDataPresenter;
 import com.aiyaschool.aiya.me.view.RoundImageView;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyGuestActivity extends AppCompatActivity {
+public class MyGuestActivity extends AppCompatActivity implements GuestDataContract.View {
+
+    private static final String TAG = "MyGuestActivity";
 
     private TextView mTvBack;
     private RecyclerView mRvGuest;
+    private LinearLayout mLlMyGuest;
+    private ImageView mIvGuestNull;
 
     private List<GuestItem> mGuestItems;
+    private List<OuInfo> mGuestList;
+
+    private GuestDataContract.Presenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_guest);
         initView();
 
+        presenter = new GuestDataPresenter(this);
+        presenter.getGuestRecord("1", "6");
+
     }
 
     private void initView() {
         mTvBack = (TextView) findViewById(R.id.tv_back);
         mRvGuest = (RecyclerView) findViewById(R.id.rv_guest);
-
+        mLlMyGuest = (LinearLayout) findViewById(R.id.my_guest);
+        mIvGuestNull = (ImageView) findViewById(R.id.guest_null);
 
         mTvBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +77,19 @@ public class MyGuestActivity extends AppCompatActivity {
         mRvGuest.setLayoutManager(new LinearLayoutManager(this));
         mRvGuest.setAdapter(new GuestAdapter());
         mRvGuest.addItemDecoration(new DividerItemDecoration(MyGuestActivity.this, DividerItemDecoration.VERTICAL));
+    }
+
+
+    @Override
+    public void setGuestRecordData(List<OuInfo> guestItem) {
+        mGuestList = guestItem;
+        Log.d(TAG, "setGuestRecordData: " + guestItem.size());
+    }
+
+    @Override
+    public void setBackGroundIfNoData() {
+        mLlMyGuest.setVisibility(View.INVISIBLE);
+        mIvGuestNull.setVisibility(View.VISIBLE);
     }
 
     class GuestAdapter extends RecyclerView.Adapter<GuestAdapter.GuestViewHolder> implements View.OnClickListener{
