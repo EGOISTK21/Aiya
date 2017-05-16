@@ -6,12 +6,8 @@ import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.SignUtil;
-import com.aiyaschool.aiya.util.ToastUtil;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -75,39 +71,8 @@ class FormPresenter implements FormContract.Presenter {
     }
 
     @Override
-    public void loadSchoolData() {
-        mModel.loadSchoolData(new Observer<HttpResult<List<String>>>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                Log.i(TAG, "onSubscribe: loadSchoolData");
-                mView.showPD();
-            }
-
-            @Override
-            public void onNext(@NonNull HttpResult<List<String>> listHttpResult) {
-                Log.i(TAG, "onNext: loadSchoolData");
-                if (listHttpResult.getState().equals("2000")) {
-                    mView.setSchoolData(listHttpResult.getData());
-                } else {
-                    mView.setSchoolData(new ArrayList<>(Collections.singletonList("")));
-                    ToastUtil.show("网络错误");
-                }
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.i(TAG, "onError: loadSchoolData");
-                mView.dismissPD();
-                mView.setSchoolData(new ArrayList<>(Collections.singletonList("")));
-                ToastUtil.show("网络错误");
-            }
-
-            @Override
-            public void onComplete() {
-                Log.i(TAG, "onComplete: loadSchoolData");
-                mView.dismissPD();
-            }
-        });
+    public void loadSchoolData(String province) {
+        mView.setSchoolData(mModel.loadSchoolData(province));
     }
 
     @Override

@@ -64,19 +64,19 @@
                 android:textColor="@color/colorPureWhite"
                 android:textSize="11sp"/>
 
-            <TextView
-                android:id="@+id/tv_love_see_ta_activity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:gravity="center"
-                android:paddingBottom="16dp"
-                android:paddingEnd="@dimen/common_margin_15"
-                android:paddingStart="@dimen/common_margin_15"
-                android:paddingTop="16dp"
-                android:text="@string/browse_ta_activity"
-                android:textColor="@color/colorPureWhite"
-                android:textSize="15sp"/>
+            <!--<TextView-->
+            <!--android:id="@+id/tv_love_see_ta_activity"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:gravity="center"-->
+            <!--android:paddingBottom="16dp"-->
+            <!--android:paddingEnd="@dimen/common_margin_15"-->
+            <!--android:paddingStart="@dimen/common_margin_15"-->
+            <!--android:paddingTop="16dp"-->
+            <!--android:text="@string/browse_ta_activity"-->
+            <!--android:textColor="@color/colorPureWhite"-->
+            <!--android:textSize="15sp"/>-->
 
         </RelativeLayout>
 

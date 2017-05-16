@@ -3,6 +3,7 @@ package com.aiyaschool.aiya.love.unmatched.conditionMatch;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
@@ -10,8 +11,10 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
@@ -19,8 +22,11 @@ import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.love.unmatched.fateMatch.FateMatchFragment;
 import com.aiyaschool.aiya.love.unmatched.matchResult.MatchResultFragment;
+import com.aiyaschool.aiya.util.SchoolDBHelper;
+import com.aiyaschool.aiya.util.TextViewGravitySpan;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
+import com.aiyaschool.aiya.widget.ScrollPickerView;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
 
 import java.util.ArrayList;
@@ -32,15 +38,16 @@ import butterknife.BindViews;
 import butterknife.OnClick;
 
 /**
+ * 恋爱记尚未匹配页面，条件匹配View实现类
  * Created by EGOISTK21 on 2017/3/16.
  */
 
 public class ConditionMatchFragment extends BaseFragment
         implements ConditionMatchContract.View, CompoundButton.OnCheckedChangeListener {
 
-    private int sum;
-    private int[] prices = new int[]{5, 4, 2, 2, 1, 0};
-    private String tmpSchool;
+    private int sum, mProvince;
+    private int[] prices, mSchoolNo;
+    private String mHeight, mAge, mSchool, mCharacter, mConstellation;
     private FragmentTransaction ft;
     private ConditionMatchContract.Presenter mPresenter;
     @BindView(R.id.tv_fate_match)
@@ -57,13 +64,13 @@ public class ConditionMatchFragment extends BaseFragment
     TextView tvConstellationPicker;
     @BindView(R.id.btn_start_condition_match)
     Button btnStartConditionMatch;
-    @BindView(R.id.tv_free_matching_times_warn)
-    TextView tvFreeMatchingTimes;
+    @BindViews({R.id.iv_height, R.id.iv_age, R.id.iv_school, R.id.iv_character, R.id.iv_constellation})
+    ImageView[] mImageViews;
     @BindViews({R.id.sw_height, R.id.sw_age, R.id.sw_school, R.id.sw_character, R.id.sw_constellation, R.id.sw_shield_contact})
     SwitchCompat[] switches;
     private FilletDialog dialogHeightPicker, dialogAgePicker,
             dialogSchoolPicker, dialogCharacterPicker, dialogConstellationPicker;
-    private StringScrollPicker sspHeight, sspAge, sspSchool, sspCharacter, sspConstellation;
+    private StringScrollPicker sspHeight, sspAge, sspProvince, sspSchool, sspCharacter, sspConstellation;
     private ProgressDialog mPD;
 
     public static ConditionMatchFragment newInstance() {
@@ -78,6 +85,13 @@ public class ConditionMatchFragment extends BaseFragment
     @Override
     protected void initView() {
         sum = 0;
+        prices = new int[]{5, 4, 2, 2, 1, 0};
+        mHeight = (String) tvHeightPicker.getText();
+        mAge = (String) tvAgePicker.getText();
+        mSchool = "西安电子科技大学";
+        mCharacter = (String) tvCharacterPicker.getText();
+        mConstellation = (String) tvConstellationPicker.getText();
+        mSchoolNo = new int[31];
         mPresenter = new ConditionMatchPresenter(this);
         mPresenter.initContactShield();
         ft = getFragmentManager().beginTransaction();
@@ -85,6 +99,40 @@ public class ConditionMatchFragment extends BaseFragment
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
                 R.color.colorPrimaryDark)), 5, 7, Spanned.SPAN_POINT_MARK);
         ((TextView) rootView.findViewById(R.id.tv_single_warn)).setText(spannable);
+        Parcel p = Parcel.obtain();
+        p.writeFloat(1.5f);
+        p.setDataPosition(0);
+        spannable = new SpannableString("X7快去DIY一个七天的Ta吧!");
+        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+                R.color.colorPrimaryDark)), 0, 1, Spanned.SPAN_POINT_MARK);
+        spannable.setSpan(new RelativeSizeSpan(p), 1, 2, Spanned.SPAN_POINT_MARK);
+        spannable.setSpan(new TextViewGravitySpan(getContext(), 23), 1, 2, Spanned.SPAN_POINT_MARK);
+        ((TextView) rootView.findViewById(R.id.tv_DIY_ta)).setText(spannable);
+        spannable = new SpannableString("X5");
+        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+                R.color.colorPrimaryDark)), 0, 1, Spanned.SPAN_POINT_MARK);
+        spannable.setSpan(new RelativeSizeSpan(p), 1, 2, Spanned.SPAN_POINT_MARK);
+        spannable.setSpan(new TextViewGravitySpan(getContext(), 23), 1, 2, Spanned.SPAN_POINT_MARK);
+        ((TextView) rootView.findViewById(R.id.tv_height_price)).setText(spannable);
+        spannable = new SpannableString("X4");
+        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+                R.color.colorPrimaryDark)), 0, 1, Spanned.SPAN_POINT_MARK);
+        spannable.setSpan(new RelativeSizeSpan(p), 1, 2, Spanned.SPAN_POINT_MARK);
+        spannable.setSpan(new TextViewGravitySpan(getContext(), 23), 1, 2, Spanned.SPAN_POINT_MARK);
+        ((TextView) rootView.findViewById(R.id.tv_age_price)).setText(spannable);
+        spannable = new SpannableString("X2");
+        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+                R.color.colorPrimaryDark)), 0, 1, Spanned.SPAN_POINT_MARK);
+        spannable.setSpan(new RelativeSizeSpan(p), 1, 2, Spanned.SPAN_POINT_MARK);
+        spannable.setSpan(new TextViewGravitySpan(getContext(), 23), 1, 2, Spanned.SPAN_POINT_MARK);
+        ((TextView) rootView.findViewById(R.id.tv_school_price)).setText(spannable);
+        ((TextView) rootView.findViewById(R.id.tv_character_price)).setText(spannable);
+        spannable = new SpannableString("X1");
+        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
+                R.color.colorPrimaryDark)), 0, 1, Spanned.SPAN_POINT_MARK);
+        spannable.setSpan(new RelativeSizeSpan(p), 1, 2, Spanned.SPAN_POINT_MARK);
+        spannable.setSpan(new TextViewGravitySpan(getContext(), 23), 1, 2, Spanned.SPAN_POINT_MARK);
+        ((TextView) rootView.findViewById(R.id.tv_constellation_price)).setText(spannable);
         initListener();
     }
 
@@ -96,6 +144,7 @@ public class ConditionMatchFragment extends BaseFragment
 
     @Override
     public void onDestroy() {
+        SchoolDBHelper.closeDB();
         mPresenter.detachView();
         super.onDestroy();
     }
@@ -116,19 +165,25 @@ public class ConditionMatchFragment extends BaseFragment
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspHeight.setSelectedItem((String) tvHeightPicker.getText());
+                            sspHeight.setSelectedItem(mHeight);
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            tvHeightPicker.setText(sspHeight.getSelectedItem());
+                            mHeight = sspHeight.getSelectedItem();
+                            tvHeightPicker.setText(mHeight);
+                            if (switches[0].isClickable()) {
+                                switches[0].setChecked(true);
+                            } else {
+                                ToastUtil.show("最多只能选7❤️哦");
+                            }
                             dialog.dismiss();
                         }
                     }).create();
+            setHeightData();
         }
         dialogHeightPicker.show();
-        setHeightData();
     }
 
     @OnClick(value = R.id.tv_age_picker)
@@ -139,47 +194,54 @@ public class ConditionMatchFragment extends BaseFragment
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspAge.setSelectedItem((String) tvAgePicker.getText());
+                            sspAge.setSelectedItem(mAge);
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            tvAgePicker.setText(sspAge.getSelectedItem());
+                            mAge = sspAge.getSelectedItem();
+                            tvAgePicker.setText(mAge);
+                            if (switches[1].isClickable()) {
+                                switches[1].setChecked(true);
+                            } else {
+                                ToastUtil.show("最多只能选7❤️哦");
+                            }
                             dialog.dismiss();
                         }
                     }).create();
+            setAgeData();
         }
         dialogAgePicker.show();
-        setAgeData();
     }
 
     @OnClick(value = R.id.tv_school_picker)
     void showDialogSchoolPicker() {
         if (dialogSchoolPicker == null) {
-            dialogSchoolPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_single_picker)
+            dialogSchoolPicker = new FilletDialog.Builder(getContext(), R.layout.dialog_school_picker)
                     .setTitle("学校")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspSchool.setSelectedItem(tmpSchool);
+                            sspSchool.setSelectedItem(mSchool);
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            tmpSchool = sspSchool.getSelectedItem();
-                            if (tmpSchool.length() > 4) {
-                                tvSchoolPicker.setText(tmpSchool.subSequence(0, 4) + "…");
+                            mSchool = sspSchool.getSelectedItem();
+                            tvSchoolPicker.setText(mSchool.length() > 4 ? mSchool.subSequence(0, 4) + "…" : mSchool);
+                            if (switches[2].isClickable()) {
+                                switches[2].setChecked(true);
                             } else {
-                                tvSchoolPicker.setText(tmpSchool);
+                                ToastUtil.show("最多只能选7❤️哦");
                             }
                             dialog.dismiss();
                         }
                     }).create();
+            setProvinceData();
         }
         dialogSchoolPicker.show();
-        mPresenter.loadSchoolData();
     }
 
     @OnClick(R.id.tv_character_picker)
@@ -190,19 +252,25 @@ public class ConditionMatchFragment extends BaseFragment
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspCharacter.setSelectedItem((String) tvCharacterPicker.getText());
+                            sspCharacter.setSelectedItem(mCharacter);
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            tvCharacterPicker.setText(sspCharacter.getSelectedItem());
+                            mCharacter = sspCharacter.getSelectedItem();
+                            tvCharacterPicker.setText(mCharacter);
+                            if (switches[3].isClickable()) {
+                                switches[3].setChecked(true);
+                            } else {
+                                ToastUtil.show("最多只能选7❤️哦");
+                            }
                             dialog.dismiss();
                         }
                     }).create();
+            setCharacterData();
         }
         dialogCharacterPicker.show();
-        setCharacterData();
     }
 
     @OnClick(R.id.tv_constellation_picker)
@@ -213,19 +281,25 @@ public class ConditionMatchFragment extends BaseFragment
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sspConstellation.setSelectedItem((String) tvConstellationPicker.getText());
+                            sspConstellation.setSelectedItem(mConstellation);
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            tvConstellationPicker.setText(sspConstellation.getSelectedItem());
+                            mConstellation = sspConstellation.getSelectedItem();
+                            tvConstellationPicker.setText(mConstellation);
+                            if (switches[4].isClickable()) {
+                                switches[4].setChecked(true);
+                            } else {
+                                ToastUtil.show("最多只能选7❤️哦");
+                            }
                             dialog.dismiss();
                         }
                     }).create();
+            setConstellationData();
         }
         dialogConstellationPicker.show();
-        setConstellationData();
     }
 
     @OnClick(R.id.btn_start_condition_match)
@@ -233,7 +307,12 @@ public class ConditionMatchFragment extends BaseFragment
         if (sum == 0) {
             ToastUtil.show("请至少选择一个选项");
         } else {
-            mPresenter.startConditionMatch(null, null, null, null, null, null, null);
+            mPresenter.startConditionMatch(
+                    switches[0].isChecked() ? mHeight : null,
+                    switches[1].isChecked() ? mAge : null,
+                    switches[2].isChecked() ? mSchool : null,
+                    switches[3].isChecked() ? mCharacter : null,
+                    switches[4].isChecked() ? mConstellation : null);
         }
     }
 
@@ -271,6 +350,35 @@ public class ConditionMatchFragment extends BaseFragment
         }
     }
 
+    public void setProvinceData() {
+        if (sspProvince == null || sspSchool == null) {
+            sspProvince = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_province);
+            sspSchool = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_school);
+            sspProvince.setData(SchoolDBHelper.PROVINCE);
+            sspProvince.setSelectedPosition(mProvince);
+            mPresenter.loadSchoolData(SchoolDBHelper.PROVINCE.get(mProvince));
+            sspProvince.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
+                @Override
+                public void onSelected(ScrollPickerView scrollPickerView, int position) {
+                    mProvince = position;
+                    mPresenter.loadSchoolData(SchoolDBHelper.PROVINCE.get(position));
+                }
+            });
+        }
+    }
+
+    @Override
+    public void setSchoolData(List<String> data) {
+        sspSchool.setData(data);
+        sspSchool.setSelectedPosition(mSchoolNo[mProvince]);
+        sspSchool.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
+            @Override
+            public void onSelected(ScrollPickerView scrollPickerView, int position) {
+                mSchoolNo[mProvince] = position;
+            }
+        });
+    }
+
     private void setCharacterData() {
         if (dialogCharacterPicker != null && sspCharacter == null) {
             sspCharacter = (StringScrollPicker) dialogCharacterPicker.findViewById(R.id.ssp_single);
@@ -288,15 +396,9 @@ public class ConditionMatchFragment extends BaseFragment
         }
     }
 
-    @Override
-    public void setSchoolData(List<String> data) {
-        if (dialogSchoolPicker != null && sspSchool == null) {
-            sspSchool = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_single);
-            if (sspSchool != null) {
-                sspSchool.setData(data);
-                tvSchoolPicker.setText(sspSchool.getSelectedItem().subSequence(0, 4) + "…");
-            }
-        }
+    private void updateImageViewStatus(boolean isChecked, int index) {
+        mImageViews[index].setImageDrawable(ContextCompat.getDrawable(getContext(),
+                isChecked ? R.drawable.heart_on : R.drawable.heart_off));
     }
 
     @Override
@@ -324,10 +426,11 @@ public class ConditionMatchFragment extends BaseFragment
     }
 
     public void updateSwitchesStatus(boolean isChecked, int index) {
-        if (sum + prices[index] > 7) {
-            ToastUtil.show("你只有七块钱哦");
-        }
         sum += isChecked ? (sum + prices[index] > 7 ? 0 : prices[index]) : -prices[index];
+        if (sum == 7) {
+            ToastUtil.show("你已经选满7❤了️");
+        }
+        updateImageViewStatus(isChecked, index);
         if (sum > 4) {
             switches[0].setClickable(switches[0].isChecked());
             switches[1].setClickable(switches[1].isChecked());

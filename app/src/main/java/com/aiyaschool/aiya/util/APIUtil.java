@@ -169,8 +169,7 @@ public class APIUtil {
      * #匹配条件
      * ['minHeight']:身高下限，默认0/cm
      * ['maxHeight']:身高上限，默认210/cm
-     * ['minAge']:年龄下限，默认0
-     * ['maxAge']:年龄上限,默认1000
+     * ['age']:年龄
      * #下四个条件模糊匹配
      * ['major']:专业
      * ['school']:学校
@@ -185,8 +184,7 @@ public class APIUtil {
         @FormUrlEncoded
         Observable<HttpResult<ArrayList<User>>> startConditionMatch(@Field("minHeight") String minHeight,
                                                                     @Field("maxHeight") String maxHeight,
-                                                                    @Field("minAge") String minAge,
-                                                                    @Field("maxAge") String maxAge,
+                                                                    @Field("age") String maxAge,
                                                                     @Field("school") String school,
                                                                     @Field("character") String character,
                                                                     @Field("constellation") String constellation,
@@ -247,6 +245,12 @@ public class APIUtil {
 //                                                                                   @Field("page") String page,
 //                                                                                   @Field("lines") String lines);
 //    }
+
+    public interface FateSwitchApi {
+        @POST("Me/PUT/fateSwitch")
+        @FormUrlEncoded
+        Observable<HttpResult> setFateSwitch(@Field("fateswitch") String fateSwitch);
+    }
 
     public static VerificationInitApi getVerificationInitApi() {
         if (sRetrofit == null) {
@@ -321,5 +325,9 @@ public class APIUtil {
 
     public static GetEmotionRecordApi getEmotionRecordApi() {
         return sRetrofit.create(GetEmotionRecordApi.class);
+    }
+
+    public static FateSwitchApi getFateSwitchApi() {
+        return sRetrofit.create(FateSwitchApi.class);
     }
 }

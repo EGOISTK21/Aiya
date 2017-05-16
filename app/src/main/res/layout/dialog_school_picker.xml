@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/dialog_background"
     android:orientation="vertical">
@@ -12,10 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:gravity="center"
-        android:text="@string/character"
+        android:text="@string/school"
         android:textColor="@color/colorTitle"
         android:textSize="@dimen/common_text_size_16"/>
-
 
     <View
         android:layout_width="match_parent"
@@ -29,27 +28,18 @@
 
         <com.aiyaschool.aiya.widget.StringScrollPicker
             android:id="@+id/ssp_province"
-            android:layout_width="0dp"
+            android:layout_width="160dp"
             android:layout_height="150dp"
-            android:layout_weight="1"
-            app:spv_max_text_size="30sp"
-            app:spv_min_text_size="20sp"/>
+            app:spv_max_text_size="20sp"
+            app:spv_min_text_size="16sp"/>
 
         <com.aiyaschool.aiya.widget.StringScrollPicker
-            android:id="@+id/ssp_city"
+            android:id="@+id/ssp_school"
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:layout_weight="1"
-            app:spv_max_text_size="30sp"
-            app:spv_min_text_size="20sp"/>
-
-        <com.aiyaschool.aiya.widget.StringScrollPicker
-            android:id="@+id/ssp_area"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            app:spv_max_text_size="30sp"
-            app:spv_min_text_size="20sp"/>
+            app:spv_max_text_size="20sp"
+            app:spv_min_text_size="16sp"/>
 
     </LinearLayout>
 

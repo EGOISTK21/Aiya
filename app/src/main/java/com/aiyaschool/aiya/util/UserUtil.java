@@ -17,13 +17,13 @@ import java.util.List;
  * Created by EGOISTK21 on 2017/4/28.
  */
 
-public class DBUtil {
+public class UserUtil {
 
     private static SharedPreferences sSharedPreferences;
     private static SharedPreferences.Editor sEditor;
     private static User sUser;
 
-    private DBUtil() {
+    private UserUtil() {
 
     }
 
@@ -31,23 +31,23 @@ public class DBUtil {
         sSharedPreferences = context.getSharedPreferences("test", Context.MODE_PRIVATE);
         sEditor = sSharedPreferences.edit();
         sUser = new User();
-        sUser.setLoginToken(DBUtil.getLoginToken());
-        sUser.setUserSig(DBUtil.getUserSig());
-        sUser.setAccessToken(DBUtil.getAccessToken());
-        sUser.setUpLoad(DBUtil.getUpLoad());
-        sUser.setId(DBUtil.getId());
-        sUser.setUsername(DBUtil.getUsername());
-        sUser.setPhone(DBUtil.getPhone());
-        sUser.setSchool(DBUtil.getSchool());
-        sUser.setLoveId(DBUtil.getLoveId());
-        sUser.setGroup(DBUtil.getGroup());
-        sUser.setCharacter(DBUtil.getCharacter());
-        sUser.setAvatar(DBUtil.getAvatar());
-        sUser.setProfile(DBUtil.getProfile());
-        sUser.setPoints(DBUtil.getPoints());
-        sUser.setGiftTickets(DBUtil.getGiftTickets());
-        sUser.setFateSwitch(DBUtil.getFateSwitch());
-        sUser.setImgWall(DBUtil.getImgWall());
+        sUser.setLoginToken(UserUtil.getLoginToken());
+        sUser.setUserSig(UserUtil.getUserSig());
+        sUser.setAccessToken(UserUtil.getAccessToken());
+        sUser.setUpLoad(UserUtil.getUpLoad());
+        sUser.setId(UserUtil.getId());
+        sUser.setUsername(UserUtil.getUsername());
+        sUser.setPhone(UserUtil.getPhone());
+        sUser.setSchool(UserUtil.getSchool());
+        sUser.setLoveId(UserUtil.getLoveId());
+        sUser.setGroup(UserUtil.getGroup());
+        sUser.setCharacter(UserUtil.getCharacter());
+        sUser.setAvatar(UserUtil.getAvatar());
+        sUser.setProfile(UserUtil.getProfile());
+        sUser.setPoints(UserUtil.getPoints());
+        sUser.setGiftTickets(UserUtil.getGiftTickets());
+        sUser.setFateSwitch(UserUtil.getFateSwitch());
+        sUser.setImgWall(UserUtil.getImgWall());
     }
 
     static void setUser(User user) {

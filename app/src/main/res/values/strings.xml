@@ -55,11 +55,11 @@
     <string name="default_constellation">天秤座</string>
     <string name="default_mission_date">选择任务日期</string>
     <string name="default_mission">输入任务名称或点击推荐的任务</string>
-    <string name="default_price_height">5￥</string>
-    <string name="default_price_age">4￥</string>
-    <string name="default_price_school">2￥</string>
-    <string name="default_price_hometown">2￥</string>
-    <string name="default_price_constellation">1￥</string>
+    <string name="default_price_height">X5</string>
+    <string name="default_price_age">X4</string>
+    <string name="default_price_school">X2</string>
+    <string name="default_price_character">X2</string>
+    <string name="default_price_constellation">X1</string>
     <!--特殊内容-->
     <string name="form_warn">确认后不可更改</string>
     <string name="start_condition_match">开始条件匹配</string>
@@ -82,7 +82,8 @@
     <string name="mission_picture">任务图册</string>
     <string name="single_warn">你当前还是单身状态，快去和你的Ta相遇吧！</string>
     <string name="filter_condition">筛选条件</string>
-    <string name="DIY_ta">如果给你七块钱，你想DIY一个怎样的Ta？</string>
+    <string name="DIY_ta_0">给你</string>
+    <string name="DIY_ta_1">X7快去DIY一个七天的Ta吧!</string>
     <string name="intimacy">亲密度</string>
     <string name="intimacy_detail">亲密度明细</string>
     <string name="intimacy_play">玩法</string>

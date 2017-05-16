@@ -4,8 +4,9 @@ import android.app.Application;
 import android.util.Log;
 
 import com.aiyaschool.aiya.bean.User;
-import com.aiyaschool.aiya.util.DBUtil;
+import com.aiyaschool.aiya.me.util.DBCopyUtil;
 import com.aiyaschool.aiya.util.SignUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 import com.tencent.TIMManager;
 import com.tencent.TIMOfflinePushListener;
 import com.tencent.TIMOfflinePushNotification;
@@ -31,7 +32,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SMSSDK.initSDK(this, APP_KEY, APP_SECRET);
-        LitePal.initialize(this);
         TIMManager.getInstance().init(this);
 //        TLSService.getInstance().initTlsSdk(this);
         if (MsfSdkUtils.isMainProcess(this)) {
@@ -44,7 +44,9 @@ public class MyApplication extends Application {
                 }
             });
         }
-        DBUtil.init(this);
+        LitePal.initialize(this);
+        UserUtil.init(this);
+        DBCopyUtil.copyDataBaseFromAssets(this, "edu.db");
         instance = this;
     }
 
@@ -53,7 +55,6 @@ public class MyApplication extends Application {
     }
 
     public static void setUser(User user) {
-        System.out.println("User" + user.getUsername());
         SignUtil.setUser(user);
     }
 

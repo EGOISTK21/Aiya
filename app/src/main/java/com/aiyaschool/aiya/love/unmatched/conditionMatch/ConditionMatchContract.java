@@ -19,12 +19,11 @@ interface ConditionMatchContract {
 
         void commitContactShield(boolean contactShield);
 
-        void loadSchoolData(Observer<HttpResult<List<String>>> observer);
+        List<String> loadSchoolData(String province);
 
         void startConditionMatch(String minHeight,
                                  String maxHeight,
-                                 String minAge,
-                                 String maxAge,
+                                 String age,
                                  String school,
                                  String character,
                                  String constellation,
@@ -53,12 +52,10 @@ interface ConditionMatchContract {
 
         void commitContactShield(boolean contactShield);
 
-        void loadSchoolData();
+        void loadSchoolData(String province);
 
-        void startConditionMatch(String minHeight,
-                                 String maxHeight,
-                                 String minAge,
-                                 String maxAge,
+        void startConditionMatch(String height,
+                                 String age,
                                  String school,
                                  String character,
                                  String constellation);

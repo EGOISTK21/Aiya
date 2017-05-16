@@ -66,16 +66,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_margin_5"
-            android:text="@string/DIY_ta"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/DIY_ta_0"
+            android:textColor="@color/colorContentMain"
+            android:textSize="@dimen/common_text_size_13"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/heart_on"
+            android:layout_marginEnd="@dimen/common_margin_5"
+            android:layout_marginStart="@dimen/common_margin_5"/>
+
+        <TextView
+            android:id="@+id/tv_DIY_ta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DIY_ta_1"
+            android:textColor="@color/colorContentMain"
             android:textSize="@dimen/common_text_size_13"/>
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"
-        android:background="@color/colorDivider"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -91,6 +101,7 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/tv_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -99,28 +110,46 @@
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_16"/>
 
-            <TextView
-                android:id="@+id/tv_height_picker"
-                android:layout_width="@dimen/picker_button_width"
-                android:layout_height="@dimen/picker_button_height"
-                android:layout_centerInParent="true"
-                android:background="@drawable/button_with_rightward_26"
-                android:drawableEnd="@mipmap/rightward_26"
-                android:gravity="center"
-                android:paddingEnd="@dimen/common_margin_10"
-                android:paddingStart="@dimen/common_margin_10"
-                android:text="@string/default_height_range"
-                android:textColor="@color/colorContentSecondary"
-                android:textSize="@dimen/common_text_size_13"/>
-
-            <TextView
+            <ImageView
+                android:id="@+id/iv_height"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/sw_height"
+                android:layout_toEndOf="@id/tv_height"
+                android:paddingEnd="@dimen/common_margin_5"
+                android:paddingStart="@dimen/common_margin_5"
+                android:src="@drawable/heart_off"/>
+
+            <TextView
+                android:id="@+id/tv_height_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/iv_height"
                 android:text="@string/default_price_height"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_13"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingStart="@dimen/common_margin_20">
+
+                <TextView
+                    android:id="@+id/tv_height_picker"
+                    android:layout_width="@dimen/picker_button_width"
+                    android:layout_height="@dimen/picker_button_height"
+                    android:background="@drawable/button_with_rightward_26"
+                    android:drawableEnd="@mipmap/rightward_26"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/common_margin_10"
+                    android:paddingStart="@dimen/common_margin_10"
+                    android:text="@string/default_height_range"
+                    android:textColor="@color/colorContentSecondary"
+                    android:textSize="@dimen/common_text_size_13"/>
+
+            </FrameLayout>
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/sw_height"
@@ -140,6 +169,7 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/tv_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -148,28 +178,46 @@
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_16"/>
 
-            <TextView
-                android:id="@+id/tv_age_picker"
-                android:layout_width="@dimen/picker_button_width"
-                android:layout_height="@dimen/picker_button_height"
-                android:layout_centerInParent="true"
-                android:background="@drawable/button_with_rightward_26"
-                android:drawableEnd="@mipmap/rightward_26"
-                android:gravity="center"
-                android:paddingEnd="@dimen/common_margin_10"
-                android:paddingStart="@dimen/common_margin_10"
-                android:text="@string/default_age"
-                android:textColor="@color/colorContentSecondary"
-                android:textSize="@dimen/common_text_size_13"/>
-
-            <TextView
+            <ImageView
+                android:id="@+id/iv_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/sw_age"
+                android:layout_toEndOf="@id/tv_age"
+                android:paddingEnd="@dimen/common_margin_5"
+                android:paddingStart="@dimen/common_margin_5"
+                android:src="@drawable/heart_off"/>
+
+            <TextView
+                android:id="@+id/tv_age_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/iv_age"
                 android:text="@string/default_price_age"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_13"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingStart="@dimen/common_margin_20">
+
+                <TextView
+                    android:id="@+id/tv_age_picker"
+                    android:layout_width="@dimen/picker_button_width"
+                    android:layout_height="@dimen/picker_button_height"
+                    android:background="@drawable/button_with_rightward_26"
+                    android:drawableEnd="@mipmap/rightward_26"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/common_margin_10"
+                    android:paddingStart="@dimen/common_margin_10"
+                    android:text="@string/default_age"
+                    android:textColor="@color/colorContentSecondary"
+                    android:textSize="@dimen/common_text_size_13"/>
+
+            </FrameLayout>
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/sw_age"
@@ -188,6 +236,7 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/tv_school"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -196,28 +245,46 @@
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_16"/>
 
-            <TextView
-                android:id="@+id/tv_school_picker"
-                android:layout_width="@dimen/picker_button_width"
-                android:layout_height="@dimen/picker_button_height"
-                android:layout_centerInParent="true"
-                android:background="@drawable/button_with_rightward_26"
-                android:drawableEnd="@mipmap/rightward_26"
-                android:gravity="center"
-                android:paddingEnd="@dimen/common_margin_10"
-                android:paddingStart="@dimen/common_margin_10"
-                android:text="@string/default_school"
-                android:textColor="@color/colorContentSecondary"
-                android:textSize="@dimen/common_text_size_13"/>
-
-            <TextView
+            <ImageView
+                android:id="@+id/iv_school"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/sw_school"
+                android:layout_toEndOf="@id/tv_school"
+                android:paddingEnd="@dimen/common_margin_5"
+                android:paddingStart="@dimen/common_margin_5"
+                android:src="@drawable/heart_off"/>
+
+            <TextView
+                android:id="@+id/tv_school_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/iv_school"
                 android:text="@string/default_price_school"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_13"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingStart="@dimen/common_margin_20">
+
+                <TextView
+                    android:id="@+id/tv_school_picker"
+                    android:layout_width="@dimen/picker_button_width"
+                    android:layout_height="@dimen/picker_button_height"
+                    android:background="@drawable/button_with_rightward_26"
+                    android:drawableEnd="@mipmap/rightward_26"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/common_margin_10"
+                    android:paddingStart="@dimen/common_margin_10"
+                    android:text="@string/default_school"
+                    android:textColor="@color/colorContentSecondary"
+                    android:textSize="@dimen/common_text_size_13"/>
+
+            </FrameLayout>
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/sw_school"
@@ -236,6 +303,7 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/tv_character"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -244,28 +312,46 @@
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_16"/>
 
-            <TextView
-                android:id="@+id/tv_character_picker"
-                android:layout_width="@dimen/picker_button_width"
-                android:layout_height="@dimen/picker_button_height"
-                android:layout_centerInParent="true"
-                android:background="@drawable/button_with_rightward_26"
-                android:drawableEnd="@mipmap/rightward_26"
-                android:gravity="center"
-                android:paddingEnd="@dimen/common_margin_10"
-                android:paddingStart="@dimen/common_margin_10"
-                android:text="@string/default_character"
-                android:textColor="@color/colorContentSecondary"
-                android:textSize="@dimen/common_text_size_13"/>
-
-            <TextView
+            <ImageView
+                android:id="@+id/iv_character"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/sw_character"
-                android:text="@string/default_price_hometown"
+                android:layout_toEndOf="@id/tv_character"
+                android:paddingEnd="@dimen/common_margin_5"
+                android:paddingStart="@dimen/common_margin_5"
+                android:src="@drawable/heart_off"/>
+
+            <TextView
+                android:id="@+id/tv_character_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/iv_character"
+                android:text="@string/default_price_character"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_13"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingStart="@dimen/common_margin_20">
+
+                <TextView
+                    android:id="@+id/tv_character_picker"
+                    android:layout_width="@dimen/picker_button_width"
+                    android:layout_height="@dimen/picker_button_height"
+                    android:background="@drawable/button_with_rightward_26"
+                    android:drawableEnd="@mipmap/rightward_26"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/common_margin_10"
+                    android:paddingStart="@dimen/common_margin_10"
+                    android:text="@string/default_character"
+                    android:textColor="@color/colorContentSecondary"
+                    android:textSize="@dimen/common_text_size_13"/>
+
+            </FrameLayout>
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/sw_character"
@@ -284,6 +370,7 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/tv_constellation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -292,28 +379,46 @@
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_16"/>
 
-            <TextView
-                android:id="@+id/tv_constellation_picker"
-                android:layout_width="@dimen/picker_button_width"
-                android:layout_height="@dimen/picker_button_height"
-                android:layout_centerInParent="true"
-                android:background="@drawable/button_with_rightward_26"
-                android:drawableEnd="@mipmap/rightward_26"
-                android:gravity="center"
-                android:paddingEnd="@dimen/common_margin_10"
-                android:paddingStart="@dimen/common_margin_10"
-                android:text="@string/default_constellation"
-                android:textColor="@color/colorContentSecondary"
-                android:textSize="@dimen/common_text_size_13"/>
-
-            <TextView
+            <ImageView
+                android:id="@+id/iv_constellation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/sw_constellation"
+                android:layout_toEndOf="@id/tv_constellation"
+                android:paddingEnd="@dimen/common_margin_5"
+                android:paddingStart="@dimen/common_margin_5"
+                android:src="@drawable/heart_off"/>
+
+            <TextView
+                android:id="@+id/tv_constellation_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/iv_constellation"
                 android:text="@string/default_price_constellation"
                 android:textColor="@color/colorTitle"
                 android:textSize="@dimen/common_text_size_13"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingStart="@dimen/common_margin_20">
+
+                <TextView
+                    android:id="@+id/tv_constellation_picker"
+                    android:layout_width="@dimen/picker_button_width"
+                    android:layout_height="@dimen/picker_button_height"
+                    android:background="@drawable/button_with_rightward_26"
+                    android:drawableEnd="@mipmap/rightward_26"
+                    android:gravity="center"
+                    android:paddingEnd="@dimen/common_margin_10"
+                    android:paddingStart="@dimen/common_margin_10"
+                    android:text="@string/default_constellation"
+                    android:textColor="@color/colorContentSecondary"
+                    android:textSize="@dimen/common_text_size_13"/>
+
+            </FrameLayout>
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/sw_constellation"
@@ -333,20 +438,21 @@
         android:layout_height="@dimen/divider_height"
         android:background="@color/colorDivider"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPureWhite"
-        android:orientation="vertical">
+        android:background="@color/colorPureWhite">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/common_item_height_56">
+            android:layout_height="@dimen/common_item_height_56"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_weight="1"
                 android:layout_marginStart="@dimen/common_margin_15"
                 android:text="@string/shield_contact"
                 android:textColor="@color/colorContentSecondary"
@@ -356,34 +462,39 @@
                 android:id="@+id/sw_shield_contact"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 android:paddingEnd="@dimen/common_margin_15"
                 android:paddingStart="@dimen/common_margin_15"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_start_condition_match"
-            android:layout_width="@dimen/common_button_width"
-            android:layout_height="@dimen/common_button_height"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/button_selector_with_corner_18"
-            android:text="@string/start_condition_match"
-            android:textColor="@color/colorPureWhite"
-            android:textSize="@dimen/common_text_size_16"/>
-
-        <TextView
-            android:id="@+id/tv_free_matching_times_warn"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/common_margin_10"
-            android:includeFontPadding="false"
-            android:text="@string/love_unmatched_warn_point"
-            android:textColor="@color/colorContentSecondary"
-            android:textSize="@dimen/common_text_size_13"/>
+            android:layout_centerInParent="true">
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_start_condition_match"
+                android:layout_width="@dimen/common_button_width"
+                android:layout_height="@dimen/common_button_height"
+                android:layout_marginTop="@dimen/common_margin_30"
+                android:background="@drawable/button_selector_with_corner_18"
+                android:text="@string/start_condition_match"
+                android:textColor="@color/colorPureWhite"
+                android:textSize="@dimen/common_text_size_16"/>
+
+        </FrameLayout>
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_free_matching_times_warn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="@dimen/common_margin_10"-->
+        <!--android:includeFontPadding="false"-->
+        <!--android:text="@string/love_unmatched_warn_point"-->
+        <!--android:textColor="@color/colorContentSecondary"-->
+        <!--android:textSize="@dimen/common_text_size_13"/>-->
+
+    </RelativeLayout>
 
 </LinearLayout>

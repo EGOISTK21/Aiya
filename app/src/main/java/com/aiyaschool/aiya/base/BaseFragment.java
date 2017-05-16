@@ -34,7 +34,6 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        Log.i(TAG, "onViewCreated: " + getClass().getSimpleName());
         rootView = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, rootView);
         initView();
@@ -46,6 +45,12 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
         super.onViewCreated(view, savedInstanceState);
         isPrepared = true;
         lazyLoad();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: " + getClass().getSimpleName());
     }
 
     protected abstract int getLayoutId();

@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.util.ToastUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -37,11 +39,36 @@ class FateMatchPresenter implements FateMatchContract.Presenter {
 
     @Override
     public void initCanRandom() {
+
     }
 
     @Override
-    public void commitCanRandom(boolean canRandom) {
-        mModel.commitCanRandom(canRandom);
+    public void commitCanRandom(final boolean canRandom) {
+        mModel.commitCanRandom(String.valueOf(canRandom), new Observer<HttpResult>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.i(TAG, "onSubscribe: commitCanRandom");
+            }
+
+            @Override
+            public void onNext(@NonNull HttpResult httpResult) {
+                Log.i(TAG, "onNext: commitCanRandom");
+                if (!"2000".equals(httpResult.getState())) {
+                    mView.setCanRandom(!canRandom);
+                    ToastUtil.show("网络错误，请稍后重试");
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.i(TAG, "onError: commitCanRandom");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "onComplete: commitCanRandom");
+            }
+        });
     }
 
     @Override
@@ -55,6 +82,11 @@ class FateMatchPresenter implements FateMatchContract.Presenter {
             @Override
             public void onNext(@NonNull HttpResult<User> userHttpResult) {
                 Log.i(TAG, "onNext: startFateMatch " + userHttpResult);
+                if ("2000".equals(userHttpResult.getState())) {
+                    User user = userHttpResult.getData();
+                    UserUtil.setLoveId(user.getLoveId());
+                    mView.fate(user);
+                }
             }
 
             @Override
