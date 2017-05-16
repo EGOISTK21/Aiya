@@ -120,7 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
-                        android:text="@string/default_school"
+                        android:text="@string/default_school_full"
                         android:textColor="@color/colorTitle"
                         android:textSize="@dimen/common_text_size_16"/>
 

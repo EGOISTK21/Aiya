@@ -1,9 +1,7 @@
 package com.aiyaschool.aiya.util;
 
 import com.aiyaschool.aiya.MyApplication;
-import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
-import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.bean.User;
 
 import java.io.IOException;
@@ -214,6 +212,17 @@ public class APIUtil {
         Observable<HttpResult> startUpdateUser(@Field("height") String height);
     }
 
+    public interface FateMatchApi {
+        @POST("Love/GET/fateMatching")
+        Observable<HttpResult<User>> startFateMatch();
+    }
+
+    public interface DestroyLoveApi {
+        @POST("Me/PUT/destroyLove")
+        @FormUrlEncoded
+        Observable<HttpResult> destroyLove(@Field("loveid") String loveId);
+    }
+
     public interface GetGuestRecordApi{
         @POST("Me/GET/touchPeople")
         @FormUrlEncoded
@@ -294,6 +303,14 @@ public class APIUtil {
 
     public static UpdateUserApi getUpdateUserApi() {
         return sRetrofit.create(UpdateUserApi.class);
+    }
+
+    public static FateMatchApi getFateMatchingApi() {
+        return sRetrofit.create(FateMatchApi.class);
+    }
+
+    public static DestroyLoveApi getDestroyLoveApi() {
+        return sRetrofit.create(DestroyLoveApi.class);
     }
 
     public static GetGuestRecordApi getGuestRecordApi(){

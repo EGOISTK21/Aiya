@@ -180,7 +180,7 @@ public class DBUtil {
         return sSharedPreferences.getString("username", null);
     }
 
-    static void setLoveId(String loveId) {
+    public static void setLoveId(String loveId) {
         if (loveId != null && !loveId.equals(sUser.getLoveId())) {
             sUser.setLoveId(loveId);
             sEditor.putString("loveid", loveId);

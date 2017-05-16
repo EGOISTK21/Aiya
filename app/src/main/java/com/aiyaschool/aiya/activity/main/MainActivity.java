@@ -1,13 +1,13 @@
 package com.aiyaschool.aiya.activity.main;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
@@ -20,7 +20,6 @@ import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
 import com.aiyaschool.aiya.message.MsgListFragment;
 import com.aiyaschool.aiya.util.SignUtil;
-import com.aiyaschool.aiya.util.StatusBarUtil;
 
 /**
  * 主体为NoScrollViewPager+BottomNavigationView的主界面
@@ -29,6 +28,8 @@ import com.aiyaschool.aiya.util.StatusBarUtil;
 
 public class MainActivity extends BaseActivity {
 
+    private static final String TAG = "MainActivity";
+    public static final int DESTROY_LOVE = 100;
     private static final int PAGE_COUNT = 3;
     private NoScrollViewPager vpMain;
     private FragmentManager fm;
@@ -38,44 +39,13 @@ public class MainActivity extends BaseActivity {
     private boolean isMeChanged;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        StatusBarUtil.init(this);
+    protected int getLayoutId() {
         SignUtil.addAccessToken();
-        initView();
-        initListener();
+        return R.layout.activity_main;
     }
 
-//    @Override
-//    protected void onNewIntent(Intent intent) {
-//        super.onNewIntent(intent);
-//        setIntent(intent);
-//        System.out.println("onNewIntent();");
-//    }
-//
-//    @Override
-//    protected void onRestart() {
-//        Intent intent = getIntent();
-//        if(!TextUtils.isEmpty(intent.getStringExtra("Flag"))){
-//            String str = intent.getStringExtra("Flag");
-//            System.out.println(str);
-//            FragmentManager fragmentManager = getSupportFragmentManager();
-//            FragmentTransaction ft = fragmentManager.beginTransaction();
-//            switch (str){
-//                case "Me":
-//                    ft.replace(R.id.container_main,new MeFragment());
-//                    ft.commit();
-//                    bottomNavigationView.getMenu().getItem(3).setChecked(true);
-//                    break;
-//
-//            }
-//        }
-//        super.onRestart();
-//
-//    }
-
-    private void initView() {
+    @Override
+    protected void initView() {
         final Fragment[] fragments = new Fragment[]{
                 /*new CommunityFragment(),*/
                 MyApplication.getUser().isMatched()
@@ -147,6 +117,7 @@ public class MainActivity extends BaseActivity {
         vpMain.setAdapter(adapter);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
         //BottomNavigationViewUtil.disableShiftMode(bottomNavigationView);
+        initListener();
     }
 
     private void initListener() {
@@ -199,12 +170,6 @@ public class MainActivity extends BaseActivity {
         adapter.notifyDataSetChanged();
     }
 
-
-    @Override
-    public void onActivityReenter(int resultCode, Intent data) {
-        super.onActivityReenter(resultCode, data);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         System.out.println(requestCode);
@@ -214,6 +179,9 @@ public class MainActivity extends BaseActivity {
             String s = data.getStringExtra("Flag");
             isMeChanged = s.equals("Me");
             System.out.println(isMeChanged);
+            notifyAdapter();
+        } else if (resultCode == DESTROY_LOVE) {
+            Log.i(TAG, "onActivityResult: ");
             notifyAdapter();
         }
     }

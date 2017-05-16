@@ -41,12 +41,16 @@
     <string name="get_verification">获取验证码</string>
     <string name="finish">完成</string>
     <!--默认内容-->
+    <string name="default_username">李长歌</string>
     <string name="default_year">2017年</string>
     <string name="default_height_range">175–179</string>
     <string name="default_height">175</string>
+    <string name="default_height_full">175cm</string>
     <string name="default_hobby">喜欢！雪❄真实的魔法</string>
     <string name="default_age">20</string>
+    <string name="default_age_full">20岁</string>
     <string name="default_school">西安电子…</string>
+    <string name="default_school_full">西安电子科技大学</string>
     <string name="default_character">活跃</string>
     <string name="default_constellation">天秤座</string>
     <string name="default_mission_date">选择任务日期</string>
@@ -67,6 +71,8 @@
     <string name="random_match_instant_warn">发起后将立即与一名异性随缘成为七天情侣</string>
     <string name="match_result_title">查找结果</string>
     <string name="have_a_change">换一换</string>
+    <string name="title_hit_it_off">匹配成功</string>
+    <string name="subtitle_hit_it_off">你已经成功脱单啦！</string>
     <string name="today_mission">今日任务</string>
     <string name="new_mission">新建任务</string>
     <string name="mission">任务</string>
@@ -97,4 +103,5 @@
     <string name="message">消息</string>
     <string name="oppositeID">对方ID</string>
     <string name="btn_text_send">发送</string>
+    <string name="go_matched">去互动</string>
 </resources>

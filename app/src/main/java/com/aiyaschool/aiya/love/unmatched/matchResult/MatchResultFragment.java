@@ -3,32 +3,27 @@ package com.aiyaschool.aiya.love.unmatched.matchResult;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.OtherDetailActivity;
-import com.aiyaschool.aiya.base.LazyFragment;
+import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.ToastUtil;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
  * Created by EGOISTK21 on 2017/3/31.
  */
 
-public class MatchResultFragment extends LazyFragment implements MatchResultContract.View {
+public class MatchResultFragment extends BaseFragment {
 
-    private View rootView;
-    private MatchResultContract.Presenter mPresenter;
     private List<User> mResult;
     private int mCount;
     @BindView(R.id.iv_avatar)
@@ -45,25 +40,41 @@ public class MatchResultFragment extends LazyFragment implements MatchResultCont
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new MatchResultPresenter(this);
         mCount = 0;
         mResult = getArguments().getParcelableArrayList("result");
     }
 
+    private void initIvAvatar() {
+        ivAvatar.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            public boolean onPreDraw() {
+                ivAvatar.getViewTreeObserver().removeOnPreDrawListener(this);
+                ivAvatar.setMinimumHeight(ivAvatar.getMeasuredWidth());
+                return true;
+            }
+        });
+    }
+
+    @Override
+    protected void initView() {
+        initIvAvatar();
+        if (mResult != null && mCount < mResult.size()) {
+            User current = mResult.get(mCount++);
+            //ivAvatar.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher, new BitmapFactory.Options()));
+            //ivAvatar.setImageBitmap(Bitmap.createBitmap(current.getAvatar().getNormal()));
+            tvUsername.setText(current.getUsername());
+            tvSchool.setText(current.getSchool());
+        }
+    }
+
     @Override
     public void onDestroy() {
-        mPresenter.detachView();
         super.onDestroy();
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_match_result, container, false);
-        ButterKnife.bind(this, rootView);
-        initView();
-        return rootView;
+    protected int getLayoutId() {
+        return R.layout.fragment_match_result;
     }
 
     @OnClick(value = R.id.tv_back)
@@ -71,19 +82,17 @@ public class MatchResultFragment extends LazyFragment implements MatchResultCont
         getFragmentManager().popBackStack();
     }
 
-    @OnClick(value = R.id.ll_result_card)
+    @OnClick(value = R.id.card_match_result)
     void showOtherDetail() {
         startActivity(new Intent(getContext(), OtherDetailActivity.class));
     }
 
     @OnClick(value = R.id.btn_have_a_change)
     void haveAChange() {
-        initView();
-    }
-
-    private void initView() {
         if (mResult != null && mCount < mResult.size()) {
+            ToastUtil.cancle();
             User current = mResult.get(mCount++);
+            //ivAvatar.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher, new BitmapFactory.Options()));
             //ivAvatar.setImageBitmap(Bitmap.createBitmap(current.getAvatar().getNormal()));
             tvUsername.setText(current.getUsername());
             tvSchool.setText(current.getSchool());

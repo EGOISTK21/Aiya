@@ -24,7 +24,7 @@
         android:layout_centerInParent="true"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_login_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:layout_weight="1"
             android:text="@string/login_out"/>
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_clear_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.AppCompatButton
+    <Button
         android:id="@+id/btn_print"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,5 +52,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:text="@string/print_user"/>
+
+    <Button
+        android:id="@+id/btn_destroy_love"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_print"
+        android:layout_centerHorizontal="true"
+        android:text="解除"
+        android:layout_marginTop="44dp"/>
 
 </RelativeLayout>

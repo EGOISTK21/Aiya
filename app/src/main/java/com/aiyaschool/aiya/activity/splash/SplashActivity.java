@@ -1,7 +1,6 @@
 package com.aiyaschool.aiya.activity.splash;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.aiyaschool.aiya.R;
@@ -10,7 +9,6 @@ import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.activity.sign.SignActivity;
 import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.util.SignUtil;
-import com.aiyaschool.aiya.util.StatusBarUtil;
 
 /**
  * app启动动画View实现类，包括自动登录功能
@@ -23,10 +21,12 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     private SplashContract.Presenter mPresenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        StatusBarUtil.init(this);
+    protected int getLayoutId() {
+        return R.layout.activity_splash;
+    }
+
+    @Override
+    protected void initView() {
         mPresenter = new SplashPresenter(this);
         mPresenter.init(SignUtil.getPhone(), SignUtil.getLoginToken());
     }
