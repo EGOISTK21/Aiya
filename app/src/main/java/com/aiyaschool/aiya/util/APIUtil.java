@@ -1,7 +1,9 @@
 package com.aiyaschool.aiya.util;
 
 import com.aiyaschool.aiya.MyApplication;
+import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.bean.User;
 
 import java.io.IOException;
