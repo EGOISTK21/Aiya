@@ -25,7 +25,6 @@ import com.aiyaschool.aiya.me.activity.PersonalDataActivity;
 import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity2;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.me.view.RoundImageView;
-import com.aiyaschool.aiya.multi_image_selector.MultiImageSelectorFragment;
 import com.squareup.picasso.Picasso;
 
 import org.litepal.crud.DataSupport;
@@ -33,6 +32,8 @@ import org.litepal.crud.DataSupport;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import me.nereo.multi_image_selector.MultiImageSelectorFragment;
 
 import static com.aiyaschool.aiya.activity.main.MainActivity.DESTROY_LOVE;
 

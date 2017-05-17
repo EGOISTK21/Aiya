@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.love.unmatched.matchResult;
+package com.aiyaschool.aiya.love.unmatched;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

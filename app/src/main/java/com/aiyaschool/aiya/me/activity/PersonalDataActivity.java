@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.RegionModel;
 import com.aiyaschool.aiya.me.db.RegionDao;
@@ -27,7 +26,6 @@ import com.aiyaschool.aiya.me.mvpPersonData.PersonDataContract;
 import com.aiyaschool.aiya.me.mvpPersonData.PersonDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
 import com.aiyaschool.aiya.me.view.RoundImageView;
-import com.aiyaschool.aiya.multi_image_selector.MultiImageSelector;
 import com.aiyaschool.aiya.widget.FilletDialog;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
 
@@ -38,6 +36,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.nereo.multi_image_selector.MultiImageSelector;
 
 public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener, PersonDataContract.View {
 

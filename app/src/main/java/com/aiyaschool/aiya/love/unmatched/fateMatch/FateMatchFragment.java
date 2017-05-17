@@ -14,7 +14,7 @@ import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
-import com.aiyaschool.aiya.love.unmatched.matchResult.HitItOffActivity;
+import com.aiyaschool.aiya.love.unmatched.HitItOffActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;

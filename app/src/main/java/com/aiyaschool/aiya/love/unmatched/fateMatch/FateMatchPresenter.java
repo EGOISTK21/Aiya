@@ -52,7 +52,7 @@ class FateMatchPresenter implements FateMatchContract.Presenter {
 
             @Override
             public void onNext(@NonNull HttpResult httpResult) {
-                Log.i(TAG, "onNext: commitCanRandom");
+                Log.i(TAG, "onNext: commitCanRandom " + httpResult);
                 if (!"2000".equals(httpResult.getState())) {
                     mView.setCanRandom(!canRandom);
                     ToastUtil.show("网络错误，请稍后重试");

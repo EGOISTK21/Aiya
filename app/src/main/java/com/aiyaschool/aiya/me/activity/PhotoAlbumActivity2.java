@@ -30,8 +30,6 @@ import android.widget.TextView;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
-import com.aiyaschool.aiya.multi_image_selector.MultiImageSelector;
-import com.aiyaschool.aiya.multi_image_selector.MultiImageSelectorFragment;
 import com.squareup.picasso.Picasso;
 
 import org.litepal.crud.DataSupport;
@@ -43,6 +41,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import me.nereo.multi_image_selector.MultiImageSelector;
+import me.nereo.multi_image_selector.MultiImageSelectorFragment;
 
 public class PhotoAlbumActivity2 extends AppCompatActivity {
 

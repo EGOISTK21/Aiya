@@ -38,7 +38,9 @@ public class User implements Parcelable {
     private String school;
     private String loveid;
     private String group;
+    private String age;
     private String character;
+    private String hobby;
     private Avatar avatar;
     private String profile;
     private String points;
@@ -49,6 +51,52 @@ public class User implements Parcelable {
     private String major;
     private String height;
     private String province;
+
+    public User() {
+
+    }
+
+    protected User(Parcel in) {
+        temptoken = in.readString();
+        logintoken = in.readString();
+        usersig = in.readString();
+        accesstoken = in.readString();
+        upload = in.readParcelable(UpLoad.class.getClassLoader());
+        id = in.readString();
+        username = in.readString();
+        phone = in.readString();
+        school = in.readString();
+        loveid = in.readString();
+        group = in.readString();
+        age = in.readString();
+        character = in.readString();
+        hobby = in.readString();
+        avatar = in.readParcelable(Avatar.class.getClassLoader());
+        profile = in.readString();
+        gifttickets = in.readString();
+        fateswitch = in.readString();
+        imgwall = in.readParcelable(ImgWall.class.getClassLoader());
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
 
     public String getProvince() {
         return province;
@@ -84,6 +132,14 @@ public class User implements Parcelable {
         this.major = major;
     }
 
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
     public String getHeight() {
         return height;
     }
@@ -91,43 +147,6 @@ public class User implements Parcelable {
     public void setHeight(String height) {
         this.height = height;
     }
-
-    public User() {
-
-    }
-
-    protected User(Parcel in) {
-        temptoken = in.readString();
-        logintoken = in.readString();
-        usersig = in.readString();
-        accesstoken = in.readString();
-        upload = in.readParcelable(UpLoad.class.getClassLoader());
-        id = in.readString();
-        username = in.readString();
-        phone = in.readString();
-        school = in.readString();
-        loveid = in.readString();
-        group = in.readString();
-        character = in.readString();
-        avatar = in.readParcelable(Avatar.class.getClassLoader());
-        profile = in.readString();
-        points = in.readString();
-        gifttickets = in.readString();
-        fateswitch = in.readString();
-        imgwall = in.readParcelable(ImgWall.class.getClassLoader());
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 
     public String getTempToken() {
         return temptoken;
@@ -291,10 +310,11 @@ public class User implements Parcelable {
         dest.writeString(school);
         dest.writeString(loveid);
         dest.writeString(group);
+        dest.writeString(age);
         dest.writeString(character);
+        dest.writeString(hobby);
         dest.writeParcelable(avatar, flags);
         dest.writeString(profile);
-        dest.writeString(points);
         dest.writeString(gifttickets);
         dest.writeString(fateswitch);
         dest.writeParcelable(imgwall, flags);
@@ -314,12 +334,14 @@ public class User implements Parcelable {
                 ", school='" + school + '\'' +
                 ", loveid='" + loveid + '\'' +
                 ", group='" + group + '\'' +
+                ", age='" + age + '\'' +
                 ", character='" + character + '\'' +
+                ", hobby='" + hobby + '\'' +
                 ", avatar=" + avatar +
                 ", profile='" + profile + '\'' +
-                ", points='" + points + '\'' +
                 ", gifttickets='" + gifttickets + '\'' +
                 ", fateswitch='" + fateswitch + '\'' +
+                ", height='" + height + '\'' +
                 ", imgwall=" + imgwall +
                 '}';
     }

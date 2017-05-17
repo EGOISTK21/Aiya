@@ -4,9 +4,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
@@ -23,7 +20,6 @@ import com.aiyaschool.aiya.widget.FilletDialog;
 import com.aiyaschool.aiya.widget.ScrollPickerView;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,11 +36,9 @@ import butterknife.OnTextChanged;
 public class FormActivity extends BaseActivity implements FormContract.View {
 
     private static final String TAG = "FormActivity";
-    public static final int CHOOSE_PHOTO = 13;
     private ProgressDialog mPD;
     private FormContract.Presenter mPresenter;
     private InputMethodManager mInputMethodManager;
-    private Uri imgUri;
     private Bitmap mAvatar;
     private static int mProvince;
     private static int[] mSchoolNo;
@@ -89,41 +83,12 @@ public class FormActivity extends BaseActivity implements FormContract.View {
 
     @OnClick(value = R.id.ibn_avatar)
     void setAvatar() {
-        imgUri = getTmpUri();
-        Intent intent = new Intent("android.intent.action.GET_CONTENT");
-        intent.setType("image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 300);
-        intent.putExtra("outputY", 300);
-        intent.putExtra("scale", true);
-        intent.putExtra("return-data", true);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
-        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        intent.putExtra("noFaceDetection", true); // no face detection
-        startActivityForResult(intent, CHOOSE_PHOTO);
-    }
 
-    private Uri getTmpUri() {
-        String IMAGE_FILE_DIR = Environment.getExternalStorageDirectory() + "/" + "app_name";
-        File dir = new File(IMAGE_FILE_DIR);
-        File file = new File(IMAGE_FILE_DIR, Long.toString(System.currentTimeMillis()));
-        //非常重要！！！如果文件夹不存在必须先手动创建
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        return Uri.fromFile(file);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CHOOSE_PHOTO && resultCode == RESULT_OK) {
-            mAvatar = data.getParcelableExtra("data");
-            ibnAvatar.setImageBitmap(mAvatar);
-            Log.i(TAG, "onActivityResult: " + imgUri);
-            mPresenter.submitAvatar(new File(String.valueOf(imgUri)));
-        }
+
     }
 
     @OnTextChanged(value = R.id.et_username)
@@ -278,7 +243,6 @@ public class FormActivity extends BaseActivity implements FormContract.View {
 
     @OnTextChanged(value = R.id.et_hobby)
     void setHobby(CharSequence hobby) {
-        // TODO: 2017/5/15 爱好自动加空格
         mHobby = String.valueOf(hobby);
     }
 

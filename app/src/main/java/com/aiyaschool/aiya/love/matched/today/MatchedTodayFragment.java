@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.OtherDetailActivity;
+import com.aiyaschool.aiya.activity.OtherDetail.OtherDetailActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.base.NestFullListView;
 import com.aiyaschool.aiya.base.NestFullListViewAdapter;

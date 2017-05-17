@@ -41,10 +41,11 @@ public class UserUtil {
         sUser.setSchool(UserUtil.getSchool());
         sUser.setLoveId(UserUtil.getLoveId());
         sUser.setGroup(UserUtil.getGroup());
+        sUser.setAge(UserUtil.getAge());
         sUser.setCharacter(UserUtil.getCharacter());
+        sUser.setHobby(UserUtil.getHobby());
         sUser.setAvatar(UserUtil.getAvatar());
         sUser.setProfile(UserUtil.getProfile());
-        sUser.setPoints(UserUtil.getPoints());
         sUser.setGiftTickets(UserUtil.getGiftTickets());
         sUser.setFateSwitch(UserUtil.getFateSwitch());
         sUser.setImgWall(UserUtil.getImgWall());
@@ -61,10 +62,11 @@ public class UserUtil {
         setSchool(user.getSchool());
         setLoveId(user.getLoveId());
         setGroup(user.getGroup());
+        setAge(user.getAge());
         setCharacter(user.getCharacter());
+        setHobby(user.getHobby());
         setAvatar(user.getAvatar());
         setProfile(user.getProfile());
-        setPoints(user.getPoints());
         setGiftTickets(user.getGiftTickets());
         setFateSwitch(user.getFateSwitch());
         setImgWall(user.getImgWall());
@@ -216,6 +218,18 @@ public class UserUtil {
         return sSharedPreferences.getString("school", null);
     }
 
+    static void setAge(String age) {
+        if (age != null && !age.equals(sUser.getAge())) {
+            sUser.setHobby(age);
+            sEditor.putString("age", age);
+            sEditor.apply();
+        }
+    }
+
+    static String getAge() {
+        return sSharedPreferences.getString("age", null);
+    }
+
     static void setCharacter(String character) {
         if (character != null && !character.equals(sUser.getCharacter())) {
             sUser.setCharacter(character);
@@ -226,6 +240,18 @@ public class UserUtil {
 
     static String getCharacter() {
         return sSharedPreferences.getString("character", null);
+    }
+
+    static void setHobby(String hobby) {
+        if (hobby != null && !hobby.equals(sUser.getHobby())) {
+            sUser.setHobby(hobby);
+            sEditor.putString("hobby", hobby);
+            sEditor.apply();
+        }
+    }
+
+    static String getHobby() {
+        return sSharedPreferences.getString("hobby", null);
     }
 
     static void setAvatar(Avatar avatar) {
@@ -253,18 +279,6 @@ public class UserUtil {
 
     static String getProfile() {
         return sSharedPreferences.getString("profile", null);
-    }
-
-    static void setPoints(String points) {
-        if (points != null && !points.equals(sUser.getPoints())) {
-            sUser.setPoints(points);
-            sEditor.putString("points", points);
-            sEditor.apply();
-        }
-    }
-
-    static String getPoints() {
-        return sSharedPreferences.getString("points", null);
     }
 
     static void setGiftTickets(String giftTickets) {

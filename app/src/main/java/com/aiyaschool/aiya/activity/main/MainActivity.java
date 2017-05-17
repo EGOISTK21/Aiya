@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity {
                     return POSITION_NONE;
                 }
                 if (isMeChanged && object instanceof MeFragment) {
+                    isMeChanged = false;
                     return POSITION_NONE;
                 }
                 return POSITION_UNCHANGED;
@@ -179,6 +180,7 @@ public class MainActivity extends BaseActivity {
             String s = data.getStringExtra("flag");
             switch (s) {
                 case "me":
+                    isMeChanged = true;
                 case "destroyLove":
                     notifyAdapter();
                     break;

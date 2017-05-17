@@ -85,7 +85,6 @@ dependencies {
     compile files('libs/MobCommons-2017.0321.1624.jar')
     compile files('libs/MobTools-2017.0321.1624.jar')
     compile name: 'SMSSDK-2.1.4', ext: 'aar'
-    compile project(path: ':multi_image_selector')
     compile 'org.litepal.android:core:1.5.1'
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.jakewharton:butterknife-compiler:8.5.1'
@@ -98,5 +97,6 @@ dependencies {
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.0.9'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.github.lovetuzitong:MultiImageSelector:1.2'
 }
 
