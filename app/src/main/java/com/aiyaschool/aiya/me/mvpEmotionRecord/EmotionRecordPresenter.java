@@ -45,11 +45,17 @@ public class EmotionRecordPresenter implements EmotionRecordContract.Presenter {
                 Log.d(TAG, "onNext: getEmotionRecord" + arrayListHttpResult.getState());
                 Log.d(TAG, "onNext: getEmotionRecord" + arrayListHttpResult.getData().size());
                 mView.setEmotionRecordData(arrayListHttpResult.getData());
+                int rows = Integer.parseInt(arrayListHttpResult.getRows());
+                if (rows == 0) {
+                    mView.setBackGroundIfNoData();
+                } else {
+                    mView.setEmotionRecordData(arrayListHttpResult.getData());
+                }
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.d(TAG, "onError: " + e);
+                mView.setBackGroundIfNoData();
             }
 
             @Override

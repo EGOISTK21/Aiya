@@ -21,6 +21,8 @@ public interface EmotionRecordContract {
 
     interface View {
         void setEmotionRecordData(List<EmotionRecordBean> emotionRecordData);
+
+        void setBackGroundIfNoData();
     }
 
     public interface Presenter {

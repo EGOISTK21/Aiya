@@ -9,12 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.me.mvpEmotionRecord.EmotionRecordContract;
 import com.aiyaschool.aiya.me.mvpEmotionRecord.EmotionRecordPresenter;
+import com.aiyaschool.aiya.me.view.RoundImageView;
 
 import java.util.List;
 
@@ -24,11 +27,15 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
 
     private TextView mTvBack;
     private RecyclerView mRvEmotion;
+    private LinearLayout mLlMyEmotion;
+    private ImageView mIvEmotionNull;
+    private EmotionAdapter mEmotionAdapter;
 
     private EmotionRecordContract.Presenter mPresenter;
 
     private final static int TOP = 0;
     private final static int NORMAL = 1;
+    private List<EmotionRecordBean> mEmotionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +50,12 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
     private void initView() {
         mTvBack = (TextView) findViewById(R.id.tv_back);
         mRvEmotion = (RecyclerView) findViewById(R.id.rv_emotion);
+        mLlMyEmotion = (LinearLayout) findViewById(R.id.ll_my_emotion);
+        mIvEmotionNull = (ImageView) findViewById(R.id.emotion_null);
+
         mRvEmotion.setLayoutManager(new LinearLayoutManager(this));
         mRvEmotion.addItemDecoration(new DividerItemDecoration(MyEmotionActivity.this, DividerItemDecoration.VERTICAL));
-        mRvEmotion.setAdapter(new EmotionAdapter());
+
 
 
         mTvBack.setOnClickListener(new View.OnClickListener() {
@@ -58,13 +68,25 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
 
     @Override
     public void setEmotionRecordData(List<EmotionRecordBean> emotionRecordData) {
-        Log.d(TAG, "setEmotionRecordData: " + emotionRecordData.size());
+        mEmotionList = emotionRecordData;
+        mEmotionAdapter = new EmotionAdapter();
+        mRvEmotion.setAdapter(mEmotionAdapter);
+        Log.d(TAG, "setEmotionRecordData: " + mEmotionList.size());
+
+    }
+
+    @Override
+    public void setBackGroundIfNoData() {
+        mLlMyEmotion.setVisibility(View.INVISIBLE);
+        mIvEmotionNull.setVisibility(View.VISIBLE);
     }
 
     class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionViewHolder>{
 
+        private int mViewType;
         @Override
         public EmotionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            mViewType = viewType;
             LayoutInflater inflater = LayoutInflater.from(MyEmotionActivity.this);
             View v = null;
             if(viewType == TOP){
@@ -72,29 +94,62 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
             }else if(viewType == NORMAL){
                 v = inflater.inflate(R.layout.emotion_record_item2,parent,false);
             }
-            EmotionViewHolder emotionViewHolder = new EmotionViewHolder(v);
+            EmotionViewHolder emotionViewHolder = new EmotionViewHolder(v, viewType);
             return emotionViewHolder;
         }
 
         @Override
         public void onBindViewHolder(EmotionViewHolder holder, int position) {
+            holder.mTvName.setText(mEmotionList.get(position).getUsername());
+            holder.mTvSchool.setText(mEmotionList.get(position).getSchool());
+            holder.mStartTime.setText(mEmotionList.get(position).getStarttime());
+            switch (mViewType) {
+                case TOP:
+                    holder.mIntimacy.setText(mEmotionList.get(position).getIntimacy());
+                    break;
+                case NORMAL:
+                    holder.mEndTime.setText(mEmotionList.get(position).getEndtime());
+                    break;
+                default:
+                    break;
 
+
+            }
         }
 
         @Override
         public int getItemCount() {
-            return 10;
+            return mEmotionList.size();
         }
 
         class EmotionViewHolder extends RecyclerView.ViewHolder{
-            public EmotionViewHolder(View itemView) {
+
+            private RoundImageView mRivPhoto;
+            private TextView mTvName, mTvSchool, mStartTime, mEndTime, mIntimacy;
+
+            public EmotionViewHolder(View itemView, int viewType) {
                 super(itemView);
+                mRivPhoto = (RoundImageView) itemView.findViewById(R.id.my_photo);
+                mTvName = (TextView) itemView.findViewById(R.id.tv_name);
+                mTvSchool = (TextView) itemView.findViewById(R.id.tv_school);
+                mStartTime = (TextView) itemView.findViewById(R.id.start_time);
+                switch (viewType) {
+                    case TOP:
+                        mIntimacy = (TextView) itemView.findViewById(R.id.intimacy);
+                        break;
+                    case NORMAL:
+                        mEndTime = (TextView) itemView.findViewById(R.id.end_time);
+                        break;
+                    default:
+                        break;
+
+                }
             }
         }
 
         @Override
         public int getItemViewType(int position) {
-            if(position==0){
+            if (position == 0 && mEmotionList.get(0).getEndtime().equals("0")) {
                 return TOP;
             }else{
                 return NORMAL;

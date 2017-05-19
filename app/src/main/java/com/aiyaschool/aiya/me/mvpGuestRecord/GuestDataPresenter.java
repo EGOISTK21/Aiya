@@ -71,6 +71,36 @@ public class GuestDataPresenter implements GuestDataContract.Presenter {
     }
 
     @Override
+    public void retrieveGuestRecord(String pages, String lines) {
+        mModel.getGuestRecord(pages, lines, new Observer<HttpResult<ArrayList<OuInfo>>>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull HttpResult<ArrayList<OuInfo>> arrayListHttpResult) {
+                int rows = Integer.parseInt(arrayListHttpResult.getRows());
+                if (rows == 0) {
+                    mView.setBackGroundIfNoData();
+                } else {
+                    mView.retrieveGuestRecord(arrayListHttpResult.getData());
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    @Override
     public void detach() {
         mView = null;
         mModel = null;

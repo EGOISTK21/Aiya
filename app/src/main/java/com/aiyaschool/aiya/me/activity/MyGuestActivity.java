@@ -1,11 +1,13 @@
 package com.aiyaschool.aiya.me.activity;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +17,12 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.bean.OuInfo;
-import com.aiyaschool.aiya.me.bean.GuestItem;
 import com.aiyaschool.aiya.me.mvpGuestRecord.GuestDataContract;
 import com.aiyaschool.aiya.me.mvpGuestRecord.GuestDataPresenter;
 import com.aiyaschool.aiya.me.mvpPersonData.PersonDataContract;
 import com.aiyaschool.aiya.me.mvpPersonData.PersonDataPresenter;
 import com.aiyaschool.aiya.me.view.RoundImageView;
+import com.bumptech.glide.Glide;
 
 
 import java.util.ArrayList;
@@ -34,9 +36,14 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
     private RecyclerView mRvGuest;
     private LinearLayout mLlMyGuest;
     private ImageView mIvGuestNull;
+    private SwipeRefreshLayout mGuestSwipe;
+    private LinearLayoutManager linearLayoutManager;
 
-    private List<GuestItem> mGuestItems;
+    private GuestAdapter mGuestAdapter;
+
     private List<OuInfo> mGuestList;
+
+    private int lastVisibleItem;
 
     private GuestDataContract.Presenter presenter;
 
@@ -57,33 +64,71 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
         mLlMyGuest = (LinearLayout) findViewById(R.id.my_guest);
         mIvGuestNull = (ImageView) findViewById(R.id.guest_null);
 
+        mGuestSwipe = (SwipeRefreshLayout) findViewById(R.id.guest_swipe_refresh);
+        mGuestSwipe.setProgressBackgroundColorSchemeResource(android.R.color.white);
+        mGuestSwipe.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);
+        mGuestSwipe.setProgressViewOffset(false, 0, (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
+                        .getDisplayMetrics()));
+
+        mGuestSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                presenter.retrieveGuestRecord("1", "6");
+                mGuestSwipe.setRefreshing(false);
+
+            }
+        });
+
+
         mTvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        linearLayoutManager = new LinearLayoutManager(this);
+        mRvGuest.setLayoutManager(linearLayoutManager);
 
-        mGuestItems = new ArrayList<>();
-        for(int i=0;i<10;i++){
-            GuestItem guestitem = new GuestItem();
-            guestitem.setId(R.drawable.guanggao1);
-            guestitem.setName("李太白"+i);
-            guestitem.setSchool("西安电子科技大学"+i);
-            guestitem.setTime(i+"分钟前");
-            mGuestItems.add(guestitem);
-        }
-        System.out.println("mGuestItem"+mGuestItems.size());
-        mRvGuest.setLayoutManager(new LinearLayoutManager(this));
-        mRvGuest.setAdapter(new GuestAdapter());
         mRvGuest.addItemDecoration(new DividerItemDecoration(MyGuestActivity.this, DividerItemDecoration.VERTICAL));
+        mRvGuest.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == mGuestAdapter.getItemCount()) {
+
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+            }
+        });
+
+
     }
 
 
     @Override
     public void setGuestRecordData(List<OuInfo> guestItem) {
         mGuestList = guestItem;
-        Log.d(TAG, "setGuestRecordData: " + guestItem.size());
+        mGuestAdapter = new GuestAdapter();
+        mRvGuest.setAdapter(mGuestAdapter);
+        Log.d(TAG, "setGuestRecordData: " + mGuestList.size());
+    }
+
+    @Override
+    public void retrieveGuestRecord(List<OuInfo> guestItem) {
+        if (mGuestList != null) {
+            mGuestList = null;
+        }
+        mGuestList = guestItem;
+        mGuestAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -104,17 +149,19 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
 
         @Override
         public void onBindViewHolder(GuestViewHolder holder, int position) {
-            holder.mRivPhoto.setImageResource(mGuestItems.get(position).getId());
-            holder.mTvName.setText(mGuestItems.get(position).getName());
-            holder.mTvSchool.setText(mGuestItems.get(position).getSchool());
-            holder.mTvTime.setText(mGuestItems.get(position).getTime());
+//            holder.mRivPhoto.setImageResource(mGuestItems.get(position).getId());
+//            Glide.with(MyGuestActivity.this).load(mGuestList.get(position).getAvatar().getNormal())
+//                    .error(R.drawable.guanggao1).into(holder.mRivPhoto);
+            holder.mTvName.setText(mGuestList.get(position).getUsername());
+            holder.mTvSchool.setText(mGuestList.get(position).getSchool());
+            holder.mTvTime.setText(mGuestList.get(position).getCreatetime());
         }
 
 
 
         @Override
         public int getItemCount() {
-            return mGuestItems.size();
+            return mGuestList.size();
         }
 
         @Override
@@ -127,12 +174,12 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
 
         class GuestViewHolder extends RecyclerView.ViewHolder{
 
-            private RoundImageView mRivPhoto;
+            private ImageView mRivPhoto;
             private TextView mTvName,mTvSchool,mTvTime;
 
             public GuestViewHolder(View itemView) {
                 super(itemView);
-                mRivPhoto = (RoundImageView) itemView.findViewById(R.id.my_photo);
+                mRivPhoto = (ImageView) itemView.findViewById(R.id.my_photo);
                 mTvName = (TextView) itemView.findViewById(R.id.tv_name);
                 mTvSchool = (TextView) itemView.findViewById(R.id.tv_school);
                 mTvTime = (TextView) itemView.findViewById(R.id.tv_time);
@@ -140,8 +187,8 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
         }
 
         //当有新的访客进入时，调用此函数
-        public void addItem(GuestItem guestItem,int position){
-            mGuestItems.add(position, guestItem);
+        public void addItem(OuInfo guestItem, int position) {
+            mGuestList.add(position, guestItem);
             notifyItemInserted(position);
             mRvGuest.scrollToPosition(position);
         }

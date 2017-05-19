@@ -21,12 +21,15 @@ public interface GuestDataContract {
     interface View {
         void setGuestRecordData(List<OuInfo> guestItem);
 
+        void retrieveGuestRecord(List<OuInfo> guestItem);
+
         void setBackGroundIfNoData();
     }
 
     public interface Presenter {
         void getGuestRecord(String page, String lines);
 
+        void retrieveGuestRecord(String pages, String lines);
         void detach();
     }
 
