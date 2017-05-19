@@ -2,13 +2,12 @@ package com.aiyaschool.aiya.love.unmatched.matchResult;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.OtherDetailActivity;
+import com.aiyaschool.aiya.activity.OtherDetail.OtherDetailActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.ToastUtil;
@@ -22,10 +21,13 @@ import butterknife.OnClick;
  * Created by EGOISTK21 on 2017/3/31.
  */
 
-public class MatchResultFragment extends BaseFragment {
+public class MatchResultFragment extends BaseFragment
+        implements MatchResultContract.View {
 
     private List<User> mResult;
+    private MatchResultContract.Presenter mPresenter;
     private int mCount;
+    private User current;
     @BindView(R.id.iv_avatar)
     ImageView ivAvatar;
     @BindView(R.id.tv_username)
@@ -38,10 +40,8 @@ public class MatchResultFragment extends BaseFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mCount = 0;
-        mResult = getArguments().getParcelableArrayList("result");
+    protected int getLayoutId() {
+        return R.layout.fragment_match_result;
     }
 
     private void initIvAvatar() {
@@ -56,25 +56,23 @@ public class MatchResultFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        mCount = 0;
+        mResult = getArguments().getParcelableArrayList("result");
         initIvAvatar();
         if (mResult != null && mCount < mResult.size()) {
-            User current = mResult.get(mCount++);
+            current = mResult.get(mCount++);
             //ivAvatar.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher, new BitmapFactory.Options()));
             //ivAvatar.setImageBitmap(Bitmap.createBitmap(current.getAvatar().getNormal()));
             tvUsername.setText(current.getUsername());
             tvSchool.setText(current.getSchool());
         }
+        mPresenter = new MatchResultPresenter(this);
     }
 
     @Override
     public void onDestroy() {
+        mPresenter.detachView();
         super.onDestroy();
-    }
-
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_match_result;
     }
 
     @OnClick(value = R.id.tv_back)
@@ -82,16 +80,25 @@ public class MatchResultFragment extends BaseFragment {
         getFragmentManager().popBackStack();
     }
 
-    @OnClick(value = R.id.card_match_result)
+    @OnClick(value = R.id.ll_result_card)
     void showOtherDetail() {
-        startActivity(new Intent(getContext(), OtherDetailActivity.class));
+        if (current != null) {
+            mPresenter.getOtherDetail(current.getId());
+        }
+    }
+
+    @Override
+    public void startOtherDetailActivity(User user) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("other detail", user);
+        startActivity(new Intent(getContext(), OtherDetailActivity.class).putExtras(bundle));
     }
 
     @OnClick(value = R.id.btn_have_a_change)
     void haveAChange() {
         if (mResult != null && mCount < mResult.size()) {
             ToastUtil.cancle();
-            User current = mResult.get(mCount++);
+            current = mResult.get(mCount++);
             //ivAvatar.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher, new BitmapFactory.Options()));
             //ivAvatar.setImageBitmap(Bitmap.createBitmap(current.getAvatar().getNormal()));
             tvUsername.setText(current.getUsername());
@@ -101,4 +108,5 @@ public class MatchResultFragment extends BaseFragment {
             mCount = 0;
         }
     }
+
 }

@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.RegionModel;
 import com.aiyaschool.aiya.me.db.RegionDao;
@@ -27,9 +26,7 @@ import com.aiyaschool.aiya.me.mvpPersonData.PersonDataContract;
 import com.aiyaschool.aiya.me.mvpPersonData.PersonDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
 import com.aiyaschool.aiya.me.view.RoundImageView;
-import com.aiyaschool.aiya.multi_image_selector.MultiImageSelector;
 import com.aiyaschool.aiya.widget.FilletDialog;
-import com.aiyaschool.aiya.widget.ScrollPickerView;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
 
 import java.util.ArrayList;
@@ -39,6 +36,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.nereo.multi_image_selector.MultiImageSelector;
 
 public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener, PersonDataContract.View {
 
@@ -252,7 +250,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 
     private void showDialogHomeTownPicker() {
         if (dialogHometownPicker == null) {
-            dialogHometownPicker = new FilletDialog.Builder(this, R.layout.dialog_hometown_picker)
+            dialogHometownPicker = new FilletDialog.Builder(this, R.layout.dialog_school_picker)
                     .setTitle("家乡")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
@@ -283,54 +281,54 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                     }).create();
         }
         dialogHometownPicker.show();
-        setHomeTownData();
+        //setHomeTownData();
     }
 
-    private void setHomeTownData() {
-        if (dialogHometownPicker != null
-                && (sspProvince == null || sspCity == null || sspArea == null)) {
-            sspProvince = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_province);
-            sspCity = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_city);
-            sspArea = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_area);
-            sspProvince.setData(mProvinceList);
-            sspProvince.setSelectedPosition(0);
-            sspProvince.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
-                @Override
-                public void onSelected(ScrollPickerView scrollPickerView, int position) {
-                    mCityList.clear();
-                    mAreaList.clear();
-                    sspArea.setData(mAreaList);
-                    System.out.println("position  " + position);
-                    System.out.println("mProvinceList.get(position)  " + mProvinceList.get(position));
-                    RegionModel rmProvince = mRmProvinceList.get(position);
-                    System.out.println("regionModel.getName()  " + rmProvince.getName());
-                    mRmCityList = mRegionDao.loadCityList(rmProvince.getId());
-                    for (RegionModel regionModel : mRmCityList) {
-                        mCityList.add(regionModel.getName());
-                    }
-                    sspCity.setData(mCityList);
-                }
-            });
-
-            sspCity.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
-                @Override
-                public void onSelected(ScrollPickerView scrollPickerView, int position) {
-                    mAreaList.clear();
-                    System.out.println(mCityList.size());
-                    if (mCityList.size() > 0) {
-                        RegionModel rmCity = mRmCityList.get(position);
-                        System.out.println("rmCity.getName()  " + rmCity.getName());
-                        mRmAreaList = mRegionDao.loadCountyList(rmCity.getId());
-                        System.out.println("mRmAreaList.size() " + mRmAreaList.size());
-                        for (RegionModel regionModel : mRmAreaList) {
-                            mAreaList.add(regionModel.getName());
-                        }
-                    }
-                    sspArea.setData(mAreaList);
-                }
-            });
-        }
-    }
+//    private void setHomeTownData() {
+//        if (dialogHometownPicker != null
+//                && (sspProvince == null || sspCity == null || sspArea == null)) {
+//            sspProvince = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_province);
+//            sspCity = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_city);
+//            sspArea = (StringScrollPicker) dialogHometownPicker.findViewById(R.id.ssp_area);
+//            sspProvince.setData(mProvinceList);
+//            sspProvince.setSelectedPosition(0);
+//            sspProvince.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
+//                @Override
+//                public void onSelected(ScrollPickerView scrollPickerView, int position) {
+//                    mCityList.clear();
+//                    mAreaList.clear();
+//                    sspArea.setData(mAreaList);
+//                    System.out.println("position  " + position);
+//                    System.out.println("mProvinceList.get(position)  " + mProvinceList.get(position));
+//                    RegionModel rmProvince = mRmProvinceList.get(position);
+//                    System.out.println("regionModel.getName()  " + rmProvince.getName());
+//                    mRmCityList = mRegionDao.loadCityList(rmProvince.getId());
+//                    for (RegionModel regionModel : mRmCityList) {
+//                        mCityList.add(regionModel.getName());
+//                    }
+//                    sspCity.setData(mCityList);
+//                }
+//            });
+//
+//            sspCity.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
+//                @Override
+//                public void onSelected(ScrollPickerView scrollPickerView, int position) {
+//                    mAreaList.clear();
+//                    System.out.println(mCityList.size());
+//                    if (mCityList.size() > 0) {
+//                        RegionModel rmCity = mRmCityList.get(position);
+//                        System.out.println("rmCity.getName()  " + rmCity.getName());
+//                        mRmAreaList = mRegionDao.loadCountyList(rmCity.getId());
+//                        System.out.println("mRmAreaList.size() " + mRmAreaList.size());
+//                        for (RegionModel regionModel : mRmAreaList) {
+//                            mAreaList.add(regionModel.getName());
+//                        }
+//                    }
+//                    sspArea.setData(mAreaList);
+//                }
+//            });
+//        }
+//    }
 
     private void showDialogBirthDatePicker() {
         if (dialogDatePicker == null) {

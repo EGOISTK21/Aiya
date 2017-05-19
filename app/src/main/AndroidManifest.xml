@@ -48,7 +48,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activity.OtherDetailActivity"
+            android:name=".activity.OtherDetail.OtherDetailActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -63,6 +63,7 @@
         <activity android:name=".message.ui.activity.PhotoChooseActivity"/>
         <activity android:name=".message.ui.activity.PhotoCropActivity"/>
         <activity android:name=".message.ui.activity.ForgetTwoActivity"/>
+        <activity android:name=".love.unmatched.HitItOffActivity"/>
         <activity
             android:name=".love.matched.today.ClockInActivity"
             android:screenOrientation="portrait">

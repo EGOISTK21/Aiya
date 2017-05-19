@@ -166,11 +166,34 @@ public class APIUtil {
     }
 
     /**
+     * 社区-获取名片[CG103]
+     * 参数：
+     * 'userid':用户ID
+     */
+
+    public interface PersonApi {
+        @POST("Community/GET/person")
+        @FormUrlEncoded
+        Observable<HttpResult<User>> loadOtherDetail(@Field("userid") String id);
+    }
+
+    /**
+     * 撩TA[LPo101]
+     * 参数：
+     * 'userid':被撩用户ID
+     */
+
+    public interface TouchApi {
+        @POST("Love/POST/task")
+        @FormUrlEncoded
+        Observable<HttpResult> touch(@Field("userid") String id);
+    }
+
+    /**
      * #匹配条件
      * ['minHeight']:身高下限，默认0/cm
      * ['maxHeight']:身高上限，默认210/cm
-     * ['minAge']:年龄下限，默认0
-     * ['maxAge']:年龄上限,默认1000
+     * ['age']:年龄
      * #下四个条件模糊匹配
      * ['major']:专业
      * ['school']:学校
@@ -185,8 +208,7 @@ public class APIUtil {
         @FormUrlEncoded
         Observable<HttpResult<ArrayList<User>>> startConditionMatch(@Field("minHeight") String minHeight,
                                                                     @Field("maxHeight") String maxHeight,
-                                                                    @Field("minAge") String minAge,
-                                                                    @Field("maxAge") String maxAge,
+                                                                    @Field("age") String maxAge,
                                                                     @Field("school") String school,
                                                                     @Field("character") String character,
                                                                     @Field("constellation") String constellation,
@@ -225,7 +247,7 @@ public class APIUtil {
         Observable<HttpResult> destroyLove(@Field("loveid") String loveId);
     }
 
-    public interface GetGuestRecordApi{
+    public interface GetGuestRecordApi {
         @POST("Me/GET/touchPeople")
         @FormUrlEncoded
         Observable<HttpResult<ArrayList<OuInfo>>> startGetGuestRecord(@Field("page") String page, @Field("lines") String lines);
@@ -247,6 +269,12 @@ public class APIUtil {
 //                                                                                   @Field("page") String page,
 //                                                                                   @Field("lines") String lines);
 //    }
+
+    public interface FateSwitchApi {
+        @POST("Me/PUT/fateSwitch")
+        @FormUrlEncoded
+        Observable<HttpResult> setFateSwitch(@Field("fateswitch") String fateSwitch);
+    }
 
     public static VerificationInitApi getVerificationInitApi() {
         if (sRetrofit == null) {
@@ -299,6 +327,14 @@ public class APIUtil {
         return sRetrofit.create(SearchSchoolApi.class);
     }
 
+    public static PersonApi getPersonApi() {
+        return sRetrofit.create(PersonApi.class);
+    }
+
+    public static TouchApi getTouchApi() {
+        return sRetrofit.create(TouchApi.class);
+    }
+
     public static MatchingApi getMatchingApi() {
         return sRetrofit.create(MatchingApi.class);
     }
@@ -315,11 +351,15 @@ public class APIUtil {
         return sRetrofit.create(DestroyLoveApi.class);
     }
 
-    public static GetGuestRecordApi getGuestRecordApi(){
+    public static GetGuestRecordApi getGuestRecordApi() {
         return sRetrofit.create(GetGuestRecordApi.class);
     }
 
     public static GetEmotionRecordApi getEmotionRecordApi() {
         return sRetrofit.create(GetEmotionRecordApi.class);
+    }
+
+    public static FateSwitchApi getFateSwitchApi() {
+        return sRetrofit.create(FateSwitchApi.class);
     }
 }

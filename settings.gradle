@@ -1,1 +1,1 @@
-include ':app', ':multi_image_selector'
+include ':app'

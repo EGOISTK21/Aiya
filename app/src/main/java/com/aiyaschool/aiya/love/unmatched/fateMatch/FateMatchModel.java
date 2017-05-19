@@ -22,8 +22,14 @@ class FateMatchModel implements FateMatchContract.Model {
     }
 
     @Override
-    public void commitCanRandom(boolean canRandom) {
-
+    public void commitCanRandom(String canRandom, Observer<HttpResult> observer) {
+        APIUtil.getFateSwitchApi()
+                .setFateSwitch(canRandom)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
     }
 
     @Override

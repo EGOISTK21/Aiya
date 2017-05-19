@@ -4,11 +4,8 @@ import android.util.Log;
 
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
-import com.aiyaschool.aiya.util.ToastUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -51,54 +48,48 @@ class ConditionMatchPresenter implements ConditionMatchContract.Presenter {
     }
 
     @Override
-    public void loadSchoolData() {
-        mModel.loadSchoolData(new Observer<HttpResult<List<String>>>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                Log.i(TAG, "onSubscribe: loadSchoolData");
-                mView.showPD();
-            }
-
-            @Override
-            public void onNext(@NonNull HttpResult<List<String>> listHttpResult) {
-                Log.i(TAG, "onNext: loadSchoolData");
-                if (listHttpResult.getState().equals("2000")) {
-                    mView.setSchoolData(listHttpResult.getData());
-                } else {
-                    mView.setSchoolData(new ArrayList<>(Collections.singletonList("")));
-                    ToastUtil.show("网络错误");
-                }
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.i(TAG, "onError: loadSchoolData");
-                mView.dismissPD();
-                mView.setSchoolData(new ArrayList<>(Collections.singletonList("")));
-                ToastUtil.show("网络错误");
-            }
-
-            @Override
-            public void onComplete() {
-                Log.i(TAG, "onComplete: loadSchoolData");
-                mView.dismissPD();
-            }
-        });
+    public void loadSchoolData(String province) {
+        mView.setSchoolData(mModel.loadSchoolData(province));
     }
 
     @Override
-    public void startConditionMatch(String minHeight, String maxHeight, String minAge, String maxAge,
-                                    String school, String character, String constellation) {
-        mModel.startConditionMatch(minHeight, maxHeight, minAge, maxAge, school, character, constellation,
+    public void startConditionMatch(String height,
+                                    String age,
+                                    String school,
+                                    String character,
+                                    String constellation) {
+        String minHeight, maxHeight;
+        if (height == null) {
+            minHeight = null;
+            maxHeight = null;
+        } else {
+            switch (height.length()) {
+                case 5:
+                    minHeight = null;
+                    maxHeight = "149";
+                    break;
+                case 6:
+                    minHeight = "190";
+                    maxHeight = null;
+                    break;
+                default:
+                    minHeight = height.substring(0, 3);
+                    maxHeight = height.substring(4, 7);
+                    break;
+            }
+        }
+        mModel.startConditionMatch(minHeight, maxHeight, age, school, character, constellation,
                 new Observer<HttpResult<ArrayList<User>>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         Log.i(TAG, "onSubscribe: startConditionMatch");
+                        mView.showPD();
                     }
 
                     @Override
                     public void onNext(@NonNull HttpResult<ArrayList<User>> listHttpResult) {
                         Log.i(TAG, "onNext: startConditionMatch " + listHttpResult);
+                        mView.dismissPD();
                         if ("2000".equals(listHttpResult.getState())) {
                             mView.showMatchResult(listHttpResult.getData());
                         }
@@ -107,12 +98,13 @@ class ConditionMatchPresenter implements ConditionMatchContract.Presenter {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Log.i(TAG, "onError: startConditionMatch");
+                        mView.dismissPD();
                     }
 
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: startConditionMatch");
-            }
-        });
+                    }
+                });
     }
 }

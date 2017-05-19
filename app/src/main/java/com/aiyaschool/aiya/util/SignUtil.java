@@ -27,37 +27,37 @@ public class SignUtil {
     }
 
     public static void setUser(User user) {
-        DBUtil.setUser(user);
+        UserUtil.setUser(user);
     }
 
     public static User getUser() {
-        return DBUtil.getUser();
+        return UserUtil.getUser();
     }
 
     public static void setPhone(String phone) {
         if (isValidPhone(phone)) {
-            DBUtil.setPhone(phone);
+            UserUtil.setPhone(phone);
         }
     }
 
     public static String getPhone() {
-        return DBUtil.getPhone();
+        return UserUtil.getPhone();
     }
 
     public static UpLoad getUpLoad() {
-        return DBUtil.getUpLoad();
+        return UserUtil.getUpLoad();
     }
 
     public static void clearUpLoad() {
-        DBUtil.clearUpLoad();
+        UserUtil.clearUpLoad();
     }
 
     public static String getLoginToken() {
-        return DBUtil.getLoginToken();
+        return UserUtil.getLoginToken();
     }
 
     public static void clearLoginToken() {
-        DBUtil.clearLoginToken();
+        UserUtil.clearLoginToken();
     }
 
     public static void addAccessToken() {

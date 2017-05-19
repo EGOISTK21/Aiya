@@ -32,7 +32,7 @@
                 android:textSize="15sp"/>
 
             <com.aiyaschool.aiya.widget.CircleImageView
-                android:id="@+id/iv_other"
+                android:id="@+id/iv_other_avatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
@@ -42,10 +42,10 @@
                 app:border_width="0.5dp"/>
 
             <TextView
-                android:id="@+id/tv_other_name"
+                android:id="@+id/tv_other_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/iv_other"
+                android:layout_below="@id/iv_other_avatar"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/common_margin_15"
                 android:includeFontPadding="false"
@@ -54,29 +54,29 @@
                 android:textSize="18sp"/>
 
             <TextView
-                android:id="@+id/tv_other_school"
+                android:id="@+id/tv_other_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_other_name"
+                android:layout_below="@id/tv_other_username"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/common_margin_10"
                 android:includeFontPadding="false"
                 android:textColor="@color/colorPureWhite"
                 android:textSize="11sp"/>
 
-            <TextView
-                android:id="@+id/tv_love_see_ta_activity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:gravity="center"
-                android:paddingBottom="16dp"
-                android:paddingEnd="@dimen/common_margin_15"
-                android:paddingStart="@dimen/common_margin_15"
-                android:paddingTop="16dp"
-                android:text="@string/browse_ta_activity"
-                android:textColor="@color/colorPureWhite"
-                android:textSize="15sp"/>
+            <!--<TextView-->
+            <!--android:id="@+id/tv_love_see_ta_activity"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:gravity="center"-->
+            <!--android:paddingBottom="16dp"-->
+            <!--android:paddingEnd="@dimen/common_margin_15"-->
+            <!--android:paddingStart="@dimen/common_margin_15"-->
+            <!--android:paddingTop="16dp"-->
+            <!--android:text="@string/browse_ta_activity"-->
+            <!--android:textColor="@color/colorPureWhite"-->
+            <!--android:textSize="15sp"/>-->
 
         </RelativeLayout>
 
@@ -117,6 +117,7 @@
                         android:textSize="@dimen/common_text_size_16"/>
 
                     <TextView
+                        android:id="@+id/tv_other_school"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
@@ -141,6 +142,7 @@
                         android:textSize="@dimen/common_text_size_16"/>
 
                     <TextView
+                        android:id="@+id/tv_other_age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
@@ -165,6 +167,7 @@
                         android:textSize="@dimen/common_text_size_16"/>
 
                     <TextView
+                        android:id="@+id/tv_other_height"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
@@ -189,6 +192,7 @@
                         android:textSize="@dimen/common_text_size_16"/>
 
                     <TextView
+                        android:id="@+id/tv_other_character"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
@@ -213,6 +217,7 @@
                         android:textSize="@dimen/common_text_size_16"/>
 
                     <TextView
+                        android:id="@+id/tv_other_hobby"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin_30"
@@ -228,34 +233,37 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/btn_hit"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:background="@drawable/hit_on_button_selector"
+        android:text="@string/hit_on"
+        android:textColor="@color/colorPureWhite"
+        android:textSize="@dimen/common_text_size_16"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/hit_on_button_selector"
-            android:text="@string/hit_on"
-            android:textColor="@color/colorPureWhite"
-            android:textSize="@dimen/common_text_size_16"/>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="45dp"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:orientation="horizontal">-->
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/send_gift_button_selector"
-            android:drawablePadding="@dimen/common_margin_18"
-            android:drawableStart="@drawable/gift"
-            android:gravity="start|center_vertical"
-            android:paddingStart="32dp"
-            android:text="@string/send_gift"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/common_text_size_15"/>
+    <!---->
 
-    </LinearLayout>
+    <!--<Button-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@drawable/send_gift_button_selector"-->
+    <!--android:drawablePadding="@dimen/common_margin_18"-->
+    <!--android:drawableStart="@drawable/gift"-->
+    <!--android:gravity="start|center_vertical"-->
+    <!--android:paddingStart="32dp"-->
+    <!--android:text="@string/send_gift"-->
+    <!--android:textColor="@color/colorPrimaryDark"-->
+    <!--android:textSize="@dimen/common_text_size_15"/>-->
+
+    <!--</LinearLayout>-->
 
 </RelativeLayout>
