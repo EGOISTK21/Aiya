@@ -145,9 +145,6 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             if (!TextUtils.isEmpty(user.getProfile())) {
                 mTvSignName.setText(user.getProfile());
             }
-            if (!TextUtils.isEmpty(user.getBirthday())) {
-                mTvDate.setText(user.getBirthday());
-            }
             if (!TextUtils.isEmpty(user.getSchool())) {
                 mTvSchool.setText(user.getSchool());
                 mSchool = user.getSchool();
@@ -157,10 +154,6 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             }
             if (!TextUtils.isEmpty(user.getHeight())) {
                 mTvHeight.setText(user.getHeight());
-            }
-            if (!TextUtils.isEmpty(user.getProvince())) {
-                mTvHometown.setText(user.getProvince());
-                mProvince = user.getProvince();
             }
             System.out.println(user.getUsername());
         } else {

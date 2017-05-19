@@ -42,6 +42,10 @@ interface FormContract {
 
         void setSchoolData(List<String> schools);
 
+        void trySubmitAvatar();
+
+        void signUp(String avatar);
+
         void startMainView();
     }
 

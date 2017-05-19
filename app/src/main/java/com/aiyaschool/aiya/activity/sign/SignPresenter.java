@@ -60,6 +60,7 @@ class SignPresenter implements SignContract.Presenter {
                         ToastUtil.show("验证码错误");
                         break;
                     case "5130":
+                        MyApplication.setUser(httpResult.getData());
                         APIUtil.getTokenApi()
                                 .loadUser(phone, httpResult.getData().getTempToken())
                                 .subscribeOn(Schedulers.io())

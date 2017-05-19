@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.activity.OtherDetail;
+package com.aiyaschool.aiya.activity.otherDetail;
 
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.util.APIUtil;

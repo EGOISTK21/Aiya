@@ -40,10 +40,11 @@ public class APIUtil {
     public static final int FILTER_TIMEOUT = 5;
     private static final int TIMEOUT = 5;
     private static final String ROOT = "https://lovefor7days.applinzi.com/";
+    private static final String IMG_ROOT = "http://up.sinacloud.net/";
     private static OkHttpClient sOkHttpClient = new OkHttpClient.Builder().connectTimeout(TIMEOUT, TimeUnit.SECONDS).build();
     private static Converter.Factory sGsonConverterFactory = GsonConverterFactory.create();
     private static CallAdapter.Factory sRxJavaCallAdapterFactory = RxJava2CallAdapterFactory.create();
-    private static Retrofit sRetrofit;
+    private static Retrofit sRetrofit, sIMGRetrofit;
 
     private APIUtil() {
 
@@ -310,13 +311,15 @@ public class APIUtil {
     }
 
     public static IMGApi getIMGApi() {
-        return new Retrofit
-                .Builder()
-                .client(new OkHttpClient())
-                .addCallAdapterFactory(sRxJavaCallAdapterFactory)
-                .baseUrl("http://up.sinacloud.net/gxwy-dynamic/photo/")
-                .build()
-                .create(IMGApi.class);
+        if (sIMGRetrofit == null) {
+            sIMGRetrofit = new Retrofit
+                    .Builder()
+                    .client(new OkHttpClient())
+                    .addCallAdapterFactory(sRxJavaCallAdapterFactory)
+                    .baseUrl(IMG_ROOT)
+                    .build();
+        }
+        return sIMGRetrofit.create(IMGApi.class);
     }
 
     public static FirstInitApi getFirstInitApi() {

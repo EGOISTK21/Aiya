@@ -1,6 +1,5 @@
 package com.aiyaschool.aiya.util;
 
-import com.aiyaschool.aiya.bean.UpLoad;
 import com.aiyaschool.aiya.bean.User;
 
 import java.util.regex.Pattern;
@@ -42,14 +41,6 @@ public class SignUtil {
 
     public static String getPhone() {
         return UserUtil.getPhone();
-    }
-
-    public static UpLoad getUpLoad() {
-        return UserUtil.getUpLoad();
-    }
-
-    public static void clearUpLoad() {
-        UserUtil.clearUpLoad();
     }
 
     public static String getLoginToken() {

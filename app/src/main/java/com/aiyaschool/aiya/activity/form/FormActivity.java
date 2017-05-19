@@ -3,12 +3,15 @@ package com.aiyaschool.aiya.activity.form;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
@@ -19,7 +22,19 @@ import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
 import com.aiyaschool.aiya.widget.ScrollPickerView;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
+import com.bumptech.glide.Glide;
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.app.TakePhotoImpl;
+import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
+import com.jph.takephoto.model.InvokeParam;
+import com.jph.takephoto.model.TContextWrap;
+import com.jph.takephoto.model.TResult;
+import com.jph.takephoto.permission.InvokeListener;
+import com.jph.takephoto.permission.PermissionManager;
+import com.jph.takephoto.permission.TakePhotoInvocationHandler;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,13 +48,15 @@ import butterknife.OnTextChanged;
  * Created by EGOISTK21 on 2017/4/16.
  */
 
-public class FormActivity extends BaseActivity implements FormContract.View {
+public class FormActivity extends BaseActivity implements FormContract.View, TakePhoto.TakeResultListener, InvokeListener {
 
     private static final String TAG = "FormActivity";
     private ProgressDialog mPD;
     private FormContract.Presenter mPresenter;
-    private InputMethodManager mInputMethodManager;
-    private Bitmap mAvatar;
+    private TakePhoto takePhoto;
+    private CropOptions cropOptions;  //裁剪参数
+    private File file;
+    private InvokeParam invokeParam;
     private static int mProvince;
     private static int[] mSchoolNo;
     private String mUsername, mSex, mSchool, mAge, mHeight, mConstellation, mCharacter, mHobby;
@@ -61,6 +78,32 @@ public class FormActivity extends BaseActivity implements FormContract.View {
     @BindView(R.id.tv_character_picker)
     TextView tvCharacterPicker;
 
+    public TakePhoto getTakePhoto() {
+        if (takePhoto == null) {
+            takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this, this));
+            //设置裁剪参数
+            cropOptions = new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(false).create();
+            //设置压缩参数
+            CompressConfig config = new CompressConfig.Builder().setMaxSize(50 * 1024).setMaxPixel(1024).create();
+            takePhoto.onEnableCompress(config, true);  //设置为需要压缩
+            //鲁班压缩存在问题
+//            LubanOptions option = new LubanOptions.Builder()
+//                    .setMaxHeight(1024)
+//                    .setMaxWidth(1024)
+//                    .setMaxSize(50 * 1024)
+//                    .create();
+//            CompressConfig config = CompressConfig.ofLuban(option);
+            takePhoto.onEnableCompress(config, true);
+        }
+        return takePhoto;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getTakePhoto().onCreate(savedInstanceState);
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_form;
@@ -71,7 +114,55 @@ public class FormActivity extends BaseActivity implements FormContract.View {
         mProvince = 0;
         mSchoolNo = new int[31];
         mPresenter = new FormPresenter(this);
-        mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        //获取TakePhoto实例
+        takePhoto = getTakePhoto();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        getTakePhoto().onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        getTakePhoto().onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.handlePermissionsResult(this, type, invokeParam, this);
+    }
+
+    @Override
+    public void takeSuccess(TResult result) {
+        String iconPath = result.getImage().getOriginalPath();
+        //Toast显示图片路径
+        Toast.makeText(this, "imagePath:" + iconPath, Toast.LENGTH_SHORT).show();
+        //Google Glide库 用于加载图片资源
+        Glide.with(this).load(iconPath).into(ibnAvatar);
+    }
+
+    @Override
+    public void takeFail(TResult result, String msg) {
+        Log.i(TAG, "takeFail: " + result + " " + msg);
+    }
+
+    @Override
+    public void takeCancel() {
+
+    }
+
+    @Override
+    public PermissionManager.TPermissionType invoke(InvokeParam invokeParam) {
+        PermissionManager.TPermissionType type = PermissionManager.checkPermission(TContextWrap.of(this), invokeParam.getMethod());
+        if (PermissionManager.TPermissionType.WAIT.equals(type)) {
+            this.invokeParam = invokeParam;
+        }
+        return type;
     }
 
     @Override
@@ -83,12 +174,17 @@ public class FormActivity extends BaseActivity implements FormContract.View {
 
     @OnClick(value = R.id.ibn_avatar)
     void setAvatar() {
-
+        Uri imageUri = getImageCropUri();
+        //从相册中选取图片并裁剪
+        takePhoto.onPickFromGalleryWithCrop(imageUri, cropOptions);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+    //获得照片的输出保存Uri
+    private Uri getImageCropUri() {
+        file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+        Log.i(TAG, "getImageCropUri: " + Uri.fromFile(file));
+        return Uri.fromFile(file);
     }
 
     @OnTextChanged(value = R.id.et_username)
@@ -248,15 +344,32 @@ public class FormActivity extends BaseActivity implements FormContract.View {
 
     @OnClick(value = R.id.btn_start)
     void start() {
-        if (null != this.getCurrentFocus()) {
-            mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+        trySubmitAvatar();
+    }
+
+    @Override
+    public void trySubmitAvatar() {
+        if (!SignUtil.isValidUsername(mUsername)) {
+            ToastUtil.show("请输入合法用户名");
+        } else if (mSex != null && mSchool != null && mAge != null) {
+            if (file != null) {
+                mPresenter.submitAvatar(file);
+            } else {
+                signUp(null);
+            }
+        } else {
+            ToastUtil.show("请至少完善必填信息");
         }
+    }
+
+    @Override
+    public void signUp(String avatar) {
         if (!SignUtil.isValidUsername(mUsername)) {
             ToastUtil.show("请输入合法用户名");
         } else if (mSex != null && mSchool != null && mAge != null) {
             String mGender = mSex.equals("男") ? "1" : "2";
             mPresenter.firstInit(SignUtil.getLoginToken(), SignUtil.getPhone(),
-                    mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mCharacter, mHobby, null);
+                    mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mCharacter, mHobby, avatar);
         } else {
             ToastUtil.show("请至少完善必填信息");
         }
@@ -364,11 +477,4 @@ public class FormActivity extends BaseActivity implements FormContract.View {
         finish();
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (this.getCurrentFocus() != null) {
-            return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
-        }
-        return super.onTouchEvent(event);
-    }
 }

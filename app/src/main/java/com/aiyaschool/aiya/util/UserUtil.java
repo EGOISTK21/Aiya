@@ -149,7 +149,7 @@ public class UserUtil {
     }
 
     static UpLoad getUpLoad() {
-        return new UpLoad(sSharedPreferences.getString("upurl", null), sSharedPreferences.getString("upurl", null));
+        return new UpLoad(sSharedPreferences.getString("upurl", null), sSharedPreferences.getString("imgname", null));
     }
 
     static void clearUpLoad() {
