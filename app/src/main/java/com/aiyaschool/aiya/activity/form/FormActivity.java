@@ -3,15 +3,12 @@ package com.aiyaschool.aiya.activity.form;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,9 +42,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import me.nereo.multi_image_selector.MultiImageSelector;
-import pub.devrel.easypermissions.AppSettingsDialog;
-import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * 表单View实现类，仅在用户注册成功时出现一次
@@ -57,15 +51,11 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class FormActivity extends BaseActivity implements FormContract.View, TakePhoto.TakeResultListener, InvokeListener {
 
     private static final String TAG = "FormActivity";
-    public static final int REQUEST_IMAGE = 13;
     private ProgressDialog mPD;
     private FormContract.Presenter mPresenter;
-    private InputMethodManager mInputMethodManager;
-    private Bitmap mAvatar;
     private TakePhoto takePhoto;
     private CropOptions cropOptions;  //裁剪参数
-    private CompressConfig compressConfig;  //压缩参数
-    private Uri imageUri;  //图片保存路径
+    private File file;
     private InvokeParam invokeParam;
     private static int mProvince;
     private static int[] mSchoolNo;
@@ -91,6 +81,19 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
     public TakePhoto getTakePhoto() {
         if (takePhoto == null) {
             takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this, this));
+            //设置裁剪参数
+            cropOptions = new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(false).create();
+            //设置压缩参数
+            CompressConfig config = new CompressConfig.Builder().setMaxSize(50 * 1024).setMaxPixel(1024).create();
+            takePhoto.onEnableCompress(config, true);  //设置为需要压缩
+            //鲁班压缩存在问题
+//            LubanOptions option = new LubanOptions.Builder()
+//                    .setMaxHeight(1024)
+//                    .setMaxWidth(1024)
+//                    .setMaxSize(50 * 1024)
+//                    .create();
+//            CompressConfig config = CompressConfig.ofLuban(option);
+            takePhoto.onEnableCompress(config, true);
         }
         return takePhoto;
     }
@@ -111,14 +114,8 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
         mProvince = 0;
         mSchoolNo = new int[31];
         mPresenter = new FormPresenter(this);
-        mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         //获取TakePhoto实例
         takePhoto = getTakePhoto();
-        //设置裁剪参数
-        cropOptions = new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(false).create();
-        //设置压缩参数
-        compressConfig = new CompressConfig.Builder().setMaxSize(50 * 1024).setMaxPixel(800).create();
-        takePhoto.onEnableCompress(compressConfig, true);  //设置为需要压缩
     }
 
     @Override
@@ -136,21 +133,8 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
         PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionManager.handlePermissionsResult(this, type, invokeParam, this);
-    }
-
-    @Override
-    public void onPermissionsGranted(int i, List<String> list) {
-        startImageSelector();
-    }
-
-    @Override
-    public void onPermissionsDenied(int i, List<String> list) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, Arrays.asList(_EXTERNAL_STORAGE))) {
-            new AppSettingsDialog.Builder(this).setTitle("权限被拒").setRationale("爱呀无法访问你的相册，请到app设置页面的权限管理中手动开启储存空间权限").build().show();
-        }
     }
 
     @Override
@@ -164,7 +148,7 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
 
     @Override
     public void takeFail(TResult result, String msg) {
-
+        Log.i(TAG, "takeFail: " + result + " " + msg);
     }
 
     @Override
@@ -190,28 +174,17 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
 
     @OnClick(value = R.id.ibn_avatar)
     void setAvatar() {
-        imageUri = getImageCropUri();
+        Uri imageUri = getImageCropUri();
         //从相册中选取图片并裁剪
         takePhoto.onPickFromGalleryWithCrop(imageUri, cropOptions);
-//        if (EasyPermissions.hasPermissions(this, _EXTERNAL_STORAGE)) {
-//            startImageSelector();
-//        } else {
-//            EasyPermissions.requestPermissions(this, "爱呀需要访问你的相册", RC_EXTERNAL_STORAGE, _EXTERNAL_STORAGE);
-//        }
     }
 
     //获得照片的输出保存Uri
     private Uri getImageCropUri() {
-        File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
+        file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
         if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+        Log.i(TAG, "getImageCropUri: " + Uri.fromFile(file));
         return Uri.fromFile(file);
-    }
-
-    private void startImageSelector() {
-        MultiImageSelector.create(FormActivity.this)
-                .showCamera(true) // show camera or not. true by default
-                .single() // single mode
-                .start(FormActivity.this, REQUEST_IMAGE);
     }
 
     @OnTextChanged(value = R.id.et_username)
@@ -371,15 +344,32 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
 
     @OnClick(value = R.id.btn_start)
     void start() {
-        if (null != this.getCurrentFocus()) {
-            mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+        trySubmitAvatar();
+    }
+
+    @Override
+    public void trySubmitAvatar() {
+        if (!SignUtil.isValidUsername(mUsername)) {
+            ToastUtil.show("请输入合法用户名");
+        } else if (mSex != null && mSchool != null && mAge != null) {
+            if (file != null) {
+                mPresenter.submitAvatar(file);
+            } else {
+                signUp(null);
+            }
+        } else {
+            ToastUtil.show("请至少完善必填信息");
         }
+    }
+
+    @Override
+    public void signUp(String avatar) {
         if (!SignUtil.isValidUsername(mUsername)) {
             ToastUtil.show("请输入合法用户名");
         } else if (mSex != null && mSchool != null && mAge != null) {
             String mGender = mSex.equals("男") ? "1" : "2";
             mPresenter.firstInit(SignUtil.getLoginToken(), SignUtil.getPhone(),
-                    mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mCharacter, mHobby, null);
+                    mUsername, mGender, mSchool, mAge, mHeight, mConstellation, mCharacter, mHobby, avatar);
         } else {
             ToastUtil.show("请至少完善必填信息");
         }
@@ -485,14 +475,6 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
     public void startMainView() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (this.getCurrentFocus() != null) {
-            return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
-        }
-        return super.onTouchEvent(event);
     }
 
 }

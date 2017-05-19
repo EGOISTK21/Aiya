@@ -43,14 +43,9 @@ public class User implements Parcelable {
     private String hobby;
     private Avatar avatar;
     private String profile;
-    private String points;
     private String gifttickets;
     private String fateswitch;
-    private String birthday;
-    private String enteryear;
-    private String major;
     private String height;
-    private String province;
 
     public User() {
 
@@ -98,39 +93,7 @@ public class User implements Parcelable {
         this.hobby = hobby;
     }
 
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
     private ImgWall imgwall;
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
-    }
-
-    public String getEnteryear() {
-        return enteryear;
-    }
-
-    public void setEnteryear(String enteryear) {
-        this.enteryear = enteryear;
-    }
-
-    public String getMajor() {
-        return major;
-    }
-
-    public void setMajor(String major) {
-        this.major = major;
-    }
 
     public String getAge() {
         return age;
@@ -258,14 +221,6 @@ public class User implements Parcelable {
 
     public void setProfile(String profile) {
         this.profile = profile;
-    }
-
-    public String getPoints() {
-        return points;
-    }
-
-    public void setPoints(String points) {
-        this.points = points;
     }
 
     public String getGiftTickets() {

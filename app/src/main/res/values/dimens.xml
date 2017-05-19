@@ -26,8 +26,8 @@
     <dimen name="dialog_corner">10dp</dimen>
     <dimen name="card_corner">6dp</dimen>
     <dimen name="divider_height">1px</dimen>
-    <dimen name="design_bottom_navigation_text_size" tools:override="true">0sp</dimen>
-    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">0sp</dimen>
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">11sp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">11sp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 

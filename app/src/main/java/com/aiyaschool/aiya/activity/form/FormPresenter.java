@@ -5,7 +5,6 @@ import android.util.Log;
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
-import com.aiyaschool.aiya.util.SignUtil;
 
 import java.io.File;
 
@@ -45,27 +44,27 @@ class FormPresenter implements FormContract.Presenter {
 
     @Override
     public void submitAvatar(File file) {
-        mModel.submitAvatar(RequestBody.create(MediaType.parse("image/jpg"), file),
+        mModel.submitAvatar(RequestBody.create(MediaType.parse("image/jpeg"), file),
                 new Observer<ResponseBody>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
-                        Log.i(TAG, "onSubscribe: ");
+                        Log.i(TAG, "onSubscribe: submitAvatar");
                     }
 
                     @Override
                     public void onNext(@NonNull ResponseBody responseBody) {
-                        Log.i(TAG, "onNext: " + responseBody);
+                        Log.i(TAG, "onNext: submitAvatar");
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Log.i(TAG, "onError: " + e);
+                        Log.i(TAG, "onError: submitAvatar" + e);
                     }
 
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: ");
-                        SignUtil.clearUpLoad();
+                        mView.signUp(MyApplication.getUser().getUpLoad().getImgname());
                     }
                 });
     }
