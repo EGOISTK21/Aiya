@@ -58,8 +58,8 @@ public class MyApplication extends Application {
         SignUtil.setUser(user);
     }
 
-    public static User getUser() {
-        return SignUtil.getUser();
-    }
+//    public static User getUser() {
+//        return SignUtil.getUser();
+//    }
 
 }

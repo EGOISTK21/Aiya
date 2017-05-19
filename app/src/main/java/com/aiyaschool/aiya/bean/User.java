@@ -38,14 +38,18 @@ public class User implements Parcelable {
     private String school;
     private String loveid;
     private String group;
+    private String sex;
     private String age;
+    private String height;
     private String character;
+    private String constellation;
     private String hobby;
     private Avatar avatar;
     private String profile;
     private String gifttickets;
     private String fateswitch;
-    private String height;
+    private ImgWall imgwall;
+
 
     public User() {
 
@@ -63,8 +67,11 @@ public class User implements Parcelable {
         school = in.readString();
         loveid = in.readString();
         group = in.readString();
+        sex = in.readString();
         age = in.readString();
+        height = in.readString();
         character = in.readString();
+        constellation = in.readString();
         hobby = in.readString();
         avatar = in.readParcelable(Avatar.class.getClassLoader());
         profile = in.readString();
@@ -92,8 +99,6 @@ public class User implements Parcelable {
     public void setHobby(String hobby) {
         this.hobby = hobby;
     }
-
-    private ImgWall imgwall;
 
     public String getAge() {
         return age;
@@ -199,12 +204,28 @@ public class User implements Parcelable {
         this.group = group;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     public String getCharacter() {
         return character;
     }
 
     public void setCharacter(String character) {
         this.character = character;
+    }
+
+    public String getConstellation() {
+        return constellation;
+    }
+
+    public void setConstellation(String constellation) {
+        this.constellation = constellation;
     }
 
     public Avatar getAvatar() {
@@ -233,6 +254,10 @@ public class User implements Parcelable {
 
     public String getFateSwitch() {
         return fateswitch;
+    }
+
+    public boolean isFated() {
+        return !"0".equals(fateswitch);
     }
 
     public void setFateSwitch(String fateSwitch) {
@@ -265,8 +290,11 @@ public class User implements Parcelable {
         dest.writeString(school);
         dest.writeString(loveid);
         dest.writeString(group);
+        dest.writeString(sex);
         dest.writeString(age);
+        dest.writeString(height);
         dest.writeString(character);
+        dest.writeString(constellation);
         dest.writeString(hobby);
         dest.writeParcelable(avatar, flags);
         dest.writeString(profile);
@@ -289,14 +317,16 @@ public class User implements Parcelable {
                 ", school='" + school + '\'' +
                 ", loveid='" + loveid + '\'' +
                 ", group='" + group + '\'' +
+                ", sex='" + sex + '\'' +
                 ", age='" + age + '\'' +
+                ", height='" + height + '\'' +
                 ", character='" + character + '\'' +
+                ", constellation='" + constellation + '\'' +
                 ", hobby='" + hobby + '\'' +
                 ", avatar=" + avatar +
                 ", profile='" + profile + '\'' +
                 ", gifttickets='" + gifttickets + '\'' +
                 ", fateswitch='" + fateswitch + '\'' +
-                ", height='" + height + '\'' +
                 ", imgwall=" + imgwall +
                 '}';
     }

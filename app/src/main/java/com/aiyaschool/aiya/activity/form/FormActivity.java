@@ -84,7 +84,7 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
             //设置裁剪参数
             cropOptions = new CropOptions.Builder().setAspectX(1).setAspectY(1).setWithOwnCrop(false).create();
             //设置压缩参数
-            CompressConfig config = new CompressConfig.Builder().setMaxSize(50 * 1024).setMaxPixel(1024).create();
+            CompressConfig config = new CompressConfig.Builder().setMaxSize(250 * 1024).setMaxPixel(1024).create();
             takePhoto.onEnableCompress(config, true);  //设置为需要压缩
             //鲁班压缩存在问题
 //            LubanOptions option = new LubanOptions.Builder()
@@ -93,7 +93,7 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
 //                    .setMaxSize(50 * 1024)
 //                    .create();
 //            CompressConfig config = CompressConfig.ofLuban(option);
-            takePhoto.onEnableCompress(config, true);
+//            takePhoto.onEnableCompress(config, true);
         }
         return takePhoto;
     }
@@ -139,11 +139,13 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
 
     @Override
     public void takeSuccess(TResult result) {
-        String iconPath = result.getImage().getOriginalPath();
+        String imagePath = result.getImage().getCompressPath();
         //Toast显示图片路径
-        Toast.makeText(this, "imagePath:" + iconPath, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "imagePath:" + imagePath, Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "takeSuccess: " + imagePath);
+        file = new File(imagePath);
         //Google Glide库 用于加载图片资源
-        Glide.with(this).load(iconPath).into(ibnAvatar);
+        Glide.with(this).load(imagePath).into(ibnAvatar);
     }
 
     @Override

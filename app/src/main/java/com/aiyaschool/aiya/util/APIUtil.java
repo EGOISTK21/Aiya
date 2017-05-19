@@ -1,6 +1,5 @@
 package com.aiyaschool.aiya.util;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
@@ -55,7 +54,7 @@ public class APIUtil {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 return chain.proceed(chain.request().newBuilder()
-                        .addHeader("accesstoken", MyApplication.getUser().getAccessToken()).build());
+                        .addHeader("accesstoken", UserUtil.getUser().getAccessToken()).build());
             }
         }).connectTimeout(TIMEOUT, TimeUnit.SECONDS).build();
         sRetrofit = new Retrofit.Builder().client(sOkHttpClient)
@@ -98,7 +97,8 @@ public class APIUtil {
         @POST("Home/GET/init")
         @FormUrlEncoded
         Observable<HttpResult<User>> loadUser(@Field("phone") String phone,
-                                              @Field("logintoken") String loginToken);
+                                              @Field("logintoken") String loginToken,
+                                              @Field("sign") String flag);
     }
 
     /**

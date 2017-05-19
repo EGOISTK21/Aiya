@@ -41,8 +41,11 @@ public class UserUtil {
         sUser.setSchool(UserUtil.getSchool());
         sUser.setLoveId(UserUtil.getLoveId());
         sUser.setGroup(UserUtil.getGroup());
+        sUser.setSex(UserUtil.getSex());
         sUser.setAge(UserUtil.getAge());
+        sUser.setHeight(UserUtil.getHeight());
         sUser.setCharacter(UserUtil.getCharacter());
+        sUser.setConstellation(UserUtil.getConstellation());
         sUser.setHobby(UserUtil.getHobby());
         sUser.setAvatar(UserUtil.getAvatar());
         sUser.setProfile(UserUtil.getProfile());
@@ -62,8 +65,11 @@ public class UserUtil {
         setSchool(user.getSchool());
         setLoveId(user.getLoveId());
         setGroup(user.getGroup());
+        setSex(user.getSex());
         setAge(user.getAge());
+        setHeight(user.getHeight());
         setCharacter(user.getCharacter());
+        setConstellation(user.getConstellation());
         setHobby(user.getHobby());
         setAvatar(user.getAvatar());
         setProfile(user.getProfile());
@@ -72,7 +78,7 @@ public class UserUtil {
         setImgWall(user.getImgWall());
     }
 
-    static User getUser() {
+    public static User getUser() {
         return sUser;
     }
 
@@ -85,7 +91,7 @@ public class UserUtil {
         return sSharedPreferences.getBoolean("contactShield", true);
     }
 
-    static void setLoginToken(String loginToken) {
+    private static void setLoginToken(String loginToken) {
         if (loginToken != null && !loginToken.equals(sUser.getLoginToken())) {
             sUser.setLoginToken(loginToken);
             sEditor.putString("logintoken", loginToken);
@@ -93,7 +99,7 @@ public class UserUtil {
         }
     }
 
-    static String getLoginToken() {
+    private static String getLoginToken() {
         return sSharedPreferences.getString("logintoken", null);
     }
 
@@ -103,7 +109,7 @@ public class UserUtil {
         sEditor.apply();
     }
 
-    static void setAccessToken(String accessToken) {
+    private static void setAccessToken(String accessToken) {
         if (accessToken != null && !accessToken.equals(sUser.getAccessToken())) {
             sUser.setAccessToken(accessToken);
             sEditor.putString("accesstoken", "");
@@ -111,11 +117,11 @@ public class UserUtil {
         }
     }
 
-    static String getAccessToken() {
+    private static String getAccessToken() {
         return sSharedPreferences.getString("accesstoken", null);
     }
 
-    static void setUserSig(String userSig) {
+    private static void setUserSig(String userSig) {
         if (userSig != null && !userSig.equals(sUser.getUserSig())) {
             sUser.setUserSig(userSig);
             sEditor.putString("usersig", userSig);
@@ -123,7 +129,7 @@ public class UserUtil {
         }
     }
 
-    static String getUserSig() {
+    private static String getUserSig() {
         return sSharedPreferences.getString("usersig", null);
     }
 
@@ -135,11 +141,11 @@ public class UserUtil {
         }
     }
 
-    static String getPhone() {
+    private static String getPhone() {
         return sSharedPreferences.getString("phone", null);
     }
 
-    static void setUpLoad(UpLoad upLoad) {
+    private static void setUpLoad(UpLoad upLoad) {
         if (upLoad != null && !upLoad.equals(sUser.getUpLoad())) {
             sUser.setUpLoad(upLoad);
             sEditor.putString("upurl", upLoad.getUpurl());
@@ -148,7 +154,7 @@ public class UserUtil {
         }
     }
 
-    static UpLoad getUpLoad() {
+    private static UpLoad getUpLoad() {
         return new UpLoad(sSharedPreferences.getString("upurl", null), sSharedPreferences.getString("imgname", null));
     }
 
@@ -158,7 +164,7 @@ public class UserUtil {
         sEditor.apply();
     }
 
-    static void setId(String id) {
+    private static void setId(String id) {
         if (id != null && !id.equals(sUser.getId())) {
             sUser.setId(id);
             sEditor.putString("id", id);
@@ -166,11 +172,11 @@ public class UserUtil {
         }
     }
 
-    static String getId() {
+    private static String getId() {
         return sSharedPreferences.getString("id", null);
     }
 
-    static void setUsername(String username) {
+    private static void setUsername(String username) {
         if (username != null && !username.equals(sUser.getUsername())) {
             sUser.setUsername(username);
             sEditor.putString("username", username);
@@ -178,7 +184,7 @@ public class UserUtil {
         }
     }
 
-    static String getUsername() {
+    private static String getUsername() {
         return sSharedPreferences.getString("username", null);
     }
 
@@ -190,11 +196,11 @@ public class UserUtil {
         }
     }
 
-    static String getLoveId() {
+    private static String getLoveId() {
         return sSharedPreferences.getString("loveid", null);
     }
 
-    static void setGroup(String group) {
+    private static void setGroup(String group) {
         if (group != null && !group.equals(sUser.getGroup())) {
             sUser.setGroup(group);
             sEditor.putString("group", group);
@@ -202,11 +208,23 @@ public class UserUtil {
         }
     }
 
-    static String getGroup() {
+    private static String getGroup() {
         return sSharedPreferences.getString("group", null);
     }
 
-    static void setSchool(String school) {
+    private static void setSex(String sex) {
+        if (sex != null && !sex.equals(sUser.getSex())) {
+            sUser.setSex(sex);
+            sEditor.putString("sex", sex);
+            sEditor.apply();
+        }
+    }
+
+    private static String getSex() {
+        return sSharedPreferences.getString("sex", null);
+    }
+
+    private static void setSchool(String school) {
         if (school != null && !school.equals(sUser.getSchool())) {
             sUser.setSchool(school);
             sEditor.putString("school", school);
@@ -214,11 +232,11 @@ public class UserUtil {
         }
     }
 
-    static String getSchool() {
+    private static String getSchool() {
         return sSharedPreferences.getString("school", null);
     }
 
-    static void setAge(String age) {
+    private static void setAge(String age) {
         if (age != null && !age.equals(sUser.getAge())) {
             sUser.setHobby(age);
             sEditor.putString("age", age);
@@ -226,11 +244,23 @@ public class UserUtil {
         }
     }
 
-    static String getAge() {
+    private static String getAge() {
         return sSharedPreferences.getString("age", null);
     }
 
-    static void setCharacter(String character) {
+    private static void setHeight(String height) {
+        if (height != null && !height.equals(sUser.getHeight())) {
+            sUser.setHeight(height);
+            sEditor.putString("height", height);
+            sEditor.apply();
+        }
+    }
+
+    private static String getHeight() {
+        return sSharedPreferences.getString("height", null);
+    }
+
+    private static void setCharacter(String character) {
         if (character != null && !character.equals(sUser.getCharacter())) {
             sUser.setCharacter(character);
             sEditor.putString("character", character);
@@ -238,11 +268,23 @@ public class UserUtil {
         }
     }
 
-    static String getCharacter() {
+    private static String getCharacter() {
         return sSharedPreferences.getString("character", null);
     }
 
-    static void setHobby(String hobby) {
+    private static void setConstellation(String constellation) {
+        if (constellation != null && !constellation.equals(sUser.getConstellation())) {
+            sUser.setConstellation(constellation);
+            sEditor.putString("constellation", constellation);
+            sEditor.apply();
+        }
+    }
+
+    private static String getConstellation() {
+        return sSharedPreferences.getString("constellation", null);
+    }
+
+    private static void setHobby(String hobby) {
         if (hobby != null && !hobby.equals(sUser.getHobby())) {
             sUser.setHobby(hobby);
             sEditor.putString("hobby", hobby);
@@ -250,11 +292,11 @@ public class UserUtil {
         }
     }
 
-    static String getHobby() {
+    private static String getHobby() {
         return sSharedPreferences.getString("hobby", null);
     }
 
-    static void setAvatar(Avatar avatar) {
+    private static void setAvatar(Avatar avatar) {
         if (avatar != null && !avatar.equals(sUser.getAvatar())) {
             sEditor.putString("normal_face", avatar.getNormal().getFace());
             sEditor.putString("normal_background", avatar.getNormal().getBackground());
@@ -264,12 +306,12 @@ public class UserUtil {
         }
     }
 
-    static Avatar getAvatar() {
+    private static Avatar getAvatar() {
         return new Avatar(new Normal(sSharedPreferences.getString("normal_face", null), sSharedPreferences.getString("normal_background", null)),
                 new Thumb(sSharedPreferences.getString("thumb_face", null), sSharedPreferences.getString("thumb_background", null)));
     }
 
-    static void setProfile(String profile) {
+    private static void setProfile(String profile) {
         if (profile != null && !profile.equals(sUser.getProfile())) {
             sUser.setProfile(profile);
             sEditor.putString("profile", profile);
@@ -277,11 +319,11 @@ public class UserUtil {
         }
     }
 
-    static String getProfile() {
+    private static String getProfile() {
         return sSharedPreferences.getString("profile", null);
     }
 
-    static void setGiftTickets(String giftTickets) {
+    private static void setGiftTickets(String giftTickets) {
         if (giftTickets != null && !giftTickets.equals(sUser.getGiftTickets())) {
             sUser.setGiftTickets(giftTickets);
             sEditor.putString("gifttickets", giftTickets);
@@ -289,11 +331,11 @@ public class UserUtil {
         }
     }
 
-    static String getGiftTickets() {
+    private static String getGiftTickets() {
         return sSharedPreferences.getString("gifttickets", null);
     }
 
-    static void setFateSwitch(String fateSwitch) {
+    private static void setFateSwitch(String fateSwitch) {
         if (fateSwitch != null && !fateSwitch.equals(sUser.getFateSwitch())) {
             sUser.setFateSwitch(fateSwitch);
             sEditor.putString("fateswitch", fateSwitch);
@@ -301,11 +343,11 @@ public class UserUtil {
         }
     }
 
-    static String getFateSwitch() {
+    private static String getFateSwitch() {
         return sSharedPreferences.getString("fateswitch", null);
     }
 
-    static void setImgWall(ImgWall imgWall) {
+    private static void setImgWall(ImgWall imgWall) {
         if (imgWall != null && !imgWall.equals(sUser.getImgWall())) {
             clearImgWall();
             sEditor.putInt("rows", imgWall.getRows());
@@ -316,7 +358,7 @@ public class UserUtil {
         }
     }
 
-    static ImgWall getImgWall() {
+    private static ImgWall getImgWall() {
         int rows = sSharedPreferences.getInt("rows", 0);
         List<String> urls = new ArrayList<>();
         for (int i = 0; i < rows; i++) {
@@ -325,7 +367,7 @@ public class UserUtil {
         return new ImgWall(rows, urls);
     }
 
-    static void clearImgWall() {
+    private static void clearImgWall() {
         int rows = sSharedPreferences.getInt("rows", 0);
         if (rows != 0) {
             for (int i = 0; i < rows; i++) {

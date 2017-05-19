@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.RegionModel;
@@ -26,6 +25,7 @@ import com.aiyaschool.aiya.me.mvpPersonData.PersonDataContract;
 import com.aiyaschool.aiya.me.mvpPersonData.PersonDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
 import com.aiyaschool.aiya.me.view.RoundImageView;
+import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
 
@@ -137,8 +137,8 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         }
 
         //从MyApplication 中读取数据
-        if (MyApplication.getUser() != null) {
-            User user = MyApplication.getUser();
+        if (UserUtil.getUser() != null) {
+            User user = UserUtil.getUser();
             if (!TextUtils.isEmpty(user.getUsername())) {
                 mTvName.setText(user.getUsername());
             }

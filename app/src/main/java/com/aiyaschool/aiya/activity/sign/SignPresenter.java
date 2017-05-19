@@ -12,7 +12,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -66,19 +65,34 @@ class SignPresenter implements SignContract.Presenter {
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .unsubscribeOn(Schedulers.io())
-                                .subscribe(new Consumer<HttpResult<User>>() {
+                                .subscribe(new Observer<HttpResult<User>>() {
                                     @Override
-                                    public void accept(@NonNull HttpResult<User> httpResult) throws Exception {
-                                        Log.i(TAG, "accept: token " + httpResult);
-                                        switch (httpResult.getState()) {
+                                    public void onSubscribe(@NonNull Disposable d) {
+                                        Log.i(TAG, "onSubscribe: sign up");
+                                    }
+
+                                    @Override
+                                    public void onNext(@NonNull HttpResult<User> userHttpResult) {
+                                        Log.i(TAG, "onNext: sign up " + userHttpResult);
+                                        switch (userHttpResult.getState()) {
                                             case "2000":
-                                                MyApplication.setUser(httpResult.getData());
+                                                MyApplication.setUser(userHttpResult.getData());
                                                 mView.startFormView();
                                                 break;
                                             case "5044":
                                                 ToastUtil.show("你的网络好像开小差了");
                                                 break;
                                         }
+                                    }
+
+                                    @Override
+                                    public void onError(@NonNull Throwable e) {
+                                        Log.i(TAG, "onError: sign up");
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+                                        Log.i(TAG, "onComplete: sign up");
                                     }
                                 });
                         break;

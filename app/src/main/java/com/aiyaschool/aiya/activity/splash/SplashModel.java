@@ -19,7 +19,7 @@ class SplashModel implements SplashContract.Model {
     @Override
     public void init(String phone, String loginToken, Observer<HttpResult<User>> observer) {
         APIUtil.getInitApi()
-                .loadUser(phone, loginToken)
+                .loadUser(phone, loginToken, null)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

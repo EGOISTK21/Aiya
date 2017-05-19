@@ -1,5 +1,9 @@
 package com.aiyaschool.aiya.util;
 
+import android.content.Context;
+import android.content.Intent;
+
+import com.aiyaschool.aiya.activity.sign.SignActivity;
 import com.aiyaschool.aiya.bean.User;
 
 import java.util.regex.Pattern;
@@ -29,9 +33,9 @@ public class SignUtil {
         UserUtil.setUser(user);
     }
 
-    public static User getUser() {
-        return UserUtil.getUser();
-    }
+//    public static User getUser() {
+//        return UserUtil.getUser();
+//    }
 
     public static void setPhone(String phone) {
         if (isValidPhone(phone)) {
@@ -40,11 +44,11 @@ public class SignUtil {
     }
 
     public static String getPhone() {
-        return UserUtil.getPhone();
+        return UserUtil.getUser().getPhone();
     }
 
     public static String getLoginToken() {
-        return UserUtil.getLoginToken();
+        return UserUtil.getUser().getLoginToken();
     }
 
     public static void clearLoginToken() {
@@ -57,6 +61,12 @@ public class SignUtil {
 
     public static void removeAccessToken() {
         APIUtil.removeAccessToken();
+    }
+
+    public static void signOut(Context context) {
+        SignUtil.clearLoginToken();
+        SignUtil.removeAccessToken();
+        context.startActivity(new Intent(context, SignActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
 }

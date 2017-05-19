@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.base.NoScrollViewPager;
@@ -19,7 +18,9 @@ import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
 import com.aiyaschool.aiya.message.MsgListFragment;
+import com.aiyaschool.aiya.util.RefreshTokenService;
 import com.aiyaschool.aiya.util.SignUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 
 /**
  * 主体为NoScrollViewPager+BottomNavigationView的主界面
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
+        startService(new Intent(this, RefreshTokenService.class));
         SignUtil.addAccessToken();
         return R.layout.activity_main;
     }
@@ -48,7 +50,7 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         final Fragment[] fragments = new Fragment[]{
                 /*new CommunityFragment(),*/
-                MyApplication.getUser().isMatched()
+                UserUtil.getUser().isMatched()
                         ? MatchedContainerFragment.newInstance()
                         : UnmatchedContainerFragment.newInstance(),
                 new MsgListFragment(),
@@ -60,9 +62,9 @@ public class MainActivity extends BaseActivity {
             @Override
             public int getItemPosition(Object object) {
                 if (((/*object instanceof || */object instanceof UnmatchedContainerFragment)
-                        && MyApplication.getUser().isMatched())
+                        && UserUtil.getUser().isMatched())
                         || ((/*object instanceof || */object instanceof MatchedContainerFragment)
-                        && !MyApplication.getUser().isMatched())) {
+                        && !UserUtil.getUser().isMatched())) {
                     return POSITION_NONE;
                 }
                 if (isMeChanged && object instanceof MeFragment) {
@@ -76,7 +78,7 @@ public class MainActivity extends BaseActivity {
             public Object instantiateItem(ViewGroup container, int position) {
                 Fragment fragment = (Fragment) super.instantiateItem(container, position);
                 String fragmentTag = fragment.getTag();
-                if (MyApplication.getUser().isMatched()) {
+                if (UserUtil.getUser().isMatched()) {
                     if (fragment instanceof UnmatchedContainerFragment) {
                         Log.i(TAG, "instantiateItem: " + fragmentTag);
                         FragmentTransaction ft = fm.beginTransaction();

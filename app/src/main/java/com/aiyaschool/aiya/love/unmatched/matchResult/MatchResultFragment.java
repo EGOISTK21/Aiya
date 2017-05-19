@@ -10,7 +10,10 @@ import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.otherDetail.OtherDetailActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.util.GlideRoundTransform;
 import com.aiyaschool.aiya.util.ToastUtil;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -61,8 +64,8 @@ public class MatchResultFragment extends BaseFragment
         initIvAvatar();
         if (mResult != null && mCount < mResult.size()) {
             current = mResult.get(mCount++);
-            //ivAvatar.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher, new BitmapFactory.Options()));
-            //ivAvatar.setImageBitmap(Bitmap.createBitmap(current.getAvatar().getNormal()));
+            Glide.with(this).load(current.getAvatar().getNormal().getFace()).centerCrop()
+                    .transform(new GlideRoundTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivAvatar);
             tvUsername.setText(current.getUsername());
             tvSchool.setText(current.getSchool());
         }
@@ -97,10 +100,10 @@ public class MatchResultFragment extends BaseFragment
     @OnClick(value = R.id.btn_have_a_change)
     void haveAChange() {
         if (mResult != null && mCount < mResult.size()) {
-            ToastUtil.cancle();
+            ToastUtil.cancel();
             current = mResult.get(mCount++);
-            //ivAvatar.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher, new BitmapFactory.Options()));
-            //ivAvatar.setImageBitmap(Bitmap.createBitmap(current.getAvatar().getNormal()));
+            Glide.with(this).load(current.getAvatar().getNormal().getFace()).centerCrop()
+                    .transform(new GlideRoundTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivAvatar);
             tvUsername.setText(current.getUsername());
             tvSchool.setText(current.getSchool());
         } else {

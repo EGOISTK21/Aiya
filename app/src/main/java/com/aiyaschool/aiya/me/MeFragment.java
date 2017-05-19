@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.activity.JifenAndGiftActivity;
@@ -25,6 +24,7 @@ import com.aiyaschool.aiya.me.activity.PersonalDataActivity;
 import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity2;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.me.view.RoundImageView;
+import com.aiyaschool.aiya.util.UserUtil;
 import com.squareup.picasso.Picasso;
 
 import org.litepal.crud.DataSupport;
@@ -163,8 +163,8 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
          */
 
         //从MyApplication 中读取数据
-        if (MyApplication.getUser() != null) {
-            User user = MyApplication.getUser();
+        if (UserUtil.getUser() != null) {
+            User user = UserUtil.getUser();
             if (!TextUtils.isEmpty(user.getUsername())) {
                 mTvMyName.setText(user.getUsername());
             }

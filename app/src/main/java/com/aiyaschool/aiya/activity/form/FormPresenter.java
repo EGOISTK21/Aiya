@@ -5,6 +5,7 @@ import android.util.Log;
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.util.UserUtil;
 
 import java.io.File;
 
@@ -64,7 +65,7 @@ class FormPresenter implements FormContract.Presenter {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: ");
-                        mView.signUp(MyApplication.getUser().getUpLoad().getImgname());
+                        mView.signUp(UserUtil.getUser().getUpLoad().getImgname());
                     }
                 });
     }

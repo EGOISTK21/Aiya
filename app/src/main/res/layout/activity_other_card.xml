@@ -33,11 +33,11 @@
 
             <com.aiyaschool.aiya.widget.CircleImageView
                 android:id="@+id/iv_other_avatar"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/common_margin_20"
                 android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="@dimen/common_margin_25"
                 app:border_color="@color/colorPrimary"
                 app:border_width="0.5dp"/>
 

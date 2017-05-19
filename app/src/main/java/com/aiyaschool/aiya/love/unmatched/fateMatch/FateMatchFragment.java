@@ -8,6 +8,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
@@ -15,8 +16,11 @@ import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.love.unmatched.HitItOffActivity;
+import com.aiyaschool.aiya.util.ToastUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 
 import butterknife.BindView;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
@@ -27,8 +31,8 @@ public class FateMatchFragment extends BaseFragment implements FateMatchContract
 
     private FateMatchContract.Presenter mPresenter;
     private FragmentManager fm;
-    @BindView(R.id.switch_random)
-    SwitchCompat swRandom;
+    @BindView(R.id.switch_fate)
+    SwitchCompat swFate;
 
     public static FateMatchFragment newInstance() {
         return new FateMatchFragment();
@@ -43,11 +47,16 @@ public class FateMatchFragment extends BaseFragment implements FateMatchContract
     protected void initView() {
         fm = getFragmentManager();
         mPresenter = new FateMatchPresenter(this);
-        mPresenter.initCanRandom();
+        mPresenter.initFateSwitch();
         Spannable spannable = new SpannableString("发起后将立即与一名异性随缘成为七天情侣");
         spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),
                 R.color.colorPrimaryDark)), 4, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ((TextView) rootView.findViewById(R.id.tv_love_match_at_random_warn)).setText(spannable);
+    }
+
+    @OnCheckedChanged(value = R.id.switch_fate)
+    void changeFate(CompoundButton compoundButton) {
+        mPresenter.commitFateSwitch(compoundButton.isChecked());
     }
 
     @Override
@@ -63,12 +72,16 @@ public class FateMatchFragment extends BaseFragment implements FateMatchContract
 
     @OnClick(value = R.id.btn_start_fate_match)
     void startFateMatch() {
-        mPresenter.startFateMatch();
+        if ("1".equals(UserUtil.getUser().getSex()) && "1".equals(UserUtil.getUser().getGroup())) {
+            ToastUtil.show("男性用户只有开通会员才能主动发起随缘匹配");
+        } else {
+            mPresenter.startFateMatch();
+        }
     }
 
     @Override
-    public void setCanRandom(boolean canRandom) {
-        swRandom.setChecked(canRandom);
+    public void setFateSwitch(boolean isFated) {
+        swFate.setChecked(isFated);
     }
 
     @Override

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.sign.SignActivity;
 import com.aiyaschool.aiya.bean.HttpResult;
@@ -55,13 +54,13 @@ public class MoreSettingActivity extends RxAppCompatActivity {
 
     @OnClick(value = R.id.btn_print)
     void print() {
-        tv.setText(MyApplication.getUser().toString());
+        tv.setText(UserUtil.getUser().toString());
     }
 
     @OnClick(value = R.id.btn_destroy_love)
     void destroyLove() {
         APIUtil.getDestroyLoveApi()
-                .destroyLove(MyApplication.getUser().getLoveId())
+                .destroyLove(UserUtil.getUser().getLoveId())
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

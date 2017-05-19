@@ -133,10 +133,11 @@ public class ConditionMatchFragment extends BaseFragment
         spannable.setSpan(new RelativeSizeSpan(p), 1, 2, Spanned.SPAN_POINT_MARK);
         spannable.setSpan(new TextViewGravitySpan(getContext(), 23), 1, 2, Spanned.SPAN_POINT_MARK);
         ((TextView) rootView.findViewById(R.id.tv_constellation_price)).setText(spannable);
-        initListener();
+        p.recycle();
+        initSwitchesListener();
     }
 
-    private void initListener() {
+    private void initSwitchesListener() {
         for (SwitchCompat s : switches) {
             s.setOnCheckedChangeListener(this);
         }
@@ -176,7 +177,7 @@ public class ConditionMatchFragment extends BaseFragment
                             if (switches[0].isClickable()) {
                                 switches[0].setChecked(true);
                             } else {
-                                ToastUtil.show("最多只能选7❤️哦");
+                                ToastUtil.show("最多只能选7❤哦");
                             }
                             dialog.dismiss();
                         }
@@ -205,7 +206,7 @@ public class ConditionMatchFragment extends BaseFragment
                             if (switches[1].isClickable()) {
                                 switches[1].setChecked(true);
                             } else {
-                                ToastUtil.show("最多只能选7❤️哦");
+                                ToastUtil.show("最多只能选7❤哦");
                             }
                             dialog.dismiss();
                         }
@@ -234,7 +235,7 @@ public class ConditionMatchFragment extends BaseFragment
                             if (switches[2].isClickable()) {
                                 switches[2].setChecked(true);
                             } else {
-                                ToastUtil.show("最多只能选7❤️哦");
+                                ToastUtil.show("最多只能选7❤哦");
                             }
                             dialog.dismiss();
                         }
@@ -263,7 +264,7 @@ public class ConditionMatchFragment extends BaseFragment
                             if (switches[3].isClickable()) {
                                 switches[3].setChecked(true);
                             } else {
-                                ToastUtil.show("最多只能选7❤️哦");
+                                ToastUtil.show("最多只能选7❤哦");
                             }
                             dialog.dismiss();
                         }
@@ -292,7 +293,7 @@ public class ConditionMatchFragment extends BaseFragment
                             if (switches[4].isClickable()) {
                                 switches[4].setChecked(true);
                             } else {
-                                ToastUtil.show("最多只能选7❤️哦");
+                                ToastUtil.show("最多只能选7❤哦");
                             }
                             dialog.dismiss();
                         }
@@ -428,7 +429,7 @@ public class ConditionMatchFragment extends BaseFragment
     public void updateSwitchesStatus(boolean isChecked, int index) {
         sum += isChecked ? (sum + prices[index] > 7 ? 0 : prices[index]) : -prices[index];
         if (sum == 7) {
-            ToastUtil.show("你已经选满7❤了️");
+            ToastUtil.show("你已经选满7❤了");
         }
         updateImageViewStatus(isChecked, index);
         if (sum > 4) {

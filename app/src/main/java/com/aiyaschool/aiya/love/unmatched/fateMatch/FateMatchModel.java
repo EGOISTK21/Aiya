@@ -17,12 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 class FateMatchModel implements FateMatchContract.Model {
 
     @Override
-    public boolean getCanRandom() {
-        return true;
-    }
-
-    @Override
-    public void commitCanRandom(String canRandom, Observer<HttpResult> observer) {
+    public void commitFateSwitch(String canRandom, Observer<HttpResult> observer) {
         APIUtil.getFateSwitchApi()
                 .setFateSwitch(canRandom)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)

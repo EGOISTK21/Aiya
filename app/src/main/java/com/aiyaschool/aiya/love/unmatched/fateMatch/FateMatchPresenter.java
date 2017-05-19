@@ -38,35 +38,35 @@ class FateMatchPresenter implements FateMatchContract.Presenter {
     }
 
     @Override
-    public void initCanRandom() {
-
+    public void initFateSwitch() {
+        mView.setFateSwitch(UserUtil.getUser().isFated());
     }
 
     @Override
-    public void commitCanRandom(final boolean canRandom) {
-        mModel.commitCanRandom(String.valueOf(canRandom), new Observer<HttpResult>() {
+    public void commitFateSwitch(final boolean isFated) {
+        mModel.commitFateSwitch(String.valueOf(isFated), new Observer<HttpResult>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
-                Log.i(TAG, "onSubscribe: commitCanRandom");
+                Log.i(TAG, "onSubscribe: commitFateSwitch");
             }
 
             @Override
             public void onNext(@NonNull HttpResult httpResult) {
-                Log.i(TAG, "onNext: commitCanRandom " + httpResult);
+                Log.i(TAG, "onNext: commitFateSwitch " + httpResult);
                 if (!"2000".equals(httpResult.getState())) {
-                    mView.setCanRandom(!canRandom);
+                    mView.setFateSwitch(!isFated);
                     ToastUtil.show("网络错误，请稍后重试");
                 }
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.i(TAG, "onError: commitCanRandom");
+                Log.i(TAG, "onError: commitFateSwitch");
             }
 
             @Override
             public void onComplete() {
-                Log.i(TAG, "onComplete: commitCanRandom");
+                Log.i(TAG, "onComplete: commitFateSwitch");
             }
         });
     }

@@ -11,16 +11,14 @@ import io.reactivex.Observer;
 
 interface FateMatchContract {
     interface Model {
-        boolean getCanRandom();
-
-        void commitCanRandom(String canRandom, Observer<HttpResult> observer);
+        void commitFateSwitch(String isFated, Observer<HttpResult> observer);
 
         void startFateMatch(Observer<HttpResult<User>> observer);
     }
 
 
     interface View {
-        void setCanRandom(boolean canRandom);
+        void setFateSwitch(boolean isFated);
 
         void fate(User user);
     }
@@ -30,9 +28,9 @@ interface FateMatchContract {
 
         void detachView();
 
-        void initCanRandom();
+        void initFateSwitch();
 
-        void commitCanRandom(boolean canRandom);
+        void commitFateSwitch(boolean isFated);
 
         void startFateMatch();
     }
