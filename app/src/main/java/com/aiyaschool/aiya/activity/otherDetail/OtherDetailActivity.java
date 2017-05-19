@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.activity.OtherDetail;
+package com.aiyaschool.aiya.activity.otherDetail;
 
 import android.os.Bundle;
 import android.util.Log;

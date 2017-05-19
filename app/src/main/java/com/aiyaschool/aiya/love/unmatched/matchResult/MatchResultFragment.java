@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.OtherDetail.OtherDetailActivity;
+import com.aiyaschool.aiya.activity.otherDetail.OtherDetailActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.ToastUtil;
