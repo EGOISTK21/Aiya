@@ -49,6 +49,8 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     private ImageView imageView1, imageView2;
     private ImageView mMember_icon;
 
+    private static final int REQUEST_DATA = 101;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -217,7 +219,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
             case R.id.tv_sign_name:
 //                intent.setClass(mContext, PhotoAlbumActivity.class)
                 intent = new Intent(getActivity(), PersonalDataActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_DATA);
                 break;
             case R.id.tv_Jifen:
             case R.id.tv_gift:
@@ -253,7 +255,8 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                 break;
             case R.id.more_setting:
                 intent = new Intent(getActivity(), MoreSettingActivity.class);
-                startActivityForResult(intent, DESTROY_LOVE);
+//                startActivityForResult(intent, DESTROY_LOVE);
+                startActivity(intent);
                 break;
 
         }

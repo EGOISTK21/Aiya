@@ -101,6 +101,7 @@ class FormPresenter implements FormContract.Presenter {
                         mView.dismissPD();
                         switch (httpResult.getState()) {
                             case "2000":
+                                Log.d(TAG, "onNext: " + httpResult.getData());
                                 MyApplication.setUser(httpResult.getData());
                                 mView.startMainView();
                                 break;

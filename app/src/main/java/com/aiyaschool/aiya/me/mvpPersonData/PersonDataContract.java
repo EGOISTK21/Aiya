@@ -17,7 +17,7 @@ public interface PersonDataContract {
     interface Model {
         void loadSchoolData(String hometown, Observer<HttpResult<List<String>>> observer);
 
-        void updateUserData(String height, Observer<HttpResult> observer);
+        void updateUserHeight(String height, Observer<HttpResult> observer);
 
     }
 
@@ -32,7 +32,7 @@ public interface PersonDataContract {
 
         void loadSchoolData(String hometown);
 
-        void updateUserData(String height);
+        void updateUserHeight(String height);
 
 
         void detach();

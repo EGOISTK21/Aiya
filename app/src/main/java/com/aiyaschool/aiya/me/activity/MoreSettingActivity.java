@@ -60,36 +60,6 @@ public class MoreSettingActivity extends RxAppCompatActivity {
 
     @OnClick(value = R.id.btn_destroy_love)
     void destroyLove() {
-        APIUtil.getDestroyLoveApi()
-                .destroyLove(MyApplication.getUser().getLoveId())
-                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-                .subscribe(new Observer<HttpResult>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        Log.i(TAG, "onSubscribe: destroyLove");
-                    }
 
-                    @Override
-                    public void onNext(@NonNull HttpResult httpResult) {
-                        Log.i(TAG, "onNext: destroyLove " + httpResult);
-                        if ("2000".equals(httpResult.getState())) {
-                            UserUtil.setLoveId("0");
-                            setResult(RESULT_OK, new Intent().putExtra("flag", "destroyLove"));
-                        }
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.i(TAG, "onError: destroyLove");
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.i(TAG, "onComplete: destroyLove");
-                    }
-                });
     }
 }

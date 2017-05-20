@@ -47,11 +47,6 @@
         <item name="tabMode">scrollable</item>
     </style>
 
-    <style name="MyEditText" parent="Theme.AppCompat.Light">
-        <item name="colorControlNormal">@color/colorContentSecondary</item>
-        <item name="colorControlActivated">@color/colorContentSecondary</item>
-    </style>
-
     <!-- 显示圆角头像 -->
     <style name="RoundAngle_style">
         <item name="android:src">@mipmap/icon_moren</item>
@@ -444,4 +439,10 @@
         <item name="android:textColorHint">@color/edit_hint_text</item>
         <item name="android:textSize">@dimen/text_nomal</item>
     </style>
+
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>

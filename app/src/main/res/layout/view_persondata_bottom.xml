@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:text="家乡"
+            android:text="性格"
             android:textSize="16dp"
             android:textColor="@color/colorName"/>
 
@@ -115,7 +115,7 @@
             android:id="@+id/tv_hometown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="陕西-西安-雁塔区"
+            android:text="安静"
             android:textSize="16dp"
             android:textColor="@color/colorName"
             android:layout_alignBaseline="@+id/tvv_hometown"
