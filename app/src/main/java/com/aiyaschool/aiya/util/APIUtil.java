@@ -8,6 +8,7 @@ import com.aiyaschool.aiya.bean.User;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -23,6 +24,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -237,6 +239,13 @@ public class APIUtil {
         Observable<HttpResult> startUpdateUser(@Field("height") String height);
     }
 
+    //更新用户信息
+    public interface UpdateUserDataApi {
+        @POST("Me/PUT/userinfo")
+        @FormUrlEncoded
+        Observable<HttpResult> startUpdateUserData(@FieldMap Map<String, String> map);
+    }
+
     public interface FateMatchApi {
         @POST("Love/GET/fateMatching")
         Observable<HttpResult<User>> startFateMatch();
@@ -352,6 +361,10 @@ public class APIUtil {
 
     public static DestroyLoveApi getDestroyLoveApi() {
         return sRetrofit.create(DestroyLoveApi.class);
+    }
+
+    public static UpdateUserDataApi getUpdateUserDataApi() {
+        return sRetrofit.create(UpdateUserDataApi.class);
     }
 
     public static GetGuestRecordApi getGuestRecordApi() {

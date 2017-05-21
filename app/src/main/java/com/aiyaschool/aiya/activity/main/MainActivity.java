@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -177,7 +178,10 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i(TAG, "onActivityResult: " + requestCode + " " + resultCode + " " + data.getDataString());
+        if (data != null) {
+            Log.i(TAG, "onActivityResult: " + requestCode + " " + resultCode + " " + data.getDataString());
+        }
+
         if (resultCode == RESULT_OK) {
             String s = data.getStringExtra("flag");
             switch (s) {

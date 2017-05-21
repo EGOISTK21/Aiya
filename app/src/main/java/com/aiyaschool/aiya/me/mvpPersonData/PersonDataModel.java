@@ -31,7 +31,7 @@ public class PersonDataModel implements PersonDataContract.Model {
     }
 
     @Override
-    public void updateUserData(String height, Observer<HttpResult> observer) {
+    public void updateUserHeight(String height, Observer<HttpResult> observer) {
         APIUtil.getUpdateUserApi()
                 .startUpdateUser(height)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)

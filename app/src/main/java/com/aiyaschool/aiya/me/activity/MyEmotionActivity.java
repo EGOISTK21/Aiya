@@ -1,5 +1,6 @@
 package com.aiyaschool.aiya.me.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -13,13 +14,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
+import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.me.mvpEmotionRecord.EmotionRecordContract;
 import com.aiyaschool.aiya.me.mvpEmotionRecord.EmotionRecordPresenter;
 import com.aiyaschool.aiya.me.view.RoundImageView;
+import com.aiyaschool.aiya.util.APIUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MyEmotionActivity extends AppCompatActivity implements EmotionRecordContract.View {
 
@@ -125,7 +137,7 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
         class EmotionViewHolder extends RecyclerView.ViewHolder{
 
             private RoundImageView mRivPhoto;
-            private TextView mTvName, mTvSchool, mStartTime, mEndTime, mIntimacy;
+            private TextView mTvName, mTvSchool, mStartTime, mEndTime, mIntimacy, mDestroyLove;
 
             public EmotionViewHolder(View itemView, int viewType) {
                 super(itemView);
@@ -136,6 +148,43 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
                 switch (viewType) {
                     case TOP:
                         mIntimacy = (TextView) itemView.findViewById(R.id.intimacy);
+                        mDestroyLove = (TextView) itemView.findViewById(R.id.tv_destroy_love);
+                        mDestroyLove.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                APIUtil.getDestroyLoveApi()
+                                        .destroyLove(MyApplication.getUser().getLoveId())
+                                        .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .unsubscribeOn(Schedulers.io())
+                                        .subscribe(new Observer<HttpResult>() {
+                                            @Override
+                                            public void onSubscribe(@NonNull Disposable d) {
+                                                Log.i(TAG, "onSubscribe: destroyLove");
+                                            }
+
+                                            @Override
+                                            public void onNext(@NonNull HttpResult httpResult) {
+                                                Log.i(TAG, "onNext: destroyLove " + httpResult);
+                                                if ("2000".equals(httpResult.getState())) {
+                                                    UserUtil.setLoveId("0");
+                                                    setResult(RESULT_OK, new Intent().putExtra("flag", "destroyLove"));
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onError(@NonNull Throwable e) {
+                                                Log.i(TAG, "onError: destroyLove");
+                                            }
+
+                                            @Override
+                                            public void onComplete() {
+                                                Log.i(TAG, "onComplete: destroyLove");
+                                            }
+                                        });
+                            }
+                        });
                         break;
                     case NORMAL:
                         mEndTime = (TextView) itemView.findViewById(R.id.end_time);

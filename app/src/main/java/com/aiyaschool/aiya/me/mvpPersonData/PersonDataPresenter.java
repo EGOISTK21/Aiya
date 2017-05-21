@@ -67,8 +67,8 @@ public class PersonDataPresenter implements PersonDataContract.Presenter {
     }
 
     @Override
-    public void updateUserData(final String height) {
-        mModel.updateUserData(height, new Observer<HttpResult>() {
+    public void updateUserHeight(final String height) {
+        mModel.updateUserHeight(height, new Observer<HttpResult>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 System.out.println("PersonDataPresenter OnSubscribe");
