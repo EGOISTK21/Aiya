@@ -85,6 +85,7 @@ class FateMatchPresenter implements FateMatchContract.Presenter {
                 if ("2000".equals(userHttpResult.getState())) {
                     User user = userHttpResult.getData();
                     UserUtil.setLoveId(user.getLoveId());
+                    UserUtil.setTa(user);
                     mView.fate(user);
                 }
             }

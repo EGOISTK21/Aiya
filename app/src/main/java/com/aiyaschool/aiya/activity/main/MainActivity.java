@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -45,6 +44,12 @@ public class MainActivity extends BaseActivity {
         startService(new Intent(this, RefreshTokenService.class));
         SignUtil.addAccessToken();
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopService(new Intent(this, RefreshTokenService.class));
+        super.onDestroy();
     }
 
     @Override

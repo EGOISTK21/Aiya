@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.otherDetail.OtherDetailActivity;
@@ -13,18 +12,21 @@ import com.aiyaschool.aiya.base.NestFullListView;
 import com.aiyaschool.aiya.base.NestFullListViewAdapter;
 import com.aiyaschool.aiya.base.NestFullViewHolder;
 import com.aiyaschool.aiya.love.matched.main.Mission;
+import com.aiyaschool.aiya.me.activity.PersonalDataActivity;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.OnClick;
+
+import static com.aiyaschool.aiya.activity.main.MainActivity.DESTROY_LOVE;
 
 
 /**
  * Created by EGOISTK21 on 2017/3/21.
  */
 
-public class MatchedTodayFragment extends BaseFragment implements ILoveMatchedTodayView {
+public class MatchedTodayFragment extends BaseFragment {
 
-    private ImageView ivLeft, ivRight;
     private NestFullListView nflvTodayMission, nflvInviteMission;
     private List<Mission> mMissions;
     private FragmentManager fm;
@@ -37,14 +39,9 @@ public class MatchedTodayFragment extends BaseFragment implements ILoveMatchedTo
 
     @Override
     protected void initView() {
-        initData();
         fm = getParentFragment().getFragmentManager();
         ft = fm.beginTransaction();
         rootView.findViewById(R.id.ll_intimacy).setOnClickListener(this);
-        ivLeft = (ImageView) rootView.findViewById(R.id.iv_matched_left);
-        ivRight = (ImageView) rootView.findViewById(R.id.iv_matched_right);
-        ivLeft.setOnClickListener(this);
-        ivRight.setOnClickListener(this);
         nflvTodayMission = ((NestFullListView) rootView.findViewById(R.id.lv_love_matched_today_love_mission));
         nflvTodayMission.setAdapter(new NestFullListViewAdapter<Mission>(R.layout.listview_love_mission, mMissions) {
             @Override
@@ -73,24 +70,20 @@ public class MatchedTodayFragment extends BaseFragment implements ILoveMatchedTo
         });
     }
 
-    private void initData() {
-        mMissions = new ArrayList<>();
-        mMissions.add(new Mission());
-        mMissions.add(new Mission());
-        mMissions.add(new Mission());
-        mMissions.add(new Mission());
+
+    @OnClick(R.id.iv_matched_left)
+    void showTa() {
+        startActivityForResult(new Intent(getContext(), OtherDetailActivity.class), DESTROY_LOVE);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ll_intimacy:
-                startActivity(new Intent(getContext(), IntimacyDetailActivity.class));
-                break;
-            case R.id.iv_matched_left:
-                break;
-            case R.id.iv_matched_right:
-                startActivity(new Intent(getContext(), OtherDetailActivity.class));
-        }
+    @OnClick(R.id.iv_matched_right)
+    void showMe() {
+        startActivity(new Intent(getActivity(), PersonalDataActivity.class));
     }
+
+    @OnClick(R.id.ll_intimacy)
+    void showIntimacy() {
+        startActivity(new Intent(getContext(), IntimacyDetailActivity.class));
+    }
+
 }

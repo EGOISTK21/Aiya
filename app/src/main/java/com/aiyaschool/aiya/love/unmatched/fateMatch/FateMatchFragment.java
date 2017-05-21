@@ -82,6 +82,7 @@ public class FateMatchFragment extends BaseFragment implements FateMatchContract
     @Override
     public void setFateSwitch(boolean isFated) {
         swFate.setChecked(isFated);
+        UserUtil.setFateSwitch(String.valueOf(isFated));
     }
 
     @Override

@@ -21,7 +21,7 @@ public class UserUtil {
 
     private static SharedPreferences sSharedPreferences;
     private static SharedPreferences.Editor sEditor;
-    private static User sUser;
+    private static User sUser, ta;
 
     private UserUtil() {
 
@@ -80,6 +80,16 @@ public class UserUtil {
 
     public static User getUser() {
         return sUser;
+    }
+
+    public static void setTa(User user) {
+        if (user.getUsername() != null) {
+            ta = user;
+        }
+    }
+
+    public static User getTa() {
+        return ta;
     }
 
     public static void setContactShield(boolean contactShield) {
@@ -335,7 +345,7 @@ public class UserUtil {
         return sSharedPreferences.getString("gifttickets", null);
     }
 
-    private static void setFateSwitch(String fateSwitch) {
+    public static void setFateSwitch(String fateSwitch) {
         if (fateSwitch != null && !fateSwitch.equals(sUser.getFateSwitch())) {
             sUser.setFateSwitch(fateSwitch);
             sEditor.putString("fateswitch", fateSwitch);
