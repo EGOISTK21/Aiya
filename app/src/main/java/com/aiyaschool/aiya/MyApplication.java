@@ -2,11 +2,15 @@ package com.aiyaschool.aiya;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
+import com.aiyaschool.aiya.message.LoginBusiness;
+import com.aiyaschool.aiya.message.bean.UserInfo;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.UserUtil;
+import com.tencent.TIMCallBack;
 import com.tencent.TIMManager;
 import com.tencent.TIMOfflinePushListener;
 import com.tencent.TIMOfflinePushNotification;
@@ -32,7 +36,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SMSSDK.initSDK(this, APP_KEY, APP_SECRET);
-        TIMManager.getInstance().init(this);
+
 //        TLSService.getInstance().initTlsSdk(this);
         if (MsfSdkUtils.isMainProcess(this)) {
             Log.d("MyApplication", "main process");
@@ -44,6 +48,29 @@ public class MyApplication extends Application {
                 }
             });
         }
+        TIMManager.getInstance().init(this);
+
+        LoginBusiness.loginIm(UserInfo.getInstance().getId(), UserInfo.getInstance().getUserSig(), new TIMCallBack() {
+            @Override
+            public void onError(int i, String s) {
+                Toast.makeText(MyApplication.this, getString(R.string.login_error), Toast.LENGTH_SHORT).show();
+                logout();
+            }
+
+            @Override
+            public void onSuccess() {
+                Toast.makeText(MyApplication.this, getString(R.string.login_succ), Toast.LENGTH_SHORT).show();
+                String deviceMan = android.os.Build.MANUFACTURER;
+                //注册小米和华为推送
+                if (deviceMan.equals("Xiaomi") && shouldMiInit()){
+                    MiPushClient.registerPush(getApplicationContext(), "2882303761517480335", "5411748055335");
+                }else if (deviceMan.equals("HUAWEI")){
+                    PushManager.requestToken(getApplicationContext());
+                }
+                finish();
+            }
+        });
+
         LitePal.initialize(this);
         UserUtil.init(this);
         DBCopyUtil.copyDataBaseFromAssets(this, "edu.db");
