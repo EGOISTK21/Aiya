@@ -113,12 +113,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="亲密度   "
                     android:textColor="#666666"
                     android:textSize="13dp"/>
                 <TextView
+                    android:id="@+id/intimacy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="66"

@@ -83,6 +83,7 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
         mEmotionList = emotionRecordData;
         mEmotionAdapter = new EmotionAdapter();
         mRvEmotion.setAdapter(mEmotionAdapter);
+//        Log.d(TAG, "setEmotionRecordData: "+mEmotionList.);
         Log.d(TAG, "setEmotionRecordData: " + mEmotionList.size());
 
     }
@@ -115,9 +116,11 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
             holder.mTvName.setText(mEmotionList.get(position).getUsername());
             holder.mTvSchool.setText(mEmotionList.get(position).getSchool());
             holder.mStartTime.setText(mEmotionList.get(position).getStarttime());
+            holder.mIntimacy.setText(mEmotionList.get(position).getIntimacy());
             switch (mViewType) {
                 case TOP:
-                    holder.mIntimacy.setText(mEmotionList.get(position).getIntimacy());
+                    //TODO 设置距今多少天
+//                    holder.mTotalDay.setText();
                     break;
                 case NORMAL:
                     holder.mEndTime.setText(mEmotionList.get(position).getEndtime());
@@ -137,7 +140,7 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
         class EmotionViewHolder extends RecyclerView.ViewHolder{
 
             private RoundImageView mRivPhoto;
-            private TextView mTvName, mTvSchool, mStartTime, mEndTime, mIntimacy, mDestroyLove;
+            private TextView mTvName, mTvSchool, mStartTime, mEndTime, mIntimacy, mDestroyLove, mTotalDay;
 
             public EmotionViewHolder(View itemView, int viewType) {
                 super(itemView);
@@ -145,9 +148,10 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
                 mTvName = (TextView) itemView.findViewById(R.id.tv_name);
                 mTvSchool = (TextView) itemView.findViewById(R.id.tv_school);
                 mStartTime = (TextView) itemView.findViewById(R.id.start_time);
+                mIntimacy = (TextView) itemView.findViewById(R.id.intimacy);
                 switch (viewType) {
                     case TOP:
-                        mIntimacy = (TextView) itemView.findViewById(R.id.intimacy);
+                        mTotalDay = (TextView) itemView.findViewById(R.id.tv_total);
                         mDestroyLove = (TextView) itemView.findViewById(R.id.tv_destroy_love);
                         mDestroyLove.setOnClickListener(new View.OnClickListener() {
                             @Override
