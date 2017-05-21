@@ -15,6 +15,7 @@ import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataContract;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataPresenter;
+import com.aiyaschool.aiya.util.UserUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -86,7 +87,7 @@ public class UpdateDataActivity extends AppCompatActivity implements UpdateUserD
                 break;
             case R.id.tv_save:
                 //Todo 保存本地加上传
-                User user = MyApplication.getUser();
+                User user = UserUtil.getUser();
                 String newData = mEtContent.getText().toString();
                 Intent intent = new Intent();
                 switch (flag) {

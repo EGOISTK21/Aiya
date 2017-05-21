@@ -153,7 +153,7 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
                             @Override
                             public void onClick(View v) {
                                 APIUtil.getDestroyLoveApi()
-                                        .destroyLove(MyApplication.getUser().getLoveId())
+                                        .destroyLove(UserUtil.getUser().getLoveId())
                                         .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
