@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.RegionModel;
 import com.aiyaschool.aiya.me.db.RegionDao;
@@ -31,19 +33,27 @@ import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataContract;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
 import com.aiyaschool.aiya.me.view.RoundImageView;
+import com.aiyaschool.aiya.util.APIUtil;
+import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import me.nereo.multi_image_selector.MultiImageSelector;
 
 public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener, PersonDataContract.View, UpdateUserDataContract.View {
@@ -106,7 +116,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.tv_height)
     TextView mTvHeight;
     @BindView(R.id.personal_photo)
-    RoundImageView mRvPersonalPhoto;
+    ImageView mRvPersonalPhoto;
     @BindView(R.id.tv_cancel)
     TextView tvCancel;
     @BindView(R.id.tv_save)
@@ -209,6 +219,14 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             if (!TextUtils.isEmpty(user.getConstellation())) {
                 mTvConstellation.setText(user.getConstellation());
             }
+            if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
+                Glide.with(PersonalDataActivity.this).load(user.getAvatar().getNormal())
+                        .error(R.drawable.guanggao1)
+                        .centerCrop()
+                        .transform(new GlideCircleTransform(PersonalDataActivity.this))
+                        .into(mRvPersonalPhoto);
+            }
+
             System.out.println(user.getUsername());
         }
 
@@ -216,11 +234,12 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         mUpdatePresenter = new UpdateUserDataPresenter(this);
         map = new HashMap<>();
 
-        mPresenter.updateUserHeight("180");
+//        mPresenter.updateUserHeight("180");
 //        mPresenter.getGuestRecord("1","6");
 //        mPresenter.getEmotionRecord("1", "1", "3");
         System.out.println("mSchool" + mSchool + "mProvince" + mProvince);
-
+        String demand = "character,height,age,constellation,hobby";
+        mPresenter.getMeIndex(demand);
     }
 
 
@@ -233,7 +252,6 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 finish();
                 break;
             case R.id.tv_save:
-                //Todo 将个人资料保存sharepreference  并上传到后台
                 mUpdatePresenter.updateUserData(map);
                 Log.d(TAG, "tv_save onClick: age" + user.getAge());
                 MyApplication.setUser(user);
@@ -723,6 +741,34 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                     mTvSchool.setText(sspSchool.getSelectedItem());
                 }
             }
+        }
+    }
+
+    @Override
+    public void showGetMeIndex(User user) {
+//        String demand = "height,age,constellation,hobby";
+        User appUsr = UserUtil.getUser();
+        appUsr.setHeight(user.getHeight());
+        appUsr.setAge(user.getAge());
+        appUsr.setConstellation(user.getConstellation());
+        appUsr.setHobby(user.getHobby());
+        MyApplication.setUser(appUsr);
+        if (!TextUtils.isEmpty(user.getAge())) {
+            mTvDate.setText(user.getAge());
+        }
+
+        if (!TextUtils.isEmpty(user.getHeight())) {
+            mTvHeight.setText(user.getHeight());
+        }
+
+        if (!TextUtils.isEmpty(user.getCharacter())) {
+            mTvHometown.setText(user.getCharacter());
+        }
+        if (!TextUtils.isEmpty(user.getHobby())) {
+            mTvHobby.setText(user.getHobby());
+        }
+        if (!TextUtils.isEmpty(user.getConstellation())) {
+            mTvConstellation.setText(user.getConstellation());
         }
     }
 

@@ -23,4 +23,12 @@ public class MyAvatar {
     public void setThumb(String thumb) {
         this.thumb = thumb;
     }
+
+    @Override
+    public String toString() {
+        return "MyAvatar{" +
+                "normal='" + normal + '\'' +
+                ", thumb='" + thumb + '\'' +
+                '}';
+    }
 }

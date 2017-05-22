@@ -70,4 +70,17 @@ public class EmotionRecordBean {
     public void setIntimacy(String intimacy) {
         this.intimacy = intimacy;
     }
+
+    @Override
+    public String toString() {
+        return "EmotionRecordBean{" +
+                "username='" + username + '\'' +
+                ", avatar=" + avatar.toString() +
+                ", school='" + school + '\'' +
+                ", userid='" + userid + '\'' +
+                ", starttime='" + starttime + '\'' +
+                ", endtime='" + endtime + '\'' +
+                ", intimacy='" + intimacy + '\'' +
+                '}';
+    }
 }

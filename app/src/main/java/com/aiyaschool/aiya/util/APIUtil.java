@@ -29,6 +29,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 /**
@@ -239,6 +240,12 @@ public class APIUtil {
         Observable<HttpResult> startUpdateUser(@Field("height") String height);
     }
 
+    public interface GetMeIndex {
+        @POST("Me/GET/meIndex")
+        @FormUrlEncoded
+        Observable<HttpResult<User>> startGetMeIndex(@Field("demand") String demand);
+    }
+
     //更新用户信息
     public interface UpdateUserDataApi {
         @POST("Me/PUT/userinfo")
@@ -377,5 +384,9 @@ public class APIUtil {
 
     public static FateSwitchApi getFateSwitchApi() {
         return sRetrofit.create(FateSwitchApi.class);
+    }
+
+    public static GetMeIndex getMeIndexApi() {
+        return sRetrofit.create(GetMeIndex.class);
     }
 }

@@ -3,7 +3,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="80dp">
-    <com.aiyaschool.aiya.me.view.RoundImageView
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/my_photo"
         android:layout_width="50dp"
         android:layout_height="50dp"

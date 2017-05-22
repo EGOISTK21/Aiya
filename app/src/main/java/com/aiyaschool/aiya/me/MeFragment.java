@@ -24,7 +24,9 @@ import com.aiyaschool.aiya.me.activity.PersonalDataActivity;
 import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity2;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.me.view.RoundImageView;
+import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import org.litepal.crud.DataSupport;
@@ -179,9 +181,14 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     mMember_icon.setImageResource(R.drawable.huanggaun);
                 }
             }
+            if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
+                Glide.with(getActivity()).load(user.getAvatar().getNormal())
+                        .error(R.drawable.guanggao1)
+                        .centerCrop()
+                        .transform(new GlideCircleTransform(getActivity()))
+                        .into(mRivMyPhoto);
+            }
             System.out.println(user.getUsername());
-        } else {
-            //如果没有数据的话，可以从sharepreference中读取
         }
 
     }

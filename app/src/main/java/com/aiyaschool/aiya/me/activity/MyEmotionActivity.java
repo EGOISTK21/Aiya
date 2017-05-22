@@ -2,28 +2,39 @@ package com.aiyaschool.aiya.me.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.mvpEmotionRecord.EmotionRecordContract;
 import com.aiyaschool.aiya.me.mvpEmotionRecord.EmotionRecordPresenter;
 import com.aiyaschool.aiya.me.view.RoundImageView;
 import com.aiyaschool.aiya.util.APIUtil;
+import com.aiyaschool.aiya.util.GlideCircleTransform;
+import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.UserUtil;
+import com.bumptech.glide.Glide;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -36,18 +47,28 @@ import io.reactivex.schedulers.Schedulers;
 public class MyEmotionActivity extends AppCompatActivity implements EmotionRecordContract.View {
 
     private static final String TAG = "MyEmotionActivity";
+    private static final String LINE = "6";
+    private int mPage = 1;
+    private String mSex;
+    private int mEmotionDataNum;
+    private int lastVisibleItem;
+    private List<EmotionRecordBean> mEmotionList;
+    private boolean mNoData;
 
     private TextView mTvBack;
     private RecyclerView mRvEmotion;
     private LinearLayout mLlMyEmotion;
     private ImageView mIvEmotionNull;
+    private SwipeRefreshLayout mEmotionSwipe;
+
     private EmotionAdapter mEmotionAdapter;
+    private LinearLayoutManager mLinearLayoutManager;
 
     private EmotionRecordContract.Presenter mPresenter;
 
     private final static int TOP = 0;
     private final static int NORMAL = 1;
-    private List<EmotionRecordBean> mEmotionList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,19 +76,70 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
         setContentView(R.layout.activity_my_emotion);
         initView();
 
+        mEmotionList = new ArrayList<>();
+
+
         mPresenter = new EmotionRecordPresenter(this);
-        mPresenter.getEmotionRecord("1", "1", "3");
+        User user = UserUtil.getUser();
+        mSex = user.getSex();
+        mPresenter.getEmotionRecord(mSex, Integer.toString(mPage++), "6");
     }
 
     private void initView() {
+
+
         mTvBack = (TextView) findViewById(R.id.tv_back);
         mRvEmotion = (RecyclerView) findViewById(R.id.rv_emotion);
         mLlMyEmotion = (LinearLayout) findViewById(R.id.ll_my_emotion);
         mIvEmotionNull = (ImageView) findViewById(R.id.emotion_null);
 
-        mRvEmotion.setLayoutManager(new LinearLayoutManager(this));
+        mLinearLayoutManager = new LinearLayoutManager(this);
+        mRvEmotion.setLayoutManager(mLinearLayoutManager);
         mRvEmotion.addItemDecoration(new DividerItemDecoration(MyEmotionActivity.this, DividerItemDecoration.VERTICAL));
+        mRvEmotion.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (mEmotionAdapter != null) {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == mEmotionAdapter.getItemCount()) {
+                        if (mNoData) {
+                            Toast.makeText(MyEmotionActivity.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
+                        } else {
+                            mPresenter.getEmotionRecord(mSex, Integer.toString(mPage++), "6");
+                        }
+                    }
+                }
 
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition();
+            }
+        });
+
+
+        mEmotionSwipe = (SwipeRefreshLayout) findViewById(R.id.emotion_swipe_refresh);
+        mEmotionSwipe.setProgressBackgroundColorSchemeResource(android.R.color.white);
+        mEmotionSwipe.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);
+        mEmotionSwipe.setProgressViewOffset(false, 0, (int) TypedValue
+                .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
+                        .getDisplayMetrics()));
+
+        mEmotionSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                mPage = 1;
+                mEmotionList.clear();
+                mPresenter.getEmotionRecord(mSex, Integer.toString(mPage++), LINE);
+                mNoData = false;
+                mEmotionSwipe.setRefreshing(false);
+            }
+        });
 
 
         mTvBack.setOnClickListener(new View.OnClickListener() {
@@ -80,26 +152,49 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
 
     @Override
     public void setEmotionRecordData(List<EmotionRecordBean> emotionRecordData) {
-        mEmotionList = emotionRecordData;
-        mEmotionAdapter = new EmotionAdapter();
-        mRvEmotion.setAdapter(mEmotionAdapter);
+        System.out.println(mEmotionList.size());
+        mEmotionList.addAll(emotionRecordData);
+        if (mEmotionAdapter == null) {
+            mEmotionAdapter = new EmotionAdapter();
+            mRvEmotion.setAdapter(mEmotionAdapter);
+        } else {
+            mEmotionAdapter.notifyDataSetChanged();
+        }
+
 //        Log.d(TAG, "setEmotionRecordData: "+mEmotionList.);
         Log.d(TAG, "setEmotionRecordData: " + mEmotionList.size());
 
     }
 
     @Override
+    public void setEmotionRecordNum(int num) {
+        mEmotionDataNum = num;
+    }
+
+    @Override
     public void setBackGroundIfNoData() {
-        mLlMyEmotion.setVisibility(View.INVISIBLE);
-        mIvEmotionNull.setVisibility(View.VISIBLE);
+        if (mEmotionList.size() == 0) {
+            mLlMyEmotion.setVisibility(View.INVISIBLE);
+            mIvEmotionNull.setVisibility(View.VISIBLE);
+        } else {
+            mNoData = true;
+        }
+
+    }
+
+    public String parseDate(String date) {
+        String timeString = date + "000";
+        long timeLong = Long.valueOf(timeString);
+//        Log.d(TAG, "parseDate: "+new SimpleDateFormat("yyyy-MM-dd").format(new Date(timeLong)));
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date(timeLong));
     }
 
     class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.EmotionViewHolder>{
 
-        private int mViewType;
+
         @Override
         public EmotionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            mViewType = viewType;
+
             LayoutInflater inflater = LayoutInflater.from(MyEmotionActivity.this);
             View v = null;
             if(viewType == TOP){
@@ -115,15 +210,24 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
         public void onBindViewHolder(EmotionViewHolder holder, int position) {
             holder.mTvName.setText(mEmotionList.get(position).getUsername());
             holder.mTvSchool.setText(mEmotionList.get(position).getSchool());
-            holder.mStartTime.setText(mEmotionList.get(position).getStarttime());
+//            Log.d(TAG, "onBindViewHolder: startTime"+mEmotionList.get(position).getStarttime());
+            holder.mStartTime.setText(parseDate(mEmotionList.get(position).getStarttime()));
             holder.mIntimacy.setText(mEmotionList.get(position).getIntimacy());
-            switch (mViewType) {
+            holder.mRivPhoto.setImageResource(R.drawable.guanggao1);
+            Glide.with(MyEmotionActivity.this).load(mEmotionList.get(position).getAvatar().getNormal())
+                    .error(R.drawable.guanggao1)
+                    .centerCrop()
+                    .transform(new GlideCircleTransform(MyEmotionActivity.this))
+                    .into(holder.mRivPhoto);
+            switch (holder.getItemViewType()) {
                 case TOP:
-                    //TODO 设置距今多少天
-//                    holder.mTotalDay.setText();
+                    long a = System.currentTimeMillis() - Long.valueOf(parseDate(mEmotionList.get(position).getStarttime()));
+
+                    holder.mTotalDay.setText(a / 1000 / 60 / 60 / 24 + "");
                     break;
                 case NORMAL:
-                    holder.mEndTime.setText(mEmotionList.get(position).getEndtime());
+//                    Log.d(TAG, "onBindViewHolder: endTime"+mEmotionList.get(position).getEndtime());
+                    holder.mEndTime.setText(parseDate(mEmotionList.get(position).getEndtime()));
                     break;
                 default:
                     break;
@@ -139,12 +243,12 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
 
         class EmotionViewHolder extends RecyclerView.ViewHolder{
 
-            private RoundImageView mRivPhoto;
+            private ImageView mRivPhoto;
             private TextView mTvName, mTvSchool, mStartTime, mEndTime, mIntimacy, mDestroyLove, mTotalDay;
 
             public EmotionViewHolder(View itemView, int viewType) {
                 super(itemView);
-                mRivPhoto = (RoundImageView) itemView.findViewById(R.id.my_photo);
+                mRivPhoto = (ImageView) itemView.findViewById(R.id.my_photo);
                 mTvName = (TextView) itemView.findViewById(R.id.tv_name);
                 mTvSchool = (TextView) itemView.findViewById(R.id.tv_school);
                 mStartTime = (TextView) itemView.findViewById(R.id.start_time);
