@@ -44,12 +44,17 @@ public class EmotionRecordPresenter implements EmotionRecordContract.Presenter {
             public void onNext(@NonNull HttpResult<ArrayList<EmotionRecordBean>> arrayListHttpResult) {
                 Log.d(TAG, "onNext: getEmotionRecord" + arrayListHttpResult.getState());
                 Log.d(TAG, "onNext: getEmotionRecord" + arrayListHttpResult.getData().size());
-                mView.setEmotionRecordData(arrayListHttpResult.getData());
+                for (EmotionRecordBean e : arrayListHttpResult.getData()) {
+                    System.out.println(e);
+                }
                 int rows = Integer.parseInt(arrayListHttpResult.getRows());
+                Log.d(TAG, "onNext: rows" + rows);
                 if (rows == 0) {
                     mView.setBackGroundIfNoData();
                 } else {
+                    mView.setEmotionRecordNum(rows);
                     mView.setEmotionRecordData(arrayListHttpResult.getData());
+
                 }
             }
 

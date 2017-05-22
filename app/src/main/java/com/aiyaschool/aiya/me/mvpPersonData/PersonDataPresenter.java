@@ -5,6 +5,7 @@ import android.util.Log;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
+import com.aiyaschool.aiya.bean.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +92,34 @@ public class PersonDataPresenter implements PersonDataContract.Presenter {
         });
     }
 
+    @Override
+    public void getMeIndex(String demand) {
+        mModel.getMeIndex(demand, new Observer<HttpResult<User>>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
 
+            }
+
+            @Override
+            public void onNext(@NonNull HttpResult<User> userHttpResult) {
+                if (userHttpResult.getState().equals("2000")) {
+                    Log.d(TAG, "onNext: " + userHttpResult.getData().toString());
+                    mView.showGetMeIndex(userHttpResult.getData());
+                }
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
 
 
 }

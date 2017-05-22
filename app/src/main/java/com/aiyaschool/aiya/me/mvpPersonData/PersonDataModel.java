@@ -3,6 +3,7 @@ package com.aiyaschool.aiya.me.mvpPersonData;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.mvpGuestRecord.GuestDataContract;
 import com.aiyaschool.aiya.util.APIUtil;
 
@@ -40,6 +41,17 @@ public class PersonDataModel implements PersonDataContract.Model {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
 
+    }
+
+    @Override
+    public void getMeIndex(String demand, Observer<HttpResult<User>> observer) {
+        APIUtil.getMeIndexApi()
+                .startGetMeIndex(demand)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
     }
 
 
