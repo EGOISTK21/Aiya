@@ -53,13 +53,4 @@
         android:layout_marginTop="40dp"
         android:text="@string/print_user"/>
 
-    <Button
-        android:id="@+id/btn_destroy_love"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_print"
-        android:layout_centerHorizontal="true"
-        android:text="解除"
-        android:layout_marginTop="44dp"/>
-
 </RelativeLayout>

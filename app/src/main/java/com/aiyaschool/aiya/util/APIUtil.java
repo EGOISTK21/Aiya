@@ -219,6 +219,11 @@ public class APIUtil {
                                                                     @Field("line") String line);
     }
 
+    public interface LoverInfoApi {
+        @POST("Love/GET/loverinfo")
+        Observable<HttpResult<User>> getLoverInfo();
+    }
+
     /**
      * #以下所有参数均为可选参数,但不可一个参数都不传
      * ['username']:用户名
@@ -349,6 +354,10 @@ public class APIUtil {
 
     public static MatchingApi getMatchingApi() {
         return sRetrofit.create(MatchingApi.class);
+    }
+
+    public static LoverInfoApi getLoverInfoApi() {
+        return sRetrofit.create(LoverInfoApi.class);
     }
 
     public static UpdateUserApi getUpdateUserApi() {

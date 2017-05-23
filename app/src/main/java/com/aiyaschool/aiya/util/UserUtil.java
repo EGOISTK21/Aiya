@@ -83,7 +83,7 @@ public class UserUtil {
     }
 
     public static void setTa(User user) {
-        if (user.getUsername() != null) {
+        if (user != null) {
             ta = user;
         }
     }
