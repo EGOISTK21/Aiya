@@ -3,6 +3,7 @@ package com.aiyaschool.aiya.love.unmatched;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.love.unmatched.conditionMatch.ConditionMatchFragment;
+import com.aiyaschool.aiya.util.UserUtil;
 
 /**
  * Created by EGOISTK21 on 2017/3/29.
@@ -23,5 +24,6 @@ public class UnmatchedContainerFragment extends BaseFragment {
     protected void initView() {
         getFragmentManager().beginTransaction()
                 .replace(R.id.container_love, ConditionMatchFragment.newInstance()).commit();
+        UserUtil.setTa(null);
     }
 }
