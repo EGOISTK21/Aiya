@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="130dp"
     android:background="@color/colorBackGroundPicture">
-    <com.aiyaschool.aiya.me.view.RoundImageView
+
+    <com.aiyaschool.aiya.widget.CircleImageView
         android:id="@+id/my_photo"
         android:layout_width="80dp"
         android:layout_height="80dp"

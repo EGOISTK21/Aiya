@@ -23,10 +23,11 @@ import com.aiyaschool.aiya.me.activity.MyGuestActivity;
 import com.aiyaschool.aiya.me.activity.PersonalDataActivity;
 import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity2;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
-import com.aiyaschool.aiya.me.view.RoundImageView;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
+import com.aiyaschool.aiya.widget.CircleImageView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.squareup.picasso.Picasso;
 
 import org.litepal.crud.DataSupport;
@@ -37,15 +38,13 @@ import java.util.List;
 
 import me.nereo.multi_image_selector.MultiImageSelectorFragment;
 
-import static com.aiyaschool.aiya.activity.main.MainActivity.DESTROY_LOVE;
-
 /**
  * Created by wewarriors on 2017/3/16.
  */
 
 public class MeFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private Context mContext;
-    private RoundImageView mRivMyPhoto;
+    private CircleImageView mRivMyPhoto;
     private TextView mTvMyName, mTvSignName, mTVJiFen, mTvGift, mTvMember;
     private LinearLayout mLlMyPhotoAlbum, mLlMyState, mLlMyGuest, mLlEmotion, mLlMyGift, mLlMoreSetting;
     private ImageView imageView1, imageView2;
@@ -120,7 +119,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     }
 
     private void initView(View view) {
-        mRivMyPhoto = (RoundImageView) view.findViewById(R.id.my_photo);
+        mRivMyPhoto = (CircleImageView) view.findViewById(R.id.my_photo);
         mTvMyName = (TextView) view.findViewById(R.id.tv_name);
         mTvSignName = (TextView) view.findViewById(R.id.tv_sign_name);
         mTVJiFen = (TextView) view.findViewById(R.id.tv_Jifen);
@@ -182,10 +181,12 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                 }
             }
             if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
-                Glide.with(getActivity()).load(user.getAvatar().getNormal())
+                Glide.with(this).load(user.getAvatar().getThumb().getFace())
                         .error(R.drawable.guanggao1)
                         .centerCrop()
-                        .transform(new GlideCircleTransform(getActivity()))
+                        .transform(new GlideCircleTransform(getContext()))
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .crossFade()
                         .into(mRivMyPhoto);
             }
             System.out.println(user.getUsername());
