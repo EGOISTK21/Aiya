@@ -220,7 +220,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 mTvConstellation.setText(user.getConstellation());
             }
             if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
-                Glide.with(PersonalDataActivity.this).load(user.getAvatar().getNormal())
+                Glide.with(PersonalDataActivity.this).load(user.getAvatar().getNormal().getFace())
                         .error(R.drawable.guanggao1)
                         .centerCrop()
                         .transform(new GlideCircleTransform(PersonalDataActivity.this))
