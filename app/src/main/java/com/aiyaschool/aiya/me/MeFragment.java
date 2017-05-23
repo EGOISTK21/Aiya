@@ -182,7 +182,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                 }
             }
             if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
-                Glide.with(getActivity()).load(user.getAvatar().getNormal())
+                Glide.with(getActivity()).load(user.getAvatar().getNormal().getFace())
                         .error(R.drawable.guanggao1)
                         .centerCrop()
                         .transform(new GlideCircleTransform(getActivity()))
