@@ -3,6 +3,7 @@ package com.aiyaschool.aiya.util;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
+import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.bean.User;
 
 import java.io.IOException;
@@ -259,7 +260,10 @@ public class APIUtil {
     }
 
     //获取上传头像图片地址
-
+    public interface GetAvatarUploadUrlApi {
+        @POST("Me/GET/genAvatarUploadUrl")
+        Observable<HttpResult<UploadUrl>> startGetAvatarUploadUrl();
+    }
 
     public interface FateMatchApi {
         @POST("Love/GET/fateMatching")
@@ -400,5 +404,9 @@ public class APIUtil {
 
     public static GetMeIndex getMeIndexApi() {
         return sRetrofit.create(GetMeIndex.class);
+    }
+
+    public static GetAvatarUploadUrlApi getAvatarUploadUrlApi() {
+        return sRetrofit.create(GetAvatarUploadUrlApi.class);
     }
 }

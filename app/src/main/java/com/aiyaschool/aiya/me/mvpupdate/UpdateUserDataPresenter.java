@@ -45,7 +45,7 @@ public class UpdateUserDataPresenter implements UpdateUserDataContract.Presenter
 
             @Override
             public void onNext(@NonNull HttpResult httpResult) {
-                Log.d(TAG, "onNext: " + httpResult.getState());
+                Log.d(TAG, "onNext: updateUserData" + httpResult.getState());
                 mView.showUpdateSuccess();
             }
 

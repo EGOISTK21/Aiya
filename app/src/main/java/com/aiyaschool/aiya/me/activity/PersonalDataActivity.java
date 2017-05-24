@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,7 +22,7 @@ import android.widget.Toast;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.RegionModel;
 import com.aiyaschool.aiya.me.db.RegionDao;
@@ -32,8 +31,6 @@ import com.aiyaschool.aiya.me.mvpPersonData.PersonDataPresenter;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataContract;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
-import com.aiyaschool.aiya.me.view.RoundImageView;
-import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
@@ -47,22 +44,19 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import me.nereo.multi_image_selector.MultiImageSelector;
 
 public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener, PersonDataContract.View, UpdateUserDataContract.View {
 
 
     private static final String TAG = "PersonalDataActivity";
+
 
     private FilletDialog dialogDatePicker, dialogSchoolPicker, dialogAgePicker,
             dialogHeightPicker, dialogConstellationPicker, dialogHometownPicker;
@@ -90,6 +84,9 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 
     private File mFileAvatar;
 
+
+    @BindView(R.id.tv_sex)
+    TextView mTvSex;
     @BindView(R.id.ll_name)
     LinearLayout llName;
     @BindView(R.id.tvv_birth)
@@ -155,6 +152,10 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 
     private Map<String, String> map;
     private User user;
+
+    //上传头像的图片地址
+    private String upurl;
+    private String imgname;
 
 
     @Override
@@ -252,6 +253,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         System.out.println("mSchool" + mSchool + "mProvince" + mProvince);
         String demand = "character,height,age,constellation,hobby";
         mPresenter.getMeIndex(demand);
+        mPresenter.getAvatarUploadUrl();
     }
 
 
@@ -264,13 +266,16 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 finish();
                 break;
             case R.id.tv_save:
-                mUpdatePresenter.updateUserData(map);
-                if (isAvatarChange) {
-                    mPresenter.submitAvatar(mFileAvatar);
-                    isAvatarChange = false;
+                Set<String> get = map.keySet();
+                if (get.size() > 0) {
+                    mUpdatePresenter.updateUserData(map);
                 }
 
-                Log.d(TAG, "tv_save onClick: age" + user.getAge());
+                if (isAvatarChange && !TextUtils.isEmpty(upurl) && !TextUtils.isEmpty(imgname)) {
+                    mPresenter.submitAvatar(upurl, mFileAvatar);
+                }
+
+
                 MyApplication.setUser(user);
                 Intent intent1 = new Intent();
                 intent1.putExtra("flag", "me");
@@ -794,7 +799,16 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void showSubmitAvatar() {
+        Map<String, String> imgMap = new HashMap<>();
+        imgMap.put("avatar", imgname);
+        mUpdatePresenter.updateUserData(imgMap);
+        isAvatarChange = false;
+    }
 
+    @Override
+    public void setAvatarUploadUrl(UploadUrl uploadUrl) {
+        upurl = uploadUrl.getUpurl();
+        imgname = uploadUrl.getImgname();
     }
 
 

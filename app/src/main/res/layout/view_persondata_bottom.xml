@@ -21,40 +21,7 @@
         android:layout_height="2dp"
         android:background="@color/colorBackGround"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_sign_name"
-        android:layout_width="match_parent"
-        android:layout_height="46dp">
-        <TextView
-            android:id="@+id/tvv_signname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:text="签名"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"/>
 
-        <TextView
-            android:id="@+id/tv_sign_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="落霞明 月盈盈 来复无言去不闻"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"
-            android:layout_alignBaseline="@+id/tvv_signname"
-            android:layout_alignBottom="@+id/tvv_signname"
-            android:layout_toRightOf="@+id/tvv_signname"
-            android:layout_toEndOf="@+id/tvv_signname"
-            android:layout_marginLeft="30dp" />
-
-
-    </RelativeLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorBackGround"/>
 
     <RelativeLayout
         android:id="@+id/rl_height"
@@ -197,6 +164,43 @@
             android:layout_alignBottom="@+id/tvv_hobby"
             android:layout_toRightOf="@+id/tvv_hobby"
             android:layout_toEndOf="@+id/tvv_hobby"
+            android:layout_marginLeft="30dp" />
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackGround" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_sign_name"
+        android:layout_width="match_parent"
+        android:layout_height="46dp">
+
+        <TextView
+            android:id="@+id/tvv_signname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="个性签名"
+            android:textSize="16dp"
+            android:textColor="@color/colorName" />
+
+        <TextView
+            android:id="@+id/tv_sign_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="落霞明 月盈盈 来复无言去不闻"
+            android:textSize="16dp"
+            android:textColor="@color/colorName"
+            android:layout_alignBaseline="@+id/tvv_signname"
+            android:layout_alignBottom="@+id/tvv_signname"
+            android:layout_toRightOf="@+id/tvv_signname"
+            android:layout_toEndOf="@+id/tvv_signname"
             android:layout_marginLeft="30dp" />
 
 

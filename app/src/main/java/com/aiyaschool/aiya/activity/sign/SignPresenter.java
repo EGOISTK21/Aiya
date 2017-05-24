@@ -99,9 +99,6 @@ class SignPresenter implements SignContract.Presenter {
                         break;
                     case "2000":
                         MyApplication.setUser(httpResult.getData());
-                        Log.d(TAG, "onNext: " + httpResult.getData().getAvatar().getNormal().getFace());
-                        Log.d(TAG, "onNext: userUtil" + UserUtil.getUser().getAvatar().getNormal().getFace());
-
                         mView.startMainView();
                         break;
                 }

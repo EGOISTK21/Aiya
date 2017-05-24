@@ -52,6 +52,46 @@
         android:layout_height="2dp"
         android:background="@color/colorBackGround"/>
 
+    <LinearLayout
+        android:id="@+id/ll_sex"
+        android:layout_width="match_parent"
+        android:layout_height="46dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="性别"
+            android:textSize="16dp"
+            android:textColor="@color/colorName" />
+
+        <TextView
+            android:id="@+id/tv_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
+            android:text="男"
+            android:textSize="16dp"
+            android:textColor="@color/colorName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="(不可更改)"
+            android:textSize="13dp"
+            android:textColor="#999999" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBackGround" />
+
     <RelativeLayout
         android:id="@+id/rl_birth"
         android:layout_width="match_parent"

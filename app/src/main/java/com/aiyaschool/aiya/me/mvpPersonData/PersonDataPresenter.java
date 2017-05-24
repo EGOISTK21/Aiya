@@ -5,6 +5,7 @@ import android.util.Log;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
+import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.UserUtil;
 
@@ -127,30 +128,55 @@ public class PersonDataPresenter implements PersonDataContract.Presenter {
     }
 
     @Override
-    public void submitAvatar(File file) {
-        mModel.submitAvatar(RequestBody.create(MediaType.parse("image/jpeg"), file),
-                new Observer<ResponseBody>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        Log.i(TAG, "onSubscribe: submitAvatar");
-                    }
+    public void submitAvatar(String url, File file) {
+        mModel.submitAvatar(url, RequestBody.create(MediaType.parse("image/jpeg"), file), new Observer<ResponseBody>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d(TAG, "onSubscribe: submitAvatar");
+            }
 
-                    @Override
-                    public void onNext(@NonNull ResponseBody responseBody) {
-                        Log.i(TAG, "onNext: submitAvatar");
-                    }
+            @Override
+            public void onNext(@NonNull ResponseBody responseBody) {
+                Log.d(TAG, "onNext: submitAvatar");
+            }
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.i(TAG, "onError: submitAvatar" + e);
-                    }
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d(TAG, "onError: submitAvatar" + e);
+            }
 
-                    @Override
-                    public void onComplete() {
-                        Log.i(TAG, "onComplete: ");
-                        mView.showSubmitAvatar();
-                    }
-                });
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete: submitAvatar");
+                mView.showSubmitAvatar();
+            }
+        });
+    }
+
+    @Override
+    public void getAvatarUploadUrl() {
+        mModel.getAvatarUploadUrl(new Observer<HttpResult<UploadUrl>>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull HttpResult<UploadUrl> uploadUrlHttpResult) {
+                Log.d(TAG, "onNext: getAvatarUploadUrl()" + uploadUrlHttpResult.getData().toString());
+                mView.setAvatarUploadUrl(uploadUrlHttpResult.getData());
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
 

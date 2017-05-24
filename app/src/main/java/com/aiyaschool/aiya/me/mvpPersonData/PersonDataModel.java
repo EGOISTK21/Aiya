@@ -3,6 +3,7 @@ package com.aiyaschool.aiya.me.mvpPersonData;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
+import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.mvpGuestRecord.GuestDataContract;
 import com.aiyaschool.aiya.util.APIUtil;
@@ -23,10 +24,11 @@ import okhttp3.ResponseBody;
  */
 
 public class PersonDataModel implements PersonDataContract.Model {
+
     @Override
-    public void submitAvatar(RequestBody img, Observer<ResponseBody> observer) {
+    public void submitAvatar(String url, RequestBody img, Observer<ResponseBody> observer) {
         APIUtil.getIMGApi()
-                .submitIMG(UserUtil.getUser().getUpLoad().getUpurl(), img)
+                .submitIMG(url, img)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -61,6 +63,17 @@ public class PersonDataModel implements PersonDataContract.Model {
     public void getMeIndex(String demand, Observer<HttpResult<User>> observer) {
         APIUtil.getMeIndexApi()
                 .startGetMeIndex(demand)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void getAvatarUploadUrl(Observer<HttpResult<UploadUrl>> observer) {
+        APIUtil.getAvatarUploadUrlApi()
+                .startGetAvatarUploadUrl()
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
