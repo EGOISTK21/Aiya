@@ -788,7 +788,6 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             mTvConstellation.setText(user.getConstellation());
         }
 
-
     }
 
     @Override
