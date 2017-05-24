@@ -39,7 +39,9 @@ import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,6 +52,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -83,7 +86,9 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     private String mAge, mCharacter;
 
     private RegionDao mRegionDao;
-    private boolean flag = false;
+    private boolean isAvatarChange = false;
+
+    private File mFileAvatar;
 
     @BindView(R.id.ll_name)
     LinearLayout llName;
@@ -116,7 +121,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.tv_height)
     TextView mTvHeight;
     @BindView(R.id.personal_photo)
-    ImageView mRvPersonalPhoto;
+    CircleImageView mRvPersonalPhoto;
     @BindView(R.id.tv_cancel)
     TextView tvCancel;
     @BindView(R.id.tv_save)
@@ -219,15 +224,19 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             if (!TextUtils.isEmpty(user.getConstellation())) {
                 mTvConstellation.setText(user.getConstellation());
             }
+            Log.d(TAG, "onCreate: " + user.getAvatar().getNormal().getFace());
             if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
-                Glide.with(PersonalDataActivity.this).load(user.getAvatar().getNormal().getFace())
+
+                Glide.with(this).load(user.getAvatar().getThumb().getFace())
+
                         .error(R.drawable.guanggao1)
                         .centerCrop()
                         .transform(new GlideCircleTransform(PersonalDataActivity.this))
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .crossFade()
                         .into(mRvPersonalPhoto);
             }
 
-            System.out.println(user.getUsername());
         }
 
         mPresenter = new PersonDataPresenter(this);
@@ -253,6 +262,11 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.tv_save:
                 mUpdatePresenter.updateUserData(map);
+                if (isAvatarChange) {
+                    mPresenter.submitAvatar(mFileAvatar);
+                    isAvatarChange = false;
+                }
+
                 Log.d(TAG, "tv_save onClick: age" + user.getAge());
                 MyApplication.setUser(user);
                 Intent intent1 = new Intent();
@@ -693,7 +707,8 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 //                        .into(mRvPersonalPhoto);
                 Bitmap bitmap = BitmapFactory.decodeFile(mSelectPath.get(0));
                 mRvPersonalPhoto.setImageBitmap(bitmap);
-
+                mFileAvatar = new File(mSelectPath.get(0));
+                isAvatarChange = true;
             }
         } else if (requestCode == REQUEST_NICKNAME) {
             if (resultCode == RESULT_OK) {
@@ -751,7 +766,9 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         appUsr.setHeight(user.getHeight());
         appUsr.setAge(user.getAge());
         appUsr.setConstellation(user.getConstellation());
+        appUsr.setCharacter(user.getCharacter());
         appUsr.setHobby(user.getHobby());
+        appUsr.setAvatar(user.getAvatar());
         MyApplication.setUser(appUsr);
         if (!TextUtils.isEmpty(user.getAge())) {
             mTvDate.setText(user.getAge());
@@ -770,6 +787,13 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         if (!TextUtils.isEmpty(user.getConstellation())) {
             mTvConstellation.setText(user.getConstellation());
         }
+
+
+    }
+
+    @Override
+    public void showSubmitAvatar() {
+
     }
 
 

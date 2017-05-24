@@ -6,6 +6,7 @@ import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.ToastUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -54,6 +55,7 @@ class SplashPresenter implements SplashContract.Presenter {
                     switch (httpResult.getState()) {
                         case "2000":
                             MyApplication.setUser(httpResult.getData());
+                            Log.d(TAG, "onNext: " + UserUtil.getUser().getAvatar().getNormal().getFace());
                             mView.startMainView();
                             break;
                         case "5133":

@@ -308,6 +308,7 @@ public class UserUtil {
 
     private static void setAvatar(Avatar avatar) {
         if (avatar != null && !avatar.equals(sUser.getAvatar())) {
+            sUser.setAvatar(avatar);
             sEditor.putString("normal_face", avatar.getNormal().getFace());
             sEditor.putString("normal_background", avatar.getNormal().getBackground());
             sEditor.putString("thumb_face", avatar.getThumb().getFace());
