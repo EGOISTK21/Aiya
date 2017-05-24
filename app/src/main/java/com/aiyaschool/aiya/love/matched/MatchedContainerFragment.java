@@ -58,7 +58,7 @@ public class MatchedContainerFragment extends BaseFragment {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Log.i(TAG, "onError: initView");
+                        Log.i(TAG, "onError: initView " + e);
                     }
 
                     @Override

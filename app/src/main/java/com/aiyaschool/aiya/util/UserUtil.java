@@ -168,7 +168,8 @@ public class UserUtil {
         return new UpLoad(sSharedPreferences.getString("upurl", null), sSharedPreferences.getString("imgname", null));
     }
 
-    static void clearUpLoad() {
+    private static void clearUpLoad() {
+        sUser.setUpLoad(null);
         sEditor.remove("upurl");
         sEditor.remove("imgname");
         sEditor.apply();
@@ -308,6 +309,7 @@ public class UserUtil {
 
     private static void setAvatar(Avatar avatar) {
         if (avatar != null && !avatar.equals(sUser.getAvatar())) {
+            sUser.setAvatar(avatar);
             sEditor.putString("normal_face", avatar.getNormal().getFace());
             sEditor.putString("normal_background", avatar.getNormal().getBackground());
             sEditor.putString("thumb_face", avatar.getThumb().getFace());
@@ -359,6 +361,7 @@ public class UserUtil {
 
     private static void setImgWall(ImgWall imgWall) {
         if (imgWall != null && !imgWall.equals(sUser.getImgWall())) {
+            sUser.setImgWall(imgWall);
             clearImgWall();
             sEditor.putInt("rows", imgWall.getRows());
             for (int i = 0; i < imgWall.getRows(); i++) {
@@ -388,8 +391,11 @@ public class UserUtil {
     }
 
     public static void clearAll() {
-        //sUser = new User();
+//        String phone = sSharedPreferences.getString("phone", null);
+//        String logintoken = sSharedPreferences.getString("logintoken", null);
         sEditor.clear();
+//        sEditor.putString("phone", phone);
+//        sEditor.putString("logintoken", logintoken);
         sEditor.apply();
     }
 }
