@@ -185,7 +185,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
             Log.d(TAG, "initView: " + user.getAvatar().getNormal().getFace());
             if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
 
-                Glide.with(this).load(user.getAvatar().getThumb().getFace())
+                Glide.with(this).load(user.getAvatar().getNormal().getFace())
 
                         .error(R.drawable.guanggao1)
                         .centerCrop()

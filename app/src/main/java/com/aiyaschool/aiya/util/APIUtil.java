@@ -258,6 +258,9 @@ public class APIUtil {
         Observable<HttpResult> startUpdateUserData(@FieldMap Map<String, String> map);
     }
 
+    //获取上传头像图片地址
+
+
     public interface FateMatchApi {
         @POST("Love/GET/fateMatching")
         Observable<HttpResult<User>> startFateMatch();

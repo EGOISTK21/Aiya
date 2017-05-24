@@ -224,18 +224,21 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             if (!TextUtils.isEmpty(user.getConstellation())) {
                 mTvConstellation.setText(user.getConstellation());
             }
-            Log.d(TAG, "onCreate: " + user.getAvatar().getNormal().getFace());
-            if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
 
-                Glide.with(this).load(user.getAvatar().getThumb().getFace())
+            if (user.getAvatar() != null) {
+                if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
 
-                        .error(R.drawable.guanggao1)
-                        .centerCrop()
-                        .transform(new GlideCircleTransform(PersonalDataActivity.this))
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .crossFade()
-                        .into(mRvPersonalPhoto);
+                    Glide.with(this).load(user.getAvatar().getNormal().getFace())
+
+                            .error(R.drawable.guanggao1)
+                            .centerCrop()
+                            .transform(new GlideCircleTransform(PersonalDataActivity.this))
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .crossFade()
+                            .into(mRvPersonalPhoto);
+                }
             }
+
 
         }
 
@@ -768,7 +771,6 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         appUsr.setConstellation(user.getConstellation());
         appUsr.setCharacter(user.getCharacter());
         appUsr.setHobby(user.getHobby());
-        appUsr.setAvatar(user.getAvatar());
         MyApplication.setUser(appUsr);
         if (!TextUtils.isEmpty(user.getAge())) {
             mTvDate.setText(user.getAge());
