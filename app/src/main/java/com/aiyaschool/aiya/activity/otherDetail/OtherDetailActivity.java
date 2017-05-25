@@ -82,7 +82,7 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
         }
         Log.i(TAG, "initView: " + mUser);
         if (mUser != null) {
-            Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).centerCrop()
+            Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
                     .transform(new GlideCircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivOtherAvatar);
             tvOtherUsername.setText(mUser.getUsername());
             tvOtherProfile.setText(mUser.getProfile());

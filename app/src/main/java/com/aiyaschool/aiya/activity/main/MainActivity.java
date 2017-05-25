@@ -1,12 +1,14 @@
 package com.aiyaschool.aiya.activity.main;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ import com.aiyaschool.aiya.util.RefreshTokenService;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.UserUtil;
 
+import butterknife.BindDrawable;
+
 /**
  * 主体为NoScrollViewPager+BottomNavigationView的主界面
  * Created by EGOISTK21 on 2017/3/13.
@@ -36,19 +40,27 @@ public class MainActivity extends BaseActivity {
     private FragmentManager fm;
     private FragmentPagerAdapter adapter;
     private BottomNavigationView bottomNavigationView;
+    private Intent serviceIntent;
+    @BindDrawable(R.drawable.love_icon)
+    Drawable love;
+    @BindDrawable(R.drawable.message_icon)
+    Drawable message;
+    @BindDrawable(R.drawable.me_icon)
+    Drawable me;
 
     private boolean isMeChanged;
 
     @Override
     protected int getLayoutId() {
-        startService(new Intent(this, RefreshTokenService.class));
+        serviceIntent = new Intent(this, RefreshTokenService.class);
+        startService(serviceIntent);
         SignUtil.addAccessToken();
         return R.layout.activity_main;
     }
 
     @Override
     protected void onDestroy() {
-        stopService(new Intent(this, RefreshTokenService.class));
+        stopService(serviceIntent);
         super.onDestroy();
     }
 
@@ -126,6 +138,8 @@ public class MainActivity extends BaseActivity {
         vpMain.setOffscreenPageLimit(PAGE_COUNT - 1);
         vpMain.setAdapter(adapter);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setItemIconTintList(null);
+        bottomNavigationView.setItemTextColor(ContextCompat.getColorStateList(this, R.color.selector_color));
         //BottomNavigationViewUtil.disableShiftMode(bottomNavigationView);
         initListener();
     }

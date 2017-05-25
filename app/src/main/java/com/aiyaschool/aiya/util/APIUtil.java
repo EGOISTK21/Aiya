@@ -4,6 +4,7 @@ import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.love.matched.today.Intimacy;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 /**
@@ -225,6 +225,12 @@ public class APIUtil {
         Observable<HttpResult<User>> getLoverInfo();
     }
 
+    public interface IntimacyApi {
+        @POST("Love/GET/intimacy")
+        @FormUrlEncoded
+        Observable<Intimacy> getIntimacy(@Field("loveid") String loveid);
+    }
+
     /**
      * #以下所有参数均为可选参数,但不可一个参数都不传
      * ['username']:用户名
@@ -365,6 +371,10 @@ public class APIUtil {
 
     public static LoverInfoApi getLoverInfoApi() {
         return sRetrofit.create(LoverInfoApi.class);
+    }
+
+    public static IntimacyApi getIntimacyApi() {
+        return sRetrofit.create(IntimacyApi.class);
     }
 
     public static UpdateUserApi getUpdateUserApi() {

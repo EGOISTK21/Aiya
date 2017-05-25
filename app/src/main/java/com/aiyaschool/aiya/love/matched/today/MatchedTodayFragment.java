@@ -1,21 +1,20 @@
 package com.aiyaschool.aiya.love.matched.today;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
+import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.otherDetail.OtherDetailActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
-import com.aiyaschool.aiya.base.NestFullListView;
-import com.aiyaschool.aiya.base.NestFullListViewAdapter;
-import com.aiyaschool.aiya.base.NestFullViewHolder;
-import com.aiyaschool.aiya.love.matched.main.Mission;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.activity.PersonalDataActivity;
+import com.aiyaschool.aiya.util.GlideCircleTransform;
+import com.aiyaschool.aiya.util.UserUtil;
+import com.aiyaschool.aiya.widget.CircleImageView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.util.List;
-
+import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.aiyaschool.aiya.activity.main.MainActivity.DESTROY_LOVE;
@@ -25,12 +24,29 @@ import static com.aiyaschool.aiya.activity.main.MainActivity.DESTROY_LOVE;
  * Created by EGOISTK21 on 2017/3/21.
  */
 
-public class MatchedTodayFragment extends BaseFragment {
+public class MatchedTodayFragment extends BaseFragment implements MatchedTodayContract.View {
 
-    private NestFullListView nflvTodayMission, nflvInviteMission;
-    private List<Mission> mMissions;
-    private FragmentManager fm;
-    private FragmentTransaction ft;
+    //    private FragmentManager fm;
+//    private FragmentTransaction ft;
+    private MatchedTodayContract.Presenter mPresenter;
+    @BindView(R.id.iv_matched_left)
+    CircleImageView ivLeftAvatar;
+    @BindView(R.id.tv_matched_username_left)
+    TextView tvLeftUsername;
+    @BindView(R.id.tv_matched_school_left)
+    TextView tvLeftSchool;
+    @BindView(R.id.iv_matched_right)
+    CircleImageView ivRightAvatar;
+    @BindView(R.id.tv_matched_username_right)
+    TextView tvRightUsername;
+    @BindView(R.id.tv_matched_school_right)
+    TextView tvRightSchool;
+    @BindView(R.id.tv_match_intimacy_num)
+    TextView tvIntimacyNum;
+
+    public static MatchedTodayFragment newInstance() {
+        return new MatchedTodayFragment();
+    }
 
     @Override
     protected int getLayoutId() {
@@ -39,37 +55,28 @@ public class MatchedTodayFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        fm = getParentFragment().getFragmentManager();
-        ft = fm.beginTransaction();
-        rootView.findViewById(R.id.ll_intimacy).setOnClickListener(this);
-        nflvTodayMission = ((NestFullListView) rootView.findViewById(R.id.lv_love_matched_today_love_mission));
-        nflvTodayMission.setAdapter(new NestFullListViewAdapter<Mission>(R.layout.listview_love_mission, mMissions) {
-            @Override
-            public void onBind(int pos, Mission mission, NestFullViewHolder holder) {
-                holder.setText(R.id.tv_listview_love_matched, "test");
-                holder.setOnClickListener(R.id.ibn_listview_love_matched, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getActivity().startActivity(new Intent(getContext(), ClockInActivity.class));
-                    }
-                });
-            }
-        });
-        nflvTodayMission.setOnItemLongClickListener(new NestFullListView.OnItemLongClickListener() {
-            @Override
-            public void onItemLongClick(NestFullListView parent, View view, int position) {
-                System.out.println(position);
-            }
-        });
-        nflvInviteMission = ((NestFullListView) rootView.findViewById(R.id.lv_love_matched_today_invite_love_mission));
-        nflvInviteMission.setAdapter(new NestFullListViewAdapter<Mission>(R.layout.listview_love_mission, mMissions) {
-            @Override
-            public void onBind(int pos, Mission mission, NestFullViewHolder holder) {
-
-            }
-        });
+//        fm = getParentFragment().getFragmentManager();
+//        ft = fm.beginTransaction();
+        mPresenter = new MatchedTodayPresenter(this);
+        User ta = UserUtil.getTa();
+        Glide.with(this).load(ta.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
+                .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivLeftAvatar);
+        tvLeftUsername.setText(ta.getUsername());
+        tvLeftSchool.setText(ta.getSchool());
+        User me = UserUtil.getUser();
+        Glide.with(this).load(me.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
+                .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivRightAvatar);
+        tvRightUsername.setText(me.getUsername());
+        tvRightSchool.setText(me.getSchool());
+        mPresenter.getIntimacy();
     }
 
+
+    @Override
+    public void onDestroy() {
+        mPresenter.detachView();
+        super.onDestroy();
+    }
 
     @OnClick(R.id.iv_matched_left)
     void showTa() {
@@ -86,4 +93,8 @@ public class MatchedTodayFragment extends BaseFragment {
         startActivity(new Intent(getContext(), IntimacyDetailActivity.class));
     }
 
+    @Override
+    public void setIntimacy(String intimacy) {
+        tvIntimacyNum.setText(intimacy);
+    }
 }
