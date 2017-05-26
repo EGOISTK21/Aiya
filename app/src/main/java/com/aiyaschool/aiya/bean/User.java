@@ -49,7 +49,7 @@ public class User implements Parcelable {
     private String gifttickets;
     private String fateswitch;
     private ImgWall imgwall;
-
+    private long startdate;
 
     public User() {
 
@@ -78,6 +78,7 @@ public class User implements Parcelable {
         gifttickets = in.readString();
         fateswitch = in.readString();
         imgwall = in.readParcelable(ImgWall.class.getClassLoader());
+        startdate = in.readLong();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -272,6 +273,14 @@ public class User implements Parcelable {
         this.imgwall = imgWall;
     }
 
+    public long getStartdate() {
+        return startdate;
+    }
+
+    public void setStartdate(long startdate) {
+        this.startdate = startdate;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -301,6 +310,7 @@ public class User implements Parcelable {
         dest.writeString(gifttickets);
         dest.writeString(fateswitch);
         dest.writeParcelable(imgwall, flags);
+        dest.writeLong(startdate);
     }
 
     @Override
@@ -328,6 +338,7 @@ public class User implements Parcelable {
                 ", gifttickets='" + gifttickets + '\'' +
                 ", fateswitch='" + fateswitch + '\'' +
                 ", imgwall=" + imgwall +
+                ", startdate='" + startdate + '\'' +
                 '}';
     }
 }

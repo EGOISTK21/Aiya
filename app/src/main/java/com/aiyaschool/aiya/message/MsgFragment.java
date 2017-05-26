@@ -22,6 +22,4 @@ public class MsgFragment extends Fragment{
         return fragment;
     }
 
-
-
 }

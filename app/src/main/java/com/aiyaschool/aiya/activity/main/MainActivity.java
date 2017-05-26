@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseActivity;
-import com.aiyaschool.aiya.base.NoScrollViewPager;
+import com.aiyaschool.aiya.widget.NoScrollViewPager;
 import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
@@ -52,15 +52,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        serviceIntent = new Intent(this, RefreshTokenService.class);
-        startService(serviceIntent);
+        startService(new Intent(this, RefreshTokenService.class));
         SignUtil.addAccessToken();
         return R.layout.activity_main;
     }
 
     @Override
     protected void onDestroy() {
-        stopService(serviceIntent);
+        stopService(new Intent(this, RefreshTokenService.class));
         super.onDestroy();
     }
 

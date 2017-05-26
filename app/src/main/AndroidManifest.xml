@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aiyaschool.aiya">
-
+          package="com.aiyaschool.aiya">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -19,7 +18,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -33,14 +31,14 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.sign.SignActivity"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".activity.form.FormActivity"
 
@@ -51,11 +49,11 @@
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
             android:configChanges="orientation|screenSize"
 
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.main.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
 
             android:name=".activity.otherDetail.OtherDetailActivity"
@@ -65,50 +63,50 @@
         <activity
             android:name=".message.ui.activity.ChatQQActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden|adjustUnspecified" />
-        <activity android:name=".message.ui.activity.PhotosThumbnailActivity" />
-        <activity android:name=".message.ui.activity.ChatPhotosActivity" />
-        <activity android:name=".message.ui.activity.MsgActivity" />
-        <activity android:name=".message.ui.activity.MsgListActivity" />
-        <activity android:name=".message.ui.activity.ForgetOneActivity" />
-        <activity android:name=".message.ui.activity.PhotoChooseActivity" />
-        <activity android:name=".message.ui.activity.PhotoCropActivity" />
-        <activity android:name=".message.ui.activity.ForgetTwoActivity" />
-        <activity android:name=".love.unmatched.HitItOffActivity" />
+            android:windowSoftInputMode="adjustResize|stateHidden|adjustUnspecified"/>
+        <activity android:name=".message.ui.activity.PhotosThumbnailActivity"/>
+        <activity android:name=".message.ui.activity.ChatPhotosActivity"/>
+        <activity android:name=".message.ui.activity.MsgActivity"/>
+        <activity android:name=".message.ui.activity.MsgListActivity"/>
+        <activity android:name=".message.ui.activity.ForgetOneActivity"/>
+        <activity android:name=".message.ui.activity.PhotoChooseActivity"/>
+        <activity android:name=".message.ui.activity.PhotoCropActivity"/>
+        <activity android:name=".message.ui.activity.ForgetTwoActivity"/>
+        <activity android:name=".love.unmatched.HitItOffActivity"/>
         <activity
             android:name=".love.matched.today.ClockInActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".love.matched.main.NewMissionActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".love.matched.today.IntimacyDetailActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".love.matched.today.IntimacyRulesActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
 
         <!-- 消息收发service -->
         <service
             android:name="com.tencent.qalsdk.service.QalService"
             android:exported="false"
-            android:process=":QALSERVICE"></service>
+            android:process=":QALSERVICE"/>
         <!-- 消息收发辅助service -->
         <service
             android:name="com.tencent.qalsdk.service.QalAssistService"
             android:exported="false"
-            android:process=":QALSERVICE"></service>
+            android:process=":QALSERVICE"/>
         <!-- 离线消息广播接收器 -->
         <receiver
             android:name="com.tencent.qalsdk.QALBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.tencent.qalsdk.broadcast.qal" />
+                <action android:name="com.tencent.qalsdk.broadcast.qal"/>
             </intent-filter>
         </receiver>
         <!-- 系统消息广播接收器 -->
@@ -116,23 +114,21 @@
             android:name="com.tencent.qalsdk.core.NetConnInfoCenter"
             android:process=":QALSERVICE">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIME_SET"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
             </intent-filter>
         </receiver>
 
-        <service android:name=".util.RefreshTokenService">
-        </service>
-        <receiver android:name=".util.AlarmReceiver">
-        </receiver>
+        <service android:name=".util.RefreshTokenService"/>
+        <receiver android:name=".util.AlarmReceiver"/>
 
         <activity android:name=".me.activity.PersonalDataActivity"/>
         <activity android:name=".me.activity.JifenAndGiftActivity"/>
@@ -145,7 +141,7 @@
         <activity android:name=".me.activity.MemberActivity"/>
         <activity android:name=".me.activity.PhotoAlbumActivity2"/>
 
-        <activity android:name=".me.activity.UpdateDataActivity"></activity>
+        <activity android:name=".me.activity.UpdateDataActivity"/>
 
     </application>
 

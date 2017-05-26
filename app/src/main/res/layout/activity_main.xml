@@ -11,7 +11,7 @@
     android:orientation="vertical"
     tools:context=".activity.main.MainActivity">
 
-    <com.aiyaschool.aiya.base.NoScrollViewPager
+    <com.aiyaschool.aiya.widget.NoScrollViewPager
         android:id="@+id/viewpager_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -3,6 +3,7 @@ package com.aiyaschool.aiya.util;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
+import com.aiyaschool.aiya.bean.Task;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.love.matched.today.Intimacy;
 
@@ -231,6 +232,12 @@ public class APIUtil {
         Observable<Intimacy> getIntimacy(@Field("loveid") String loveid);
     }
 
+    public interface CtodayTaskApi {
+        @POST("Love/GET/CtodayTask")
+        @FormUrlEncoded
+        Observable<HttpResult<Task>> getToadyTask(@Field("period") String period);
+    }
+
     /**
      * #以下所有参数均为可选参数,但不可一个参数都不传
      * ['username']:用户名
@@ -375,6 +382,10 @@ public class APIUtil {
 
     public static IntimacyApi getIntimacyApi() {
         return sRetrofit.create(IntimacyApi.class);
+    }
+
+    public static CtodayTaskApi getCtodayApi() {
+        return sRetrofit.create(CtodayTaskApi.class);
     }
 
     public static UpdateUserApi getUpdateUserApi() {

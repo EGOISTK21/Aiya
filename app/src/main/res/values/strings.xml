@@ -74,6 +74,7 @@
     <string name="title_hit_it_off">匹配成功</string>
     <string name="subtitle_hit_it_off">你已经成功脱单啦！</string>
     <string name="today_mission">今日任务</string>
+    <string name="tomorrow_mission">明日任务</string>
     <string name="new_mission">新建任务</string>
     <string name="mission">任务</string>
     <string name="recommend_mission">推荐任务</string>
