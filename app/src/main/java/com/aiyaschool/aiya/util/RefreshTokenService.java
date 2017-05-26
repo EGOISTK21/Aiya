@@ -55,7 +55,7 @@ public class RefreshTokenService extends Service {
                                 public void onNext(@NonNull HttpResult<User> userHttpResult) {
                                     Log.i(TAG, "onNext: onStartCommand " + userHttpResult);
                                     if ("2000".equals(userHttpResult.getState())) {
-                                        MyApplication.setUser(userHttpResult.getData());
+                                        UserUtil.setUser(userHttpResult.getData());
                                         SignUtil.addAccessToken();
                                     } else {
                                         ToastUtil.show("网络已断开，请重新登录");

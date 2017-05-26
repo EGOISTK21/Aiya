@@ -173,9 +173,9 @@ public class MainActivity extends BaseActivity {
                         switch (item.getItemId()) {
 //                            case R.id.navigation_community:
 //                                break;
-                            case R.id.navigation_message:
-                                break;
                             case R.id.navigation_love:
+                                break;
+                            case R.id.navigation_message:
                                 break;
                             case R.id.navigation_me:
                                 break;
@@ -191,6 +191,10 @@ public class MainActivity extends BaseActivity {
 
     public void notifyAdapter() {
         adapter.notifyDataSetChanged();
+    }
+
+    public void setLovePage() {
+        bottomNavigationView.setSelectedItemId(R.id.navigation_love);
     }
 
     @Override

@@ -44,40 +44,40 @@ public class Msg {
     }
 
     //    匹配后
-    public List<Msg> getMsgs(){
-        list = new ArrayList<>();
-
-        Msg msg = new Msg();
-        msg.setmTitle("情侣聊天");
-//        此处从后台取得头像
-        msg.setmImageView(R.drawable.message);
-        msg.setmTime("1 分钟前");
-        msg.setmPreview("哈哈哈哈哈哈哈");
-        list.add(msg);
-
-        Msg msg1 = new Msg();
-        msg1.setmTitle("消息通知");
-        msg1.setmImageView(R.drawable.notice);
-        msg1.setmTime("1 分钟前");
-        msg1.setmPreview("哈哈哈哈哈哈哈");
-        list.add(msg1);
-
-        Msg msg2 = new Msg();
-        msg2.setmTitle("任务消息");
-        msg2.setmImageView(R.drawable.task);
-        msg2.setmTime("1 分钟前");
-        msg2.setmPreview("哈哈哈哈哈哈哈");
-        list.add(msg2);
-
-        Msg msg3 = new Msg();
-        msg3.setmTitle("攻略指南");
-        msg3.setmImageView(R.drawable.bulb);
-        msg3.setmTime("1 分钟前");
-        msg3.setmPreview("哈哈哈哈哈哈哈");
-        list.add(msg3);
-
-        return list;
-    }
+//    public List<Msg> getMsgs(){
+//        list = new ArrayList<>();
+//
+//        Msg msg = new Msg();
+//        msg.setmTitle("情侣聊天");
+////        此处从后台取得头像
+//        msg.setmImageView(R.drawable.message);
+//        msg.setmTime("1 分钟前");
+//        msg.setmPreview("哈哈哈哈哈哈哈");
+//        list.add(msg);
+//
+//        Msg msg1 = new Msg();
+//        msg1.setmTitle("消息通知");
+//        msg1.setmImageView(R.drawable.notice);
+//        msg1.setmTime("1 分钟前");
+//        msg1.setmPreview("哈哈哈哈哈哈哈");
+//        list.add(msg1);
+//
+//        Msg msg2 = new Msg();
+//        msg2.setmTitle("任务消息");
+//        msg2.setmImageView(R.drawable.task);
+//        msg2.setmTime("1 分钟前");
+//        msg2.setmPreview("哈哈哈哈哈哈哈");
+//        list.add(msg2);
+//
+//        Msg msg3 = new Msg();
+//        msg3.setmTitle("攻略指南");
+//        msg3.setmImageView(R.drawable.bulb);
+//        msg3.setmTime("1 分钟前");
+//        msg3.setmPreview("哈哈哈哈哈哈哈");
+//        list.add(msg3);
+//
+//        return list;
+//    }
     //匹配前
     public List<Msg> getMsgs2(){
         list = new ArrayList<>();
@@ -95,12 +95,12 @@ public class Msg {
         msg1.setmPreview("哈哈哈哈哈哈哈");
         list.add(msg1);
 
-        Msg msg2 = new Msg();
-        msg2.setmTitle("任务消息");
-        msg2.setmImageView(R.drawable.love_red);
-        msg2.setmTime("1 分钟前");
-        msg2.setmPreview("哈哈哈哈哈哈哈");
-        list.add(msg2);
+//        Msg msg2 = new Msg();
+//        msg2.setmTitle("任务消息");
+//        msg2.setmImageView(R.drawable.love_red);
+//        msg2.setmTime("1 分钟前");
+//        msg2.setmPreview("哈哈哈哈哈哈哈");
+//        list.add(msg2);
 
         Msg msg3 = new Msg();
         msg3.setmTitle("攻略指南");

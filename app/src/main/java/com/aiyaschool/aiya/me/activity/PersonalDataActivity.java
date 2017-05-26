@@ -21,9 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.RegionModel;
 import com.aiyaschool.aiya.me.db.RegionDao;
@@ -32,8 +30,6 @@ import com.aiyaschool.aiya.me.mvpPersonData.PersonDataPresenter;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataContract;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
-import com.aiyaschool.aiya.me.view.RoundImageView;
-import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
@@ -45,15 +41,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import me.nereo.multi_image_selector.MultiImageSelector;
 
 public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener, PersonDataContract.View, UpdateUserDataContract.View {
@@ -254,7 +245,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             case R.id.tv_save:
                 mUpdatePresenter.updateUserData(map);
                 Log.d(TAG, "tv_save onClick: age" + user.getAge());
-                MyApplication.setUser(user);
+                UserUtil.setUser(user);
                 Intent intent1 = new Intent();
                 intent1.putExtra("flag", "me");
                 setResult(RESULT_OK, intent1);
@@ -752,7 +743,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         appUsr.setAge(user.getAge());
         appUsr.setConstellation(user.getConstellation());
         appUsr.setHobby(user.getHobby());
-        MyApplication.setUser(appUsr);
+        UserUtil.setUser(appUsr);
         if (!TextUtils.isEmpty(user.getAge())) {
             mTvDate.setText(user.getAge());
         }

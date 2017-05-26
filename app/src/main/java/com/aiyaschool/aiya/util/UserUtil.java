@@ -54,7 +54,7 @@ public class UserUtil {
         sUser.setImgWall(UserUtil.getImgWall());
     }
 
-    static void setUser(User user) {
+    public static void setUser(User user) {
         setLoginToken(user.getLoginToken());
         setUserSig(user.getUserSig());
         setAccessToken(user.getAccessToken());

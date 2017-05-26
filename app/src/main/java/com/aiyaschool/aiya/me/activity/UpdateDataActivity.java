@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataContract;
@@ -115,7 +114,7 @@ public class UpdateDataActivity extends AppCompatActivity implements UpdateUserD
                         break;
                 }
                 presenter.updateUserData(map);
-                MyApplication.setUser(user);
+                UserUtil.setUser(user);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

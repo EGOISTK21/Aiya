@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -304,9 +303,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
                 scrollToBottom();
             }
         });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
-                && ActivityCompat.checkSelfPermission(ChatQQActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(ChatQQActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ekBar.getBtnImage().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

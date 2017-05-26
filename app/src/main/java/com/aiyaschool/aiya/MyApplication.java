@@ -3,9 +3,7 @@ package com.aiyaschool.aiya;
 import android.app.Application;
 import android.util.Log;
 
-import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
-import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.tencent.TIMManager;
 import com.tencent.TIMOfflinePushListener;
@@ -53,13 +51,5 @@ public class MyApplication extends Application {
     public static MyApplication getInstance() {
         return instance;
     }
-
-    public static void setUser(User user) {
-        SignUtil.setUser(user);
-    }
-
-//    public static User getUser() {
-//        return SignUtil.getUser();
-//    }
 
 }

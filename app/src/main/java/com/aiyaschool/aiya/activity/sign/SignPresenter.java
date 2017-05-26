@@ -2,11 +2,11 @@ package com.aiyaschool.aiya.activity.sign;
 
 import android.util.Log;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.ToastUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -59,7 +59,7 @@ class SignPresenter implements SignContract.Presenter {
                         ToastUtil.show("验证码错误");
                         break;
                     case "5130":
-                        MyApplication.setUser(httpResult.getData());
+                        UserUtil.setUser(httpResult.getData());
                         APIUtil.getTokenApi()
                                 .loadUser(phone, httpResult.getData().getTempToken())
                                 .subscribeOn(Schedulers.io())
@@ -76,7 +76,7 @@ class SignPresenter implements SignContract.Presenter {
                                         Log.i(TAG, "onNext: sign up " + userHttpResult);
                                         switch (userHttpResult.getState()) {
                                             case "2000":
-                                                MyApplication.setUser(userHttpResult.getData());
+                                                UserUtil.setUser(userHttpResult.getData());
                                                 mView.startFormView();
                                                 break;
                                             case "5044":
@@ -97,7 +97,7 @@ class SignPresenter implements SignContract.Presenter {
                                 });
                         break;
                     case "2000":
-                        MyApplication.setUser(httpResult.getData());
+                        UserUtil.setUser(httpResult.getData());
                         mView.startMainView();
                         break;
                 }

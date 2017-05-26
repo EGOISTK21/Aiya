@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.message.ui.activity.ChatQQActivity;
-import com.aiyaschool.aiya.message.ui.view.CircleImageView;
+import com.aiyaschool.aiya.util.ToastUtil;
+import com.aiyaschool.aiya.util.UserUtil;
+import com.aiyaschool.aiya.widget.CircleImageView;
 
 import java.util.List;
 
@@ -22,8 +25,8 @@ import java.util.List;
  */
 
 public class MsgListFragment extends android.support.v4.app.Fragment{
+
     private RecyclerView mMsgRecyclerView;
-    private MsgAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,12 +51,12 @@ public class MsgListFragment extends android.support.v4.app.Fragment{
 //        }else{
 //            List<Msg> msgList = new Msg().getMsgs();
 //        }
-            mAdapter = new MsgAdapter(msgList);
+        MsgAdapter adapter = new MsgAdapter(msgList);
             //RecycleView 增加边距
             int spacingInPixels = 30;
             mMsgRecyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
 
-            mMsgRecyclerView.setAdapter(mAdapter);
+        mMsgRecyclerView.setAdapter(adapter);
 
         }
 //
@@ -75,12 +78,9 @@ public class MsgListFragment extends android.support.v4.app.Fragment{
             public MsgHolder(View itemView) {
                 super(itemView);
 //            itemView.setOnClickListener(this);
-                mTitle = (TextView)
-                        itemView.findViewById(R.id.msg_title);
-                mTime = (TextView)
-                        itemView.findViewById(R.id.msg_time);
-                mPreView = (TextView)
-                        itemView.findViewById(R.id.msg_preview);
+                mTitle = (TextView) itemView.findViewById(R.id.msg_title);
+                mTime = (TextView) itemView.findViewById(R.id.msg_time);
+                mPreView = (TextView) itemView.findViewById(R.id.msg_preview);
                 mCircleImageView = (CircleImageView) itemView.findViewById(R.id.circleImageView);
         }
 
@@ -91,7 +91,6 @@ public class MsgListFragment extends android.support.v4.app.Fragment{
             mPreView.setText(mMsg.getmPreview());
             mCircleImageView.setImageResource(mMsg.getmImageView());
         }
-
 
 
 //        @Override
@@ -148,8 +147,12 @@ public class MsgListFragment extends android.support.v4.app.Fragment{
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), ChatQQActivity.class);
-                        startActivity(intent);
+                        if (UserUtil.getUser().isMatched()) {
+                            startActivity(new Intent(getContext(), ChatQQActivity.class));
+                        } else {
+                            ToastUtil.show("你还没有伴侣");
+                            ((MainActivity) getActivity()).setLovePage();
+                        }
                     }
                 });
             } else if (msg.getmTitle().equals("消息通知")) {
@@ -160,7 +163,7 @@ public class MsgListFragment extends android.support.v4.app.Fragment{
                         startActivity(intent);
                     }
                 });
-            }else if (msg.getmTitle().equals("任务消息")) {
+            }/*else if (msg.getmTitle().equals("任务消息")) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -168,7 +171,7 @@ public class MsgListFragment extends android.support.v4.app.Fragment{
                         startActivity(intent);
                     }
                 });
-            }else if (msg.getmTitle().equals("攻略指南")) {
+            }*/ else if (msg.getmTitle().equals("攻略指南")) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

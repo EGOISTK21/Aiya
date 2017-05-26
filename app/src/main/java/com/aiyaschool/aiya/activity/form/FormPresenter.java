@@ -2,7 +2,6 @@ package com.aiyaschool.aiya.activity.form;
 
 import android.util.Log;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.UserUtil;
@@ -102,7 +101,7 @@ class FormPresenter implements FormContract.Presenter {
                         switch (httpResult.getState()) {
                             case "2000":
                                 Log.d(TAG, "onNext: " + httpResult.getData());
-                                MyApplication.setUser(httpResult.getData());
+                                UserUtil.setUser(httpResult.getData());
                                 mView.startMainView();
                                 break;
                         }

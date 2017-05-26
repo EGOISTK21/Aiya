@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="70dp"
     tools:context=".message.ui.activity.MsgListActivity">
 
-    <com.aiyaschool.aiya.message.ui.view.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.aiyaschool.aiya.widget.CircleImageView
         android:id="@+id/circleImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="@dimen/common_margin_15"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/message"
-        app:border_color="#ccc"
-        app:border_width="0dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/common_margin_15"
+        android:src="@drawable/message"/>
 
     <TextView
         android:id="@+id/msg_title"
@@ -25,9 +21,10 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/circleImageView"
         android:layout_toEndOf="@+id/circleImageView"
-        android:layout_toRightOf="@+id/circleImageView"
+        android:layout_marginStart="@dimen/common_margin_5"
+        android:includeFontPadding="false"
         android:text="TextView"
-        android:textSize="15sp" />
+        android:textSize="@dimen/common_text_size_15"/>
 
     <TextView
         android:id="@+id/msg_preview"
@@ -35,20 +32,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/msg_title"
         android:layout_marginTop="6dp"
+        android:layout_marginStart="@dimen/common_margin_5"
         android:layout_toEndOf="@+id/circleImageView"
-        android:layout_toRightOf="@+id/circleImageView"
+        android:includeFontPadding="false"
         android:text="TextView"
-        android:textSize="13sp" />
+        android:textSize="@dimen/common_text_size_13"/>
 
     <TextView
         android:id="@+id/msg_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/common_margin_15"
         android:includeFontPadding="false"
         android:text="TextView"
-        android:textSize="11sp" />
+        android:textSize="@dimen/common_text_size_11"/>
+
 </RelativeLayout>

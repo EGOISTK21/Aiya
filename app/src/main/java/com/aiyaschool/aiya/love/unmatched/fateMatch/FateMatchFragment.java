@@ -88,6 +88,7 @@ public class FateMatchFragment extends BaseFragment implements FateMatchContract
     @Override
     public void fate(User user) {
         Bundle bundle = new Bundle();
+        user.setStartdate(System.currentTimeMillis() / 1000);
         bundle.putParcelable("hit it off", user);
         startActivity(new Intent(getContext(), HitItOffActivity.class).putExtras(bundle));
         fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);

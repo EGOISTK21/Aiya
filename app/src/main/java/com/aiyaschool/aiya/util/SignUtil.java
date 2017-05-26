@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.aiyaschool.aiya.activity.sign.SignActivity;
-import com.aiyaschool.aiya.bean.User;
 
 import java.util.regex.Pattern;
 
@@ -28,14 +27,6 @@ public class SignUtil {
     public static boolean isValidUsername(CharSequence username) {
         return null != username && Pattern.compile("[\\u4E00-\\u9FA5A-Za-z0-9_]{1,9}").matcher(username).matches();
     }
-
-    public static void setUser(User user) {
-        UserUtil.setUser(user);
-    }
-
-//    public static User getUser() {
-//        return UserUtil.getUser();
-//    }
 
     public static void setPhone(String phone) {
         if (isValidPhone(phone)) {

@@ -40,6 +40,7 @@
         android:id="@+id/activity_chat_photos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:layout_marginTop="96px"
         android:orientation="vertical"
         android:visibility="invisible">
@@ -82,8 +83,7 @@
         android:id="@+id/ek_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="96px"
-        >
+        android:layout_marginTop="48dp">
 
         <LinearLayout
             android:layout_width="match_parent"
