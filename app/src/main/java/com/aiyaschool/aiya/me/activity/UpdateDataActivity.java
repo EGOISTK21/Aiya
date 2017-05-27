@@ -67,8 +67,8 @@ public class UpdateDataActivity extends AppCompatActivity implements UpdateUserD
             mTvChange.setText("更改个性签名");
             mTvDescribe.setText("好的个性签名展现你的个性");
             mEtContent.setText(oldSignName);
-        } else if (!TextUtils.isEmpty(intent.getStringExtra("oldHobby"))) {
-            oldHobby = intent.getStringExtra("oldHobby");
+        } else if (!TextUtils.isEmpty(intent.getStringExtra("hobby"))) {
+            oldHobby = intent.getStringExtra("hobby");
             flag = "hobby";
             mTvChange.setText("更改兴趣爱好");
             mTvDescribe.setText("让别人知道你的兴趣爱好");

@@ -51,7 +51,7 @@ public class UpdateUserDataPresenter implements UpdateUserDataContract.Presenter
 
             @Override
             public void onError(@NonNull Throwable e) {
-
+                Log.d(TAG, "onError: " + e);
             }
 
             @Override
