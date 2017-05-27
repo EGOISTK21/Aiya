@@ -13,16 +13,38 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseActivity;
-import com.aiyaschool.aiya.widget.NoScrollViewPager;
 import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
-import com.aiyaschool.aiya.message.MsgListFragment;
+import com.aiyaschool.aiya.message.MessageFragment;
+import com.aiyaschool.aiya.message.bean.HitNotification;
 import com.aiyaschool.aiya.util.RefreshTokenService;
 import com.aiyaschool.aiya.util.SignUtil;
+import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.util.UserUtil;
+import com.aiyaschool.aiya.widget.NoScrollViewPager;
+import com.tencent.TIMCallBack;
+import com.tencent.TIMConnListener;
+import com.tencent.TIMCustomElem;
+import com.tencent.TIMElem;
+import com.tencent.TIMElemType;
+import com.tencent.TIMLogListener;
+import com.tencent.TIMManager;
+import com.tencent.TIMMessage;
+import com.tencent.TIMMessageListener;
+import com.tencent.TIMOfflinePushListener;
+import com.tencent.TIMOfflinePushNotification;
+import com.tencent.TIMUser;
+import com.tencent.TIMUserStatusListener;
+import com.tencent.qalsdk.sdk.MsfSdkUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 import butterknife.BindDrawable;
 
@@ -54,6 +76,7 @@ public class MainActivity extends BaseActivity {
     protected int getLayoutId() {
         startService(new Intent(this, RefreshTokenService.class));
         SignUtil.addAccessToken();
+        initTIM();
         return R.layout.activity_main;
     }
 
@@ -65,17 +88,19 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        final Fragment[] fragments = new Fragment[]{
-                /*new CommunityFragment(),*/
-                UserUtil.getUser().isMatched()
-                        ? MatchedContainerFragment.newInstance()
-                        : UnmatchedContainerFragment.newInstance(),
-                new MsgListFragment(),
-                new MeFragment()
-        };
         vpMain = (NoScrollViewPager) findViewById(R.id.viewpager_main);
         fm = getSupportFragmentManager();
         adapter = new FragmentPagerAdapter(fm) {
+
+            private Fragment[] fragments = new Fragment[]{
+                /*new CommunityFragment(),*/
+                    UserUtil.getUser().isMatched()
+                            ? MatchedContainerFragment.newInstance()
+                            : UnmatchedContainerFragment.newInstance(),
+                    MessageFragment.newInstance(),
+                    new MeFragment()
+            };
+
             @Override
             public int getItemPosition(Object object) {
                 if (((/*object instanceof || */object instanceof UnmatchedContainerFragment)
@@ -184,6 +209,87 @@ public class MainActivity extends BaseActivity {
                 });
     }
 
+    private void initTIM() {
+        TIMManager.getInstance().addMessageListener(new TIMMessageListener() {
+            @Override
+            public boolean onNewMessages(List<TIMMessage> list) {
+                for (TIMMessage message : list) {
+                    for (int i = 0; i < message.getElementCount(); i++) {
+                        Log.i(TAG, "onNewMessages: " + message.getElement(i));
+                        TIMElem elem = message.getElement(i);
+                        TIMElemType type = elem.getType();
+                        if (type == TIMElemType.Custom) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(new String(((TIMCustomElem) elem).getData()));
+                                String requestid = jsonObject.getString("requestid");
+                                String fromuserid = jsonObject.getString("fromuserid");
+                                HitNotification hitNotification = new HitNotification(requestid, fromuserid);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+        });
+        if (MsfSdkUtils.isMainProcess(this)) {
+            Log.d("MyApplication", "main process");
+            TIMManager.getInstance().setOfflinePushListener(new TIMOfflinePushListener() {
+                @Override
+                public void handleNotification(TIMOfflinePushNotification notification) {
+                    Log.e("MyApplication", "recv offline push");
+                    notification.doNotify(getApplicationContext(), R.drawable.ic_launcher);
+                }
+            });
+        }
+        TIMManager.getInstance().setConnectionListener(new TIMConnListener() {
+            @Override
+            public void onConnected() {
+                Log.i(TAG, "onConnected: initTIM");
+            }
+
+            @Override
+            public void onDisconnected(int i, String s) {
+                Log.i(TAG, "onDisconnected: initTIM " + i + " " + s);
+            }
+
+            @Override
+            public void onWifiNeedAuth(String s) {
+                Log.i(TAG, "onWifiNeedAuth: initTIM " + s);
+            }
+        });
+        TIMManager.getInstance().setLogListener(new TIMLogListener() {
+            @Override
+            public void log(int i, String s, String s1) {
+                Log.i(TAG, "log: " + i + " " + s + " " + s1);
+            }
+        });
+        TIMManager.getInstance().setUserStatusListener(new TIMUserStatusListener() {
+            @Override
+            public void onForceOffline() {
+                ToastUtil.show("你的账号已在其他设备登录");
+            }
+
+            @Override
+            public void onUserSigExpired() {
+                ToastUtil.show("登录已过期，请重新登录");
+            }
+        });
+        TIMUser timUser = new TIMUser();
+        timUser.setIdentifier(SignUtil.getPhone());
+        TIMManager.getInstance().login(MyApplication.APP_ID, timUser, UserUtil.getUser().getUserSig(), new TIMCallBack() {
+            @Override
+            public void onError(int i, String s) {
+                Log.i(TAG, "onError: login " + i + " " + s);
+            }
+
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "onSuccess: login");
+            }
+        });
+    }
     /**
      * 在fragment里调用((MainActivity) getActivity).notifyAdapter();
      * 用来通知viewpager的adapter更新其中的fragment

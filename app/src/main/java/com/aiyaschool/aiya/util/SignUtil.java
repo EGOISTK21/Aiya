@@ -2,8 +2,11 @@ package com.aiyaschool.aiya.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.aiyaschool.aiya.activity.sign.SignActivity;
+import com.tencent.TIMCallBack;
+import com.tencent.TIMManager;
 
 import java.util.regex.Pattern;
 
@@ -12,6 +15,8 @@ import java.util.regex.Pattern;
  */
 
 public class SignUtil {
+
+    private static final String TAG = "SignUtil";
 
     private SignUtil() {
     }
@@ -54,9 +59,20 @@ public class SignUtil {
         APIUtil.removeAccessToken();
     }
 
-    public static void signOut(Context context) {
+    public static void signOut(final Context context) {
         SignUtil.clearLoginToken();
         SignUtil.removeAccessToken();
+        TIMManager.getInstance().logout(new TIMCallBack() {
+            @Override
+            public void onError(int i, String s) {
+                Log.i(TAG, "onError: signOut " + i + " " + s);
+            }
+
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "onSuccess: signOut");
+            }
+        });
         context.startActivity(new Intent(context, SignActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 

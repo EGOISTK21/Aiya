@@ -196,7 +196,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>{
             timeZone = (ChatTimeZoneView) itemView.findViewById(R.id.view_chat_timezone);
             rlMsg = (RelativeLayout) itemView.findViewById(R.id.rl_msg_content_info);
             imgUserIcon = (ImageView) itemView.findViewById(R.id.img_chat_fromIcon);
-            viewMessage = (ChatMessageView) itemView.findViewById(R.id.view_list_message);
+            viewMessage = (ChatMessageView) itemView.findViewById(R.id.recycler_view);
         }
 
     }

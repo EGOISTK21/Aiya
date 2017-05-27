@@ -1,18 +1,16 @@
 package com.aiyaschool.aiya.me;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.activity.JifenAndGiftActivity;
 import com.aiyaschool.aiya.me.activity.MemberActivity;
@@ -42,8 +40,7 @@ import me.nereo.multi_image_selector.MultiImageSelectorFragment;
  * Created by wewarriors on 2017/3/16.
  */
 
-public class MeFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
-    private Context mContext;
+public class MeFragment extends BaseFragment implements View.OnClickListener {
     private CircleImageView mRivMyPhoto;
     private TextView mTvMyName, mTvSignName, mTVJiFen, mTvGift, mTvMember;
     private LinearLayout mLlMyPhotoAlbum, mLlMyState, mLlMyGuest, mLlEmotion, mLlMyGift, mLlMoreSetting;
@@ -53,87 +50,27 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     private static final int REQUEST_DATA = 101;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        System.out.println(555);
-        this.mContext = context;
+    protected int getLayoutId() {
+        return R.layout.view_me;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        System.out.println(333);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View mView = inflater.inflate(R.layout.view_me, container, false);
-        System.out.println(444);
-        initView(mView);
-        return mView;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        List<ImagePathItem> list = DataSupport.findAll(ImagePathItem.class);
-        System.out.println("list.size()" + list.size());
-
-        List<String> mList = getImagePath(list);
-        System.out.println("mList.size()" + mList.size());
-        if (mList.size() == 1) {
-            File imageFile = new File(mList.get(0));
-            Picasso.with(getActivity())
-                    .load(imageFile)
-                    .placeholder(R.drawable.mis_default_error)
-                    .tag(MultiImageSelectorFragment.TAG)
-                    .resize(238, 181)
-                    .centerCrop()
-                    .into(imageView1);
-        } else if (mList.size() == 2) {
-            File imageFile = new File(mList.get(0));
-            Picasso.with(getActivity())
-                    .load(imageFile)
-                    .placeholder(R.drawable.mis_default_error)
-                    .tag(MultiImageSelectorFragment.TAG)
-                    .resize(238, 181)
-                    .centerCrop()
-                    .into(imageView1);
-            File imageFile1 = new File(mList.get(1));
-            Picasso.with(getActivity())
-                    .load(imageFile1)
-                    .placeholder(R.drawable.mis_default_error)
-                    .tag(MultiImageSelectorFragment.TAG)
-                    .resize(238, 181)
-                    .centerCrop()
-                    .into(imageView2);
-        }
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        this.mContext = null;
-    }
-
-    private void initView(View view) {
-        mRivMyPhoto = (CircleImageView) view.findViewById(R.id.my_photo);
-        mTvMyName = (TextView) view.findViewById(R.id.tv_name);
-        mTvSignName = (TextView) view.findViewById(R.id.tv_sign_name);
-        mTVJiFen = (TextView) view.findViewById(R.id.tv_Jifen);
-        mTvGift = (TextView) view.findViewById(R.id.tv_gift);
-        mTvMember = (TextView) view.findViewById(R.id.tv_member);
-        mLlMyPhotoAlbum = (LinearLayout) view.findViewById(R.id.my_photo_albun);
-        mLlMyState = (LinearLayout) view.findViewById(R.id.my_state);
-        mLlMyGuest = (LinearLayout) view.findViewById(R.id.my_guest);
-        mLlEmotion = (LinearLayout) view.findViewById(R.id.my_emotion);
-        mLlMyGift = (LinearLayout) view.findViewById(R.id.my_gift);
-        mLlMoreSetting = (LinearLayout) view.findViewById(R.id.more_setting);
-        imageView1 = (ImageView) view.findViewById(R.id.photo1);
-        imageView2 = (ImageView) view.findViewById(R.id.photo2);
-        mMember_icon = (ImageView) view.findViewById(R.id.member_icon);
+    protected void initView() {
+        mRivMyPhoto = (CircleImageView) rootView.findViewById(R.id.my_photo);
+        mTvMyName = (TextView) rootView.findViewById(R.id.tv_name);
+        mTvSignName = (TextView) rootView.findViewById(R.id.tv_sign_name);
+        mTVJiFen = (TextView) rootView.findViewById(R.id.tv_Jifen);
+        mTvGift = (TextView) rootView.findViewById(R.id.tv_gift);
+        mTvMember = (TextView) rootView.findViewById(R.id.tv_member);
+        mLlMyPhotoAlbum = (LinearLayout) rootView.findViewById(R.id.my_photo_albun);
+        mLlMyState = (LinearLayout) rootView.findViewById(R.id.my_state);
+        mLlMyGuest = (LinearLayout) rootView.findViewById(R.id.my_guest);
+        mLlEmotion = (LinearLayout) rootView.findViewById(R.id.my_emotion);
+        mLlMyGift = (LinearLayout) rootView.findViewById(R.id.my_gift);
+        mLlMoreSetting = (LinearLayout) rootView.findViewById(R.id.more_setting);
+        imageView1 = (ImageView) rootView.findViewById(R.id.photo1);
+        imageView2 = (ImageView) rootView.findViewById(R.id.photo2);
+        mMember_icon = (ImageView) rootView.findViewById(R.id.member_icon);
         mRivMyPhoto.setOnClickListener(this);
         mTvMyName.setOnClickListener(this);
         mTvSignName.setOnClickListener(this);
@@ -181,9 +118,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                 }
             }
             if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
-
                 Glide.with(this).load(user.getAvatar().getThumb().getFace())
-
                         .error(R.drawable.guanggao1)
                         .centerCrop()
                         .transform(new GlideCircleTransform(getContext()))
@@ -191,7 +126,44 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                         .crossFade()
                         .into(mRivMyPhoto);
             }
-            System.out.println(user.getUsername());
+        }
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        List<ImagePathItem> list = DataSupport.findAll(ImagePathItem.class);
+        System.out.println("list.size()" + list.size());
+
+        List<String> mList = getImagePath(list);
+        System.out.println("mList.size()" + mList.size());
+        if (mList.size() == 1) {
+            File imageFile = new File(mList.get(0));
+            Picasso.with(getActivity())
+                    .load(imageFile)
+                    .placeholder(R.drawable.mis_default_error)
+                    .tag(MultiImageSelectorFragment.TAG)
+                    .resize(238, 181)
+                    .centerCrop()
+                    .into(imageView1);
+        } else if (mList.size() == 2) {
+            File imageFile = new File(mList.get(0));
+            Picasso.with(getActivity())
+                    .load(imageFile)
+                    .placeholder(R.drawable.mis_default_error)
+                    .tag(MultiImageSelectorFragment.TAG)
+                    .resize(238, 181)
+                    .centerCrop()
+                    .into(imageView1);
+            File imageFile1 = new File(mList.get(1));
+            Picasso.with(getActivity())
+                    .load(imageFile1)
+                    .placeholder(R.drawable.mis_default_error)
+                    .tag(MultiImageSelectorFragment.TAG)
+                    .resize(238, 181)
+                    .centerCrop()
+                    .into(imageView2);
         }
 
     }

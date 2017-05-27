@@ -230,6 +230,9 @@ public class User implements Parcelable {
     }
 
     public Avatar getAvatar() {
+        if (avatar == null) {
+            avatar = new Avatar(new Normal(null, null), new Thumb(null, null));
+        }
         return avatar;
     }
 

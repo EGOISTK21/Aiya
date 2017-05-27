@@ -35,8 +35,6 @@ import static com.aiyaschool.aiya.activity.main.MainActivity.DESTROY_LOVE;
 public class MatchedTodayFragment extends BaseFragment implements MatchedTodayContract.View {
 
     private static final String TAG = "MatchedTodayFragment";
-    //    private FragmentManager fm;
-//    private FragmentTransaction ft;
     private MatchedTodayContract.Presenter mPresenter;
     @BindView(R.id.iv_matched_left)
     CircleImageView ivLeftAvatar;
@@ -70,19 +68,17 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
 
     @Override
     protected void initView() {
-//        fm = getParentFragment().getFragmentManager();
-//        ft = fm.beginTransaction();
         mPresenter = new MatchedTodayPresenter(this);
-        User ta = UserUtil.getTa();
-        Glide.with(this).load(ta.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
-                .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivLeftAvatar);
-        tvLeftUsername.setText(ta.getUsername());
-        tvLeftSchool.setText(ta.getSchool());
         User me = UserUtil.getUser();
         Glide.with(this).load(me.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
+                .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivLeftAvatar);
+        tvLeftUsername.setText(me.getUsername());
+        tvLeftSchool.setText(me.getSchool());
+        User ta = UserUtil.getTa();
+        Glide.with(this).load(ta.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
                 .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivRightAvatar);
-        tvRightUsername.setText(me.getUsername());
-        tvRightSchool.setText(me.getSchool());
+        tvRightUsername.setText(ta.getUsername());
+        tvRightSchool.setText(ta.getSchool());
         mPresenter.getIntimacy(me.getLoveId());
         tvLoveDate.setText((new SimpleDateFormat("yyyy-MM-dd")).format(new Date()));
         tvLoveDay.setText("DAY " + (int) ((System.currentTimeMillis() / 1000 / 60 / 60 + 8) / 24 - (ta.getStartdate() / 60 / 60 + 8) / 24 + 1));
@@ -97,13 +93,13 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
     }
 
     @OnClick(R.id.iv_matched_left)
-    void showTa() {
-        startActivityForResult(new Intent(getContext(), OtherDetailActivity.class), DESTROY_LOVE);
+    void showMe() {
+        startActivity(new Intent(getContext(), PersonalDataActivity.class));
     }
 
     @OnClick(R.id.iv_matched_right)
-    void showMe() {
-        startActivity(new Intent(getActivity(), PersonalDataActivity.class));
+    void showTa() {
+        startActivityForResult(new Intent(getContext(), OtherDetailActivity.class), DESTROY_LOVE);
     }
 
     @OnClick(R.id.ll_intimacy)

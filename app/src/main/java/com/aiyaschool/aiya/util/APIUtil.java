@@ -189,7 +189,7 @@ public class APIUtil {
      */
 
     public interface TouchApi {
-        @POST("Love/POST/task")
+        @POST("Love/POST/touch")
         @FormUrlEncoded
         Observable<HttpResult> touch(@Field("userid") String id);
     }

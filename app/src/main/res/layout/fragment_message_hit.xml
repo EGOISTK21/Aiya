@@ -10,12 +10,12 @@
         android:layout_height="@dimen/title_bar_height"
         android:background="@color/colorPureWhite"
         android:gravity="center"
-        android:text="@string/message"
+        android:text="@string/message_title_hit"
         android:textColor="@color/colorTitle"
         android:textSize="@dimen/common_text_size_16"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/view_list_message"
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
