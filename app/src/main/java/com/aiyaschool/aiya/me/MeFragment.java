@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.nereo.multi_image_selector.MultiImageSelectorFragment;
-import retrofit2.http.HEAD;
 
 /**
  * Created by wewarriors on 2017/3/16.
