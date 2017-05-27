@@ -168,6 +168,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
          */
 
         //从MyApplication 中读取数据
+        Log.d(TAG, "initView: " + UserUtil.getUser().getAvatar().getNormal().getFace());
         if (UserUtil.getUser() != null) {
             User user = UserUtil.getUser();
             if (!TextUtils.isEmpty(user.getUsername())) {

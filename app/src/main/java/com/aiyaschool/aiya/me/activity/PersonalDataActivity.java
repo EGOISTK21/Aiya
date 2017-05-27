@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.bean.Avatar;
+import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.RegionModel;
@@ -31,6 +33,7 @@ import com.aiyaschool.aiya.me.mvpPersonData.PersonDataPresenter;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataContract;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
+import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
@@ -45,11 +48,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import me.nereo.multi_image_selector.MultiImageSelector;
 
 public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener, PersonDataContract.View, UpdateUserDataContract.View {
@@ -226,6 +234,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 mTvConstellation.setText(user.getConstellation());
             }
 
+            Log.d(TAG, "onCreate: " + user.getAvatar().getNormal().getFace());
             if (user.getAvatar() != null) {
                 if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
 
@@ -240,6 +249,14 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 }
             }
 
+            if (!TextUtils.isEmpty(user.getSex())) {
+                String sex = user.getSex();
+                if (sex.equals("1")) {
+                    mTvSex.setText("男");
+                } else {
+                    mTvSex.setText("女");
+                }
+            }
 
         }
 
@@ -273,14 +290,13 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 
                 if (isAvatarChange && !TextUtils.isEmpty(upurl) && !TextUtils.isEmpty(imgname)) {
                     mPresenter.submitAvatar(upurl, mFileAvatar);
+                } else {
+                    Intent intent1 = new Intent();
+                    intent1.putExtra("flag", "me");
+                    setResult(RESULT_OK, intent1);
+                    finish();
                 }
 
-
-                MyApplication.setUser(user);
-                Intent intent1 = new Intent();
-                intent1.putExtra("flag", "me");
-                setResult(RESULT_OK, intent1);
-                finish();
                 break;
             case R.id.rl_person_photo:
                 choosePhoto();
@@ -586,6 +602,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                         public void onClick(DialogInterface dialog, int which) {
                             mTvConstellation.setText(sspConstellation.getSelectedItem());
                             //Todo 将星座保存到本地
+                            user.setConstellation(sspConstellation.getSelectedItem());
                             map.put("constellation", sspConstellation.getSelectedItem());
                             dialog.dismiss();
                         }
@@ -771,32 +788,33 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     public void showGetMeIndex(User user) {
 //        String demand = "height,age,constellation,hobby";
         User appUsr = UserUtil.getUser();
-        appUsr.setHeight(user.getHeight());
-        appUsr.setAge(user.getAge());
-        appUsr.setConstellation(user.getConstellation());
-        appUsr.setCharacter(user.getCharacter());
-        appUsr.setHobby(user.getHobby());
-        MyApplication.setUser(appUsr);
         if (!TextUtils.isEmpty(user.getAge())) {
+            appUsr.setAge(user.getAge());
             mTvDate.setText(user.getAge());
         }
 
         if (!TextUtils.isEmpty(user.getHeight())) {
+            appUsr.setHeight(user.getHeight());
             mTvHeight.setText(user.getHeight());
         }
 
         if (!TextUtils.isEmpty(user.getCharacter())) {
+            appUsr.setCharacter(user.getCharacter());
             mTvHometown.setText(user.getCharacter());
         }
         if (!TextUtils.isEmpty(user.getHobby())) {
+            appUsr.setHobby(user.getHobby());
             mTvHobby.setText(user.getHobby());
         }
         if (!TextUtils.isEmpty(user.getConstellation())) {
+            appUsr.setConstellation(user.getConstellation());
             mTvConstellation.setText(user.getConstellation());
         }
+        MyApplication.setUser(appUsr);
 
     }
 
+    //上传头像成功后，将imgname也上传
     @Override
     public void showSubmitAvatar() {
         Map<String, String> imgMap = new HashMap<>();
@@ -809,11 +827,29 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     public void setAvatarUploadUrl(UploadUrl uploadUrl) {
         upurl = uploadUrl.getUpurl();
         imgname = uploadUrl.getImgname();
+
+    }
+
+    @Override
+    public void showGetMeIndexAvatar(String normalString, String thumbString) {
+        Avatar avatar = user.getAvatar();
+        avatar.getNormal().setFace(normalString);
+        avatar.getThumb().setFace(thumbString);
+        Intent intent1 = new Intent();
+        intent1.putExtra("flag", "me");
+        setResult(RESULT_OK, intent1);
+        finish();
     }
 
 
     @Override
     public void showUpdateSuccess() {
         Toast.makeText(PersonalDataActivity.this, "修改个人信息成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getMeIndexAvatarUrl() {
+        String demand = "avatar";
+        mPresenter.getMeIndexAvatar1(demand);
     }
 }

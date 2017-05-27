@@ -5,6 +5,7 @@ import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.me.bean.MyAvatar;
 import com.aiyaschool.aiya.me.mvpGuestRecord.GuestDataContract;
 import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.UserUtil;
@@ -63,6 +64,17 @@ public class PersonDataModel implements PersonDataContract.Model {
     public void getMeIndex(String demand, Observer<HttpResult<User>> observer) {
         APIUtil.getMeIndexApi()
                 .startGetMeIndex(demand)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void getMeIndexAvatar(String demand, Observer<HttpResult<MyAvatar>> observer) {
+        APIUtil.getMeIndexAvatarApi()
+                .startGetMeIndexAvatar(demand)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -42,6 +42,7 @@ public class EmotionRecordPresenter implements EmotionRecordContract.Presenter {
 
             @Override
             public void onNext(@NonNull HttpResult<ArrayList<EmotionRecordBean>> arrayListHttpResult) {
+                Log.d(TAG, "onNext: " + arrayListHttpResult);
                 Log.d(TAG, "onNext: getEmotionRecord" + arrayListHttpResult.getState());
                 Log.d(TAG, "onNext: getEmotionRecord" + arrayListHttpResult.getData().size());
                 for (EmotionRecordBean e : arrayListHttpResult.getData()) {

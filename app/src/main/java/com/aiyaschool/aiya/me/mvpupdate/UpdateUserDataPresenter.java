@@ -33,7 +33,7 @@ public class UpdateUserDataPresenter implements UpdateUserDataContract.Presenter
 
     @Override
     public void updateUserData(Map<String, String> map) {
-        Set<String> get = map.keySet();
+        final Set<String> get = map.keySet();
         for (String test : get) {
             Log.d(TAG, "updateUserData: " + test + "," + map.get(test));
         }
@@ -56,7 +56,13 @@ public class UpdateUserDataPresenter implements UpdateUserDataContract.Presenter
 
             @Override
             public void onComplete() {
-
+                if (get.size() == 1) {
+                    for (String test : get) {
+                        if (test.equals("avatar")) {
+                            mView.getMeIndexAvatarUrl();
+                        }
+                    }
+                }
             }
         });
     }

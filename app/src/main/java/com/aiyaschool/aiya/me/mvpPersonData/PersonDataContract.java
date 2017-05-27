@@ -4,6 +4,7 @@ import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.me.bean.MyAvatar;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,7 +30,10 @@ public interface PersonDataContract {
 
         void getMeIndex(String demand, Observer<HttpResult<User>> observer);
 
+        void getMeIndexAvatar(String demand, Observer<HttpResult<MyAvatar>> observer);
+
         void getAvatarUploadUrl(Observer<HttpResult<UploadUrl>> observer);
+
 
     }
 
@@ -42,6 +46,10 @@ public interface PersonDataContract {
         void showSubmitAvatar();
 
         void setAvatarUploadUrl(UploadUrl uploadUrl);
+
+        void showGetMeIndexAvatar(String normalString, String thumbString);
+
+
     }
 
     public interface Presenter {
@@ -51,6 +59,10 @@ public interface PersonDataContract {
         void updateUserHeight(String height);
 
         void getMeIndex(String demand);
+
+        void getMeIndexAvatar(String demand);
+
+        void getMeIndexAvatar1(String demand);
 
         void submitAvatar(String url, File file);
 
