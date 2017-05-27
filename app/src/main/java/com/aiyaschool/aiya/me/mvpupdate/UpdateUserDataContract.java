@@ -19,6 +19,8 @@ public interface UpdateUserDataContract {
 
     interface View {
         void showUpdateSuccess();
+
+        void getMeIndexAvatarUrl();
     }
 
     interface Presenter {

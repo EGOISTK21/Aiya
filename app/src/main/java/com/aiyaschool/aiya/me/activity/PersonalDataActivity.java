@@ -15,13 +15,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aiyaschool.aiya.R;
+
+import com.aiyaschool.aiya.bean.Avatar;
+import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.UploadUrl;
+
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.RegionModel;
 import com.aiyaschool.aiya.me.db.RegionDao;
@@ -30,27 +34,36 @@ import com.aiyaschool.aiya.me.mvpPersonData.PersonDataPresenter;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataContract;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
+
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Set;
+
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.nereo.multi_image_selector.MultiImageSelector;
 
 public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener, PersonDataContract.View, UpdateUserDataContract.View {
 
 
     private static final String TAG = "PersonalDataActivity";
+
 
     private FilletDialog dialogDatePicker, dialogSchoolPicker, dialogAgePicker,
             dialogHeightPicker, dialogConstellationPicker, dialogHometownPicker;
@@ -74,8 +87,13 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     private String mAge, mCharacter;
 
     private RegionDao mRegionDao;
-    private boolean flag = false;
+    private boolean isAvatarChange = false;
 
+    private File mFileAvatar;
+
+
+    @BindView(R.id.tv_sex)
+    TextView mTvSex;
     @BindView(R.id.ll_name)
     LinearLayout llName;
     @BindView(R.id.tvv_birth)
@@ -107,7 +125,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.tv_height)
     TextView mTvHeight;
     @BindView(R.id.personal_photo)
-    ImageView mRvPersonalPhoto;
+    CircleImageView mRvPersonalPhoto;
     @BindView(R.id.tv_cancel)
     TextView tvCancel;
     @BindView(R.id.tv_save)
@@ -141,6 +159,10 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 
     private Map<String, String> map;
     private User user;
+
+    //上传头像的图片地址
+    private String upurl;
+    private String imgname;
 
 
     @Override
@@ -210,15 +232,31 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             if (!TextUtils.isEmpty(user.getConstellation())) {
                 mTvConstellation.setText(user.getConstellation());
             }
-            if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
-                Glide.with(PersonalDataActivity.this).load(user.getAvatar().getNormal().getFace())
-                        .error(R.drawable.guanggao1)
-                        .centerCrop()
-                        .transform(new GlideCircleTransform(PersonalDataActivity.this))
-                        .into(mRvPersonalPhoto);
+
+            Log.d(TAG, "onCreate: " + user.getAvatar().getNormal().getFace());
+            if (user.getAvatar() != null) {
+                if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
+
+                    Glide.with(this).load(user.getAvatar().getNormal().getFace())
+
+                            .error(R.drawable.guanggao1)
+                            .centerCrop()
+                            .transform(new GlideCircleTransform(PersonalDataActivity.this))
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .crossFade()
+                            .into(mRvPersonalPhoto);
+                }
             }
 
-            System.out.println(user.getUsername());
+            if (!TextUtils.isEmpty(user.getSex())) {
+                String sex = user.getSex();
+                if (sex.equals("1")) {
+                    mTvSex.setText("男");
+                } else {
+                    mTvSex.setText("女");
+                }
+            }
+
         }
 
         mPresenter = new PersonDataPresenter(this);
@@ -231,6 +269,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
         System.out.println("mSchool" + mSchool + "mProvince" + mProvince);
         String demand = "character,height,age,constellation,hobby";
         mPresenter.getMeIndex(demand);
+        mPresenter.getAvatarUploadUrl();
     }
 
 
@@ -243,13 +282,20 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 finish();
                 break;
             case R.id.tv_save:
-                mUpdatePresenter.updateUserData(map);
-                Log.d(TAG, "tv_save onClick: age" + user.getAge());
-                UserUtil.setUser(user);
-                Intent intent1 = new Intent();
-                intent1.putExtra("flag", "me");
-                setResult(RESULT_OK, intent1);
-                finish();
+                Set<String> get = map.keySet();
+                if (get.size() > 0) {
+                    mUpdatePresenter.updateUserData(map);
+                }
+
+                if (isAvatarChange && !TextUtils.isEmpty(upurl) && !TextUtils.isEmpty(imgname)) {
+                    mPresenter.submitAvatar(upurl, mFileAvatar);
+                } else {
+                    Intent intent1 = new Intent();
+                    intent1.putExtra("flag", "me");
+                    setResult(RESULT_OK, intent1);
+                    finish();
+                }
+
                 break;
             case R.id.rl_person_photo:
                 choosePhoto();
@@ -555,6 +601,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                         public void onClick(DialogInterface dialog, int which) {
                             mTvConstellation.setText(sspConstellation.getSelectedItem());
                             //Todo 将星座保存到本地
+                            user.setConstellation(sspConstellation.getSelectedItem());
                             map.put("constellation", sspConstellation.getSelectedItem());
                             dialog.dismiss();
                         }
@@ -684,7 +731,8 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 //                        .into(mRvPersonalPhoto);
                 Bitmap bitmap = BitmapFactory.decodeFile(mSelectPath.get(0));
                 mRvPersonalPhoto.setImageBitmap(bitmap);
-
+                mFileAvatar = new File(mSelectPath.get(0));
+                isAvatarChange = true;
             }
         } else if (requestCode == REQUEST_NICKNAME) {
             if (resultCode == RESULT_OK) {
@@ -739,33 +787,67 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     public void showGetMeIndex(User user) {
 //        String demand = "height,age,constellation,hobby";
         User appUsr = UserUtil.getUser();
-        appUsr.setHeight(user.getHeight());
-        appUsr.setAge(user.getAge());
-        appUsr.setConstellation(user.getConstellation());
-        appUsr.setHobby(user.getHobby());
-        UserUtil.setUser(appUsr);
         if (!TextUtils.isEmpty(user.getAge())) {
+            appUsr.setAge(user.getAge());
             mTvDate.setText(user.getAge());
         }
 
         if (!TextUtils.isEmpty(user.getHeight())) {
+            appUsr.setHeight(user.getHeight());
             mTvHeight.setText(user.getHeight());
         }
 
         if (!TextUtils.isEmpty(user.getCharacter())) {
+            appUsr.setCharacter(user.getCharacter());
             mTvHometown.setText(user.getCharacter());
         }
         if (!TextUtils.isEmpty(user.getHobby())) {
+            appUsr.setHobby(user.getHobby());
             mTvHobby.setText(user.getHobby());
         }
         if (!TextUtils.isEmpty(user.getConstellation())) {
+            appUsr.setConstellation(user.getConstellation());
             mTvConstellation.setText(user.getConstellation());
         }
+
+    }
+
+    //上传头像成功后，将imgname也上传
+    @Override
+    public void showSubmitAvatar() {
+        Map<String, String> imgMap = new HashMap<>();
+        imgMap.put("avatar", imgname);
+        mUpdatePresenter.updateUserData(imgMap);
+        isAvatarChange = false;
+    }
+
+    @Override
+    public void setAvatarUploadUrl(UploadUrl uploadUrl) {
+        upurl = uploadUrl.getUpurl();
+        imgname = uploadUrl.getImgname();
+
+    }
+
+    @Override
+    public void showGetMeIndexAvatar(String normalString, String thumbString) {
+        Avatar avatar = user.getAvatar();
+        avatar.getNormal().setFace(normalString);
+        avatar.getThumb().setFace(thumbString);
+        Intent intent1 = new Intent();
+        intent1.putExtra("flag", "me");
+        setResult(RESULT_OK, intent1);
+        finish();
     }
 
 
     @Override
     public void showUpdateSuccess() {
         Toast.makeText(PersonalDataActivity.this, "修改个人信息成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getMeIndexAvatarUrl() {
+        String demand = "avatar";
+        mPresenter.getMeIndexAvatar1(demand);
     }
 }

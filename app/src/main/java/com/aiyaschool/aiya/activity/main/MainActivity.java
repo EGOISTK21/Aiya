@@ -201,7 +201,7 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
-            Log.i(TAG, "onActivityResult: " + requestCode + " " + resultCode + " " + data.getDataString());
+            Log.i(TAG, "onActivityResult: " + requestCode + " " + resultCode + " " + data.getStringExtra("flag"));
         }
 
         if (resultCode == RESULT_OK) {

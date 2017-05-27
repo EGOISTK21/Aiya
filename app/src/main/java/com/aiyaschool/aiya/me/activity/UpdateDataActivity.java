@@ -137,4 +137,9 @@ public class UpdateDataActivity extends AppCompatActivity implements UpdateUserD
                 break;
         }
     }
+
+    @Override
+    public void getMeIndexAvatarUrl() {
+
+    }
 }

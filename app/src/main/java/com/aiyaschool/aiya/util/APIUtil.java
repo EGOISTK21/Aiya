@@ -3,9 +3,14 @@ package com.aiyaschool.aiya.util;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
+
 import com.aiyaschool.aiya.bean.Task;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.love.matched.today.Intimacy;
+
+import com.aiyaschool.aiya.bean.UploadUrl;
+import com.aiyaschool.aiya.me.bean.MyAvatar;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -264,11 +269,28 @@ public class APIUtil {
         Observable<HttpResult<User>> startGetMeIndex(@Field("demand") String demand);
     }
 
+    public interface GetMeIndexAvatar {
+        @POST("Me/GET/meIndex")
+        @FormUrlEncoded
+        Observable<HttpResult<MyAvatar>> startGetMeIndexAvatar(@Field("demand") String demand);
+    }
+
+    public interface GetMeIndexAvatar1 {
+        @POST("Me/GET/meIndex")
+        @FormUrlEncoded
+        Observable<HttpResult> startGetMeIndexAvatar1(@Field("demand") String demand);
+    }
     //更新用户信息
     public interface UpdateUserDataApi {
         @POST("Me/PUT/userinfo")
         @FormUrlEncoded
         Observable<HttpResult> startUpdateUserData(@FieldMap Map<String, String> map);
+    }
+
+    //获取上传头像图片地址
+    public interface GetAvatarUploadUrlApi {
+        @POST("Me/GET/genAvatarUploadUrl")
+        Observable<HttpResult<UploadUrl>> startGetAvatarUploadUrl();
     }
 
     public interface FateMatchApi {
@@ -295,6 +317,7 @@ public class APIUtil {
                                                                                    @Field("page") String page,
                                                                                    @Field("lines") String lines);
     }
+
 
 
 //    public interface GetEmotionRecordApi{
@@ -419,4 +442,18 @@ public class APIUtil {
     public static GetMeIndex getMeIndexApi() {
         return sRetrofit.create(GetMeIndex.class);
     }
+
+    public static GetAvatarUploadUrlApi getAvatarUploadUrlApi() {
+        return sRetrofit.create(GetAvatarUploadUrlApi.class);
+    }
+
+    public static GetMeIndexAvatar getMeIndexAvatarApi() {
+        return sRetrofit.create(GetMeIndexAvatar.class);
+    }
+
+    public static GetMeIndexAvatar1 getMeIndexAvatar1() {
+        return sRetrofit.create(GetMeIndexAvatar1.class);
+    }
+
+
 }

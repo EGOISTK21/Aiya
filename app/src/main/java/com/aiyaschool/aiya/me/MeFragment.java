@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ import me.nereo.multi_image_selector.MultiImageSelectorFragment;
  */
 
 public class MeFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
+    private final static String TAG = "MeFragment";
     private Context mContext;
     private CircleImageView mRivMyPhoto;
     private TextView mTvMyName, mTvSignName, mTVJiFen, mTvGift, mTvMember;
@@ -166,6 +168,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
          */
 
         //从MyApplication 中读取数据
+        Log.d(TAG, "initView: " + UserUtil.getUser().getAvatar().getNormal().getFace());
         if (UserUtil.getUser() != null) {
             User user = UserUtil.getUser();
             if (!TextUtils.isEmpty(user.getUsername())) {
@@ -180,9 +183,10 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     mMember_icon.setImageResource(R.drawable.huanggaun);
                 }
             }
+            Log.d(TAG, "initView: " + user.getAvatar().getNormal().getFace());
             if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
 
-                Glide.with(this).load(user.getAvatar().getThumb().getFace())
+                Glide.with(this).load(user.getAvatar().getNormal().getFace())
 
                         .error(R.drawable.guanggao1)
                         .centerCrop()
