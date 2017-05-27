@@ -1,8 +1,8 @@
 package com.aiyaschool.aiya.love.unmatched.fateMatch;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.text.Spannable;
@@ -12,10 +12,9 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
-import com.aiyaschool.aiya.love.unmatched.HitItOffActivity;
+import com.aiyaschool.aiya.love.unmatched.HitItOffFragment;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.util.UserUtil;
 
@@ -90,8 +89,11 @@ public class FateMatchFragment extends BaseFragment implements FateMatchContract
         Bundle bundle = new Bundle();
         user.setStartdate(System.currentTimeMillis() / 1000);
         bundle.putParcelable("hit it off", user);
-        startActivity(new Intent(getContext(), HitItOffActivity.class).putExtras(bundle));
-        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        ((MainActivity) getActivity()).notifyAdapter();
+        HitItOffFragment fragment = HitItOffFragment.newInstance();
+        fragment.setArguments(bundle);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.addToBackStack(null);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.container_love, fragment).commit();
     }
 }

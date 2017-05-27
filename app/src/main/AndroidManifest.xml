@@ -66,13 +66,8 @@
             android:windowSoftInputMode="adjustResize|stateHidden|adjustUnspecified"/>
         <activity android:name=".message.ui.activity.PhotosThumbnailActivity"/>
         <activity android:name=".message.ui.activity.ChatPhotosActivity"/>
-        <activity android:name=".message.ui.activity.MsgActivity"/>
-        <activity android:name=".message.ui.activity.MsgListActivity"/>
-        <activity android:name=".message.ui.activity.ForgetOneActivity"/>
         <activity android:name=".message.ui.activity.PhotoChooseActivity"/>
         <activity android:name=".message.ui.activity.PhotoCropActivity"/>
-        <activity android:name=".message.ui.activity.ForgetTwoActivity"/>
-        <activity android:name=".love.unmatched.HitItOffActivity"/>
         <activity
             android:name=".love.matched.today.ClockInActivity"
             android:screenOrientation="portrait"/>

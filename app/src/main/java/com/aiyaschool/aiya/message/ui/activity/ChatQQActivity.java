@@ -38,6 +38,7 @@ import com.aiyaschool.aiya.message.ui.view.ChatSelectImageView;
 import com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard;
 import com.aiyaschool.aiya.message.utils.SimpleCommonUtils;
 import com.aiyaschool.aiya.util.StatusBarUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 import com.sj.emoji.EmojiBean;
 import com.tencent.TIMAddFriendRequest;
 import com.tencent.TIMConversation;
@@ -71,6 +72,7 @@ import static com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard.FUNC_TYPE_
 
 public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFuncKeyBoardListener{
 
+    private static final String TAG = "ChatQQActivity";
     public final int APPS_HEIGHT = 256;
 
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
@@ -96,7 +98,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
     private TIMImageElem nowShowing;
     private ArrayList<TIMElem> list;
     private int index = 0;
-    private TextView progressTextView;
+    private TextView tvChatTitle, progressTextView;
     private ViewPager viewPager;
     private ChatPhotosPagerAdapter adapter;
     private ArrayList<TIMImage> imgList = new ArrayList<>();
@@ -111,8 +113,9 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         StatusBarUtil.init(this);
         firstLoad = true;
         context = this;
-        String identifier = getIntent().getStringExtra("identifier");
-        conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,identifier);
+        conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C, UserUtil.getTa().getPhone());
+        tvChatTitle = (TextView) findViewById(R.id.tv_chat_title);
+        tvChatTitle.setText(UserUtil.getTa().getUsername());
         recyclerView = (RecyclerView) findViewById(R.id.rc_chat);
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         ekBar = (QqEmoticonsKeyBoard) findViewById(R.id.ek_bar);
@@ -135,8 +138,8 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
 
             }
         });
-        setViews();
-        setListener();
+        initView();
+        initListener();
 //        ekBar.getEtChat().setText(getDraftMessage(getChatID() + ""));
         //此处应该拿到chat对象，看看之前是否有历史聊天记录，如果没有就 refreshLayout.setRefreshing(false)否则的话，就要getHistoryMsg
         getHistoryMsg(null);
@@ -163,7 +166,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
     }
     private LinearLayoutManager layoutManager;
 
-    protected void setViews(){
+    protected void initView() {
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -176,7 +179,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         initEmoticonsKeyBoardBar();
     }
 
-    protected void setListener(){
+    protected void initListener() {
 
         backView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,6 +225,32 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
                 return true;
             }
         });
+
+//        send.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                TIMMessage msg = new TIMMessage();
+//                TIMTextElem elem = new TIMTextElem();
+//                elem.setText("a new msg");
+//                if(msg.addElement(elem) != 0) {
+//                    Log.d(TAG, "addElement failed");
+//                    return;
+//                }
+//                conversation.sendMessage(msg, new TIMValueCallBack<TIMMessage>() {//发送消息回调
+//                    @Override
+//                    public void onError(int code, String desc) {//发送消息失败
+//                        //错误码code和错误描述desc，可用于定位请求失败原因
+//                        //错误码code含义请参见错误码表
+//                        Log.d(TAG, "send message failed. code: " + code + " errmsg: " + desc);
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(TIMMessage msg) {//发送消息成功
+//                        Log.e(TAG, "SendMsg ok");
+//                    }
+//                });
+//            }
+//        });
     }
 
 

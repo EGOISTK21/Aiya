@@ -45,7 +45,7 @@
             android:visibility="gone" />
 
         <com.aiyaschool.aiya.message.ui.view.ChatMessageFromView
-            android:id="@+id/view_list_message"
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/ch_chat_selectBox"
