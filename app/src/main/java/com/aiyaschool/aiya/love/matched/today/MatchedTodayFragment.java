@@ -74,8 +74,9 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
 //        ft = fm.beginTransaction();
         mPresenter = new MatchedTodayPresenter(this);
         User ta = UserUtil.getTa();
-        Glide.with(this).load(ta.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
-                .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivLeftAvatar);
+
+//        Glide.with(this).load(ta.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
+//                .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivLeftAvatar);
         tvLeftUsername.setText(ta.getUsername());
         tvLeftSchool.setText(ta.getSchool());
         User me = UserUtil.getUser();

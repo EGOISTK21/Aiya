@@ -148,6 +148,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         mLlMyGift.setOnClickListener(this);
         mLlMoreSetting.setOnClickListener(this);
         mTvMember.setOnClickListener(this);
+        mMember_icon.setOnClickListener(this);
 
         /**
          * temptoken : f29c1317158d76821e8d11ccd8a007a358fc9984c178e
@@ -187,7 +188,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
             if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
 
                 Glide.with(this).load(user.getAvatar().getNormal().getFace())
-
                         .error(R.drawable.guanggao1)
                         .centerCrop()
                         .transform(new GlideCircleTransform(getContext()))
@@ -246,6 +246,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
 
                 break;
             case R.id.tv_member:
+            case R.id.member_icon:
                 intent = new Intent(getActivity(), MemberActivity.class);
                 startActivity(intent);
 

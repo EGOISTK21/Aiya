@@ -243,8 +243,11 @@ public class PersonDataPresenter implements PersonDataContract.Presenter {
 
             @Override
             public void onNext(@NonNull HttpResult<UploadUrl> uploadUrlHttpResult) {
-                Log.d(TAG, "onNext: getAvatarUploadUrl()" + uploadUrlHttpResult.getData().toString());
-                mView.setAvatarUploadUrl(uploadUrlHttpResult.getData());
+                if (uploadUrlHttpResult.getState().equals("2000")) {
+                    Log.d(TAG, "onNext: getAvatarUploadUrl()" + uploadUrlHttpResult.getData().toString());
+                    mView.setAvatarUploadUrl(uploadUrlHttpResult.getData());
+                }
+
             }
 
             @Override
