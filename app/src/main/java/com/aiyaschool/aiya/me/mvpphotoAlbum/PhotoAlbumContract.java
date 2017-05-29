@@ -1,5 +1,6 @@
 package com.aiyaschool.aiya.me.mvpphotoAlbum;
 
+import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.UploadUrl;
 
@@ -24,11 +25,13 @@ public interface PhotoAlbumContract {
 
         void getImgUploadUrl(Observer<HttpResult<ArrayList<UploadUrl>>> observer);
 
-        void getMePhoto(String page, String lines, Observer<HttpResult> observer);
+        void getMePhoto(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer);
     }
 
     interface View {
         void showImgUploadUrl(List<UploadUrl> uploadUrlList);
+
+        void startPostPhotoImg();
     }
 
     interface Presenter {

@@ -1,6 +1,7 @@
 package com.aiyaschool.aiya.util;
 
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
+import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
 
@@ -298,13 +299,13 @@ public class APIUtil {
 
     //获取图片上传接口
     public interface GetImgUploadUrl {
-        @POST("/Me/GET/genImgUploadUrl")
+        @POST("Me/GET/genImgUploadUrl")
         Observable<HttpResult<ArrayList<UploadUrl>>> startGetImgUploadUrl();
     }
 
     //加号上传图
     public interface PostPhotoImg {
-        @POST("/Me/GET/genImgUploadUrl")
+        @POST("Me/POST/photo")
         @FormUrlEncoded
         Observable<HttpResult> startPostPhotoImg(@Field("img") String img);
     }
@@ -313,9 +314,10 @@ public class APIUtil {
     public interface GetMePhoto {
         @POST("Me/GET/photo")
         @FormUrlEncoded
-        Observable<HttpResult> startGetMePhoto(@Field("page") String page,
-                                               @Field("lines") String lines);
+        Observable<HttpResult<ArrayList<Gallery>>> startGetMePhoto(@Field("page") String page,
+                                                                   @Field("lines") String lines);
     }
+
 
     public interface FateMatchApi {
         @POST("Love/GET/fateMatching")

@@ -251,6 +251,12 @@ public class PhotoAlbumActivity2 extends AppCompatActivity implements PhotoAlbum
         mUploadUrlList = uploadUrlList;
     }
 
+    @Override
+    public void startPostPhotoImg() {
+        Log.d(TAG, "startPostPhotoImg: " + mUploadUrlList.get(0).getImgname());
+        mPhotoAlbumPresenter.startPostPhotoImg(mUploadUrlList.get(0).getImgname());
+    }
+
 
     class RvAlbumAdapter extends RecyclerView.Adapter<RvAlbumAdapter.AlbumViewHolder>{
 
@@ -471,7 +477,6 @@ public class PhotoAlbumActivity2 extends AppCompatActivity implements PhotoAlbum
                     if (mUploadUrlList.size() != 0) {
                         int i = 0;
                         mPhotoAlbumPresenter.submitAvatar(mUploadUrlList.get(i).getUpurl(), new File(p));
-                        mPhotoAlbumPresenter.startPostPhotoImg(mUploadUrlList.get(i).getImgname());
                     }
 
                 }
