@@ -22,6 +22,7 @@ import com.aiyaschool.aiya.me.activity.MyEmotionActivity;
 import com.aiyaschool.aiya.me.activity.MyGiftActivity;
 import com.aiyaschool.aiya.me.activity.MyGuestActivity;
 import com.aiyaschool.aiya.me.activity.PersonalDataActivity;
+import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity;
 import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity2;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
@@ -241,7 +242,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                 startActivity(intent);
                 break;
             case R.id.my_photo_albun:
-                intent = new Intent(getActivity(), PhotoAlbumActivity2.class);
+                intent = new Intent(getActivity(), PhotoAlbumActivity.class);
                 startActivityForResult(intent,1);
 
                 break;

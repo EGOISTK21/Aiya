@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.me.mvpphotoAlbum.PhotoAlbumContract;
@@ -249,6 +250,11 @@ public class PhotoAlbumActivity2 extends AppCompatActivity implements PhotoAlbum
     @Override
     public void showImgUploadUrl(List<UploadUrl> uploadUrlList) {
         mUploadUrlList = uploadUrlList;
+    }
+
+    @Override
+    public void showGetMePhoto(ArrayList<Gallery> mGalleryList) {
+
     }
 
     @Override

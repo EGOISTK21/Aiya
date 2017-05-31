@@ -114,7 +114,7 @@ public class PhotoAlbumPresenter implements PhotoAlbumContract.Presenter {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.d(TAG, "onError: " + e);
+                Log.d(TAG, "onError: startPostPhotoImg" + e);
             }
 
             @Override
@@ -137,7 +137,16 @@ public class PhotoAlbumPresenter implements PhotoAlbumContract.Presenter {
             public void onNext(@NonNull HttpResult<ArrayList<Gallery>> arrayListHttpResult) {
                 Log.d(TAG, "onNext: getMePhoto" + arrayListHttpResult.getState());
                 Log.d(TAG, "onNext: getMePhoto" + arrayListHttpResult.getData().size());
-                Log.d(TAG, "onNext: getMePhoto" + arrayListHttpResult.getData());
+                for (Gallery gallery : arrayListHttpResult.getData()) {
+                    Log.d(TAG, "onNext: getMePhoto" + gallery.getCreatetime());
+                    Log.d(TAG, "onNext: getMePhoto" + gallery.getImgid());
+                    Log.d(TAG, "onNext: getMePhoto" + gallery.getImg().getThumb());
+                    Log.d(TAG, "onNext: getMePhoto" + gallery.getImg().getNormal());
+                }
+
+                if (arrayListHttpResult.getState().equals("2000")) {
+                    mView.showGetMePhoto(arrayListHttpResult.getData());
+                }
             }
 
             @Override

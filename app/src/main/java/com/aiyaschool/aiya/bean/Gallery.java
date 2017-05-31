@@ -7,27 +7,32 @@ import java.util.ArrayList;
  */
 
 public class Gallery {
+    private String imgid;
     Img img;
     private String createtime;
+
+    public Img getImg() {
+        return img;
+    }
+
+    public void setImg(Img img) {
+        this.img = img;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getImgid() {
+        return imgid;
+    }
+
+    public void setImgid(String imgid) {
+        this.imgid = imgid;
+    }
 }
 
-class Img {
-    private ArrayList<String> normal;
-    private ArrayList<String> thumb;
-
-    public ArrayList<String> getNormal() {
-        return normal;
-    }
-
-    public void setNormal(ArrayList<String> normal) {
-        this.normal = normal;
-    }
-
-    public ArrayList<String> getThumb() {
-        return thumb;
-    }
-
-    public void setThumb(ArrayList<String> thumb) {
-        this.thumb = thumb;
-    }
-}

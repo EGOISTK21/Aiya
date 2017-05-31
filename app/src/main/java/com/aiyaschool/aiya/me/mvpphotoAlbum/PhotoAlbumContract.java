@@ -31,6 +31,8 @@ public interface PhotoAlbumContract {
     interface View {
         void showImgUploadUrl(List<UploadUrl> uploadUrlList);
 
+        void showGetMePhoto(ArrayList<Gallery> mGalleryList);
+
         void startPostPhotoImg();
     }
 
