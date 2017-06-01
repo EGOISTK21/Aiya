@@ -194,7 +194,7 @@ public class APIUtil {
      */
 
     public interface TouchApi {
-        @POST("Love/POST/task")
+        @POST("Love/POST/touch")
         @FormUrlEncoded
         Observable<HttpResult> touch(@Field("userid") String id);
     }
@@ -224,6 +224,14 @@ public class APIUtil {
                                                                     @Field("constellation") String constellation,
                                                                     @Field("page") String page,
                                                                     @Field("line") String line);
+    }
+
+    public interface ReplyApi {
+        @POST("Me/PUT/reply")
+        @FormUrlEncoded
+        Observable<HttpResult<User>> response(@Field("requestid") String requestid,
+                                              @Field("fromuserid") String fromuserid,
+                                              @Field("attitude") String attitude);
     }
 
     public interface LoverInfoApi {
@@ -422,6 +430,10 @@ public class APIUtil {
 
     public static MatchingApi getMatchingApi() {
         return sRetrofit.create(MatchingApi.class);
+    }
+
+    public static ReplyApi getReplyApi() {
+        return sRetrofit.create(ReplyApi.class);
     }
 
     public static LoverInfoApi getLoverInfoApi() {

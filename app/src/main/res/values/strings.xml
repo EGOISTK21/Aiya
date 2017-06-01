@@ -10,7 +10,8 @@
     <string name="sign_up">注册</string>
     <string name="sign_in">登录</string>
     <string name="community_title">社区</string>
-    <string name="message_title">消息</string>
+    <string name="message_title_default">消息</string>
+    <string name="message_title_hit">被撩请求</string>
     <string name="love_unmatched_title">尚未匹配</string>
     <string name="love_matched_title">恋爱记</string>
     <string name="me_title">我</string>
@@ -102,7 +103,6 @@
     <string name="intimacy_rule3_2">≥5次&#160;&#160;+6</string>
     <string name="sign_code_warn">验证码已发送至18888888888，60s后可再次发送</string>
     <string name="sign_warn">注册即表示同意《爱呀用户协议》</string>
-    <string name="message">消息</string>
     <string name="oppositeID">对方ID</string>
     <string name="btn_text_send">发送</string>
     <string name="go_matched">去互动</string>

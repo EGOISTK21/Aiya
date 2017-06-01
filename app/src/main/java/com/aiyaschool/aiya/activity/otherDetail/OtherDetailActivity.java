@@ -4,31 +4,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseActivity;
-import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
-import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.CircleImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.util.concurrent.TimeUnit;
-
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by EGOISTK21 on 2017/4/8.
@@ -37,6 +30,8 @@ import io.reactivex.schedulers.Schedulers;
 public class OtherDetailActivity extends BaseActivity implements OtherDetailContract.View {
 
     private static final String TAG = "OtherDetailActivity";
+    private String requestid;
+    private String fromuserid;
     private User mUser;
     private OtherDetailContract.Presenter mPresenter;
     @BindColor(R.color.colorFutureRed)
@@ -61,6 +56,8 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
     TextView tvOtherHobby;
     @BindView(R.id.btn_hit)
     Button btnHit;
+    @BindView(R.id.ll_response_liao)
+    LinearLayout llRespanseLiao;
 
     @Override
     protected int getLayoutId() {
@@ -70,28 +67,46 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
     protected void initView() {
         try {
             Bundle bundle = getIntent().getExtras();
-            mUser = bundle.getParcelable("other detail");
+            switch (bundle.getInt("card_flag")) {
+                case 1:
+                    mUser = bundle.getParcelable("other detail");
+                    Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
+                            .transform(new GlideCircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivOtherAvatar);
+                    tvOtherUsername.setText(mUser.getUsername());
+                    tvOtherProfile.setText(mUser.getProfile());
+                    tvOtherSchool.setText(mUser.getSchool());
+                    tvOtherAge.setText(mUser.getAge());
+                    tvOtherHeight.setText(mUser.getHeight());
+                    tvOtherCharacter.setText(mUser.getCharacter());
+                    tvOtherHobby.setText(mUser.getHobby());
+                    break;
+                case 2:
+                    mUser = bundle.getParcelable("other detail");
+                    requestid = bundle.getString("requestid");
+                    fromuserid = bundle.getString("fromuserid");
+                    btnHit.setVisibility(View.INVISIBLE);
+                    llRespanseLiao.setVisibility(View.VISIBLE);
+                    Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
+                            .transform(new GlideCircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivOtherAvatar);
+                    tvOtherUsername.setText(mUser.getUsername());
+                    tvOtherProfile.setText(mUser.getProfile());
+                    tvOtherSchool.setText(mUser.getSchool());
+                    tvOtherAge.setText(mUser.getAge());
+                    tvOtherHeight.setText(mUser.getHeight());
+                    tvOtherCharacter.setText(mUser.getCharacter());
+                    tvOtherHobby.setText(mUser.getHobby());
+                    break;
+                case 3:
+                    mUser = UserUtil.getTa();
+                    btnHit.setBackgroundColor(hitBG);
+                    btnHit.setTextColor(hitText);
+                    btnHit.setText("解除关系");
+                    break;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (mUser == null) {
-            mUser = UserUtil.getTa();
-            btnHit.setBackgroundColor(hitBG);
-            btnHit.setTextColor(hitText);
-            btnHit.setText("解除关系");
-        }
         Log.i(TAG, "initView: " + mUser);
-        if (mUser != null) {
-            Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
-                    .transform(new GlideCircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivOtherAvatar);
-            tvOtherUsername.setText(mUser.getUsername());
-            tvOtherProfile.setText(mUser.getProfile());
-            tvOtherSchool.setText(mUser.getSchool());
-            tvOtherAge.setText(mUser.getAge());
-            tvOtherHeight.setText(mUser.getHeight());
-            tvOtherCharacter.setText(mUser.getCharacter());
-            tvOtherHobby.setText(mUser.getHobby());
-        }
         mPresenter = new OtherDetailPresenter(this);
     }
 
@@ -114,41 +129,28 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
     @OnClick(R.id.btn_hit)
     void hit() {
         if (UserUtil.getUser().isMatched()) {
-            APIUtil.getDestroyLoveApi()
-                    .destroyLove(UserUtil.getUser().getLoveId())
-                    .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .unsubscribeOn(Schedulers.io())
-                    .subscribe(new Observer<HttpResult>() {
-                        @Override
-                        public void onSubscribe(@NonNull Disposable d) {
-                            Log.i(TAG, "onSubscribe: destroyLove");
-                        }
-
-                        @Override
-                        public void onNext(@NonNull HttpResult httpResult) {
-                            Log.i(TAG, "onNext: destroyLove " + httpResult);
-                            if ("2000".equals(httpResult.getState())) {
-                                UserUtil.setLoveId("0");
-                                setResult(RESULT_OK, new Intent().putExtra("flag", "destroyLove"));
-                                finish();
-                            }
-                        }
-
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-                            Log.i(TAG, "onError: destroyLove");
-                        }
-
-                        @Override
-                        public void onComplete() {
-                            Log.i(TAG, "onComplete: destroyLove");
-                        }
-                    });
+            mPresenter.destroyLove();
         } else {
-            mPresenter.touch(mUser.getId());
             setResult(RESULT_CANCELED, new Intent().putExtra("flag", "destroyLove"));
+            mPresenter.touch(mUser.getId());
         }
+    }
+
+    @OnClick(R.id.btn_ignore_liao)
+    void ignore() {
+        mPresenter.reply(requestid, fromuserid, "no");
+    }
+
+    @OnClick(R.id.btn_accept_liao)
+    void accept() {
+        mPresenter.reply(requestid, fromuserid, "yes");
+    }
+
+    @Override
+    public void finishToMain(int result, Intent intent) {
+        if (intent != null) {
+            setResult(RESULT_OK, intent);
+        }
+        finish();
     }
 }

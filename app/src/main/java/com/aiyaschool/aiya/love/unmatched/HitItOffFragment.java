@@ -1,12 +1,11 @@
 package com.aiyaschool.aiya.love.unmatched;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.base.BaseActivity;
+import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.GlideRoundTransform;
 import com.bumptech.glide.Glide;
@@ -19,7 +18,7 @@ import butterknife.OnClick;
  * Created by EGOISTK21 on 2017/5/13.
  */
 
-public class HitItOffActivity extends BaseActivity {
+public class HitItOffFragment extends BaseFragment {
 
     @BindView(R.id.iv_avatar)
     ImageView ivAvatar;
@@ -38,23 +37,21 @@ public class HitItOffActivity extends BaseActivity {
     @BindView(R.id.tv_hobby)
     TextView tvHobby;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public static HitItOffFragment newInstance() {
+        return new HitItOffFragment();
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_hit_it_off;
+        return R.layout.fragment_hit_it_off;
     }
 
     @Override
     protected void initView() {
-        Bundle bundle = getIntent().getExtras();
-        User user = bundle.getParcelable("hit it off");
+        User user = getArguments().getParcelable("hit it off");
         if (user != null) {
             Glide.with(this).load(user.getAvatar().getThumb().getFace()).centerCrop()
-                    .transform(new GlideRoundTransform(this)).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivAvatar);
+                    .transform(new GlideRoundTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivAvatar);
             tvUsername.setText(user.getUsername());
             tvSchool.setText(user.getSchool());
             tvAge.setText(user.getAge());
@@ -67,7 +64,8 @@ public class HitItOffActivity extends BaseActivity {
 
     @OnClick(R.id.go_matched)
     void goMatched() {
-        finish();
+        getFragmentManager().popBackStack();
+        ((MainActivity) getActivity()).notifyAdapter();
     }
 
 }

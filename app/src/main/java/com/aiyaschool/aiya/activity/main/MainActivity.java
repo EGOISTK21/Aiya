@@ -13,16 +13,20 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseActivity;
-import com.aiyaschool.aiya.widget.NoScrollViewPager;
 import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
-import com.aiyaschool.aiya.message.MsgListFragment;
+import com.aiyaschool.aiya.message.MessageFragment;
 import com.aiyaschool.aiya.util.RefreshTokenService;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.UserUtil;
+import com.aiyaschool.aiya.widget.NoScrollViewPager;
+import com.tencent.TIMCallBack;
+import com.tencent.TIMManager;
+import com.tencent.TIMUser;
 
 import butterknife.BindDrawable;
 
@@ -54,28 +58,25 @@ public class MainActivity extends BaseActivity {
     protected int getLayoutId() {
         startService(new Intent(this, RefreshTokenService.class));
         SignUtil.addAccessToken();
+        loginTIM();
         return R.layout.activity_main;
     }
 
     @Override
-    protected void onDestroy() {
-        stopService(new Intent(this, RefreshTokenService.class));
-        super.onDestroy();
-    }
-
-    @Override
     protected void initView() {
-        final Fragment[] fragments = new Fragment[]{
-                /*new CommunityFragment(),*/
-                UserUtil.getUser().isMatched()
-                        ? MatchedContainerFragment.newInstance()
-                        : UnmatchedContainerFragment.newInstance(),
-                new MsgListFragment(),
-                new MeFragment()
-        };
         vpMain = (NoScrollViewPager) findViewById(R.id.viewpager_main);
         fm = getSupportFragmentManager();
         adapter = new FragmentPagerAdapter(fm) {
+
+            private Fragment[] fragments = new Fragment[]{
+                /*new CommunityFragment(),*/
+                    UserUtil.getUser().isMatched()
+                            ? MatchedContainerFragment.newInstance()
+                            : UnmatchedContainerFragment.newInstance(),
+                    MessageFragment.newInstance(),
+                    new MeFragment()
+            };
+
             @Override
             public int getItemPosition(Object object) {
                 if (((/*object instanceof || */object instanceof UnmatchedContainerFragment)
@@ -182,6 +183,22 @@ public class MainActivity extends BaseActivity {
                         }
                     }
                 });
+    }
+
+    private void loginTIM() {
+        TIMUser timUser = new TIMUser();
+        timUser.setIdentifier(SignUtil.getPhone());
+        TIMManager.getInstance().login(MyApplication.APP_ID, timUser, UserUtil.getUser().getUserSig(), new TIMCallBack() {
+            @Override
+            public void onError(int i, String s) {
+                Log.i(TAG, "onError: login " + i + " " + s);
+            }
+
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "onSuccess: login");
+            }
+        });
     }
 
     /**
