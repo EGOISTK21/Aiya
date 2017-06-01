@@ -263,6 +263,11 @@ public class PhotoAlbumActivity2 extends AppCompatActivity implements PhotoAlbum
         mPhotoAlbumPresenter.startPostPhotoImg(mUploadUrlList.get(0).getImgname());
     }
 
+    @Override
+    public void updateImagePathList(ArrayList<Gallery> mGalleryList) {
+
+    }
+
 
     class RvAlbumAdapter extends RecyclerView.Adapter<RvAlbumAdapter.AlbumViewHolder>{
 

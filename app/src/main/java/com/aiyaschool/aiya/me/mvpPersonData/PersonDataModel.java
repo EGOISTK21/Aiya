@@ -1,5 +1,7 @@
 package com.aiyaschool.aiya.me.mvpPersonData;
 
+import android.database.Cursor;
+
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
@@ -8,6 +10,7 @@ import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.MyAvatar;
 import com.aiyaschool.aiya.me.mvpGuestRecord.GuestDataContract;
 import com.aiyaschool.aiya.util.APIUtil;
+import com.aiyaschool.aiya.util.SchoolDBHelper;
 import com.aiyaschool.aiya.util.UserUtil;
 
 import java.util.ArrayList;
@@ -26,6 +29,8 @@ import okhttp3.ResponseBody;
 
 public class PersonDataModel implements PersonDataContract.Model {
 
+    List<String> schoolList = new ArrayList<>();
+
     @Override
     public void submitAvatar(String url, RequestBody img, Observer<ResponseBody> observer) {
         APIUtil.getIMGApi()
@@ -38,15 +43,16 @@ public class PersonDataModel implements PersonDataContract.Model {
     }
 
     @Override
-    public void loadSchoolData(String hometown, Observer<HttpResult<List<String>>> observer) {
-        APIUtil.getSearchSchoolApi()
-                .loadSchoolData(null, hometown)
-                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-                .subscribe(observer);
+    public List<String> loadSchoolData(String province) {
+        schoolList.clear();
+        String sql = "SELECT school FROM edu WHERE province = ?";
+        Cursor cursor = SchoolDBHelper.getDBInstance().rawQuery(sql, new String[]{province});
+        while (cursor.moveToNext()) {
+            schoolList.add(cursor.getString(0));
+        }
+        return schoolList;
     }
+
 
     @Override
     public void updateUserHeight(String height, Observer<HttpResult> observer) {

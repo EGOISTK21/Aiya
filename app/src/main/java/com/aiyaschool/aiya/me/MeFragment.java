@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.bean.Gallery;
+import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.activity.JifenAndGiftActivity;
 import com.aiyaschool.aiya.me.activity.MemberActivity;
@@ -25,6 +27,7 @@ import com.aiyaschool.aiya.me.activity.PersonalDataActivity;
 import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity;
 import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity2;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
+import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.CircleImageView;
@@ -37,7 +40,13 @@ import org.litepal.crud.DataSupport;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import me.nereo.multi_image_selector.MultiImageSelectorFragment;
 
 /**
@@ -65,55 +74,111 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println(333);
+    }
+
+    private void initData() {
+        APIUtil.getMePhotoApi()
+                .startGetMePhoto("1", "2")
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<HttpResult<ArrayList<Gallery>>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.d(TAG, "onSubscribe: ");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull HttpResult<ArrayList<Gallery>> arrayListHttpResult) {
+                        Log.d(TAG, "onNext: " + arrayListHttpResult.getState());
+                        if (arrayListHttpResult.getState().equals("2000")) {
+                            int size = arrayListHttpResult.getData().size();
+                            if (size == 1) {
+                                Picasso.with(getActivity())
+                                        .load(arrayListHttpResult.getData().get(0).getImg().getThumb())
+                                        .placeholder(R.drawable.mis_default_error)
+                                        .tag(MultiImageSelectorFragment.TAG)
+                                        .resize(238, 181)
+                                        .centerCrop()
+                                        .into(imageView1);
+                            } else if (size == 2) {
+                                Picasso.with(getActivity())
+                                        .load(arrayListHttpResult.getData().get(0).getImg().getThumb())
+                                        .placeholder(R.drawable.mis_default_error)
+                                        .tag(MultiImageSelectorFragment.TAG)
+                                        .resize(238, 181)
+                                        .centerCrop()
+                                        .into(imageView1);
+
+                                Picasso.with(getActivity())
+                                        .load(arrayListHttpResult.getData().get(1).getImg().getThumb())
+                                        .placeholder(R.drawable.mis_default_error)
+                                        .tag(MultiImageSelectorFragment.TAG)
+                                        .resize(238, 181)
+                                        .centerCrop()
+                                        .into(imageView2);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.view_me, container, false);
-        System.out.println(444);
         initView(mView);
         return mView;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        List<ImagePathItem> list = DataSupport.findAll(ImagePathItem.class);
-        System.out.println("list.size()" + list.size());
-
-        List<String> mList = getImagePath(list);
-        System.out.println("mList.size()" + mList.size());
-        if (mList.size() == 1) {
-            File imageFile = new File(mList.get(0));
-            Picasso.with(getActivity())
-                    .load(imageFile)
-                    .placeholder(R.drawable.mis_default_error)
-                    .tag(MultiImageSelectorFragment.TAG)
-                    .resize(238, 181)
-                    .centerCrop()
-                    .into(imageView1);
-        } else if (mList.size() == 2) {
-            File imageFile = new File(mList.get(0));
-            Picasso.with(getActivity())
-                    .load(imageFile)
-                    .placeholder(R.drawable.mis_default_error)
-                    .tag(MultiImageSelectorFragment.TAG)
-                    .resize(238, 181)
-                    .centerCrop()
-                    .into(imageView1);
-            File imageFile1 = new File(mList.get(1));
-            Picasso.with(getActivity())
-                    .load(imageFile1)
-                    .placeholder(R.drawable.mis_default_error)
-                    .tag(MultiImageSelectorFragment.TAG)
-                    .resize(238, 181)
-                    .centerCrop()
-                    .into(imageView2);
-        }
-
-    }
+//    @Override
+//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        List<ImagePathItem> list = DataSupport.findAll(ImagePathItem.class);
+//        System.out.println("list.size()" + list.size());
+//
+//        List<String> mList = getImagePath(list);
+//        System.out.println("mList.size()" + mList.size());
+//        if (mList.size() == 1) {
+//            File imageFile = new File(mList.get(0));
+//            Picasso.with(getActivity())
+//                    .load(imageFile)
+//                    .placeholder(R.drawable.mis_default_error)
+//                    .tag(MultiImageSelectorFragment.TAG)
+//                    .resize(238, 181)
+//                    .centerCrop()
+//                    .into(imageView1);
+//        } else if (mList.size() == 2) {
+//            File imageFile = new File(mList.get(0));
+//            Picasso.with(getActivity())
+//                    .load(imageFile)
+//                    .placeholder(R.drawable.mis_default_error)
+//                    .tag(MultiImageSelectorFragment.TAG)
+//                    .resize(238, 181)
+//                    .centerCrop()
+//                    .into(imageView1);
+//            File imageFile1 = new File(mList.get(1));
+//            Picasso.with(getActivity())
+//                    .load(imageFile1)
+//                    .placeholder(R.drawable.mis_default_error)
+//                    .tag(MultiImageSelectorFragment.TAG)
+//                    .resize(238, 181)
+//                    .centerCrop()
+//                    .into(imageView2);
+//        }
+//
+//    }
 
     @Override
     public void onDetach() {
@@ -199,29 +264,31 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
             System.out.println(user.getUsername());
         }
 
+        initData();
+
     }
 
-    private List<String> getImagePath(List<ImagePathItem> list) {
-        List<String> sList = new ArrayList<>();
-        int m = 0;
-        String s = R.drawable.uploadpic_226x226 + "";
-        for (int i = 0; i < list.size(); i++) {
-            List<String> nList = list.get(i).getImagePath();
-            for (int j = 0; j < nList.size(); j++) {
-                if (!s.equals(nList.get(j))) {
-                    sList.add(nList.get(j));
-                }
-                if (sList.size() == 2) {
-                    m = 1;
-                    break;
-                }
-            }
-            if (m == 1) {
-                break;
-            }
-        }
-        return sList;
-    }
+//    private List<String> getImagePath(List<ImagePathItem> list) {
+//        List<String> sList = new ArrayList<>();
+//        int m = 0;
+//        String s = R.drawable.uploadpic_226x226 + "";
+//        for (int i = 0; i < list.size(); i++) {
+//            List<String> nList = list.get(i).getImagePath();
+//            for (int j = 0; j < nList.size(); j++) {
+//                if (!s.equals(nList.get(j))) {
+//                    sList.add(nList.get(j));
+//                }
+//                if (sList.size() == 2) {
+//                    m = 1;
+//                    break;
+//                }
+//            }
+//            if (m == 1) {
+//                break;
+//            }
+//        }
+//        return sList;
+//    }
 
     @Override
     public void onClick(View v) {

@@ -318,6 +318,14 @@ public class APIUtil {
                                                                    @Field("lines") String lines);
     }
 
+    //删除图库图片
+    public interface DeletePhoto {
+        @POST("Me/PUT/deletePhoto")
+        @FormUrlEncoded
+        Observable<HttpResult> startDeletePhoto(@Field("imgid") String imgid);
+
+    }
+
 
     public interface FateMatchApi {
         @POST("Love/GET/fateMatching")
@@ -492,6 +500,10 @@ public class APIUtil {
 
     public static GetMePhoto getMePhotoApi() {
         return sRetrofit.create(GetMePhoto.class);
+    }
+
+    public static DeletePhoto getDeletePhotoApi() {
+        return sRetrofit.create(DeletePhoto.class);
     }
 
 }

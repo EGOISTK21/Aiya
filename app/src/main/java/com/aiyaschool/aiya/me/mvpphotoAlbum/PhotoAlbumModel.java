@@ -62,4 +62,26 @@ public class PhotoAlbumModel implements PhotoAlbumContract.Model {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
+
+    @Override
+    public void updateImagePathList(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer) {
+        APIUtil.getMePhotoApi()
+                .startGetMePhoto(page, lines)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void deletePhoto(String imgId, Observer<HttpResult> observer) {
+        APIUtil.getDeletePhotoApi()
+                .startDeletePhoto(imgId)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
 }

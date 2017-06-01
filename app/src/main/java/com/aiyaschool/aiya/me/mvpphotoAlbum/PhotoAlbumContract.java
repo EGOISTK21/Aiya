@@ -26,6 +26,10 @@ public interface PhotoAlbumContract {
         void getImgUploadUrl(Observer<HttpResult<ArrayList<UploadUrl>>> observer);
 
         void getMePhoto(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer);
+
+        void updateImagePathList(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer);
+
+        void deletePhoto(String imgId, Observer<HttpResult> observer);
     }
 
     interface View {
@@ -34,6 +38,8 @@ public interface PhotoAlbumContract {
         void showGetMePhoto(ArrayList<Gallery> mGalleryList);
 
         void startPostPhotoImg();
+
+        void updateImagePathList(ArrayList<Gallery> mGalleryList);
     }
 
     interface Presenter {
@@ -45,6 +51,10 @@ public interface PhotoAlbumContract {
         void startPostPhotoImg(String img);
 
         void getMePhoto(String page, String lines);
+
+        void updateImagePathList(String page, String lines);
+
+        void deletePhoto(String imgId);
 
         void detach();
     }

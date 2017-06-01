@@ -7,6 +7,14 @@ import java.util.ArrayList;
  */
 
 public class Gallery {
+    public Gallery() {
+
+    }
+
+    public Gallery(String createtime) {
+        this.createtime = createtime;
+    }
+
     private String imgid;
     Img img;
     private String createtime;
