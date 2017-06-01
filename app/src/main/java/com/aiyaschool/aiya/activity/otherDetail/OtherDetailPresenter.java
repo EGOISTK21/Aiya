@@ -59,7 +59,7 @@ class OtherDetailPresenter implements OtherDetailContract.Presenter {
 
             @Override
             public void onError(@NonNull Throwable e) {
-                Log.i(TAG, "onError: touch");
+                Log.i(TAG, "onError: touch " + e);
             }
 
             @Override

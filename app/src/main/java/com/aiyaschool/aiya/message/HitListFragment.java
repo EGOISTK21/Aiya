@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseFragment;
-import com.aiyaschool.aiya.message.bean.HitNotification;
+import com.aiyaschool.aiya.bean.HitNotification;
 import com.aiyaschool.aiya.util.GlideRoundTransform;
 import com.aiyaschool.aiya.widget.CircleImageView;
 import com.bumptech.glide.Glide;

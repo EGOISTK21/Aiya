@@ -4,8 +4,9 @@ import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
 
+import com.aiyaschool.aiya.bean.ReplyNotification;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
-import com.aiyaschool.aiya.message.bean.HitNotification;
+import com.aiyaschool.aiya.bean.HitNotification;
 import com.aiyaschool.aiya.util.RefreshTokenService;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.util.UserUtil;
@@ -55,6 +56,7 @@ public class MyApplication extends Application {
         UserUtil.init(this);
         DBCopyUtil.copyDataBaseFromAssets(this, "edu.db");
         initTIM();
+        startService(new Intent(this, RefreshTokenService.class));
     }
 
     private void initTIM() {
@@ -62,6 +64,7 @@ public class MyApplication extends Application {
 
             private Gson gson = new Gson();
             private HitNotification hitNotification;
+            private ReplyNotification replyNotification;
 
             @Override
             public boolean onNewMessages(List<TIMMessage> list) {
@@ -71,8 +74,14 @@ public class MyApplication extends Application {
                         TIMElem elem = message.getElement(i);
                         TIMElemType type = elem.getType();
                         if (type == TIMElemType.Custom) {
-                            hitNotification = gson.fromJson(new String(((TIMCustomElem) elem).getData()), HitNotification.class);
-                            hitNotification.initHitFromUser();
+                            System.out.println("+++++++++++" + new String(((TIMCustomElem) elem).getData()));
+                            if ("aiyaliao".equals(((TIMCustomElem) elem).getDesc())) {
+                                hitNotification = gson.fromJson(new String(((TIMCustomElem) elem).getData()), HitNotification.class);
+                                hitNotification.initHitFromUser();
+                            } else if ("aiyaliaoreply".equals(((TIMCustomElem) elem).getDesc())) {
+                                replyNotification = gson.fromJson(new String(((TIMCustomElem) elem).getData()), ReplyNotification.class);
+                                replyNotification.initReplyUser();
+                            }
                         }
                     }
                 }

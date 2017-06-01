@@ -1,11 +1,12 @@
-package com.aiyaschool.aiya.message.bean;
+package com.aiyaschool.aiya.bean;
 
 import android.util.Log;
 
-import com.aiyaschool.aiya.bean.HttpResult;
-import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.NotificationUtil;
+import com.aiyaschool.aiya.util.SignUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,26 +17,20 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by EGOISTK21 on 2017/5/27.
+ * Created by EGOISTK21 on 2017/6/2.
  */
 
-public class HitNotification {
+public class ReplyNotification extends AiyaNotification {
 
-    private static final String TAG = "HitNotification";
+    private static final String TAG = "ReplyNotification";
     private User mUser;
     private String requestid;
-    private String fromuserid;
-    private boolean state;
+    private String succuserid;
 
-    public HitNotification(String requestid, String fromuserid, boolean state) {
-        this.requestid = requestid;
-        this.fromuserid = fromuserid;
-        this.state = state;
-    }
-
-    public void initHitFromUser() {
-        APIUtil.getPersonApi()
-                .loadOtherDetail(fromuserid)
+    public void initReplyUser() {
+        type = 2;
+        APIUtil.getLoverInfoApi()
+                .getLoverInfo()
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -51,6 +46,11 @@ public class HitNotification {
                         Log.i(TAG, "onNext: initHitFromUser " + userHttpResult);
                         if ("2000".equals(userHttpResult.getState())) {
                             mUser = userHttpResult.getData();
+                            UserUtil.setTa(mUser);
+                            UserUtil.setLoveId(mUser.getLoveId());
+                            NotificationUtil.show(ReplyNotification.this, "别人同意你的请求了", getUser().getUsername(), 222);
+                        } else if ("5013".equals(userHttpResult.getState())) {
+                            SignUtil.signOut(MyApplication.getInstance());
                         }
                     }
 
@@ -62,7 +62,6 @@ public class HitNotification {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: initHitFromUser");
-                        NotificationUtil.show(HitNotification.this, "你被别人撩啦", getUser().getUsername(), 111);
                     }
                 });
     }
@@ -83,24 +82,11 @@ public class HitNotification {
         this.requestid = requestid;
     }
 
-    public String getFromuserid() {
-        return fromuserid;
+    public String getSuccuserid() {
+        return succuserid;
     }
 
-    public void setFromuserid(String fromuserid) {
-        this.fromuserid = fromuserid;
+    public void setSuccuserid(String succuserid) {
+        this.succuserid = succuserid;
     }
-
-    public void responseHit(boolean response) {
-
-    }
-
-    public boolean getState() {
-        return state;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
-    }
-
 }

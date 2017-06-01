@@ -70,22 +70,26 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
     @Override
     protected void initView() {
         mPresenter = new MatchedTodayPresenter(this);
+        mPresenter.initLover();
         User me = UserUtil.getUser();
         Glide.with(this).load(me.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
                 .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivLeftAvatar);
         tvLeftUsername.setText(me.getUsername());
         tvLeftSchool.setText(me.getSchool());
+    }
+
+    @Override
+    public void setLover() {
         User ta = UserUtil.getTa();
         Glide.with(this).load(ta.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
                 .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivRightAvatar);
         tvRightUsername.setText(ta.getUsername());
         tvRightSchool.setText(ta.getSchool());
-        mPresenter.getIntimacy(me.getLoveId());
+        mPresenter.getIntimacy(ta.getLoveId());
         tvLoveDate.setText((new SimpleDateFormat("yyyy-MM-dd")).format(new Date()));
         tvLoveDay.setText("DAY " + (int) ((System.currentTimeMillis() / 1000 / 60 / 60 + 8) / 24 - (ta.getStartdate() / 60 / 60 + 8) / 24 + 1));
         mPresenter.getTodayTask("1");
     }
-
 
     @Override
     public void onDestroy() {
@@ -101,7 +105,7 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
     @OnClick(R.id.iv_matched_right)
     void showTa() {
         Bundle bundle = new Bundle();
-        bundle.putInt("card_flag", 3);
+        bundle.putInt("card_flag", 4);
         startActivityForResult(new Intent(getContext(), OtherDetailActivity.class).putExtras(bundle), DESTROY_LOVE);
     }
 

@@ -97,6 +97,16 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
                     tvOtherHobby.setText(mUser.getHobby());
                     break;
                 case 3:
+                    mUser = bundle.getParcelable("other detail");
+                    btnHit.setText("去互动吧");
+                    btnHit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                        }
+                    });
+                    break;
+                case 4:
                     mUser = UserUtil.getTa();
                     btnHit.setBackgroundColor(hitBG);
                     btnHit.setTextColor(hitText);

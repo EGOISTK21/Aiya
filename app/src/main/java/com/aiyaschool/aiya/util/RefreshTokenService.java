@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 
@@ -37,44 +36,41 @@ public class RefreshTokenService extends Service {
         if (triggerAtTime == 0) {
             triggerAtTime = System.currentTimeMillis();
         } else {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    APIUtil.getInitApi()
-                            .loadUser(SignUtil.getPhone(), SignUtil.getLoginToken(), REFRESH_FLAG)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .unsubscribeOn(Schedulers.io())
-                            .subscribe(new Observer<HttpResult<User>>() {
-                                @Override
-                                public void onSubscribe(@NonNull Disposable d) {
+            if (SignUtil.getPhone() != null && SignUtil.getLoginToken() != null) {
+                APIUtil.getInitApi()
+                        .loadUser(SignUtil.getPhone(), SignUtil.getLoginToken(), REFRESH_FLAG)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(new Observer<HttpResult<User>>() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
 
+                            }
+
+                            @Override
+                            public void onNext(@NonNull HttpResult<User> userHttpResult) {
+                                Log.i(TAG, "onNext: onStartCommand " + userHttpResult);
+                                if ("2000".equals(userHttpResult.getState())) {
+                                    UserUtil.setUser(userHttpResult.getData());
+                                    SignUtil.addAccessToken();
+                                } else {
+                                    ToastUtil.show("网络已断开，请重新登录");
+                                    SignUtil.signOut(RefreshTokenService.this);
                                 }
+                            }
 
-                                @Override
-                                public void onNext(@NonNull HttpResult<User> userHttpResult) {
-                                    Log.i(TAG, "onNext: onStartCommand " + userHttpResult);
-                                    if ("2000".equals(userHttpResult.getState())) {
-                                        UserUtil.setUser(userHttpResult.getData());
-                                        SignUtil.addAccessToken();
-                                    } else {
-                                        ToastUtil.show("网络已断开，请重新登录");
-                                        SignUtil.signOut(RefreshTokenService.this);
-                                    }
-                                }
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                ToastUtil.show("网络不通畅");
+                            }
 
-                                @Override
-                                public void onError(@NonNull Throwable e) {
-                                    ToastUtil.show("网络不通畅");
-                                }
+                            @Override
+                            public void onComplete() {
 
-                                @Override
-                                public void onComplete() {
-
-                                }
-                            });
-                }
-            }).start();
+                            }
+                        });
+            }
         }
         ((AlarmManager) getSystemService(ALARM_SERVICE))
                 .setExact(AlarmManager.RTC_WAKEUP,

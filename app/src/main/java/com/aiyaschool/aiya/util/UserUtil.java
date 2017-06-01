@@ -9,7 +9,7 @@ import com.aiyaschool.aiya.bean.Normal;
 import com.aiyaschool.aiya.bean.Thumb;
 import com.aiyaschool.aiya.bean.UpLoad;
 import com.aiyaschool.aiya.bean.User;
-import com.aiyaschool.aiya.message.bean.HitNotification;
+import com.aiyaschool.aiya.bean.HitNotification;
 
 import java.util.ArrayList;
 import java.util.List;

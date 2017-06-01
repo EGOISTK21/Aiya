@@ -44,7 +44,6 @@ public class MainActivity extends BaseActivity {
     private FragmentManager fm;
     private FragmentPagerAdapter adapter;
     private BottomNavigationView bottomNavigationView;
-    private Intent serviceIntent;
     @BindDrawable(R.drawable.love_icon)
     Drawable love;
     @BindDrawable(R.drawable.message_icon)
@@ -56,7 +55,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        startService(new Intent(this, RefreshTokenService.class));
         SignUtil.addAccessToken();
         loginTIM();
         return R.layout.activity_main;
@@ -199,6 +197,13 @@ public class MainActivity extends BaseActivity {
                 Log.i(TAG, "onSuccess: login");
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fm.popBackStack();
+        notifyAdapter();
     }
 
     /**
