@@ -28,7 +28,6 @@ import butterknife.OnClick;
 
 import static com.aiyaschool.aiya.activity.main.MainActivity.DESTROY_LOVE;
 
-
 /**
  * Created by EGOISTK21 on 2017/3/21.
  */
