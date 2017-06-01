@@ -1,5 +1,6 @@
 package com.aiyaschool.aiya.me.mvpphotoAlbum;
 
+import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.util.APIUtil;
@@ -52,9 +53,31 @@ public class PhotoAlbumModel implements PhotoAlbumContract.Model {
     }
 
     @Override
-    public void getMePhoto(String page, String lines, Observer<HttpResult> observer) {
+    public void getMePhoto(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer) {
         APIUtil.getMePhotoApi()
                 .startGetMePhoto(page, lines)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void updateImagePathList(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer) {
+        APIUtil.getMePhotoApi()
+                .startGetMePhoto(page, lines)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void deletePhoto(String imgId, Observer<HttpResult> observer) {
+        APIUtil.getDeletePhotoApi()
+                .startDeletePhoto(imgId)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

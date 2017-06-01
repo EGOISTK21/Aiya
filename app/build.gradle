@@ -61,9 +61,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
-    testCompile 'junit:junit:4.12'
-
     //图片裁剪 https://github.com/edmodo/cropper
 
     compile files('libs/bugly_2.4.0_imsdk_release.jar')
@@ -76,6 +73,12 @@ dependencies {
     compile files('libs/MobCommons-2017.0321.1624.jar')
     compile files('libs/MobTools-2017.0321.1624.jar')
     compile name: 'SMSSDK-2.1.4', ext: 'aar'
+
+    //圆形图片
+
+
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:palette-v7:25.3.1'
@@ -104,15 +107,11 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.0.9'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.github.lovetuzitong:MultiImageSelector:1.2'
-
     compile 'pub.devrel:easypermissions:0.4.0'
     compile 'com.jph.takephoto:takephoto_library:4.0.3'
-
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
-    //圆形图片
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-
 }
 

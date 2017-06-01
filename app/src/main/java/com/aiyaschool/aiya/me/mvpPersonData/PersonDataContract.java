@@ -24,7 +24,7 @@ public interface PersonDataContract {
 
         void submitAvatar(String url, RequestBody img, Observer<ResponseBody> observer);
 
-        void loadSchoolData(String hometown, Observer<HttpResult<List<String>>> observer);
+        List<String> loadSchoolData(String province);
 
         void updateUserHeight(String height, Observer<HttpResult> observer);
 

@@ -2,6 +2,7 @@ package com.aiyaschool.aiya.me.mvpphotoAlbum;
 
 import android.util.Log;
 
+import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.me.mvpPersonData.PersonDataContract;
@@ -92,6 +93,7 @@ public class PhotoAlbumPresenter implements PhotoAlbumContract.Presenter {
             @Override
             public void onComplete() {
                 Log.d(TAG, "onComplete: submitAvatar");
+                mView.startPostPhotoImg();
 
             }
         });
@@ -112,7 +114,44 @@ public class PhotoAlbumPresenter implements PhotoAlbumContract.Presenter {
 
             @Override
             public void onError(@NonNull Throwable e) {
+                Log.d(TAG, "onError: startPostPhotoImg" + e);
+            }
 
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete: startPostPhotoImg" + "complete");
+
+            }
+        });
+    }
+
+    @Override
+    public void getMePhoto(String page, String lines) {
+        mModel.getMePhoto(page, lines, new Observer<HttpResult<ArrayList<Gallery>>>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d(TAG, "onSubscribe: getMePhoto");
+            }
+
+            @Override
+            public void onNext(@NonNull HttpResult<ArrayList<Gallery>> arrayListHttpResult) {
+                Log.d(TAG, "onNext: getMePhoto" + arrayListHttpResult.getState());
+                Log.d(TAG, "onNext: getMePhoto" + arrayListHttpResult.getData().size());
+                for (Gallery gallery : arrayListHttpResult.getData()) {
+                    Log.d(TAG, "onNext: getMePhoto" + gallery.getCreatetime());
+                    Log.d(TAG, "onNext: getMePhoto" + gallery.getImgid());
+                    Log.d(TAG, "onNext: getMePhoto" + gallery.getImg().getThumb());
+                    Log.d(TAG, "onNext: getMePhoto" + gallery.getImg().getNormal());
+                }
+
+                if (arrayListHttpResult.getState().equals("2000")) {
+                    mView.showGetMePhoto(arrayListHttpResult.getData());
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d(TAG, "onError: getMePhoto" + e);
             }
 
             @Override
@@ -123,27 +162,62 @@ public class PhotoAlbumPresenter implements PhotoAlbumContract.Presenter {
     }
 
     @Override
-    public void getMePhoto(String page, String lines) {
-        mModel.getMePhoto(page, lines, new Observer<HttpResult>() {
+    public void updateImagePathList(String page, String lines) {
+        mModel.getMePhoto(page, lines, new Observer<HttpResult<ArrayList<Gallery>>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
-                Log.d(TAG, "onSubscribe: getMePhoto");
+                Log.d(TAG, "onSubscribe: updateImagePathList");
             }
 
             @Override
-            public void onNext(@NonNull HttpResult httpResult) {
-                Log.d(TAG, "onNext: getMePhoto" + httpResult.getState());
-                Log.d(TAG, "onNext: getMePhoto" + httpResult);
+            public void onNext(@NonNull HttpResult<ArrayList<Gallery>> arrayListHttpResult) {
+                Log.d(TAG, "onNext: updateImagePathList" + arrayListHttpResult.getState());
+                Log.d(TAG, "onNext: updateImagePathList" + arrayListHttpResult.getData().size());
+                for (Gallery gallery : arrayListHttpResult.getData()) {
+                    Log.d(TAG, "onNext: updateImagePathList" + gallery.getCreatetime());
+                    Log.d(TAG, "onNext: updateImagePathList" + gallery.getImgid());
+                    Log.d(TAG, "onNext: updateImagePathList" + gallery.getImg().getThumb());
+                    Log.d(TAG, "onNext: updateImagePathList" + gallery.getImg().getNormal());
+                }
+
+                if (arrayListHttpResult.getState().equals("2000")) {
+                    mView.updateImagePathList(arrayListHttpResult.getData());
+                }
             }
 
             @Override
             public void onError(@NonNull Throwable e) {
-
+                Log.d(TAG, "onError: getMePhoto" + e);
             }
 
             @Override
             public void onComplete() {
 
+            }
+        });
+    }
+
+    @Override
+    public void deletePhoto(final String imgId) {
+        mModel.deletePhoto(imgId, new Observer<HttpResult>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d(TAG, "onSubscribe: deletePhoto" + imgId);
+            }
+
+            @Override
+            public void onNext(@NonNull HttpResult httpResult) {
+                Log.d(TAG, "onNext: deletePhoto" + httpResult.getState());
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d(TAG, "onError: deletePhoto");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete: deletePhoto");
             }
         });
     }

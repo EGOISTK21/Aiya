@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.me.mvpphotoAlbum.PhotoAlbumContract;
@@ -251,6 +252,22 @@ public class PhotoAlbumActivity2 extends AppCompatActivity implements PhotoAlbum
         mUploadUrlList = uploadUrlList;
     }
 
+    @Override
+    public void showGetMePhoto(ArrayList<Gallery> mGalleryList) {
+
+    }
+
+    @Override
+    public void startPostPhotoImg() {
+        Log.d(TAG, "startPostPhotoImg: " + mUploadUrlList.get(0).getImgname());
+        mPhotoAlbumPresenter.startPostPhotoImg(mUploadUrlList.get(0).getImgname());
+    }
+
+    @Override
+    public void updateImagePathList(ArrayList<Gallery> mGalleryList) {
+
+    }
+
 
     class RvAlbumAdapter extends RecyclerView.Adapter<RvAlbumAdapter.AlbumViewHolder>{
 
@@ -471,7 +488,6 @@ public class PhotoAlbumActivity2 extends AppCompatActivity implements PhotoAlbum
                     if (mUploadUrlList.size() != 0) {
                         int i = 0;
                         mPhotoAlbumPresenter.submitAvatar(mUploadUrlList.get(i).getUpurl(), new File(p));
-                        mPhotoAlbumPresenter.startPostPhotoImg(mUploadUrlList.get(i).getImgname());
                     }
 
                 }
