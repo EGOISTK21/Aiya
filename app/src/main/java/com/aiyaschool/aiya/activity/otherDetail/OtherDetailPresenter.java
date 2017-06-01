@@ -1,13 +1,18 @@
 package com.aiyaschool.aiya.activity.otherDetail;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.ToastUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by EGOISTK21 on 2017/5/17.
@@ -63,4 +68,67 @@ class OtherDetailPresenter implements OtherDetailContract.Presenter {
             }
         });
     }
+
+    @Override
+    public void destroyLove() {
+        mModel.destroyLove(new Observer<HttpResult>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.i(TAG, "onSubscribe: destroyLove");
+            }
+
+            @Override
+            public void onNext(@NonNull HttpResult httpResult) {
+                Log.i(TAG, "onNext: destroyLove " + httpResult);
+                if ("2000".equals(httpResult.getState())) {
+                    UserUtil.setLoveId("0");
+                    mView.finishToMain(RESULT_OK, new Intent().putExtra("flag", "destroyLove"));
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.i(TAG, "onError: destroyLove");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "onComplete: destroyLove");
+            }
+        });
+    }
+
+    @Override
+    public void reply(String requestid, String fromuserid, String attitude) {
+        mModel.reply(requestid, fromuserid, attitude, new Observer<HttpResult<User>>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.i(TAG, "onSubscribe: reply " + d);
+            }
+
+            @Override
+            public void onNext(@NonNull HttpResult<User> userHttpResult) {
+                Log.i(TAG, "onNext: reply " + userHttpResult);
+                if ("2000".equals(userHttpResult.getState())) {
+                    User ta = userHttpResult.getData();
+                    if (ta != null) {
+                        UserUtil.setTa(ta);
+                        UserUtil.setLoveId(ta.getLoveId());
+                    }
+                    mView.finishToMain(RESULT_OK, null);
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.i(TAG, "onError: reply" + e);
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "onComplete: reply");
+            }
+        });
+    }
+
 }

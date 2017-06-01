@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/colorPureWhite">
+
+    <com.aiyaschool.aiya.widget.CircleImageView
+        android:id="@+id/civ_hit_avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_hit_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="@dimen/common_margin_15"
+        android:layout_marginTop="@dimen/common_margin_25"
+        android:layout_toEndOf="@+id/civ_hit_avatar"
+        android:includeFontPadding="false"
+        android:text="@string/default_username"
+        android:textColor="@color/colorContentMain"
+        android:textSize="@dimen/common_text_size_13"/>
+
+    <TextView
+        android:id="@+id/tv_hit_school"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/tv_hit_username"
+        android:layout_marginBottom="@dimen/common_margin_25"
+        android:includeFontPadding="false"
+        android:text="@string/default_school_full"
+        android:textColor="@color/colorContentMain"
+        android:textSize="@dimen/common_text_size_13"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"/>
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_selector"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

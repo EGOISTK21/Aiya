@@ -1,7 +1,9 @@
 package com.aiyaschool.aiya.activity.otherDetail;
 
 import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.APIUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,4 +26,28 @@ class OtherDetailModel implements OtherDetailContract.Model {
                 .unsubscribeOn(Schedulers.io())
                 .subscribe(observer);
     }
+
+    @Override
+    public void destroyLove(Observer<HttpResult> observer) {
+        APIUtil.getDestroyLoveApi()
+                .destroyLove(UserUtil.getUser().getLoveId())
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+    @Override
+    public void reply(String requestid, String fromuserid, String attitude, Observer<HttpResult<User>> observer) {
+        APIUtil.getReplyApi()
+                .response(requestid, fromuserid, attitude)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
+
 }

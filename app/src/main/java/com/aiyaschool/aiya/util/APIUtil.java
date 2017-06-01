@@ -226,6 +226,14 @@ public class APIUtil {
                                                                     @Field("line") String line);
     }
 
+    public interface ReplyApi {
+        @POST("Me/PUT/reply")
+        @FormUrlEncoded
+        Observable<HttpResult<User>> response(@Field("requestid") String requestid,
+                                              @Field("fromuserid") String fromuserid,
+                                              @Field("attitude") String attitude);
+    }
+
     public interface LoverInfoApi {
         @POST("Love/GET/loverinfo")
         Observable<HttpResult<User>> getLoverInfo();
@@ -396,6 +404,10 @@ public class APIUtil {
 
     public static MatchingApi getMatchingApi() {
         return sRetrofit.create(MatchingApi.class);
+    }
+
+    public static ReplyApi getReplyApi() {
+        return sRetrofit.create(ReplyApi.class);
     }
 
     public static LoverInfoApi getLoverInfoApi() {

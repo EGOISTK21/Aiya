@@ -225,32 +225,6 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
                 return true;
             }
         });
-
-//        send.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                TIMMessage msg = new TIMMessage();
-//                TIMTextElem elem = new TIMTextElem();
-//                elem.setText("a new msg");
-//                if(msg.addElement(elem) != 0) {
-//                    Log.d(TAG, "addElement failed");
-//                    return;
-//                }
-//                conversation.sendMessage(msg, new TIMValueCallBack<TIMMessage>() {//发送消息回调
-//                    @Override
-//                    public void onError(int code, String desc) {//发送消息失败
-//                        //错误码code和错误描述desc，可用于定位请求失败原因
-//                        //错误码code含义请参见错误码表
-//                        Log.d(TAG, "send message failed. code: " + code + " errmsg: " + desc);
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(TIMMessage msg) {//发送消息成功
-//                        Log.e(TAG, "SendMsg ok");
-//                    }
-//                });
-//            }
-//        });
     }
 
 

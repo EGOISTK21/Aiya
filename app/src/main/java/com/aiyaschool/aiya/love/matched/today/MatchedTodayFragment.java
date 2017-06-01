@@ -1,6 +1,7 @@
 package com.aiyaschool.aiya.love.matched.today;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -99,7 +100,9 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
 
     @OnClick(R.id.iv_matched_right)
     void showTa() {
-        startActivityForResult(new Intent(getContext(), OtherDetailActivity.class), DESTROY_LOVE);
+        Bundle bundle = new Bundle();
+        bundle.putInt("card_flag", 3);
+        startActivityForResult(new Intent(getContext(), OtherDetailActivity.class).putExtras(bundle), DESTROY_LOVE);
     }
 
     @OnClick(R.id.ll_intimacy)

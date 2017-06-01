@@ -93,6 +93,7 @@ public class MatchResultFragment extends BaseFragment
     @Override
     public void startOtherDetailActivity(User user) {
         Bundle bundle = new Bundle();
+        bundle.putInt("card_flag", 1);
         bundle.putParcelable("other detail", user);
         startActivity(new Intent(getContext(), OtherDetailActivity.class).putExtras(bundle));
     }

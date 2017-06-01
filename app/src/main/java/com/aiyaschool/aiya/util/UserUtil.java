@@ -9,6 +9,7 @@ import com.aiyaschool.aiya.bean.Normal;
 import com.aiyaschool.aiya.bean.Thumb;
 import com.aiyaschool.aiya.bean.UpLoad;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.message.bean.HitNotification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,8 @@ public class UserUtil {
 
     private static SharedPreferences sSharedPreferences;
     private static SharedPreferences.Editor sEditor;
-    private static User sUser, ta;
+    private static User sUser, sTa;
+    private static List<HitNotification> sHitNotifications;
 
     private UserUtil() {
 
@@ -30,6 +32,11 @@ public class UserUtil {
     public static void init(Context context) {
         sSharedPreferences = context.getSharedPreferences("test", Context.MODE_PRIVATE);
         sEditor = sSharedPreferences.edit();
+        initUser();
+        initHitNotification();
+    }
+
+    private static void initUser() {
         sUser = new User();
         sUser.setLoginToken(UserUtil.getLoginToken());
         sUser.setUserSig(UserUtil.getUserSig());
@@ -84,12 +91,47 @@ public class UserUtil {
 
     public static void setTa(User user) {
         if (user != null) {
-            ta = user;
+            sTa = user;
         }
     }
 
     public static User getTa() {
-        return ta;
+        return sTa;
+    }
+
+    private static void initHitNotification() {
+        sHitNotifications = new ArrayList<>();
+        int size = sSharedPreferences.getInt("hitnotificationNum", 0);
+        for (int i = 0; i < size; i++) {
+//            sHitNotifications.add(new HitNotification(
+//                            new Avatar(null, new Thumb(sSharedPreferences.getString("hitnotification_avatar_" + i, null), null)),
+//                            sSharedPreferences.getString("hitnotification_username_" + i, null),
+//                            sSharedPreferences.getString("hitnotification_school_" + i, null),
+//                            sSharedPreferences.getString("hitnotification_requestid_" + i, null),
+//                            sSharedPreferences.getString("hitnotification_fromuserid_" + i, null),
+//                            sSharedPreferences.getBoolean("hitnotification_state_" + i, Boolean.parseBoolean(null))));
+        }
+    }
+
+    public static void addHitNotification(HitNotification hitNotification) {
+//        sHitNotifications.add(hitNotification);
+//        int size = sHitNotifications.size();
+//        sEditor.putInt("hitnotificationNum", size);
+//        sEditor.putString("hitnotification_avatar_" + size, hitNotification.getAvatar().getThumb().getFace());
+//        sEditor.putString("hitnotification_username_" + size, hitNotification.getUsername());
+//        sEditor.putString("hitnotification_school_" + size, hitNotification.getSchool());
+//        sEditor.putString("hitnotification_requestid_" + size, hitNotification.getRequestid());
+//        sEditor.putString("hitnotification_fromuserid_" + size, hitNotification.getFromuserid());
+//        sEditor.putBoolean("hitnotification_state_" + size, hitNotification.getState());
+//        sEditor.apply();
+    }
+
+    public static void updateHitNotification(int index, boolean state) {
+        sHitNotifications.get(index).setState(state);
+    }
+
+    private static List<HitNotification> getHitNotifications() {
+        return sHitNotifications;
     }
 
     public static void setContactShield(boolean contactShield) {
