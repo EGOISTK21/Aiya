@@ -2,6 +2,7 @@ package com.aiyaschool.aiya.bean;
 
 /**
  * Created by wewarriors on 2017/5/24.
+ * 头像上传接口
  */
 
 public class UploadUrl {

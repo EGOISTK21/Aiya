@@ -1,6 +1,7 @@
 package com.aiyaschool.aiya.util;
 
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
+import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
 
@@ -271,18 +272,21 @@ public class APIUtil {
         Observable<HttpResult> startUpdateUser(@Field("height") String height);
     }
 
+    //获取我的个人信息
     public interface GetMeIndex {
         @POST("Me/GET/meIndex")
         @FormUrlEncoded
         Observable<HttpResult<User>> startGetMeIndex(@Field("demand") String demand);
     }
 
+    //获取用户头像的url
     public interface GetMeIndexAvatar {
         @POST("Me/GET/meIndex")
         @FormUrlEncoded
         Observable<HttpResult<MyAvatar>> startGetMeIndexAvatar(@Field("demand") String demand);
     }
 
+    //获取用户头像的url
     public interface GetMeIndexAvatar1 {
         @POST("Me/GET/meIndex")
         @FormUrlEncoded
@@ -301,6 +305,36 @@ public class APIUtil {
         Observable<HttpResult<UploadUrl>> startGetAvatarUploadUrl();
     }
 
+    //获取图片上传接口
+    public interface GetImgUploadUrl {
+        @POST("Me/GET/genImgUploadUrl")
+        Observable<HttpResult<ArrayList<UploadUrl>>> startGetImgUploadUrl();
+    }
+
+    //加号上传图
+    public interface PostPhotoImg {
+        @POST("Me/POST/photo")
+        @FormUrlEncoded
+        Observable<HttpResult> startPostPhotoImg(@Field("img") String img);
+    }
+
+    //获取图库
+    public interface GetMePhoto {
+        @POST("Me/GET/photo")
+        @FormUrlEncoded
+        Observable<HttpResult<ArrayList<Gallery>>> startGetMePhoto(@Field("page") String page,
+                                                                   @Field("lines") String lines);
+    }
+
+    //删除图库图片
+    public interface DeletePhoto {
+        @POST("Me/PUT/deletePhoto")
+        @FormUrlEncoded
+        Observable<HttpResult> startDeletePhoto(@Field("imgid") String imgid);
+
+    }
+
+
     public interface FateMatchApi {
         @POST("Love/GET/fateMatching")
         Observable<HttpResult<User>> startFateMatch();
@@ -312,12 +346,14 @@ public class APIUtil {
         Observable<HttpResult> destroyLove(@Field("loveid") String loveId);
     }
 
+    //获取访客记录
     public interface GetGuestRecordApi {
         @POST("Me/GET/touchPeople")
         @FormUrlEncoded
         Observable<HttpResult<ArrayList<OuInfo>>> startGetGuestRecord(@Field("page") String page, @Field("lines") String lines);
     }
 
+    //获取情感记录
     public interface GetEmotionRecordApi {
         @POST("Me/GET/loveHistory")
         @FormUrlEncoded
@@ -466,5 +502,20 @@ public class APIUtil {
         return sRetrofit.create(GetMeIndexAvatar1.class);
     }
 
+    public static GetImgUploadUrl getImgUploadUrlApi() {
+        return sRetrofit.create(GetImgUploadUrl.class);
+    }
+
+    public static PostPhotoImg getPostPhotoImgApi() {
+        return sRetrofit.create(PostPhotoImg.class);
+    }
+
+    public static GetMePhoto getMePhotoApi() {
+        return sRetrofit.create(GetMePhoto.class);
+    }
+
+    public static DeletePhoto getDeletePhotoApi() {
+        return sRetrofit.create(DeletePhoto.class);
+    }
 
 }

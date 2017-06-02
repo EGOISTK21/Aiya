@@ -36,8 +36,10 @@ import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
 
 import com.aiyaschool.aiya.util.GlideCircleTransform;
+import com.aiyaschool.aiya.util.SchoolDBHelper;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.FilletDialog;
+import com.aiyaschool.aiya.widget.ScrollPickerView;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -90,6 +92,8 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     private boolean isAvatarChange = false;
 
     private File mFileAvatar;
+    private static int mProvince = 0;
+    private static int[] mSchoolNo = new int[31];
 
 
     @BindView(R.id.tv_sex)
@@ -154,7 +158,6 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 
     private List<String> mSchools;
     private String mSchool;
-    private String mProvince;
     private Boolean mProvinceChange;
 
     private Map<String, String> map;
@@ -256,6 +259,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                     mTvSex.setText("女");
                 }
             }
+
 
         }
 
@@ -418,15 +422,50 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
     }
 
     void showDialogSchoolPicker() {
+//        if (dialogSchoolPicker == null) {
+//            dialogSchoolPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
+//                    .setTitle("学校")
+//                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            if (mSchool != null) {
+//                                sspSchool.setSelectedItem(mSchool);
+//                            }
+//                            dialog.cancel();
+//                        }
+//                    }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            mSchool = sspSchool.getSelectedItem();
+//                            mTvSchool.setText(mSchool);
+//                            user.setSchool(mSchool);
+//                            map.put("school", mSchool);
+//                            dialog.dismiss();
+//                        }
+//                    }).create();
+//        }
+//        dialogSchoolPicker.show();
+//
+//        if (mSchools == null || mProvinceChange) {
+//            mProvinceChange = false;
+//            if (!TextUtils.isEmpty(mProvince)) {
+//                mPresenter.loadSchoolData(mProvince);
+//            } else {
+//
+//                mPresenter.loadSchoolData("陕西");
+//            }
+//
+//        } else {
+//            setSchoolData(mSchools);
+//        }
+
         if (dialogSchoolPicker == null) {
-            dialogSchoolPicker = new FilletDialog.Builder(this, R.layout.dialog_single_picker)
+            dialogSchoolPicker = new FilletDialog.Builder(this, R.layout.dialog_school_picker)
                     .setTitle("学校")
                     .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (mSchool != null) {
-                                sspSchool.setSelectedItem(mSchool);
-                            }
+                            sspSchool.setSelectedItem(mSchool);
                             dialog.cancel();
                         }
                     }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -439,19 +478,25 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                             dialog.dismiss();
                         }
                     }).create();
+            setProvinceData();
         }
         dialogSchoolPicker.show();
+    }
 
-        if (mSchools == null || mProvinceChange) {
-            mProvinceChange = false;
-            if (!TextUtils.isEmpty(mProvince)) {
-                mPresenter.loadSchoolData(mProvince);
-            } else {
-                mPresenter.loadSchoolData("陕西");
-            }
-
-        } else {
-            setSchoolData(mSchools);
+    private void setProvinceData() {
+        if (sspProvince == null || sspSchool == null) {
+            sspProvince = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_province);
+            sspSchool = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_school);
+            sspProvince.setData(SchoolDBHelper.PROVINCE);
+            sspProvince.setSelectedPosition(mProvince);
+            mPresenter.loadSchoolData(SchoolDBHelper.PROVINCE.get(mProvince));
+            sspProvince.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
+                @Override
+                public void onSelected(ScrollPickerView scrollPickerView, int position) {
+                    mProvince = position;
+                    mPresenter.loadSchoolData(SchoolDBHelper.PROVINCE.get(position));
+                }
+            });
         }
     }
 
@@ -764,23 +809,14 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void setSchoolData(List<String> schools) {
-        for (String s : schools) {
-            System.out.println(s);
-        }
-
-        if (dialogSchoolPicker != null && sspSchool == null) {
-            sspSchool = (StringScrollPicker) dialogSchoolPicker.findViewById(R.id.ssp_single);
-            if (sspSchool != null) {
-                sspSchool.setData(schools);
-                if (schools.get(0).equals("")) {
-                    mSchools = null;
-                    mTvSchool.setText("");
-                } else {
-                    mSchools = schools;
-                    mTvSchool.setText(sspSchool.getSelectedItem());
-                }
+        sspSchool.setData(schools);
+        sspSchool.setSelectedPosition(mSchoolNo[mProvince]);
+        sspSchool.setOnSelectedListener(new ScrollPickerView.OnSelectedListener() {
+            @Override
+            public void onSelected(ScrollPickerView scrollPickerView, int position) {
+                mSchoolNo[mProvince] = position;
             }
-        }
+        });
     }
 
     @Override

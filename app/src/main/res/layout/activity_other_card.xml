@@ -259,7 +259,7 @@
             android:background="@drawable/button_selector_negative"
             android:text="忽略"
             android:textColor="@color/colorPureWhite"
-            android:textSize="@dimen/common_text_size_16"/>
+            android:textSize="@dimen/common_text_size_16" />
 
         <Button
             android:id="@+id/btn_accept_liao"
@@ -269,7 +269,7 @@
             android:background="@drawable/button_selector"
             android:text="接受"
             android:textColor="@color/colorPureWhite"
-            android:textSize="@dimen/common_text_size_16"/>
+            android:textSize="@dimen/common_text_size_16" />
 
     </LinearLayout>
 
