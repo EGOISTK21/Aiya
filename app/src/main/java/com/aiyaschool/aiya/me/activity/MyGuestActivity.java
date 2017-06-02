@@ -35,6 +35,7 @@ import java.util.List;
 public class MyGuestActivity extends AppCompatActivity implements GuestDataContract.View {
 
     private static final String TAG = "MyGuestActivity";
+    private static final String LINE = "10";
     private int mPage = 1;
     private int mGuestNum;
     private boolean mNoData;
@@ -61,7 +62,7 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
         initView();
         mGuestList = new ArrayList<>();
         presenter = new GuestDataPresenter(this);
-        presenter.getGuestRecord(Integer.toString(mPage++), "6");
+        presenter.getGuestRecord(Integer.toString(mPage++), LINE);
 
     }
 
@@ -86,7 +87,7 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
 
                 mPage = 1;
                 mGuestList.clear();
-                presenter.getGuestRecord(Integer.toString(mPage++), "6");
+                presenter.getGuestRecord(Integer.toString(mPage++), LINE);
                 mNoData = false;
                 mGuestSwipe.setRefreshing(false);
 
@@ -113,7 +114,7 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
                         if (mNoData) {
                             Toast.makeText(MyGuestActivity.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
                         } else {
-                            presenter.getGuestRecord(Integer.toString(mPage++), "6");
+                            presenter.getGuestRecord(Integer.toString(mPage++), LINE);
                         }
                     }
                 }

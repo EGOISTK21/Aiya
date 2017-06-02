@@ -47,7 +47,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MyEmotionActivity extends AppCompatActivity implements EmotionRecordContract.View {
 
     private static final String TAG = "MyEmotionActivity";
-    private static final String LINE = "6";
+    private static final String LINE = "10";
     private int mPage = 1;
     private String mSex;
     private int mEmotionDataNum;
@@ -82,7 +82,7 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
         mPresenter = new EmotionRecordPresenter(this);
         User user = UserUtil.getUser();
         mSex = user.getSex();
-        mPresenter.getEmotionRecord(mSex, Integer.toString(mPage++), "6");
+        mPresenter.getEmotionRecord(mSex, Integer.toString(mPage++), LINE);
     }
 
     private void initView() {
@@ -105,7 +105,7 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
                         if (mNoData) {
                             Toast.makeText(MyEmotionActivity.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
                         } else {
-                            mPresenter.getEmotionRecord(mSex, Integer.toString(mPage++), "6");
+                            mPresenter.getEmotionRecord(mSex, Integer.toString(mPage++), LINE);
                         }
                     }
                 }
@@ -221,8 +221,8 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
                     .into(holder.mRivPhoto);
             switch (holder.getItemViewType()) {
                 case TOP:
-                    long a = System.currentTimeMillis() - Long.valueOf(parseDate(mEmotionList.get(position).getStarttime()));
-
+                    long a = System.currentTimeMillis() - Long.valueOf(mEmotionList.get(position).getStarttime()) * 1000;
+                    Log.d(TAG, "onBindViewHolder: " + a / 1000 / 60 / 60 / 24);
                     holder.mTotalDay.setText(a / 1000 / 60 / 60 / 24 + "");
                     break;
                 case NORMAL:
@@ -255,7 +255,7 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
                 mIntimacy = (TextView) itemView.findViewById(R.id.intimacy);
                 switch (viewType) {
                     case TOP:
-                        mTotalDay = (TextView) itemView.findViewById(R.id.tv_total);
+                        mTotalDay = (TextView) itemView.findViewById(R.id.total_day);
                         mDestroyLove = (TextView) itemView.findViewById(R.id.tv_destroy_love);
                         mDestroyLove.setOnClickListener(new View.OnClickListener() {
                             @Override
