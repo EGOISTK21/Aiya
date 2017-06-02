@@ -46,7 +46,7 @@ class SignPresenter implements SignContract.Presenter {
         mModel.sign(phone, verification, new Observer<HttpResult<User>>() {
             @Override
             public void onSubscribe(@NonNull Disposable disposable) {
-                Log.i(TAG, "onSubscribe: sign");
+                Log.i(TAG, "onSubscribe: sign " + disposable);
                 mView.showPD();
             }
 
@@ -104,8 +104,8 @@ class SignPresenter implements SignContract.Presenter {
             }
 
             @Override
-            public void onError(@NonNull Throwable throwable) {
-                Log.i(TAG, "onError: sign");
+            public void onError(@NonNull Throwable e) {
+                Log.i(TAG, "onError: sign " + e);
                 mView.dismissPD();
             }
 

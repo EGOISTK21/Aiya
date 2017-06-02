@@ -8,6 +8,7 @@ import com.aiyaschool.aiya.bean.ImgWall;
 import com.aiyaschool.aiya.bean.Normal;
 import com.aiyaschool.aiya.bean.Thumb;
 import com.aiyaschool.aiya.bean.UpLoad;
+import com.aiyaschool.aiya.bean.Url;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.bean.HitNotification;
 
@@ -407,7 +408,8 @@ public class UserUtil {
             clearImgWall();
             sEditor.putInt("rows", imgWall.getRows());
             for (int i = 0; i < imgWall.getRows(); i++) {
-                sEditor.putString("url_" + i, imgWall.getUrl().get(i));
+                sEditor.putString("url_normal" + i, imgWall.getUrl().getNormal().get(i));
+                sEditor.putString("url_thumb" + i, imgWall.getUrl().getThumb().get(i));
             }
             sEditor.apply();
         }
@@ -415,11 +417,13 @@ public class UserUtil {
 
     private static ImgWall getImgWall() {
         int rows = sSharedPreferences.getInt("rows", 0);
-        List<String> urls = new ArrayList<>();
+        List<String> normal = new ArrayList<>();
+        List<String> thumb = new ArrayList<>();
         for (int i = 0; i < rows; i++) {
-            urls.add(sSharedPreferences.getString("url_" + i, null));
+            normal.add(sSharedPreferences.getString("url_normal" + i, null));
+            thumb.add(sSharedPreferences.getString("url_thumb" + i, null));
         }
-        return new ImgWall(rows, urls);
+        return new ImgWall(rows, new Url(normal, thumb));
     }
 
     private static void clearImgWall() {

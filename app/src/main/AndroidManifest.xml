@@ -41,34 +41,30 @@
             android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".activity.form.FormActivity"
-
-            android:screenOrientation="portrait">
-        </activity>
-        <!--Image Selector Entry-->
+            android:screenOrientation="portrait"/>
+        <!-- Image Selector Entry -->
         <activity
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
             android:configChanges="orientation|screenSize"
-
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".activity.main.MainActivity"
             android:screenOrientation="portrait"/>
         <activity
-
             android:name=".activity.otherDetail.OtherDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
         </activity>
-
         <activity
             android:name=".message.ui.activity.ChatQQActivity"
             android:screenOrientation="portrait"
+
             android:windowSoftInputMode="adjustResize|stateHidden|adjustUnspecified"/>
         <activity android:name=".message.ui.activity.PhotosThumbnailActivity"/>
         <activity android:name=".message.ui.activity.ChatPhotosActivity"/>
         <activity android:name=".message.ui.activity.PhotoChooseActivity"/>
         <activity android:name=".message.ui.activity.PhotoCropActivity"/>
+
         <activity
             android:name=".love.matched.today.ClockInActivity"
             android:screenOrientation="portrait"/>
@@ -136,9 +132,8 @@
         <activity android:name=".me.activity.GiftMethodActivity"/>
         <activity android:name=".me.activity.MemberActivity"/>
         <activity android:name=".me.activity.PhotoAlbumActivity2"/>
-
         <activity android:name=".me.activity.UpdateDataActivity"/>
-
+        <activity android:name=".me.activity.PhotoAlbumActivity"/>
     </application>
 
 </manifest>

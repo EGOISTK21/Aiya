@@ -3,8 +3,6 @@ package com.aiyaschool.aiya.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 /**
  * Created by EGOISTK21 on 2017/5/9.
  */
@@ -15,16 +13,16 @@ public class ImgWall implements Parcelable {
      */
 
     private int rows;
-    private List<String> url;
+    private Url url;
 
-    public ImgWall(int rows, List<String> url) {
+    public ImgWall(int rows, Url url) {
         this.rows = rows;
         this.url = url;
     }
 
     protected ImgWall(Parcel in) {
         rows = in.readInt();
-        url = in.createStringArrayList();
+        url = in.readParcelable(Url.class.getClassLoader());
     }
 
     public static final Creator<ImgWall> CREATOR = new Creator<ImgWall>() {
@@ -47,11 +45,11 @@ public class ImgWall implements Parcelable {
         this.rows = rows;
     }
 
-    public List<String> getUrl() {
+    public Url getUrl() {
         return url;
     }
 
-    public void setUrl(List<String> url) {
+    public void setUrl(Url url) {
         this.url = url;
     }
 
@@ -63,7 +61,7 @@ public class ImgWall implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(rows);
-        dest.writeStringList(url);
+        dest.writeParcelable(url, flags);
     }
 
     @Override

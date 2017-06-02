@@ -1,20 +1,11 @@
-package com.aiyaschool.aiya.me.mvpPersonData;
+package com.aiyaschool.aiya.me.mvpphotoAlbum;
 
-import android.database.Cursor;
-
-import com.aiyaschool.aiya.bean.EmotionRecordBean;
+import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
-import com.aiyaschool.aiya.bean.OuInfo;
 import com.aiyaschool.aiya.bean.UploadUrl;
-import com.aiyaschool.aiya.bean.User;
-import com.aiyaschool.aiya.me.bean.MyAvatar;
-import com.aiyaschool.aiya.me.mvpGuestRecord.GuestDataContract;
 import com.aiyaschool.aiya.util.APIUtil;
-import com.aiyaschool.aiya.util.SchoolDBHelper;
-import com.aiyaschool.aiya.util.UserUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observer;
@@ -24,13 +15,10 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
- * Created by wewarriors on 2017/5/13.
+ * Created by wewarriors on 2017/5/28.
  */
 
-public class PersonDataModel implements PersonDataContract.Model {
-
-    List<String> schoolList = new ArrayList<>();
-
+public class PhotoAlbumModel implements PhotoAlbumContract.Model {
     @Override
     public void submitAvatar(String url, RequestBody img, Observer<ResponseBody> observer) {
         APIUtil.getIMGApi()
@@ -43,33 +31,9 @@ public class PersonDataModel implements PersonDataContract.Model {
     }
 
     @Override
-    public List<String> loadSchoolData(String province) {
-        schoolList.clear();
-        String sql = "SELECT school FROM edu WHERE province = ?";
-        Cursor cursor = SchoolDBHelper.getDBInstance().rawQuery(sql, new String[]{province});
-        while (cursor.moveToNext()) {
-            schoolList.add(cursor.getString(0));
-        }
-        return schoolList;
-    }
-
-
-    @Override
-    public void updateUserHeight(String height, Observer<HttpResult> observer) {
-        APIUtil.getUpdateUserApi()
-                .startUpdateUser(height)
-                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-                .subscribe(observer);
-
-    }
-
-    @Override
-    public void getMeIndex(String demand, Observer<HttpResult<User>> observer) {
-        APIUtil.getMeIndexApi()
-                .startGetMeIndex(demand)
+    public void startPostPhotoImg(String img, Observer<HttpResult> observer) {
+        APIUtil.getPostPhotoImgApi()
+                .startPostPhotoImg(img)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -78,9 +42,9 @@ public class PersonDataModel implements PersonDataContract.Model {
     }
 
     @Override
-    public void getMeIndexAvatar(String demand, Observer<HttpResult<MyAvatar>> observer) {
-        APIUtil.getMeIndexAvatarApi()
-                .startGetMeIndexAvatar(demand)
+    public void getImgUploadUrl(Observer<HttpResult<ArrayList<UploadUrl>>> observer) {
+        APIUtil.getImgUploadUrlApi()
+                .startGetImgUploadUrl()
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -89,9 +53,9 @@ public class PersonDataModel implements PersonDataContract.Model {
     }
 
     @Override
-    public void getAvatarUploadUrl(Observer<HttpResult<UploadUrl>> observer) {
-        APIUtil.getAvatarUploadUrlApi()
-                .startGetAvatarUploadUrl()
+    public void getMePhoto(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer) {
+        APIUtil.getMePhotoApi()
+                .startGetMePhoto(page, lines)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -99,5 +63,25 @@ public class PersonDataModel implements PersonDataContract.Model {
                 .subscribe(observer);
     }
 
+    @Override
+    public void updateImagePathList(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer) {
+        APIUtil.getMePhotoApi()
+                .startGetMePhoto(page, lines)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
 
+    @Override
+    public void deletePhoto(String imgId, Observer<HttpResult> observer) {
+        APIUtil.getDeletePhotoApi()
+                .startDeletePhoto(imgId)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
 }

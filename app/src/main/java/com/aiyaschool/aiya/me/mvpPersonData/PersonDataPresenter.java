@@ -57,28 +57,7 @@ public class PersonDataPresenter implements PersonDataContract.Presenter {
 
     @Override
     public void loadSchoolData(String hometown) {
-        mModel.loadSchoolData(hometown, new Observer<HttpResult<List<String>>>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(@NonNull HttpResult<List<String>> listHttpResult) {
-                System.out.println("PersonDataPresenter" + listHttpResult.getState());
-                mView.setSchoolData(listHttpResult.getData());
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
+        mView.setSchoolData(mModel.loadSchoolData(hometown));
 
     }
 
@@ -243,8 +222,11 @@ public class PersonDataPresenter implements PersonDataContract.Presenter {
 
             @Override
             public void onNext(@NonNull HttpResult<UploadUrl> uploadUrlHttpResult) {
-                Log.d(TAG, "onNext: getAvatarUploadUrl()" + uploadUrlHttpResult.getData().toString());
-                mView.setAvatarUploadUrl(uploadUrlHttpResult.getData());
+                if (uploadUrlHttpResult.getState().equals("2000")) {
+                    Log.d(TAG, "onNext: getAvatarUploadUrl()" + uploadUrlHttpResult.getData().toString());
+                    mView.setAvatarUploadUrl(uploadUrlHttpResult.getData());
+                }
+
             }
 
             @Override

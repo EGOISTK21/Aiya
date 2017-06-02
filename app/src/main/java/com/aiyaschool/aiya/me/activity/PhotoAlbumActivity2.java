@@ -29,7 +29,11 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.bean.Gallery;
+import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;
+import com.aiyaschool.aiya.me.mvpphotoAlbum.PhotoAlbumContract;
+import com.aiyaschool.aiya.me.mvpphotoAlbum.PhotoAlbumPresenter;
 import com.squareup.picasso.Picasso;
 
 import org.litepal.crud.DataSupport;
@@ -45,8 +49,7 @@ import java.util.List;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorFragment;
 
-public class PhotoAlbumActivity2 extends AppCompatActivity {
-
+public class PhotoAlbumActivity2 extends AppCompatActivity implements PhotoAlbumContract.View {
     private final static String TAG = "PhotoAlbumActivity2";
 
     private String dateNow;
@@ -65,11 +68,15 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
     //创建一个集合来记录那些被选中的图片编号  最开始想用新的bean photo 修改数据库时报错  放弃
     private List<List<Integer>> mSelectedNumber;
 
+    private List<UploadUrl> mUploadUrlList;
+
     private static final int REQUEST_IMAGE = 2;
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
 
     private SQLiteDatabase db;
     private RvAlbumAdapter.GridViewAdapter gridViewAdapter;
+
+    private PhotoAlbumContract.Presenter mPhotoAlbumPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +94,9 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
         rvAlbumAdapter = new RvAlbumAdapter();
         mRvPhotoAlbum.setAdapter(rvAlbumAdapter);
         mRvPhotoAlbum.setLayoutManager(new LinearLayoutManager(this));
-
+        mPhotoAlbumPresenter = new PhotoAlbumPresenter(this);
+        mPhotoAlbumPresenter.getImgUploadUrl();
+        mPhotoAlbumPresenter.getMePhoto("1", "6");
         mTvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,6 +157,7 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
     }
 
     private void initData() {
+        mUploadUrlList = new ArrayList<>();
         mLtTime = new ArrayList<>();
         mLtAlbum = new ArrayList<>();
         mSelectedNumber = new ArrayList<>();
@@ -237,7 +247,26 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
 
     }
 
+    @Override
+    public void showImgUploadUrl(List<UploadUrl> uploadUrlList) {
+        mUploadUrlList = uploadUrlList;
+    }
 
+    @Override
+    public void showGetMePhoto(ArrayList<Gallery> mGalleryList) {
+
+    }
+
+    @Override
+    public void startPostPhotoImg() {
+        Log.d(TAG, "startPostPhotoImg: " + mUploadUrlList.get(0).getImgname());
+        mPhotoAlbumPresenter.startPostPhotoImg(mUploadUrlList.get(0).getImgname());
+    }
+
+    @Override
+    public void updateImagePathList(ArrayList<Gallery> mGalleryList) {
+
+    }
 
 
     class RvAlbumAdapter extends RecyclerView.Adapter<RvAlbumAdapter.AlbumViewHolder>{
@@ -456,6 +485,11 @@ public class PhotoAlbumActivity2 extends AppCompatActivity {
                 for(String p: mSelectPath){
                     mLtAlbum.get(0).add(0,p);
                     rvAlbumAdapter.notifyDataSetChanged();
+                    if (mUploadUrlList.size() != 0) {
+                        int i = 0;
+                        mPhotoAlbumPresenter.submitAvatar(mUploadUrlList.get(i).getUpurl(), new File(p));
+                    }
+
                 }
 
             }
