@@ -25,7 +25,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import retrofit2.http.HEAD;
 
 import static com.aiyaschool.aiya.activity.main.MainActivity.DESTROY_LOVE;
 

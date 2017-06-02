@@ -1,6 +1,5 @@
 package com.aiyaschool.aiya.base;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -20,9 +19,6 @@ import pub.devrel.easypermissions.EasyPermissions;
  */
 
 public abstract class BaseActivity extends RxAppCompatActivity implements View.OnClickListener, EasyPermissions.PermissionCallbacks {
-
-    protected static final int RC_EXTERNAL_STORAGE = 0;
-    protected static final String[] _EXTERNAL_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

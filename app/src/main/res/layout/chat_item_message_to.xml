@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--消息内容-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="right"
@@ -65,29 +66,26 @@
                 android:visibility="invisible"/>
         </FrameLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/ll_chat_content"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/ll_chat_content"
+            <TextView
+                android:layout_width="4dp"
+                android:layout_height="wrap_content"/>
+
+            <FrameLayout
+                android:id="@+id/fl_chat_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@drawable/chat_item_to_bg"
+                android:gravity="center">
+            </FrameLayout>
 
-                <TextView
-                    android:layout_width="4dp"
-                    android:layout_height="wrap_content"/>
-
-                <FrameLayout
-                    android:id="@+id/fl_chat_content"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/chat_item_to_bg"
-                    android:gravity="center">
-                </FrameLayout>
-            </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>
