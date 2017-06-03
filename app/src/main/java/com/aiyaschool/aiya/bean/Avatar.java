@@ -3,8 +3,6 @@ package com.aiyaschool.aiya.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-
 /**
  * Created by EGOISTK21 on 2017/5/9.
  */
@@ -53,6 +51,10 @@ public class Avatar implements Parcelable {
 
     public void setThumb(Thumb thumb) {
         this.thumb = thumb;
+    }
+
+    public boolean isNull() {
+        return getNormal().getFace() == null && getNormal().getBackground() == null;
     }
 
     @Override

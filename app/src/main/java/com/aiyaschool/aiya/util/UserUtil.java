@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.aiyaschool.aiya.bean.Avatar;
+import com.aiyaschool.aiya.bean.HitNotification;
 import com.aiyaschool.aiya.bean.ImgWall;
 import com.aiyaschool.aiya.bean.Normal;
 import com.aiyaschool.aiya.bean.Thumb;
 import com.aiyaschool.aiya.bean.UpLoad;
 import com.aiyaschool.aiya.bean.Url;
 import com.aiyaschool.aiya.bean.User;
-import com.aiyaschool.aiya.bean.HitNotification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +98,11 @@ public class UserUtil {
 
     public static User getTa() {
         return sTa;
+    }
+
+    public static void delLove() {
+        setLoveId("0");
+        sTa = null;
     }
 
     private static void initHitNotification() {
@@ -351,7 +356,7 @@ public class UserUtil {
     }
 
     private static void setAvatar(Avatar avatar) {
-        if (avatar != null && !avatar.equals(sUser.getAvatar())) {
+        if (avatar != null && !avatar.equals(sUser.getAvatar()) && !avatar.isNull()) {
             sUser.setAvatar(avatar);
             sEditor.putString("normal_face", avatar.getNormal().getFace());
             sEditor.putString("normal_background", avatar.getNormal().getBackground());

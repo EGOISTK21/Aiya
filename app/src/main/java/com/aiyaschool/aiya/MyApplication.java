@@ -4,10 +4,12 @@ import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
 
+import com.aiyaschool.aiya.bean.DelNotification;
 import com.aiyaschool.aiya.bean.ReplyNotification;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
 import com.aiyaschool.aiya.bean.HitNotification;
 import com.aiyaschool.aiya.util.RefreshTokenService;
+import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.google.gson.Gson;
@@ -31,7 +33,7 @@ import java.util.List;
 import cn.smssdk.SMSSDK;
 
 /**
- * app实体类暴露User对象，onCreate初始化各种SDK
+ * app实体类，onCreate初始化各种SDK
  * Created by EGOISTK21 on 2017/3/15.
  */
 
@@ -65,6 +67,7 @@ public class MyApplication extends Application {
             private Gson gson = new Gson();
             private HitNotification hitNotification;
             private ReplyNotification replyNotification;
+            private DelNotification delNotification;
 
             @Override
             public boolean onNewMessages(List<TIMMessage> list) {
@@ -81,6 +84,9 @@ public class MyApplication extends Application {
                             } else if ("aiyaliaoreply".equals(((TIMCustomElem) elem).getDesc())) {
                                 replyNotification = gson.fromJson(new String(((TIMCustomElem) elem).getData()), ReplyNotification.class);
                                 replyNotification.initReplyUser();
+                            } else if ("aiyadellove".equals(((TIMCustomElem) elem).getDesc())) {
+                                delNotification = gson.fromJson(new String(((TIMCustomElem) elem).getData()), DelNotification.class);
+                                delNotification.initFromUser();
                             }
                         }
                     }
@@ -94,7 +100,7 @@ public class MyApplication extends Application {
                 @Override
                 public void handleNotification(TIMOfflinePushNotification notification) {
                     Log.e("MyApplication", "recv offline push");
-                    notification.doNotify(getApplicationContext(), R.drawable.ic_launcher);
+                    notification.doNotify(instance, R.drawable.ic_launcher);
                 }
             });
         }
@@ -124,11 +130,13 @@ public class MyApplication extends Application {
             @Override
             public void onForceOffline() {
                 ToastUtil.show("你的账号已在其他设备登录");
+                SignUtil.signOut(instance);
             }
 
             @Override
             public void onUserSigExpired() {
                 ToastUtil.show("登录已过期，请重新登录");
+                SignUtil.signOut(instance);
             }
         });
         TIMManager.getInstance().init(this);

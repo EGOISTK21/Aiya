@@ -37,9 +37,7 @@
                 android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/ic_launcher"
-                android:layout_marginTop="@dimen/common_margin_25"
-                app:border_color="@color/colorPrimary"
-                app:border_width="0.5dp"/>
+                android:layout_marginTop="@dimen/common_margin_25"/>
 
             <TextView
                 android:id="@+id/tv_other_username"

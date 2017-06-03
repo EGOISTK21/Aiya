@@ -10,6 +10,7 @@ import android.support.v7.app.NotificationCompat;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.activity.otherDetail.OtherDetailActivity;
 import com.aiyaschool.aiya.bean.AiyaNotification;
 import com.aiyaschool.aiya.bean.HitNotification;
@@ -44,11 +45,18 @@ public class NotificationUtil {
                 sBundle.putInt("card_flag", 3);
                 sBundle.putParcelable("other detail", ((ReplyNotification) notification).getUser());
                 break;
+            case 333:
+                break;
+            case 444:
+                sIntent = new Intent(MyApplication.getInstance(), MainActivity.class).putExtras(sBundle);
+                break;
         }
-        sIntent = new Intent(MyApplication.getInstance(), OtherDetailActivity.class).putExtras(sBundle);
+        if (id != 444) {
+            sIntent = new Intent(MyApplication.getInstance(), OtherDetailActivity.class).putExtras(sBundle);
+        }
         notificationManager.notify(id,
                 sBuilder.setAutoCancel(true)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_notification)
                         .setContentTitle(title)
                         .setContentText(text)
                         .setPriority(NotificationCompat.PRIORITY_MAX)

@@ -115,7 +115,7 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
         mSchoolNo = new int[31];
         mPresenter = new FormPresenter(this);
         //获取TakePhoto实例
-        takePhoto = getTakePhoto();
+        getTakePhoto();
     }
 
     @Override

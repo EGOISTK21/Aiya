@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by EGOISTK21 on 2017/6/2.
  */
 
-public class ReplyNotification extends AiyaNotification {
+public class ReplyNotification implements AiyaNotification {
 
     private static final String TAG = "ReplyNotification";
     private User mUser;
@@ -28,7 +28,6 @@ public class ReplyNotification extends AiyaNotification {
     private String succuserid;
 
     public void initReplyUser() {
-        type = 2;
         APIUtil.getLoverInfoApi()
                 .getLoverInfo()
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)

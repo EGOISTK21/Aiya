@@ -6,10 +6,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.message.ui.activity.ChatQQActivity;
 import com.aiyaschool.aiya.message.ui.view.ChatMessageView;
 import com.aiyaschool.aiya.message.ui.view.ChatTimeZoneView;
+import com.aiyaschool.aiya.util.UserUtil;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tencent.TIMElem;
 import com.tencent.TIMMessage;
 
@@ -22,18 +26,17 @@ import java.util.Map;
  * Created by ShootHzj on 2016/10/20.
  */
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>{
+public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
 
     private final String TAG = ChatAdapter.class.getSimpleName();
     private ChatQQActivity activity;
     public ArrayList<TIMElem> msgList = new ArrayList<>();
     public ArrayList<Integer> isSendList = new ArrayList<>();
     public ArrayList<Long> timeList = new ArrayList<>();
-    private Map<Integer,Long> showTimeMap = new HashMap<>();
+    private Map<Integer, Long> showTimeMap = new HashMap<>();
     public boolean onBind = false;//adapter加载时,不允许刷新
     private final int ME = 1;
     private final int OTHER = 0;
-
 
 
     //msg from 收到的消息
@@ -41,7 +44,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>{
     //msg to 我发送出去的消息
     private final int MSG_TO = 0;
 
-    public ChatAdapter (ChatQQActivity activity, ArrayList<TIMElem> msgList, ArrayList<Integer> isSendList, ArrayList<Long> timeList){
+    public ChatAdapter(ChatQQActivity activity, ArrayList<TIMElem> msgList, ArrayList<Integer> isSendList, ArrayList<Long> timeList) {
         this.activity = activity;
         this.msgList = msgList;
         this.isSendList = isSendList;
@@ -49,7 +52,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>{
         updateShowTimeMap();
     }
 
-    public void updateShowTimeMap(){
+    public void updateShowTimeMap() {
         //todo
 //        if(msgList!=null){
 //            showTimeMap.clear();
@@ -61,17 +64,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>{
 //        }
     }
 
-    public void customeNotifyDataSetChanged(){
+    public void customeNotifyDataSetChanged() {
         updateShowTimeMap();
         this.notifyDataSetChanged();
     }
 
-    public void customNotifyItemRangedInserted(int positionStart,int itemCount,RecyclerView recyclerView){
+    public void customNotifyItemRangedInserted(int positionStart, int itemCount, RecyclerView recyclerView) {
         //todo
         //定位问题
         //插入新数据前，记录消息id
 //        this.notifyDataSetChanged(positionStart,itemCount);
-        this.notifyItemRangeChanged(positionStart,itemCount);
+        this.notifyItemRangeChanged(positionStart, itemCount);
 //        this.notifyItemRangeInserted(positionStart, itemCount);
         updateShowTimeMap();
         activity.scrollToBottom();
@@ -80,32 +83,44 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>{
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == 1){
-            return new MyViewHolder(View.inflate(activity, R.layout.chat_item_to,null));
-        }else{
-            return new MyViewHolder(View.inflate(activity, R.layout.chat_item_from,null));
+        if (viewType == 1) {
+            return new MyViewHolder(View.inflate(activity, R.layout.chat_item_to, null));
+        } else {
+            return new MyViewHolder(View.inflate(activity, R.layout.chat_item_from, null));
         }
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         onBind = true;
-        handleTime(position,holder.timeZone);
+        handleTime(position, holder.timeZone);
         TIMElem message = msgList.get(position);
 
         holder.rlMsg.setVisibility(View.VISIBLE);
-        handleHand(position,holder.imgUserIcon);
-        holder.viewMessage.setViews(message,isSendList.get(position));
-        holder.timeZone.setViews(timeList.get(position),0);
+        handleHand(position, holder.imgUserIcon);
+        holder.viewMessage.setViews(message, isSendList.get(position));
+        holder.timeZone.setViews(timeList.get(position), 0);
         onBind = false;
     }
 
-    private void handleHand(int position,ImageView imageView){
+    private void handleHand(int position, ImageView imageView) {
         //todo
+        System.out.println((isSendList.get(position) == MSG_FROM ?
+                UserUtil.getUser().getAvatar().getThumb().getFace()
+                : UserUtil.getTa().getAvatar().getThumb().getFace()));
+        Glide.with(MyApplication.getInstance())
+                .load(isSendList.get(position) == MSG_FROM ?
+                        UserUtil.getUser().getAvatar().getThumb().getFace()
+                        : UserUtil.getTa().getAvatar().getThumb().getFace())
+                .error(R.drawable.guanggao1)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .crossFade()
+                .into(imageView);
     }
 
 
-    private void handleTime(int position,ChatTimeZoneView timezone){
+    private void handleTime(int position, ChatTimeZoneView timezone) {
         boolean isShow = false;
 //        long currentMsgTime =
     }
@@ -113,9 +128,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>{
     @Override
     public int getItemViewType(int position) {
 
-        if(isSendList.get(position)==1){
+        if (isSendList.get(position) == 1) {
             return 1;
-        }else{
+        } else {
             return 0;
         }
     }
@@ -127,14 +142,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>{
 
     public void addChatMsg(TIMMessage msg) {
         //此处应有本地缓存
-        int arg1,arg2;
+        int arg1, arg2;
         ArrayList<TIMElem> aux = new ArrayList<>();
         ArrayList<Integer> aux1 = new ArrayList<>();
         ArrayList<Long> aux2 = new ArrayList<>();
-        int k = msg.isSelf()?1:0;
+        int k = msg.isSelf() ? 1 : 0;
         long l = msg.timestamp();
         arg1 = aux.size();
-        for(int j=0;j<msg.getElementCount();j++){
+        for (int j = 0; j < msg.getElementCount(); j++) {
             aux.add(msg.getElement(j));
             aux1.add(k);
             aux2.add(l);
@@ -142,25 +157,25 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>{
         msgList.addAll(aux);
         isSendList.addAll(aux1);
         timeList.addAll(aux2);
-        customNotifyItemRangedInserted(arg1,aux.size(),null);
+        customNotifyItemRangedInserted(arg1, aux.size(), null);
     }
 
     public void addBeforeChatMsgs(List<TIMMessage> msgs) {
         int auxx = 0;
-        for(TIMMessage msg:msgs){
+        for (TIMMessage msg : msgs) {
             ArrayList<TIMElem> aux = new ArrayList<>();
             ArrayList<Integer> aux1 = new ArrayList<>();
             ArrayList<Long> aux2 = new ArrayList<>();
-            int k = msg.isSelf()?1:0;
+            int k = msg.isSelf() ? 1 : 0;
             long l = msg.timestamp();
-            for(int j=0;j<msg.getElementCount();j++){
+            for (int j = 0; j < msg.getElementCount(); j++) {
                 aux.add(msg.getElement(j));
                 aux1.add(k);
                 aux2.add(l);
             }
-            msgList.addAll(auxx,aux);
-            isSendList.addAll(auxx,aux1);
-            timeList.addAll(auxx,aux2);
+            msgList.addAll(auxx, aux);
+            isSendList.addAll(auxx, aux1);
+            timeList.addAll(auxx, aux2);
             auxx++;
 
         }
@@ -169,10 +184,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>{
 
     public void addAll(int i, List<TIMMessage> list) {
         int auxhzj2151 = 0;
-        for(TIMMessage m:list){
-            msgList.add(0,list.get(auxhzj2151).getElement(0));
-            isSendList.add(0,list.get(auxhzj2151).isSelf()?1:0);
-            timeList.add(0,list.get(auxhzj2151).timestamp());
+        for (TIMMessage m : list) {
+            msgList.add(0, list.get(auxhzj2151).getElement(0));
+            isSendList.add(0, list.get(auxhzj2151).isSelf() ? 1 : 0);
+            timeList.add(0, list.get(auxhzj2151).timestamp());
             auxhzj2151++;
         }
     }
@@ -185,13 +200,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder>{
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        
-        public ChatTimeZoneView timeZone;//时间戳
-        public RelativeLayout rlMsg;
-        public ImageView imgUserIcon;// 头像
-        public ChatMessageView viewMessage;
-        public MyViewHolder(View itemView) {
+    class MyViewHolder extends RecyclerView.ViewHolder {
+
+        ChatTimeZoneView timeZone;//时间戳
+        RelativeLayout rlMsg;
+        ImageView imgUserIcon;// 头像
+        ChatMessageView viewMessage;
+
+        MyViewHolder(View itemView) {
             super(itemView);
             timeZone = (ChatTimeZoneView) itemView.findViewById(R.id.view_chat_timezone);
             rlMsg = (RelativeLayout) itemView.findViewById(R.id.rl_msg_content_info);

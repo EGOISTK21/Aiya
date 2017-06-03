@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by EGOISTK21 on 2017/5/27.
  */
 
-public class HitNotification extends AiyaNotification {
+public class HitNotification implements AiyaNotification {
 
     private static final String TAG = "HitNotification";
     private User mUser;
@@ -26,7 +26,6 @@ public class HitNotification extends AiyaNotification {
     private boolean state;
 
     public void initHitFromUser() {
-        type = 1;
         APIUtil.getPersonApi()
                 .loadOtherDetail(fromuserid)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
