@@ -1,9 +1,13 @@
 package com.aiyaschool.aiya.me.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -11,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 
 import com.aiyaschool.aiya.R;
@@ -18,6 +23,8 @@ import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.me.activity.PhotoActivity;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Date;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -44,6 +51,25 @@ public class PhotoFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_photo, null);
         activity = getActivity();
         ivPhoto = (SmoothImageView) rootView.findViewById(R.id.iv_photo);
+        ivPhoto.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setItems(new String[]{getResources().getString(R.string.save_picture)}, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ivPhoto.setDrawingCacheEnabled(true);
+                        Bitmap imageBitmap = ivPhoto.getDrawingCache();
+                        if (imageBitmap != null) {
+                            new SaveImageTask().execute(imageBitmap);
+                        }
+                    }
+                });
+                builder.show();
+
+                return true;
+            }
+        });
         ivPhoto.setMinimumScale(0.5f);
         ivPhoto.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
@@ -118,4 +144,38 @@ public class PhotoFragment extends Fragment {
     }
 
 
+    private class SaveImageTask extends AsyncTask<Bitmap, Void, String> {
+
+        @Override
+        protected String doInBackground(Bitmap... params) {
+            String result = getResources().getString(R.string.save_picture_failed);
+            try {
+                String sdcard = Environment.getExternalStorageDirectory().toString();
+
+                File file = new File(sdcard + "/Download");
+                if (!file.exists()) {
+                    file.mkdirs();
+                }
+
+                File imageFile = new File(file.getAbsolutePath(), new Date().getTime() + ".jpg");
+                FileOutputStream outStream = null;
+                outStream = new FileOutputStream(imageFile);
+                Bitmap image = params[0];
+                image.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+                outStream.flush();
+                outStream.close();
+                result = getResources().getString(R.string.save_picture_success, file.getAbsolutePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+
+            ivPhoto.setDrawingCacheEnabled(false);
+        }
+    }
 }

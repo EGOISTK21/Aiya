@@ -103,7 +103,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements PhotoAlbumC
 
     private String imgname = "";
 
-    private int mPage = 0;
+    private int mPage = 1;
     private int lastVisibleItem;
     private boolean isNodata;
 

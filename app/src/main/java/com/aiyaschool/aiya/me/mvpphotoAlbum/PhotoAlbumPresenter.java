@@ -139,7 +139,7 @@ public class PhotoAlbumPresenter implements PhotoAlbumContract.Presenter {
                 Log.d(TAG, "onNext: getMePhoto" + arrayListHttpResult.getData().size());
                 for (Gallery gallery : arrayListHttpResult.getData()) {
                     Log.d(TAG, "onNext: getMePhoto" + gallery.getCreatetime());
-                    Log.d(TAG, "onNext: getMePhoto" + gallery.getImgid());
+                    Log.d(TAG, "onNext: getMePhotoid" + gallery.getImgid());
                     Log.d(TAG, "onNext: getMePhoto" + gallery.getImg().getThumb());
                     Log.d(TAG, "onNext: getMePhoto" + gallery.getImg().getNormal());
                 }

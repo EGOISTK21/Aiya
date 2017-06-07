@@ -106,4 +106,7 @@
     <string name="oppositeID">对方ID</string>
     <string name="btn_text_send">发送</string>
     <string name="go_matched">去互动</string>
+    <string name="save_picture">保存图片</string>
+    <string name="save_picture_failed">保存失败</string>
+    <string name="save_picture_success">图片成功保存至%s目录</string>
 </resources>
