@@ -95,12 +95,12 @@ public class Msg {
         msg1.setmPreview("哈哈哈哈哈哈哈");
         list.add(msg1);
 
-//        Msg msg2 = new Msg();
-//        msg2.setmTitle("任务消息");
-//        msg2.setmImageView(R.drawable.love_red);
-//        msg2.setmTime("1 分钟前");
-//        msg2.setmPreview("哈哈哈哈哈哈哈");
-//        list.add(msg2);
+        Msg msg2 = new Msg();
+        msg2.setmTitle("匹配请求");
+        msg2.setmImageView(R.drawable.love_red);
+        msg2.setmTime("1 分钟前");
+        msg2.setmPreview("哈哈哈哈哈哈哈");
+        list.add(msg2);
 
         Msg msg3 = new Msg();
         msg3.setmTitle("攻略指南");

@@ -4,13 +4,13 @@ import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseFragment;
 
 /**
- * Created by EGOISTK21 on 2017/5/27.
+ * Created by EGOISTK21 on 2017/6/6.
  */
 
-public class MessageFragment extends BaseFragment {
+public class MatchedMessageContainerFragment extends BaseFragment {
 
-    public static MessageFragment newInstance() {
-        return new MessageFragment();
+    public static MatchedMessageContainerFragment newInstance() {
+        return new MatchedMessageContainerFragment();
     }
 
     @Override
@@ -23,4 +23,5 @@ public class MessageFragment extends BaseFragment {
         getFragmentManager().beginTransaction()
                 .replace(R.id.container_message, MsgListFragment.newInstance()).commit();
     }
+
 }

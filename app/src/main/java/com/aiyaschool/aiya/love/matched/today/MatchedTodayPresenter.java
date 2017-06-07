@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.Task;
-import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.UserUtil;
 
 import io.reactivex.Observer;
@@ -35,35 +34,6 @@ class MatchedTodayPresenter implements MatchedTodayContract.Presenter {
     public void detachView() {
         this.mView = null;
         this.mModel = null;
-    }
-
-    @Override
-    public void initLover() {
-        mModel.loadLover(new Observer<HttpResult<User>>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                Log.i(TAG, "onSubscribe: initView");
-            }
-
-            @Override
-            public void onNext(@NonNull HttpResult<User> userHttpResult) {
-                Log.i(TAG, "onNext: initView " + userHttpResult);
-                if ("2000".equals(userHttpResult.getState())) {
-                    UserUtil.setTa(userHttpResult.getData());
-                    mView.setLover();
-                }
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.i(TAG, "onError: initView " + e);
-            }
-
-            @Override
-            public void onComplete() {
-                Log.i(TAG, "onComplete: initView");
-            }
-        });
     }
 
     @Override

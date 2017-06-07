@@ -14,9 +14,12 @@ import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.message.ui.activity.ChatQQActivity;
+import com.aiyaschool.aiya.util.GlideRoundTransform;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.CircleImageView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -133,6 +136,10 @@ public class MsgListFragment extends BaseFragment {
             Msg msg = mMsg.get(position);
             holder.bindCrime(msg);
             if (msg.getmTitle().equals("情侣聊天")) {
+                if (UserUtil.getUser().isMatched()) {
+                    Glide.with(getContext()).load(UserUtil.getTa().getAvatar().getThumb().getFace()).centerCrop()
+                            .transform(new GlideRoundTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(holder.mCircleImageView);
+                }
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -148,19 +155,18 @@ public class MsgListFragment extends BaseFragment {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                    }
+                });
+            } else if (msg.getmTitle().equals("匹配请求")) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         ft.addToBackStack(null);
                         ft.replace(R.id.container_message, HitListFragment.newInstance(), null).commit();
                     }
                 });
-            }/*else if (msg.getmTitle().equals("任务消息")) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), ChatQQActivity.class);
-                        startActivity(intent);
-                    }
-                });
-            }*/ else if (msg.getmTitle().equals("攻略指南")) {
+            } else if (msg.getmTitle().equals("攻略指南")) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -184,6 +190,5 @@ public class MsgListFragment extends BaseFragment {
             return mMsg.size();
         }
     }
-
 
 }

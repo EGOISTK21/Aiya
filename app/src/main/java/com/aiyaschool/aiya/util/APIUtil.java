@@ -4,18 +4,14 @@ import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.OuInfo;
-
 import com.aiyaschool.aiya.bean.Task;
+import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.love.matched.today.Intimacy;
-
-import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.me.bean.MyAvatar;
-
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -160,20 +156,6 @@ public class APIUtil {
                                                 @Field("character") String character,
                                                 @Field("hobby") String hobby,
                                                 @Field("avatar") String avatar);
-    }
-
-    /**
-     * ['keyword']:   学校关键字
-     * ['province']: 学校所在省份
-     * 传入keyword参数时 province将被忽略(搜索逻辑)
-     * 单独传入province参数时为默认候选列表逻辑
-     */
-    public interface SearchSchoolApi {
-        @Headers("accessToken:false")
-        @POST("Community/GET/searchSchool")
-        @FormUrlEncoded
-        Observable<HttpResult<List<String>>> loadSchoolData(@Field("keyword") String keyword,
-                                                            @Field("province") String hometown);
     }
 
     /**
@@ -424,10 +406,6 @@ public class APIUtil {
 
     public static FirstInitApi getFirstInitApi() {
         return sRetrofit.create(FirstInitApi.class);
-    }
-
-    public static SearchSchoolApi getSearchSchoolApi() {
-        return sRetrofit.create(SearchSchoolApi.class);
     }
 
     public static PersonApi getPersonApi() {

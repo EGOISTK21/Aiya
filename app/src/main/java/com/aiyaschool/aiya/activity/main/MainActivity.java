@@ -16,10 +16,14 @@ import android.view.ViewGroup;
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseActivity;
+import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
 import com.aiyaschool.aiya.me.MeFragment;
-import com.aiyaschool.aiya.message.MessageFragment;
+import com.aiyaschool.aiya.message.MatchedMessageContainerFragment;
+import com.aiyaschool.aiya.message.UnmatchedMessageContainerFragment;
+import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.NoScrollViewPager;
@@ -28,6 +32,10 @@ import com.tencent.TIMManager;
 import com.tencent.TIMUser;
 
 import butterknife.BindDrawable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 主体为NoScrollViewPager+BottomNavigationView的主界面
@@ -70,15 +78,17 @@ public class MainActivity extends BaseActivity {
                     UserUtil.getUser().isMatched()
                             ? MatchedContainerFragment.newInstance()
                             : UnmatchedContainerFragment.newInstance(),
-                    MessageFragment.newInstance(),
+                    UserUtil.getUser().isMatched()
+                            ? UnmatchedMessageContainerFragment.newInstance()
+                            : MatchedMessageContainerFragment.newInstance(),
                     new MeFragment()
             };
 
             @Override
             public int getItemPosition(Object object) {
-                if (((/*object instanceof || */object instanceof UnmatchedContainerFragment)
+                if (((object instanceof UnmatchedContainerFragment || object instanceof UnmatchedMessageContainerFragment)
                         && UserUtil.getUser().isMatched())
-                        || ((/*object instanceof || */object instanceof MatchedContainerFragment)
+                        || ((object instanceof MatchedContainerFragment || object instanceof MatchedMessageContainerFragment)
                         && !UserUtil.getUser().isMatched())) {
                     return POSITION_NONE;
                 }
@@ -103,9 +113,16 @@ public class MainActivity extends BaseActivity {
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                         ft.attach(fragment);
                         ft.commitAllowingStateLoss();
-                    }/*else if () {
-
-                    }*/
+                    } else if (fragment instanceof UnmatchedMessageContainerFragment) {
+                        Log.i(TAG, "instantiateItem: " + fragmentTag);
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.remove(fragment);
+                        fragment = MatchedMessageContainerFragment.newInstance();
+                        ft.add(container.getId(), fragment, fragmentTag)
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ft.attach(fragment);
+                        ft.commitAllowingStateLoss();
+                    }
                 } else {
                     if (fragment instanceof MatchedContainerFragment) {
                         FragmentTransaction ft = fm.beginTransaction();
@@ -115,9 +132,16 @@ public class MainActivity extends BaseActivity {
                                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                         ft.attach(fragment);
                         ft.commitAllowingStateLoss();
-                    }/*else if () {
-
-                    }*/
+                    } else if (fragment instanceof MatchedMessageContainerFragment) {
+                        Log.i(TAG, "instantiateItem: " + fragmentTag);
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.remove(fragment);
+                        fragment = UnmatchedMessageContainerFragment.newInstance();
+                        ft.add(container.getId(), fragment, fragmentTag)
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ft.attach(fragment);
+                        ft.commitAllowingStateLoss();
+                    }
                 }
                 return fragment;
             }
@@ -139,6 +163,7 @@ public class MainActivity extends BaseActivity {
         bottomNavigationView.setItemTextColor(ContextCompat.getColorStateList(this, R.color.selector_color));
         //BottomNavigationViewUtil.disableShiftMode(bottomNavigationView);
         initListener();
+        initLover();
     }
 
     private void initListener() {
@@ -178,6 +203,38 @@ public class MainActivity extends BaseActivity {
                             case R.id.navigation_me:
                                 break;
                         }
+                    }
+                });
+    }
+
+    private void initLover() {
+        APIUtil.getLoverInfoApi()
+                .getLoverInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<HttpResult<User>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        Log.i(TAG, "onSubscribe: initView");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull HttpResult<User> userHttpResult) {
+                        Log.i(TAG, "onNext: initView " + userHttpResult);
+                        if ("2000".equals(userHttpResult.getState())) {
+                            UserUtil.setTa(userHttpResult.getData());
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError: initView " + e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.i(TAG, "onComplete: initView");
                     }
                 });
     }
