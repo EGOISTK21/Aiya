@@ -126,11 +126,11 @@ public class PhotoAlbumPresenter implements PhotoAlbumContract.Presenter {
     }
 
     @Override
-    public void getMePhoto(String page, String lines) {
+    public void getMePhoto(final String page, String lines) {
         mModel.getMePhoto(page, lines, new Observer<HttpResult<ArrayList<Gallery>>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
-                Log.d(TAG, "onSubscribe: getMePhoto");
+                Log.d(TAG, "onSubscribe: getMePhoto" + page);
             }
 
             @Override

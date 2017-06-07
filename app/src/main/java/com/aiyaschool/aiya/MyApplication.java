@@ -13,6 +13,13 @@ import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.tencent.TIMConnListener;
 import com.tencent.TIMCustomElem;
 import com.tencent.TIMElem;
@@ -28,6 +35,7 @@ import com.tencent.qalsdk.sdk.MsfSdkUtils;
 
 import org.litepal.LitePal;
 
+import java.io.File;
 import java.util.List;
 
 import cn.smssdk.SMSSDK;
@@ -52,6 +60,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initImageLoader();
         instance = this;
         SMSSDK.initSDK(this, APP_KEY, APP_SECRET);
         LitePal.initialize(this);
@@ -146,5 +155,32 @@ public class MyApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
         stopService(new Intent(this, RefreshTokenService.class));
+    }
+
+    private void initImageLoader() {
+
+
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .resetViewBeforeLoading(false) // default
+                .cacheOnDisk(true) // default
+                .showImageOnLoading(R.drawable.mis_default_error) // resource or
+                // drawable
+                .showImageForEmptyUri(R.drawable.mis_default_error) // resource or
+                // drawable
+                .showImageOnFail(R.drawable.mis_default_error).build();
+
+        File imageCacheDir = StorageUtils.getCacheDirectory(this, true);
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                this).denyCacheImageMultipleSizesInMemory()
+                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                .memoryCacheSize(2 * 1024 * 1024)
+                .diskCache(new UnlimitedDiskCache(imageCacheDir))
+                // 自定义缓存路径
+                .defaultDisplayImageOptions(options)
+                .imageDownloader(
+                        new BaseImageDownloader(this, 5 * 1000, 30 * 1000)) // 超时时间
+                .build();// 开始构建
+        // 全局初始化此配置
+        ImageLoader.getInstance().init(config);
     }
 }

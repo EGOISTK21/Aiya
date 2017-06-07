@@ -1,10 +1,12 @@
 package com.aiyaschool.aiya.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by wewarriors on 2017/5/31.
  */
 
-public class Img {
+public class Img implements Serializable {
     private String normal;
     private String thumb;
 

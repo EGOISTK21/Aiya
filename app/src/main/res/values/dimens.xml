@@ -76,4 +76,5 @@
 
     <dimen name="bar_height_userdef">@dimen/dimension_50</dimen>
     <dimen name="bar_icon_height_userdef">28dp</dimen>
+    <dimen name="default_status_bar_height">25dp</dimen>
 </resources>

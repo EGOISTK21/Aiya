@@ -315,8 +315,8 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                 break;
             case R.id.tv_member:
             case R.id.member_icon:
-                intent = new Intent(getActivity(), MemberActivity.class);
-                startActivity(intent);
+//                intent = new Intent(getActivity(), MemberActivity.class);
+//                startActivity(intent);
 
                 break;
 //            mLlMyPhotoAlbum,mLlMyState,mLlMyGuest,mLlEmotion,mLlMyGift,mLlMoreSetting

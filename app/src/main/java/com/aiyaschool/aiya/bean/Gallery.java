@@ -1,12 +1,13 @@
 package com.aiyaschool.aiya.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by wewarriors on 2017/5/29.
  */
 
-public class Gallery {
+public class Gallery implements Serializable {
     public Gallery() {
 
     }
