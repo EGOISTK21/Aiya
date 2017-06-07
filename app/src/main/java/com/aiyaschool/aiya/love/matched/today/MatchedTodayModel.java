@@ -18,16 +18,6 @@ import io.reactivex.schedulers.Schedulers;
 class MatchedTodayModel implements MatchedTodayContract.Model {
 
     @Override
-    public void loadLover(Observer<HttpResult<User>> observer) {
-        APIUtil.getLoverInfoApi()
-                .getLoverInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-                .subscribe(observer);
-    }
-
-    @Override
     public void loadIntimacy(String loveid, Observer<Intimacy> observer) {
         APIUtil.getIntimacyApi()
                 .getIntimacy(loveid)

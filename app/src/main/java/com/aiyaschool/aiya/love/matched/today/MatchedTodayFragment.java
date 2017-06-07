@@ -69,16 +69,11 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
     @Override
     protected void initView() {
         mPresenter = new MatchedTodayPresenter(this);
-        mPresenter.initLover();
         User me = UserUtil.getUser();
         Glide.with(this).load(me.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
                 .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivLeftAvatar);
         tvLeftUsername.setText(me.getUsername());
         tvLeftSchool.setText(me.getSchool());
-    }
-
-    @Override
-    public void setLover() {
         User ta = UserUtil.getTa();
         Glide.with(this).load(ta.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
                 .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivRightAvatar);

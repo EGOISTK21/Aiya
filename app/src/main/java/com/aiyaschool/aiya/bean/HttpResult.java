@@ -10,6 +10,7 @@ public class HttpResult<T> {
     private String state;
     private String err_msg;
     private String rows;
+    private T data;
 
     public String getRows() {
         return rows;
@@ -19,7 +20,6 @@ public class HttpResult<T> {
         this.rows = rows;
     }
 
-    private T data;
 
     public String getState() {
         return this.state;

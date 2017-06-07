@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <com.aiyaschool.aiya.widget.CircleImageView
         android:id="@+id/circleImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/common_margin_15"
+        android:layout_margin="@dimen/common_margin_15"
         android:src="@drawable/message"/>
 
     <TextView
@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/circleImageView"
         android:layout_toEndOf="@+id/circleImageView"
-        android:layout_marginStart="@dimen/common_margin_5"
         android:includeFontPadding="false"
         android:text="TextView"
         android:textSize="@dimen/common_text_size_15"/>
@@ -30,7 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/msg_title"
         android:layout_marginTop="6dp"
-        android:layout_marginStart="@dimen/common_margin_5"
         android:layout_toEndOf="@+id/circleImageView"
         android:includeFontPadding="false"
         android:text="TextView"
