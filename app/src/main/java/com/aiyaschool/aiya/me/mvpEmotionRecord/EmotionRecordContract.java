@@ -27,7 +27,7 @@ public interface EmotionRecordContract {
         void setBackGroundIfNoData();
     }
 
-    public interface Presenter {
+    interface Presenter {
 
         void getEmotionRecord(String sex, String page, String lines);
 

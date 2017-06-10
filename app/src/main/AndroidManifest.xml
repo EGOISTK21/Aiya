@@ -52,8 +52,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.otherDetail.OtherDetailActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".message.hit.HitListActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".message.ui.activity.ChatQQActivity"
             android:screenOrientation="portrait"

@@ -1,61 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/colorPureWhite">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPureWhite">
 
     <com.aiyaschool.aiya.widget.CircleImageView
-        android:id="@+id/civ_hit_avatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/civ_avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="@dimen/common_margin_15"
         android:src="@mipmap/ic_launcher"/>
 
     <TextView
-        android:id="@+id/tv_hit_username"
+        android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="@dimen/common_margin_15"
-        android:layout_marginTop="@dimen/common_margin_25"
-        android:layout_toEndOf="@+id/civ_hit_avatar"
+        android:layout_alignTop="@+id/civ_avatar"
+        android:layout_toEndOf="@+id/civ_avatar"
         android:includeFontPadding="false"
         android:text="@string/default_username"
         android:textColor="@color/colorContentMain"
-        android:textSize="@dimen/common_text_size_13"/>
+        android:textSize="@dimen/common_text_size_16"/>
 
     <TextView
-        android:id="@+id/tv_hit_school"
+        android:id="@+id/tv_school"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/tv_hit_username"
-        android:layout_marginBottom="@dimen/common_margin_25"
+        android:layout_alignBottom="@+id/civ_avatar"
+        android:layout_toEndOf="@+id/civ_avatar"
         android:includeFontPadding="false"
         android:text="@string/default_school_full"
         android:textColor="@color/colorContentMain"
         android:textSize="@dimen/common_text_size_13"/>
 
     <LinearLayout
+        android:id="@+id/ll_button"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:orientation="vertical">
+        android:layout_centerVertical="true"
+        android:divider="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:showDividers="middle">
 
         <Button
-            android:id="@+id/btn_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_selector"/>
+            android:id="@+id/btn_ignore"
+            android:layout_width="56dp"
+            android:layout_height="40dp"
+            android:background="@color/transparent"
+            android:text="忽略"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/common_text_size_13"/>
 
         <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_selector"/>
+            android:id="@+id/btn_accept"
+            android:layout_width="56dp"
+            android:layout_height="40dp"
+            android:background="@color/transparent"
+            android:text="同意"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/common_text_size_13"/>
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/common_margin_15"
+        android:text="匹配成功"
+        android:textColor="@color/colorContentSecondary"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

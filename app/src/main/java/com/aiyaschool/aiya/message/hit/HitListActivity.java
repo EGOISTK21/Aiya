@@ -1,36 +1,36 @@
-package com.aiyaschool.aiya.me.activity;
+package com.aiyaschool.aiya.message.hit;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.bean.OuInfo;
-import com.aiyaschool.aiya.me.mvpGuestRecord.GuestDataContract;
-import com.aiyaschool.aiya.me.mvpGuestRecord.GuestDataPresenter;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
+import com.aiyaschool.aiya.widget.CircleImageView;
 import com.bumptech.glide.Glide;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class MyGuestActivity extends AppCompatActivity implements GuestDataContract.View {
+/**
+ * Created by EGOISTK21 on 2017/5/27.
+ */
 
-    private static final String TAG = "MyGuestActivity";
+public class HitListActivity extends BaseActivity implements HitListContract.View {
+
+    private HitListContract.Presenter mPresenter;
     private static final String LINE = "10";
     private int mPage = 1;
     private int mGuestNum;
@@ -49,20 +49,16 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
 
     private int lastVisibleItem;
 
-    private GuestDataContract.Presenter presenter;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_guest);
-        initView();
-        mGuestList = new ArrayList<>();
-        presenter = new GuestDataPresenter(this);
-        presenter.getGuestRecord(Integer.toString(mPage++), LINE);
-
+    protected int getLayoutId() {
+        return R.layout.activity_message_hit;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        mGuestList = new ArrayList<>();
+        mPresenter = new HitListPresenter(this);
+        mPresenter.getGuestRecord(Integer.toString(mPage++), LINE);
         mTvBack = (TextView) findViewById(R.id.tv_back);
         mRvGuest = (RecyclerView) findViewById(R.id.rv_guest);
         mLlMyGuest = (LinearLayout) findViewById(R.id.my_guest);
@@ -83,7 +79,7 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
 
                 mPage = 1;
                 mGuestList.clear();
-                presenter.getGuestRecord(Integer.toString(mPage++), LINE);
+                mPresenter.getGuestRecord(Integer.toString(mPage++), LINE);
                 mNoData = false;
                 mGuestSwipe.setRefreshing(false);
 
@@ -100,7 +96,7 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
         linearLayoutManager = new LinearLayoutManager(this);
         mRvGuest.setLayoutManager(linearLayoutManager);
 
-        mRvGuest.addItemDecoration(new DividerItemDecoration(MyGuestActivity.this, DividerItemDecoration.VERTICAL));
+        mRvGuest.addItemDecoration(new DividerItemDecoration(HitListActivity.this, DividerItemDecoration.VERTICAL));
         mRvGuest.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -108,9 +104,9 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
                 if (mGuestAdapter != null) {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == mGuestAdapter.getItemCount()) {
                         if (mNoData) {
-                            Toast.makeText(MyGuestActivity.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HitListActivity.this, "没有更多数据了", Toast.LENGTH_SHORT).show();
                         } else {
-                            presenter.getGuestRecord(Integer.toString(mPage++), LINE);
+                            mPresenter.getGuestRecord(Integer.toString(mPage++), LINE);
                         }
                     }
                 }
@@ -138,7 +134,6 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
             mGuestAdapter.notifyDataSetChanged();
         }
 
-        Log.d(TAG, "setGuestRecordData: " + mGuestList.size());
     }
 
 //    @Override
@@ -166,31 +161,79 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
         mGuestNum = num;
     }
 
-    class GuestAdapter extends RecyclerView.Adapter<GuestAdapter.GuestViewHolder> implements View.OnClickListener{
+    class GuestAdapter extends RecyclerView.Adapter<GuestAdapter.GuestViewHolder> implements View.OnClickListener {
 
         @Override
         public GuestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             System.out.println("onCreateViewHolder");
-            View view = LayoutInflater.from(MyGuestActivity.this).inflate(R.layout.guest_record_item,parent,false);
+            View view = LayoutInflater.from(HitListActivity.this).inflate(R.layout.list_item_hit, parent, false);
             GuestViewHolder mGuestViewHolder = new GuestViewHolder(view);
             return mGuestViewHolder;
         }
 
         @Override
-        public void onBindViewHolder(GuestViewHolder holder, int position) {
+        public void onBindViewHolder(final GuestViewHolder holder, int position) {
 
-            Glide.with(MyGuestActivity.this).load(mGuestList.get(position).getAvatar().getNormal())
+            Glide.with(HitListActivity.this).load(mGuestList.get(position).getAvatar().getNormal())
                     .error(R.drawable.guanggao1)
                     .centerCrop()
-                    .transform(new GlideCircleTransform(MyGuestActivity.this))
-                    .into(holder.mRivPhoto);
-            holder.mTvName.setText(mGuestList.get(position).getUsername());
+                    .transform(new GlideCircleTransform(HitListActivity.this))
+                    .into(holder.mCivAvatar);
+            holder.mTvUsername.setText(mGuestList.get(position).getUsername());
             holder.mTvSchool.setText(mGuestList.get(position).getSchool());
-            String timeString = mGuestList.get(position).getCreatetime() + "000";
-            long timeLong = Long.valueOf(timeString);
-            holder.mTvTime.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date(timeLong)));
+            final OuInfo ouInfo = mGuestList.get(position);
+            switch (ouInfo.getStatus()) {
+                case "0":
+                    holder.btnIgnore.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mPresenter.reply(ouInfo.getRequestid(), ouInfo.getUserid(), "no");
+                        }
+                    });
+                    holder.btnAccept.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mPresenter.reply(ouInfo.getRequestid(), ouInfo.getUserid(), "yes");
+                        }
+                    });
+                    break;
+                case "1":
+                    holder.llButton.setVisibility(View.INVISIBLE);
+                    holder.mTvResult.setVisibility(View.VISIBLE);
+                    holder.mTvResult.setText("匹配成功");
+                    break;
+                case "2":
+                    holder.llButton.setVisibility(View.INVISIBLE);
+                    holder.mTvResult.setVisibility(View.VISIBLE);
+                    holder.mTvResult.setText("匹配成功");
+                    break;
+                case "3":
+                    holder.llButton.setVisibility(View.INVISIBLE);
+                    holder.mTvResult.setVisibility(View.VISIBLE);
+                    holder.mTvResult.setText("未知");
+                    break;
+                case "4":
+                    holder.llButton.setVisibility(View.INVISIBLE);
+                    holder.mTvResult.setVisibility(View.VISIBLE);
+                    holder.mTvResult.setText("已拒绝");
+                    break;
+                case "5":
+                    holder.llButton.setVisibility(View.INVISIBLE);
+                    holder.mTvResult.setVisibility(View.VISIBLE);
+                    holder.mTvResult.setText("未知");
+                    break;
+                case "6":
+                    holder.llButton.setVisibility(View.INVISIBLE);
+                    holder.mTvResult.setVisibility(View.VISIBLE);
+                    holder.mTvResult.setText("随缘匹配中");
+                    break;
+                case "7":
+                    holder.llButton.setVisibility(View.INVISIBLE);
+                    holder.mTvResult.setVisibility(View.VISIBLE);
+                    holder.mTvResult.setText("已过期");
+                    break;
+            }
         }
-
 
 
         @Override
@@ -206,17 +249,22 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
 
         }
 
-        class GuestViewHolder extends RecyclerView.ViewHolder{
+        class GuestViewHolder extends RecyclerView.ViewHolder {
 
-            private ImageView mRivPhoto;
-            private TextView mTvName,mTvSchool,mTvTime;
+            private CircleImageView mCivAvatar;
+            private TextView mTvUsername, mTvSchool, mTvResult;
+            private LinearLayout llButton;
+            private Button btnIgnore, btnAccept;
 
             public GuestViewHolder(View itemView) {
                 super(itemView);
-                mRivPhoto = (ImageView) itemView.findViewById(R.id.my_photo);
-                mTvName = (TextView) itemView.findViewById(R.id.tv_name);
+                mCivAvatar = (CircleImageView) itemView.findViewById(R.id.civ_avatar);
+                mTvUsername = (TextView) itemView.findViewById(R.id.tv_username);
                 mTvSchool = (TextView) itemView.findViewById(R.id.tv_school);
-                mTvTime = (TextView) itemView.findViewById(R.id.tv_time);
+                mTvResult = (TextView) itemView.findViewById(R.id.tv_result);
+                llButton = (LinearLayout) itemView.findViewById(R.id.ll_button);
+                btnIgnore = (Button) itemView.findViewById(R.id.btn_ignore);
+                btnAccept = (Button) itemView.findViewById(R.id.btn_accept);
             }
         }
 
@@ -227,7 +275,5 @@ public class MyGuestActivity extends AppCompatActivity implements GuestDataContr
             mRvGuest.scrollToPosition(position);
         }
     }
-
-
 
 }

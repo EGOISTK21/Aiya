@@ -1,26 +1,19 @@
 package com.aiyaschool.aiya.me.activity;
 
-import android.Manifest;
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -28,7 +21,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -42,7 +34,6 @@ import com.aiyaschool.aiya.bean.Img;
 import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.me.mvpphotoAlbum.PhotoAlbumContract;
 import com.aiyaschool.aiya.me.mvpphotoAlbum.PhotoAlbumPresenter;
-import com.aiyaschool.aiya.widget.StringScrollPicker;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -56,12 +47,9 @@ import java.util.List;
 import id.zelory.compressor.Compressor;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorFragment;
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-import top.zibin.luban.Luban;
 
 public class PhotoAlbumActivity extends AppCompatActivity implements PhotoAlbumContract.View {
 
@@ -159,7 +147,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements PhotoAlbumC
         mRvPhotoAlbum.setAdapter(rvAlbumAdapter);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mRvPhotoAlbum.setLayoutManager(mLinearLayoutManager);
-        mRvPhotoAlbum.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRvPhotoAlbum.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -654,13 +642,13 @@ public class PhotoAlbumActivity extends AppCompatActivity implements PhotoAlbumC
 //    }
 
     private void pickImage(String choiceMode) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
-                    getString(R.string.mis_permission_rationale),
-                    REQUEST_STORAGE_READ_ACCESS_PERMISSION);
-        } else {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
+//                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+//                    getString(R.string.mis_permission_rationale),
+//                    REQUEST_STORAGE_READ_ACCESS_PERMISSION);
+//        } else {
             boolean showCamera = false;
             int maxNum = 9;
 
@@ -674,7 +662,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements PhotoAlbumC
             }
             selector.origin(mSelectPath);
             selector.start(PhotoAlbumActivity.this, REQUEST_IMAGE);
-        }
+//        }
     }
 
     private void requestPermission(final String permission, String rationale, final int requestCode) {

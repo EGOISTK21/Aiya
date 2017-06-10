@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
+import com.aiyaschool.aiya.message.hit.HitListActivity;
 import com.aiyaschool.aiya.message.ui.activity.ChatQQActivity;
 import com.aiyaschool.aiya.util.GlideRoundTransform;
 import com.aiyaschool.aiya.util.ToastUtil;
@@ -162,24 +163,14 @@ public class MsgListFragment extends BaseFragment {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ft.addToBackStack(null);
-                        ft.replace(R.id.container_message, HitListFragment.newInstance(), null).commit();
+                        startActivity(new Intent(getContext(), HitListActivity.class));
                     }
                 });
             } else if (msg.getmTitle().equals("攻略指南")) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), ChatQQActivity.class);
-                        startActivity(intent);
-                    }
-                });
-            } else if (msg.getmTitle().equals("匹配请求")) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), ChatQQActivity.class);
-                        startActivity(intent);
+
                     }
                 });
             }

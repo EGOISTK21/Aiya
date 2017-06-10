@@ -28,8 +28,10 @@ public class OuInfo {
     private String username;
     private MyAvatar avatar;
     private String school;
+    private String requestid;
     private String userid;
     private String createtime;
+    private String status;
 
     public String getUsername() {
         return username;
@@ -69,5 +71,21 @@ public class OuInfo {
 
     public void setCreatetime(String createtime) {
         this.createtime = createtime;
+    }
+
+    public String getRequestid() {
+        return requestid;
+    }
+
+    public void setRequestid(String requestid) {
+        this.requestid = requestid;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

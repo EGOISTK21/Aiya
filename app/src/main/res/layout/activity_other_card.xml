@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
@@ -13,6 +12,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/rl_background"
             android:layout_width="match_parent"
             android:layout_height="165dp"
             android:background="@color/colorPrimaryDark">
@@ -62,29 +62,10 @@
                 android:textColor="@color/colorPureWhite"
                 android:textSize="11sp"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/tv_love_see_ta_activity"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:gravity="center"-->
-            <!--android:paddingBottom="16dp"-->
-            <!--android:paddingEnd="@dimen/common_margin_15"-->
-            <!--android:paddingStart="@dimen/common_margin_15"-->
-            <!--android:paddingTop="16dp"-->
-            <!--android:text="@string/browse_ta_activity"-->
-            <!--android:textColor="@color/colorPureWhite"-->
-            <!--android:textSize="15sp"/>-->
 
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:background="@color/colorPureWhite"
-            android:scrollbars="none">
-
-        </android.support.v7.widget.RecyclerView>
+        <include layout="@layout/view_me_center"/>
 
         <ScrollView
             android:layout_width="match_parent"
