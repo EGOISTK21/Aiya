@@ -57,6 +57,7 @@ import com.tencent.TIMValueCallBack;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import sj.keyboard.data.EmoticonEntity;
@@ -171,7 +172,8 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         ArrayList<TIMElem> sh = new ArrayList<>();
         ArrayList<Integer> sh1 = new ArrayList<>();
         ArrayList<Long> sh2 = new ArrayList<>();
-        chatAdapter = new ChatAdapter((ChatQQActivity) context,sh,sh1,sh2);
+        HashMap<Integer, Boolean> sh3 = new HashMap<>();
+        chatAdapter = new ChatAdapter((ChatQQActivity) context, sh, sh1, sh2, sh3);
         recyclerView.setAdapter(chatAdapter);
         initEmoticonsKeyBoardBar();
     }

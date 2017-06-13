@@ -69,12 +69,6 @@
             android:name=".love.matched.today.ClockInActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".love.matched.main.NewMissionActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".love.matched.today.IntimacyDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".love.matched.today.IntimacyRulesActivity"
             android:screenOrientation="portrait" />
         <activity
