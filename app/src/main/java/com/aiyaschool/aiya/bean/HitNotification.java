@@ -83,10 +83,6 @@ public class HitNotification implements AiyaNotification {
         this.fromuserid = fromuserid;
     }
 
-    public void responseHit(boolean response) {
-
-    }
-
     public boolean getState() {
         return state;
     }

@@ -49,6 +49,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.main.MainActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.otherDetail.OtherDetailActivity"
@@ -137,7 +138,7 @@
         <activity
             android:name=".me.activity.PhotoActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     </application>
 
 </manifest>

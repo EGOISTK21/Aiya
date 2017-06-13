@@ -208,35 +208,37 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initLover() {
-        APIUtil.getLoverInfoApi()
-                .getLoverInfo()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.io())
-                .subscribe(new Observer<HttpResult<User>>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        Log.i(TAG, "onSubscribe: initView");
-                    }
-
-                    @Override
-                    public void onNext(@NonNull HttpResult<User> userHttpResult) {
-                        Log.i(TAG, "onNext: initView " + userHttpResult);
-                        if ("2000".equals(userHttpResult.getState())) {
-                            UserUtil.setTa(userHttpResult.getData());
+        if (UserUtil.getUser().isMatched()) {
+            APIUtil.getLoverInfoApi()
+                    .getLoverInfo()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .unsubscribeOn(Schedulers.io())
+                    .subscribe(new Observer<HttpResult<User>>() {
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
+                            Log.i(TAG, "onSubscribe: initView");
                         }
-                    }
 
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Log.i(TAG, "onError: initView " + e);
-                    }
+                        @Override
+                        public void onNext(@NonNull HttpResult<User> userHttpResult) {
+                            Log.i(TAG, "onNext: initView " + userHttpResult);
+                            if ("2000".equals(userHttpResult.getState())) {
+                                UserUtil.setTa(userHttpResult.getData());
+                            }
+                        }
 
-                    @Override
-                    public void onComplete() {
-                        Log.i(TAG, "onComplete: initView");
-                    }
-                });
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+                            Log.i(TAG, "onError: initView " + e);
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            Log.i(TAG, "onComplete: initView");
+                        }
+                    });
+        }
     }
 
     private void loginTIM() {
@@ -286,9 +288,9 @@ public class MainActivity extends BaseActivity {
             switch (s) {
                 case "me":
                     isMeChanged = true;
-                case "destroyLove":
-                    notifyAdapter();
-                    break;
+//                case "destroyLove":
+//                    notifyAdapter();
+//                    break;
             }
         }
     }

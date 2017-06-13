@@ -1,8 +1,11 @@
 package com.aiyaschool.aiya.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.aiyaschool.aiya.MyApplication;
+import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.bean.Avatar;
 import com.aiyaschool.aiya.bean.HitNotification;
 import com.aiyaschool.aiya.bean.ImgWall;
@@ -30,11 +33,11 @@ public class UserUtil {
 
     }
 
-    public static void init(Context context) {
-        sSharedPreferences = context.getSharedPreferences("test", Context.MODE_PRIVATE);
+    public static void init() {
+        sSharedPreferences = MyApplication.getInstance().getSharedPreferences("test", Context.MODE_PRIVATE);
         sEditor = sSharedPreferences.edit();
         initUser();
-        initHitNotification();
+        initTa();
     }
 
     private static void initUser() {
@@ -90,9 +93,41 @@ public class UserUtil {
         return sUser;
     }
 
+    private static void initTa() {
+        sTa = new User();
+        if (sUser.isMatched()) {
+            sTa.setId(UserUtil.getTaId());
+            sTa.setUsername(UserUtil.getTaUsername());
+            sTa.setPhone(UserUtil.getTaPhone());
+            sTa.setSchool(UserUtil.getTaSchool());
+            sTa.setAge(UserUtil.getTaAge());
+            sTa.setHeight(UserUtil.getTaHeight());
+            sTa.setCharacter(UserUtil.getTaCharacter());
+            sTa.setConstellation(UserUtil.getTaConstellation());
+            sTa.setHobby(UserUtil.getTaHobby());
+            sTa.setAvatar(UserUtil.getTaAvatar());
+            sTa.setProfile(UserUtil.getTaProfile());
+            sTa.setImgWall(UserUtil.getTaImgWall());
+            sTa.setStartdate(UserUtil.getStartDate());
+        }
+    }
+
     public static void setTa(User user) {
         if (user != null) {
-            sTa = user;
+            setTaId(user.getId());
+            setTaUsername(user.getUsername());
+            setTaPhone(user.getPhone());
+            setTaSchool(user.getSchool());
+            setTaAge(user.getAge());
+            setTaHeight(user.getHeight());
+            setTaCharacter(user.getCharacter());
+            setTaConstellation(user.getConstellation());
+            setTaHobby(user.getHobby());
+            setTaAvatar(user.getAvatar());
+            setTaProfile(user.getProfile());
+            setImgWall(user.getImgWall());
+            setStartDate(user.getStartdate());
+            MyApplication.getInstance().startActivity(new Intent(MyApplication.getInstance(), MainActivity.class));
         }
     }
 
@@ -203,6 +238,18 @@ public class UserUtil {
         return sSharedPreferences.getString("phone", null);
     }
 
+    private static void setTaPhone(String phone) {
+        if (phone != null && !phone.equals(sTa.getPhone())) {
+            sTa.setPhone(phone);
+            sEditor.putString("ta_phone", phone);
+            sEditor.apply();
+        }
+    }
+
+    private static String getTaPhone() {
+        return sSharedPreferences.getString("ta_phone", null);
+    }
+
     private static void setUpLoad(UpLoad upLoad) {
         if (upLoad != null && !upLoad.equals(sUser.getUpLoad())) {
             sUser.setUpLoad(upLoad);
@@ -235,6 +282,18 @@ public class UserUtil {
         return sSharedPreferences.getString("id", null);
     }
 
+    private static void setTaId(String id) {
+        if (id != null && !id.equals(sTa.getId())) {
+            sTa.setId(id);
+            sEditor.putString("ta_id", id);
+            sEditor.apply();
+        }
+    }
+
+    private static String getTaId() {
+        return sSharedPreferences.getString("ta_id", null);
+    }
+
     private static void setUsername(String username) {
         if (username != null && !username.equals(sUser.getUsername())) {
             sUser.setUsername(username);
@@ -245,6 +304,18 @@ public class UserUtil {
 
     private static String getUsername() {
         return sSharedPreferences.getString("username", null);
+    }
+
+    private static void setTaUsername(String username) {
+        if (username != null && !username.equals(sTa.getUsername())) {
+            sTa.setUsername(username);
+            sEditor.putString("ta_username", username);
+            sEditor.apply();
+        }
+    }
+
+    private static String getTaUsername() {
+        return sSharedPreferences.getString("ta_username", null);
     }
 
     public static void setLoveId(String loveId) {
@@ -295,6 +366,18 @@ public class UserUtil {
         return sSharedPreferences.getString("school", null);
     }
 
+    private static void setTaSchool(String school) {
+        if (school != null && !school.equals(sTa.getSchool())) {
+            sTa.setSchool(school);
+            sEditor.putString("ta_school", school);
+            sEditor.apply();
+        }
+    }
+
+    private static String getTaSchool() {
+        return sSharedPreferences.getString("ta_school", null);
+    }
+
     private static void setAge(String age) {
         if (age != null && !age.equals(sUser.getAge())) {
             sUser.setHobby(age);
@@ -305,6 +388,18 @@ public class UserUtil {
 
     private static String getAge() {
         return sSharedPreferences.getString("age", null);
+    }
+
+    private static void setTaAge(String age) {
+        if (age != null && !age.equals(sTa.getAge())) {
+            sTa.setHobby(age);
+            sEditor.putString("ta_age", age);
+            sEditor.apply();
+        }
+    }
+
+    private static String getTaAge() {
+        return sSharedPreferences.getString("ta_age", null);
     }
 
     private static void setHeight(String height) {
@@ -319,6 +414,18 @@ public class UserUtil {
         return sSharedPreferences.getString("height", null);
     }
 
+    private static void setTaHeight(String height) {
+        if (height != null && !height.equals(sTa.getHeight())) {
+            sTa.setHeight(height);
+            sEditor.putString("ta_height", height);
+            sEditor.apply();
+        }
+    }
+
+    private static String getTaHeight() {
+        return sSharedPreferences.getString("ta_height", null);
+    }
+
     private static void setCharacter(String character) {
         if (character != null && !character.equals(sUser.getCharacter())) {
             sUser.setCharacter(character);
@@ -329,6 +436,18 @@ public class UserUtil {
 
     private static String getCharacter() {
         return sSharedPreferences.getString("character", null);
+    }
+
+    private static void setTaCharacter(String character) {
+        if (character != null && !character.equals(sTa.getCharacter())) {
+            sTa.setCharacter(character);
+            sEditor.putString("ta_character", character);
+            sEditor.apply();
+        }
+    }
+
+    private static String getTaCharacter() {
+        return sSharedPreferences.getString("ta_character", null);
     }
 
     private static void setConstellation(String constellation) {
@@ -343,6 +462,18 @@ public class UserUtil {
         return sSharedPreferences.getString("constellation", null);
     }
 
+    private static void setTaConstellation(String constellation) {
+        if (constellation != null && !constellation.equals(sTa.getConstellation())) {
+            sTa.setConstellation(constellation);
+            sEditor.putString("ta_constellation", constellation);
+            sEditor.apply();
+        }
+    }
+
+    private static String getTaConstellation() {
+        return sSharedPreferences.getString("ta_constellation", null);
+    }
+
     private static void setHobby(String hobby) {
         if (hobby != null && !hobby.equals(sUser.getHobby())) {
             sUser.setHobby(hobby);
@@ -353,6 +484,18 @@ public class UserUtil {
 
     private static String getHobby() {
         return sSharedPreferences.getString("hobby", null);
+    }
+
+    private static void setTaHobby(String hobby) {
+        if (hobby != null && !hobby.equals(sTa.getHobby())) {
+            sTa.setHobby(hobby);
+            sEditor.putString("ta_hobby", hobby);
+            sEditor.apply();
+        }
+    }
+
+    private static String getTaHobby() {
+        return sSharedPreferences.getString("ta_hobby", null);
     }
 
     private static void setAvatar(Avatar avatar) {
@@ -371,6 +514,22 @@ public class UserUtil {
                 new Thumb(sSharedPreferences.getString("thumb_face", null), sSharedPreferences.getString("thumb_background", null)));
     }
 
+    private static void setTaAvatar(Avatar avatar) {
+        if (avatar != null && !avatar.equals(sTa.getAvatar()) && !avatar.isNull()) {
+            sTa.setAvatar(avatar);
+            sEditor.putString("ta_normal_face", avatar.getNormal().getFace());
+            sEditor.putString("ta_normal_background", avatar.getNormal().getBackground());
+            sEditor.putString("ta_thumb_face", avatar.getThumb().getFace());
+            sEditor.putString("ta_thumb_background", avatar.getThumb().getBackground());
+            sEditor.apply();
+        }
+    }
+
+    private static Avatar getTaAvatar() {
+        return new Avatar(new Normal(sSharedPreferences.getString("ta_normal_face", null), sSharedPreferences.getString("ta_normal_background", null)),
+                new Thumb(sSharedPreferences.getString("ta_thumb_face", null), sSharedPreferences.getString("ta_thumb_background", null)));
+    }
+
     private static void setProfile(String profile) {
         if (profile != null && !profile.equals(sUser.getProfile())) {
             sUser.setProfile(profile);
@@ -381,6 +540,18 @@ public class UserUtil {
 
     private static String getProfile() {
         return sSharedPreferences.getString("profile", null);
+    }
+
+    private static void setTaProfile(String profile) {
+        if (profile != null && !profile.equals(sTa.getProfile())) {
+            sTa.setProfile(profile);
+            sEditor.putString("ta_profile", profile);
+            sEditor.apply();
+        }
+    }
+
+    private static String getTaProfile() {
+        return sSharedPreferences.getString("ta_profile", null);
     }
 
     private static void setGiftTickets(String giftTickets) {
@@ -435,10 +606,58 @@ public class UserUtil {
         int rows = sSharedPreferences.getInt("rows", 0);
         if (rows != 0) {
             for (int i = 0; i < rows; i++) {
-                sEditor.remove("url_" + i);
+                sEditor.remove("url_normal" + i);
+                sEditor.remove("url_thumb" + i);
             }
             sEditor.apply();
         }
+    }
+
+    private static void setTaImgWall(ImgWall imgWall) {
+        if (imgWall != null && !imgWall.equals(sTa.getImgWall())) {
+            sTa.setImgWall(imgWall);
+            clearTaImgWall();
+            sEditor.putInt("ta_rows", imgWall.getRows());
+            for (int i = 0; i < imgWall.getRows(); i++) {
+                sEditor.putString("ta_url_normal" + i, imgWall.getUrl().getNormal().get(i));
+                sEditor.putString("ta_url_thumb" + i, imgWall.getUrl().getThumb().get(i));
+            }
+            sEditor.apply();
+        }
+    }
+
+    private static ImgWall getTaImgWall() {
+        int rows = sSharedPreferences.getInt("ta_rows", 0);
+        List<String> normal = new ArrayList<>();
+        List<String> thumb = new ArrayList<>();
+        for (int i = 0; i < rows; i++) {
+            normal.add(sSharedPreferences.getString("ta_url_normal" + i, null));
+            thumb.add(sSharedPreferences.getString("ta_url_thumb" + i, null));
+        }
+        return new ImgWall(rows, new Url(normal, thumb));
+    }
+
+    private static void clearTaImgWall() {
+        int rows = sSharedPreferences.getInt("ta_rows", 0);
+        if (rows != 0) {
+            for (int i = 0; i < rows; i++) {
+                sEditor.remove("ta_url_normal" + i);
+                sEditor.remove("ta_url_thumb" + i);
+            }
+            sEditor.apply();
+        }
+    }
+
+    private static void setStartDate(long startDate) {
+        if (startDate != 0) {
+            sTa.setStartdate(startDate);
+            sEditor.putLong("startdate", startDate);
+            sEditor.apply();
+        }
+    }
+
+    private static long getStartDate() {
+        return sSharedPreferences.getLong("satrtdate", 0);
     }
 
     public static void setTask(List<String> task) {

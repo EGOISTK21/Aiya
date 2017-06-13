@@ -64,7 +64,7 @@ public class MyApplication extends Application {
         instance = this;
         SMSSDK.initSDK(this, APP_KEY, APP_SECRET);
         LitePal.initialize(this);
-        UserUtil.init(this);
+        UserUtil.init();
         DBCopyUtil.copyDataBaseFromAssets(this, "edu.db");
         initTIM();
         startService(new Intent(this, RefreshTokenService.class));

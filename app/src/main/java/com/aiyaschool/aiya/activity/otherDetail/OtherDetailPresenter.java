@@ -1,6 +1,5 @@
 package com.aiyaschool.aiya.activity.otherDetail;
 
-import android.content.Intent;
 import android.util.Log;
 
 import com.aiyaschool.aiya.bean.HttpResult;
@@ -82,7 +81,8 @@ class OtherDetailPresenter implements OtherDetailContract.Presenter {
                 Log.i(TAG, "onNext: destroyLove " + httpResult);
                 if ("2000".equals(httpResult.getState())) {
                     UserUtil.setLoveId("0");
-                    mView.finishToMain(RESULT_OK, new Intent().putExtra("flag", "destroyLove"));
+                    UserUtil.setTa(new User());
+                    //mView.finishToMain(RESULT_OK, new Intent().putExtra("flag", "destroyLove"));
                 }
             }
 

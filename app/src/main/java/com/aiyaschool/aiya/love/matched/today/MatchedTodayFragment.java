@@ -86,6 +86,11 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onDestroy() {
         mPresenter.detachView();
         super.onDestroy();
@@ -100,6 +105,7 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
     void showTa() {
         Bundle bundle = new Bundle();
         bundle.putInt("card_flag", 4);
+        bundle.putParcelable("other detail", UserUtil.getTa());
         startActivityForResult(new Intent(getContext(), OtherDetailActivity.class).putExtras(bundle), DESTROY_LOVE);
     }
 

@@ -82,41 +82,14 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
     protected void initView() {
         try {
             Bundle bundle = getIntent().getExtras();
-            mUser = bundle.getParcelable("other detail");
-            initImgWall();
             switch (bundle.getInt("card_flag")) {
                 case 1:
-                    Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).asBitmap().error(R.drawable.guanggao1).centerCrop()
-                            .diskCacheStrategy(DiskCacheStrategy.NONE).into(new ViewTarget<RelativeLayout, Bitmap>(rlBackground) {
-                        @Override
-                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            rlBackground.setBackground(new BitmapDrawable(resource));
-                        }
-                    });
-                    Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
-                            .transform(new GlideCircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivOtherAvatar);
-                    tvOtherUsername.setText(mUser.getUsername());
-                    tvOtherProfile.setText(mUser.getProfile());
-                    tvOtherSchool.setText(mUser.getSchool());
-                    tvOtherAge.setText(mUser.getAge());
-                    tvOtherHeight.setText(mUser.getHeight());
-                    tvOtherCharacter.setText(mUser.getCharacter());
-                    tvOtherHobby.setText(mUser.getHobby());
                     break;
                 case 2:
                     requestid = bundle.getString("requestid");
                     fromuserid = bundle.getString("fromuserid");
                     btnHit.setVisibility(View.INVISIBLE);
                     llRespanseLiao.setVisibility(View.VISIBLE);
-                    Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
-                            .transform(new GlideCircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivOtherAvatar);
-                    tvOtherUsername.setText(mUser.getUsername());
-                    tvOtherProfile.setText(mUser.getProfile());
-                    tvOtherSchool.setText(mUser.getSchool());
-                    tvOtherAge.setText(mUser.getAge());
-                    tvOtherHeight.setText(mUser.getHeight());
-                    tvOtherCharacter.setText(mUser.getCharacter());
-                    tvOtherHobby.setText(mUser.getHobby());
                     break;
                 case 3:
                     btnHit.setText("去互动吧");
@@ -128,12 +101,29 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
                     });
                     break;
                 case 4:
-                    mUser = UserUtil.getTa();
                     btnHit.setBackgroundColor(hitBG);
                     btnHit.setTextColor(hitText);
                     btnHit.setText("解除关系");
                     break;
             }
+            mUser = bundle.getParcelable("other detail");
+            Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).asBitmap().error(R.drawable.guanggao1).centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(new ViewTarget<RelativeLayout, Bitmap>(rlBackground) {
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    rlBackground.setBackground(new BitmapDrawable(resource));
+                }
+            });
+            Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
+                    .transform(new GlideCircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivOtherAvatar);
+            tvOtherUsername.setText(mUser.getUsername());
+            tvOtherProfile.setText(mUser.getProfile());
+            tvOtherSchool.setText(mUser.getSchool());
+            tvOtherAge.setText(mUser.getAge());
+            tvOtherHeight.setText(mUser.getHeight());
+            tvOtherCharacter.setText(mUser.getCharacter());
+            tvOtherHobby.setText(mUser.getHobby());
+            initImgWall();
         } catch (Exception e) {
             e.printStackTrace();
         }
