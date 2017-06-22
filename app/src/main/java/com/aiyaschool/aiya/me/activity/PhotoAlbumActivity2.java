@@ -253,7 +253,7 @@ public class PhotoAlbumActivity2 extends AppCompatActivity implements PhotoAlbum
     }
 
     @Override
-    public void showGetMePhoto(ArrayList<Gallery> mGalleryList) {
+    public void showGetMePhoto(List<Gallery> mGalleryList) {
 
     }
 
@@ -264,7 +264,7 @@ public class PhotoAlbumActivity2 extends AppCompatActivity implements PhotoAlbum
     }
 
     @Override
-    public void updateImagePathList(ArrayList<Gallery> mGalleryList) {
+    public void updateImagePathList(List<Gallery> mGalleryList) {
 
     }
 

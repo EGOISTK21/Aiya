@@ -65,6 +65,14 @@ public class ImgWall implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ImgWall)) return false;
+        ImgWall temp = (ImgWall) obj;
+        return rows == temp.rows
+                && ((url != null && url.equals(temp.url)) || (url == null && temp.url == null));
+    }
+
+    @Override
     public String toString() {
         return "ImgWall{" +
                 "rows=" + rows +

@@ -36,6 +36,7 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
 
     private static final String TAG = "MatchedTodayFragment";
     private MatchedTodayContract.Presenter mPresenter;
+    private User me, ta;
     @BindView(R.id.iv_matched_left)
     CircleImageView ivLeftAvatar;
     @BindView(R.id.tv_matched_username_left)
@@ -63,31 +64,44 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
 
     @Override
     protected int getLayoutId() {
+        mPresenter = new MatchedTodayPresenter(this);
         return R.layout.fragment_love_matched_today;
     }
 
     @Override
     protected void initView() {
-        mPresenter = new MatchedTodayPresenter(this);
-        User me = UserUtil.getUser();
-        Glide.with(this).load(me.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
-                .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivLeftAvatar);
-        tvLeftUsername.setText(me.getUsername());
-        tvLeftSchool.setText(me.getSchool());
-        User ta = UserUtil.getTa();
-        Glide.with(this).load(ta.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
-                .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivRightAvatar);
-        tvRightUsername.setText(ta.getUsername());
-        tvRightSchool.setText(ta.getSchool());
-        mPresenter.getIntimacy(ta.getLoveId());
-        tvLoveDate.setText((new SimpleDateFormat("yyyy-MM-dd")).format(new Date()));
-        tvLoveDay.setText("DAY " + (int) ((System.currentTimeMillis() / 1000 / 60 / 60 + 8) / 24 - (ta.getStartdate() / 60 / 60 + 8) / 24 + 1));
-        mPresenter.getTodayTask("1");
+        initMe();
+        initTa();
+    }
+
+    private void initMe() {
+        if (!UserUtil.getUser().equals(me)) {
+            me = UserUtil.getUser();
+            Glide.with(this).load(me.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
+                    .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivLeftAvatar);
+            tvLeftUsername.setText(me.getUsername());
+            tvLeftSchool.setText(me.getSchool());
+        }
+    }
+
+    private void initTa() {
+        if (!UserUtil.getTa().equals(ta)) {
+            ta = UserUtil.getTa();
+            Glide.with(this).load(ta.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
+                    .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivRightAvatar);
+            tvRightUsername.setText(ta.getUsername());
+            tvRightSchool.setText(ta.getSchool());
+            mPresenter.getIntimacy(ta.getLoveId());
+            tvLoveDate.setText((new SimpleDateFormat("yyyy-MM-dd")).format(new Date()));
+            tvLoveDay.setText("DAY " + (int) ((System.currentTimeMillis() / 1000 / 60 / 60 + 8) / 24 - (ta.getStartdate() / 60 / 60 + 8) / 24 + 1));
+            mPresenter.getTodayTask("1");
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        initView();
     }
 
     @Override

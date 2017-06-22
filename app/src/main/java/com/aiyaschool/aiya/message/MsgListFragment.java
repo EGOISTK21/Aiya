@@ -2,7 +2,6 @@ package com.aiyaschool.aiya.message;
 
 import android.content.Intent;
 import android.graphics.Rect;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +14,7 @@ import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.message.hit.HitListActivity;
 import com.aiyaschool.aiya.message.ui.activity.ChatQQActivity;
+import com.aiyaschool.aiya.message.utils.DateTimeUtils;
 import com.aiyaschool.aiya.util.GlideRoundTransform;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.util.UserUtil;
@@ -31,6 +31,10 @@ import java.util.List;
 public class MsgListFragment extends BaseFragment {
 
     private RecyclerView mMsgRecyclerView;
+    private List<Msg> msgList;
+    private List<Long> msgTime;
+    private List<String> msgPre;
+    private MsgAdapter adapter;
 
     public static MsgListFragment newInstance() {
         return new MsgListFragment();
@@ -43,21 +47,27 @@ public class MsgListFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        mMsgRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        mMsgRecyclerView = rootView.findViewById(R.id.recycler_view);
         mMsgRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //        if (登录成功) {
-        List<Msg> msgList = new Msg().getMsgs2();
-//        }else{
-//            List<Msg> msgList = new Msg().getMsgs();
-//        }
-        MsgAdapter adapter = new MsgAdapter(msgList);
+        msgList = new Msg().getMsgs2();
+        adapter = new MsgAdapter(msgList);
         //RecycleView 增加边距
         int spacingInPixels = 30;
         mMsgRecyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
-
         mMsgRecyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        msgTime = UserUtil.getMsgTime();
+        msgPre = UserUtil.getMsgPre();
+        for (int i = 0; i < 4; i++) {
+            msgList.get(i).setmTime(DateTimeUtils.setChatTime(msgTime.get(i)));
+            msgList.get(i).setmPreview(msgPre.get(i));
+        }
+        adapter.notifyDataSetChanged();
+    }
 
     private class MsgHolder extends RecyclerView.ViewHolder {
         private TextView mTitle;
@@ -65,41 +75,28 @@ public class MsgListFragment extends BaseFragment {
         private TextView mPreView;
         private CircleImageView mCircleImageView;
         private Msg mMsg;
-//        private OnItemClickListener mListenter;
 
-        public MsgHolder(View itemView) {
+        MsgHolder(View itemView) {
             super(itemView);
-//            itemView.setOnClickListener(this);
-            mTitle = (TextView) itemView.findViewById(R.id.msg_title);
-            mTime = (TextView) itemView.findViewById(R.id.msg_time);
-            mPreView = (TextView) itemView.findViewById(R.id.msg_preview);
-            mCircleImageView = (CircleImageView) itemView.findViewById(R.id.circleImageView);
+            mTitle = itemView.findViewById(R.id.msg_title);
+            mTime = itemView.findViewById(R.id.msg_time);
+            mPreView = itemView.findViewById(R.id.msg_preview);
+            mCircleImageView = itemView.findViewById(R.id.circleImageView);
         }
 
-        public void bindCrime(Msg msg) {
+        void bindCrime(Msg msg) {
             mMsg = msg;
             mTitle.setText(mMsg.getmTitle());
             mTime.setText(mMsg.getmTime());
             mPreView.setText(mMsg.getmPreview());
             mCircleImageView.setImageResource(mMsg.getmImageView());
         }
-
-
-//        @Override
-//        public void onClick(View v) {
-////            Log.e("1111", String.valueOf(getAdapterPosition()));
-//
-//            mListenter.OnItemClick(getAdapterPosition(), v);
-//
-//        }
-
-
     }
 
-    public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+    private class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         private int space;
 
-        public SpacesItemDecoration(int space) {
+        SpacesItemDecoration(int space) {
             this.space = space;
         }
 
@@ -124,6 +121,10 @@ public class MsgListFragment extends BaseFragment {
             this.mMsg = msgs;
         }
 
+        public List<Msg> getMsg() {
+            return mMsg;
+        }
+
         @Override
         public MsgHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
@@ -133,46 +134,50 @@ public class MsgListFragment extends BaseFragment {
 
         @Override
         public void onBindViewHolder(MsgHolder holder, int position) {
-            final FragmentTransaction ft = getFragmentManager().beginTransaction();
             Msg msg = mMsg.get(position);
             holder.bindCrime(msg);
-            if (msg.getmTitle().equals("情侣聊天")) {
-                if (UserUtil.getUser().isMatched()) {
-                    Glide.with(getContext()).load(UserUtil.getTa().getAvatar().getThumb().getFace()).centerCrop()
-                            .transform(new GlideRoundTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(holder.mCircleImageView);
-                }
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (UserUtil.getUser().isMatched()) {
-                            startActivity(new Intent(getContext(), ChatQQActivity.class));
-                        } else {
-                            ToastUtil.show("你还没有伴侣");
-                            ((MainActivity) getActivity()).setLovePage();
+            switch (msg.getmTitle()) {
+                case "情侣聊天":
+                    if (UserUtil.getUser().isMatched()) {
+                        Glide.with(getContext()).load(UserUtil.getTa().getAvatar().getThumb().getFace()).centerCrop()
+                                .transform(new GlideRoundTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(holder.mCircleImageView);
+                    }
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (UserUtil.getUser().isMatched()) {
+                                startActivity(new Intent(getContext(), ChatQQActivity.class));
+                            } else {
+                                ToastUtil.show("你还没有伴侣");
+                                ((MainActivity) getActivity()).setLovePage();
+                            }
                         }
-                    }
-                });
-            } else if (msg.getmTitle().equals("消息通知")) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                    });
+                    break;
+                case "消息通知":
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                    }
-                });
-            } else if (msg.getmTitle().equals("匹配请求")) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(getContext(), HitListActivity.class));
-                    }
-                });
-            } else if (msg.getmTitle().equals("攻略指南")) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+                        }
+                    });
+                    break;
+                case "匹配请求":
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getContext(), HitListActivity.class));
+                        }
+                    });
+                    break;
+                case "攻略指南":
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                    }
-                });
+                        }
+                    });
+                    break;
             }
         }
 

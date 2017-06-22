@@ -12,6 +12,7 @@ import com.aiyaschool.aiya.me.bean.MyAvatar;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -201,7 +202,7 @@ public class APIUtil {
         @FormUrlEncoded
         Observable<HttpResult<ArrayList<User>>> startConditionMatch(@Field("minHeight") String minHeight,
                                                                     @Field("maxHeight") String maxHeight,
-                                                                    @Field("age") String maxAge,
+                                                                    @Field("age") String age,
                                                                     @Field("school") String school,
                                                                     @Field("character") String character,
                                                                     @Field("constellation") String constellation,
@@ -290,7 +291,7 @@ public class APIUtil {
     //获取图片上传接口
     public interface GetImgUploadUrl {
         @POST("Me/GET/genImgUploadUrl")
-        Observable<HttpResult<ArrayList<UploadUrl>>> startGetImgUploadUrl();
+        Observable<HttpResult<List<UploadUrl>>> startGetImgUploadUrl();
     }
 
     //加号上传图
@@ -301,11 +302,12 @@ public class APIUtil {
     }
 
     //获取图库
-    public interface GetMePhoto {
+    public interface PhotoApi {
         @POST("Me/GET/photo")
         @FormUrlEncoded
-        Observable<HttpResult<ArrayList<Gallery>>> startGetMePhoto(@Field("page") String page,
-                                                                   @Field("lines") String lines);
+        Observable<HttpResult<List<Gallery>>> getPhoto(@Field("page") String page,
+                                                       @Field("lines") String lines,
+                                                       @Field("userid") String userid);
     }
 
     //删除图库图片
@@ -488,8 +490,8 @@ public class APIUtil {
         return sRetrofit.create(PostPhotoImg.class);
     }
 
-    public static GetMePhoto getMePhotoApi() {
-        return sRetrofit.create(GetMePhoto.class);
+    public static PhotoApi getPhotoApi() {
+        return sRetrofit.create(PhotoApi.class);
     }
 
     public static DeletePhoto getDeletePhotoApi() {

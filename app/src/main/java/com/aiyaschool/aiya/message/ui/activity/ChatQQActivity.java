@@ -21,10 +21,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.message.ExpressionType;
@@ -32,7 +30,6 @@ import com.aiyaschool.aiya.message.adapter.ChatAdapter;
 import com.aiyaschool.aiya.message.adapter.ChatPhotosPagerAdapter;
 import com.aiyaschool.aiya.message.bean.OptionBean;
 import com.aiyaschool.aiya.message.ui.view.ChatRecordVoiceView;
-import com.aiyaschool.aiya.message.ui.view.ChatSelectGiftView;
 import com.aiyaschool.aiya.message.ui.view.ChatSelectImageView;
 import com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard;
 import com.aiyaschool.aiya.message.utils.SimpleCommonUtils;
@@ -42,7 +39,6 @@ import com.sj.emoji.EmojiBean;
 import com.tencent.TIMAddFriendRequest;
 import com.tencent.TIMConversation;
 import com.tencent.TIMConversationType;
-import com.tencent.TIMCustomElem;
 import com.tencent.TIMElem;
 import com.tencent.TIMElemType;
 import com.tencent.TIMFriendResult;
@@ -70,7 +66,7 @@ import top.zibin.luban.OnCompressListener;
 
 import static com.aiyaschool.aiya.message.ui.view.QqEmoticonsKeyBoard.FUNC_TYPE_IMAGE;
 
-public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFuncKeyBoardListener{
+public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFuncKeyBoardListener {
 
     private static final String TAG = "ChatQQActivity";
     public final int APPS_HEIGHT = 256;
@@ -87,7 +83,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
     private boolean isRefreshing = false;//是否在加载历史纪录
     private boolean isBottom = true; //如果view不在底部，也就是在查看消息，那么如果有新消息，不滚动到底部
     private static ArrayList<String> msgList = new ArrayList<>();
-    private TIMMessage dragHelper=null;
+    private TIMMessage dragHelper = null;
     private TIMConversation conversation;
     private boolean firstLoad;
     private boolean isChatShowing;
@@ -121,7 +117,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         //
         chatPhotosLayout = (LinearLayout) findViewById(R.id.activity_chat_photos);
         progressTextView = (TextView) findViewById(R.id.photo_progress_showText);
-        viewPager =(ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.pager);
         backView = (TextView) findViewById(R.id.back_view);
         //
         ArrayList<TIMAddFriendRequest> aux1024 = new ArrayList<>();
@@ -158,10 +154,11 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(msgList!=null){
+        if (msgList != null) {
             msgList.clear();
         }
     }
+
     private LinearLayoutManager layoutManager;
 
     protected void initView() {
@@ -205,7 +202,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(isRefreshing){
+                if (isRefreshing) {
                     refreshLayout.setRefreshing(false);
                 }
                 isRefreshing = true;
@@ -217,7 +214,8 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         TIMManager.getInstance().addMessageListener(new TIMMessageListener() {
             @Override
             public boolean onNewMessages(List<TIMMessage> list) {
-                for(int i=0;i<list.size();i++){
+                int i = 0;
+                for (; i < list.size(); i++) {
                     TIMMessage aux = list.get(i);
                     addChatMsg(aux);
                 }
@@ -225,8 +223,6 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
             }
         });
     }
-
-
 
     EmoticonClickListener emojiCLickListener = new EmoticonClickListener() {
         @Override
@@ -256,27 +252,14 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
     };
 
 
-    private void initEmoticonsKeyBoardBar(){
+    private void initEmoticonsKeyBoardBar() {
         SimpleCommonUtils utils = new SimpleCommonUtils();
         utils.initEmoticonsEditText(ekBar.getEtChat());
         ekBar.setAdapter(utils.getCommonAdapter(this, emojiCLickListener));
 
         ekBar.addOnFuncKeyBoardListener(this);
-        ekBar.addFuncView(FUNC_TYPE_IMAGE,new ChatSelectImageView(this,conversation));
-        ekBar.addFuncView(QqEmoticonsKeyBoard.FUNC_TYPE_VOICE,new ChatRecordVoiceView(this,conversation));
-        ChatSelectGiftView selectGiftView = new ChatSelectGiftView(this,conversation);
-        ekBar.addFuncView(QqEmoticonsKeyBoard.FUNC_TYPE_GIFT,selectGiftView);
-        selectGiftView.getQqGridView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
-                    case 0:
-                        sendGift();
-                        Toast.makeText(context, "发送礼物", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-            }
-        });
+        ekBar.addFuncView(FUNC_TYPE_IMAGE, new ChatSelectImageView(this, conversation));
+        ekBar.addFuncView(QqEmoticonsKeyBoard.FUNC_TYPE_VOICE, new ChatRecordVoiceView(this, conversation));
         ekBar.getEtChat().setOnSizeChangedListener(new EmoticonsEditText.OnSizeChangedListener() {
             @Override
             public void onSizeChanged(int i, int i1, int i2, int i3) {
@@ -286,7 +269,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         ekBar.getBtnSend().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ekBar.getEtChat().getText().toString().equals("")) return;
+                if (ekBar.getEtChat().getText().toString().equals("")) return;
                 final TIMMessage msg = new TIMMessage();
                 final TIMTextElem elem = new TIMTextElem();
                 elem.setText(ekBar.getEtChat().getText().toString());
@@ -307,20 +290,20 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         });
         if (ActivityCompat.checkSelfPermission(ChatQQActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ekBar.getBtnImage().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
 
                     requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
                             getString(R.string.mis_permission_rationale),
                             REQUEST_STORAGE_READ_ACCESS_PERMISSION);
-            }
-        });
+                }
+            });
         }
     }
 
     //申请权限
-    private void requestPermission(final String permission, String rationale, final int requestCode){
-        if(ActivityCompat.shouldShowRequestPermissionRationale(this, permission)){
+    private void requestPermission(final String permission, String rationale, final int requestCode) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.mis_permission_dialog_title)
                     .setMessage(rationale)
@@ -332,17 +315,17 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
                     })
                     .setNegativeButton(R.string.mis_permission_dialog_cancel, null)
                     .create().show();
-        }else{
+        } else {
             ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == REQUEST_STORAGE_READ_ACCESS_PERMISSION){
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == REQUEST_STORAGE_READ_ACCESS_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 ekBar.reset();
-             ekBar.toggleFuncView(FUNC_TYPE_IMAGE);
+                ekBar.toggleFuncView(FUNC_TYPE_IMAGE);
                 ekBar.setFuncViewHeight(EmoticonsKeyboardUtils.dip2px(ekBar.getContext(), APPS_HEIGHT));
             }
         } else {
@@ -350,38 +333,16 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         }
     }
 
-
-    private void sendGift(){
-        TIMCustomElem customElem = new TIMCustomElem();
-        byte[] data = new byte[2];
-        data[0] = 0;
-        data[1] = 1;
-        customElem.setData(data);
-        final TIMMessage tim = new TIMMessage();
-        tim.addElement(customElem);
-        conversation.sendMessage(tim, new TIMValueCallBack<TIMMessage>() {
-            @Override
-            public void onError(int i, String s) {
-
-            }
-
-            @Override
-            public void onSuccess(TIMMessage timMessage) {
-                addChatMsg(tim);
-            }
-        });
-    }
-
     public void scrollToBottom() {
         recyclerView.requestLayout();
-            recyclerView.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (chatAdapter.getItemCount() > 0) {
-                        recyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
-                    }
+        recyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                if (chatAdapter.getItemCount() > 0) {
+                    recyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
                 }
-            });
+            }
+        });
     }
 
     @Override
@@ -407,7 +368,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         return msgOffSet;
     }
 
-    private void getHistoryMsg(TIMMessage temp){
+    private void getHistoryMsg(TIMMessage temp) {
         conversation.getMessage(10, temp, new TIMValueCallBack<List<TIMMessage>>() {
             @Override
             public void onError(int i, String s) {
@@ -417,21 +378,21 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
             @Override
             public void onSuccess(List<TIMMessage> list1) {
                 ArrayList<TIMMessage> list = new ArrayList<TIMMessage>();
-                for(TIMMessage timMessage:list1){
-                    if(timMessage.getElement(0).getType()== TIMElemType.Image){
-                        if (((TIMImageElem)timMessage.getElement(0)).getImageList().size()==0)
+                for (TIMMessage timMessage : list1) {
+                    if (timMessage.getElement(0).getType() == TIMElemType.Image) {
+                        if (((TIMImageElem) timMessage.getElement(0)).getImageList().size() == 0)
                             continue;
                     }
                     list.add(timMessage);
                 }
-                if (list != null && list.size() > 0) {
+                if (list.size() > 0) {
                     int size = list.size();
-                    if (list != null && list.size() != 0) {
-                        dragHelper = list.get(list.size()-1);
+                    if (list.size() != 0) {
+                        dragHelper = list.get(list.size() - 1);
                     }
-                    chatAdapter.addAll(0,list);
+                    chatAdapter.addAll(0, list);
                     chatAdapter.customeNotifyItemRangeInserted(0, size, recyclerView);// todo:聊天数据集合改变，应该显示的时间集合相应的改变。
-                    if(firstLoad){
+                    if (firstLoad) {
                         scrollToBottom();
                         firstLoad = false;
                     }
@@ -441,12 +402,13 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
             }
         });
     }
-    public void addChatMsg(TIMMessage msg){
-        if(msg.getElement(0).getType()== TIMElemType.Image){
-            if (((TIMImageElem)msg.getElement(0)).getImageList().size()<0)
-            return;
+
+    public void addChatMsg(TIMMessage msg) {
+        if (msg.getElement(0).getType() == TIMElemType.Image) {
+            if (((TIMImageElem) msg.getElement(0)).getImageList().size() < 0)
+                return;
         }
-        Log.d("EEEE", "12345aa"+msg);
+        Log.d("EEEE", "12345aa" + msg);
         chatAdapter.addChatMsg(msg);
     }
 
@@ -455,8 +417,8 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         chatAdapter.addBeforeChatMsgs(msgs);
     }
 
-    public void addChatMsg(List<TIMMessage> msgs){
-        for(TIMMessage m:msgs){
+    public void addChatMsg(List<TIMMessage> msgs) {
+        for (TIMMessage m : msgs) {
             chatAdapter.addChatMsg(m);
         }
     }
@@ -471,7 +433,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         switch (requestCode) {
             //todo 待测试
             case OptionBean.TYPE_PIC://图片返回
-                if(data==null) return;
+                if (data == null) return;
                 ArrayList<String> imgList = data.getStringArrayListExtra("data");
                 for (String path : imgList) {
                     Luban.get(context).load(new File(path)).putGear(Luban.THIRD_GEAR)
@@ -512,65 +474,65 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
             case ChatQQActivity.TAKEPHOTO_CODE:
                 String xx = takePhotoPath;
                 int i = 11;
-                    Luban.get(context).load(new File(takePhotoPath)).putGear(Luban.THIRD_GEAR)
-                            .setCompressListener(new OnCompressListener() {
-                                @Override
-                                public void onStart() {
+                Luban.get(context).load(new File(takePhotoPath)).putGear(Luban.THIRD_GEAR)
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
 
-                                }
+                            }
 
-                                @Override
-                                public void onSuccess(File file) {
-                                    TIMMessage timMessage = new TIMMessage();
-                                    TIMImageElem aux = new TIMImageElem();
-                                    aux.setPath(file.getPath());
-                                    timMessage.addElement(aux);
-                                    conversation.sendMessage(timMessage, new TIMValueCallBack<TIMMessage>() {
-                                        @Override
-                                        public void onError(int i, String s) {
+                            @Override
+                            public void onSuccess(File file) {
+                                TIMMessage timMessage = new TIMMessage();
+                                TIMImageElem aux = new TIMImageElem();
+                                aux.setPath(file.getPath());
+                                timMessage.addElement(aux);
+                                conversation.sendMessage(timMessage, new TIMValueCallBack<TIMMessage>() {
+                                    @Override
+                                    public void onError(int i, String s) {
 
-                                        }
+                                    }
 
-                                        @Override
-                                        public void onSuccess(TIMMessage timMessage) {
-                                            ChatQQActivity a = (ChatQQActivity) context;
-                                            a.addChatMsg(timMessage);
-                                        }
-                                    });
-                                }
+                                    @Override
+                                    public void onSuccess(TIMMessage timMessage) {
+                                        ChatQQActivity a = (ChatQQActivity) context;
+                                        a.addChatMsg(timMessage);
+                                    }
+                                });
+                            }
 
-                                @Override
-                                public void onError(Throwable e) {
+                            @Override
+                            public void onError(Throwable e) {
 
-                                }
-                            }).launch();
+                            }
+                        }).launch();
                 break;
         }
     }
 
-    public void startPhotoPreview(TIMImageElem m){
+    public void startPhotoPreview(TIMImageElem m) {
         ekBar.setVisibility(View.GONE);
         chatPhotosLayout.setVisibility(View.VISIBLE);
         imgList = new ArrayList<>();
         ArrayList<TIMElem> list = chatAdapter.msgList;
         int auxxxx = 0;
-        for(TIMElem i : list){
-            if(i.getType()== TIMElemType.Image){
+        for (TIMElem i : list) {
+            if (i.getType() == TIMElemType.Image) {
                 TIMImageElem gi = (TIMImageElem) i;
-                if(gi==m) index = auxxxx;
-                if(gi.getImageList().size()>0){
+                if (gi == m) index = auxxxx;
+                if (gi.getImageList().size() > 0) {
                     imgList.add(gi.getImageList().get(0));
                     auxxxx++;
                 }
 
             }
         }
-        adapter = new ChatPhotosPagerAdapter(this,imgList);
+        adapter = new ChatPhotosPagerAdapter(this, imgList);
         size = imgList.size();
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(index);
 
-        progressTextView.setText(index+1+"/"+size);
+        progressTextView.setText(index + 1 + "/" + size);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -579,7 +541,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
 
             @Override
             public void onPageSelected(int position) {
-                progressTextView.setText(position+1+"/"+size);
+                progressTextView.setText(position + 1 + "/" + size);
             }
 
             @Override
@@ -602,8 +564,8 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode==KeyEvent.KEYCODE_BACK){
-            if(chatPhotosLayout.getVisibility()==View.VISIBLE){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (chatPhotosLayout.getVisibility() == View.VISIBLE) {
                 vanishThePreview();
                 return true;
             }

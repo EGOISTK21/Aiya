@@ -18,15 +18,11 @@ import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.activity.JifenAndGiftActivity;
-import com.aiyaschool.aiya.me.activity.MemberActivity;
 import com.aiyaschool.aiya.me.activity.MoreSettingActivity;
 import com.aiyaschool.aiya.me.activity.MyEmotionActivity;
-import com.aiyaschool.aiya.me.activity.MyGiftActivity;
 import com.aiyaschool.aiya.me.activity.MyGuestActivity;
 import com.aiyaschool.aiya.me.activity.PersonalDataActivity;
 import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity;
-import com.aiyaschool.aiya.me.activity.PhotoAlbumActivity2;
-import com.aiyaschool.aiya.me.bean.ImagePathItem;
 import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
@@ -35,10 +31,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.squareup.picasso.Picasso;
 
-import org.litepal.crud.DataSupport;
-
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -58,7 +50,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     private Context mContext;
     private CircleImageView mRivMyPhoto;
     private TextView mTvMyName, mTvSignName, mTVJiFen, mTvGift, mTvMember;
-    private LinearLayout mLlMyPhotoAlbum, mLlMyState, mLlMyGuest, mLlEmotion, mLlMyGift, mLlMoreSetting;
+    private LinearLayout mLlMyPhotoAlbum, mLlMyState, mLlMyGuest, mLlEmotion, mLlMoreSetting;
     private ImageView imageView1, imageView2;
     private ImageView mMember_icon;
 
@@ -77,20 +69,20 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     }
 
     private void initData() {
-        APIUtil.getMePhotoApi()
-                .startGetMePhoto("1", "2")
+        APIUtil.getPhotoApi()
+                .getPhoto("1", "2", null)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
-                .subscribe(new Observer<HttpResult<ArrayList<Gallery>>>() {
+                .subscribe(new Observer<HttpResult<List<Gallery>>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         Log.d(TAG, "onSubscribe: ");
                     }
 
                     @Override
-                    public void onNext(@NonNull HttpResult<ArrayList<Gallery>> arrayListHttpResult) {
+                    public void onNext(@NonNull HttpResult<List<Gallery>> arrayListHttpResult) {
                         Log.d(TAG, "onNext: " + arrayListHttpResult.getState());
                         if (arrayListHttpResult.getState().equals("2000")) {
                             int size = arrayListHttpResult.getData().size();
@@ -187,21 +179,20 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     }
 
     private void initView(View view) {
-        mRivMyPhoto = (CircleImageView) view.findViewById(R.id.my_photo);
-        mTvMyName = (TextView) view.findViewById(R.id.tv_name);
-        mTvSignName = (TextView) view.findViewById(R.id.tv_sign_name);
-        mTVJiFen = (TextView) view.findViewById(R.id.tv_Jifen);
-        mTvGift = (TextView) view.findViewById(R.id.tv_gift);
-        mTvMember = (TextView) view.findViewById(R.id.tv_member);
-        mLlMyPhotoAlbum = (LinearLayout) view.findViewById(R.id.my_photo_albun);
-        mLlMyState = (LinearLayout) view.findViewById(R.id.my_state);
-        mLlMyGuest = (LinearLayout) view.findViewById(R.id.my_guest);
-        mLlEmotion = (LinearLayout) view.findViewById(R.id.my_emotion);
-        mLlMyGift = (LinearLayout) view.findViewById(R.id.my_gift);
-        mLlMoreSetting = (LinearLayout) view.findViewById(R.id.more_setting);
-        imageView1 = (ImageView) view.findViewById(R.id.photo1);
-        imageView2 = (ImageView) view.findViewById(R.id.photo2);
-        mMember_icon = (ImageView) view.findViewById(R.id.member_icon);
+        mRivMyPhoto = view.findViewById(R.id.my_photo);
+        mTvMyName = view.findViewById(R.id.tv_name);
+        mTvSignName = view.findViewById(R.id.tv_sign_name);
+        mTVJiFen = view.findViewById(R.id.tv_Jifen);
+        mTvGift = view.findViewById(R.id.tv_gift);
+        mTvMember = view.findViewById(R.id.tv_member);
+        mLlMyPhotoAlbum = view.findViewById(R.id.my_photo_albun);
+        mLlMyState = view.findViewById(R.id.my_state);
+        mLlMyGuest = view.findViewById(R.id.my_guest);
+        mLlEmotion = view.findViewById(R.id.my_emotion);
+        mLlMoreSetting = view.findViewById(R.id.more_setting);
+        imageView1 = view.findViewById(R.id.photo1);
+        imageView2 = view.findViewById(R.id.photo2);
+        mMember_icon = view.findViewById(R.id.member_icon);
         mRivMyPhoto.setOnClickListener(this);
         mTvMyName.setOnClickListener(this);
         mTvSignName.setOnClickListener(this);
@@ -211,7 +202,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         mLlMyState.setOnClickListener(this);
         mLlMyGuest.setOnClickListener(this);
         mLlEmotion.setOnClickListener(this);
-        mLlMyGift.setOnClickListener(this);
         mLlMoreSetting.setOnClickListener(this);
         mTvMember.setOnClickListener(this);
         mMember_icon.setOnClickListener(this);
@@ -330,10 +320,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                 break;
             case R.id.my_emotion:
                 intent = new Intent(getActivity(), MyEmotionActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.my_gift:
-                intent = new Intent(getActivity(), MyGiftActivity.class);
                 startActivity(intent);
                 break;
             case R.id.more_setting:

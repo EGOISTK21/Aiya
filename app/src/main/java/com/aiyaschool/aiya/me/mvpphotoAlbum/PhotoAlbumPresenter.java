@@ -5,16 +5,13 @@ import android.util.Log;
 import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.UploadUrl;
-import com.aiyaschool.aiya.me.mvpPersonData.PersonDataContract;
-import com.aiyaschool.aiya.me.mvpPersonData.PersonDataModel;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.internal.operators.maybe.MaybeMap;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -43,14 +40,14 @@ public class PhotoAlbumPresenter implements PhotoAlbumContract.Presenter {
 
     @Override
     public void getImgUploadUrl() {
-        mModel.getImgUploadUrl(new Observer<HttpResult<ArrayList<UploadUrl>>>() {
+        mModel.getImgUploadUrl(new Observer<HttpResult<List<UploadUrl>>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 Log.d(TAG, "onSubscribe: ");
             }
 
             @Override
-            public void onNext(@NonNull HttpResult<ArrayList<UploadUrl>> arrayListHttpResult) {
+            public void onNext(@NonNull HttpResult<List<UploadUrl>> arrayListHttpResult) {
                 Log.d(TAG, "getImgUploadUrl()onNext: " + arrayListHttpResult);
                 if (arrayListHttpResult.getState().equals("2000")) {
                     Log.d(TAG, "getImgUploadUrl()onNext: " + arrayListHttpResult.getData().size());
@@ -127,14 +124,14 @@ public class PhotoAlbumPresenter implements PhotoAlbumContract.Presenter {
 
     @Override
     public void getMePhoto(final String page, String lines) {
-        mModel.getMePhoto(page, lines, new Observer<HttpResult<ArrayList<Gallery>>>() {
+        mModel.getMePhoto(page, lines, new Observer<HttpResult<List<Gallery>>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 Log.d(TAG, "onSubscribe: getMePhoto" + page);
             }
 
             @Override
-            public void onNext(@NonNull HttpResult<ArrayList<Gallery>> arrayListHttpResult) {
+            public void onNext(@NonNull HttpResult<List<Gallery>> arrayListHttpResult) {
                 Log.d(TAG, "onNext: getMePhoto" + arrayListHttpResult.getState());
                 Log.d(TAG, "onNext: getMePhoto" + arrayListHttpResult.getData().size());
                 for (Gallery gallery : arrayListHttpResult.getData()) {
@@ -163,14 +160,14 @@ public class PhotoAlbumPresenter implements PhotoAlbumContract.Presenter {
 
     @Override
     public void updateImagePathList(String page, String lines) {
-        mModel.getMePhoto(page, lines, new Observer<HttpResult<ArrayList<Gallery>>>() {
+        mModel.getMePhoto(page, lines, new Observer<HttpResult<List<Gallery>>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 Log.d(TAG, "onSubscribe: updateImagePathList");
             }
 
             @Override
-            public void onNext(@NonNull HttpResult<ArrayList<Gallery>> arrayListHttpResult) {
+            public void onNext(@NonNull HttpResult<List<Gallery>> arrayListHttpResult) {
                 Log.d(TAG, "onNext: updateImagePathList" + arrayListHttpResult.getState());
                 Log.d(TAG, "onNext: updateImagePathList" + arrayListHttpResult.getData().size());
                 for (Gallery gallery : arrayListHttpResult.getData()) {

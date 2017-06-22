@@ -317,6 +317,22 @@ public class User implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof User)) return false;
+        User temp = (User) obj;
+        return ((username != null && username.equals(temp.username)) || (username == null && temp.username == null))
+                && ((phone != null && phone.equals(temp.phone)) || (phone == null && temp.phone == null))
+                && ((school != null && school.equals(temp.school)) || (school == null && temp.school == null))
+                && ((age != null && age.equals(temp.age)) || (age == null && temp.age == null))
+                && ((height != null && height.equals(temp.height)) || (height == null && temp.height == null))
+                && ((character != null && character.equals(temp.character)) || (character == null && temp.character == null))
+                && ((hobby != null && hobby.equals(temp.hobby)) || (hobby == null && temp.hobby == null))
+                && ((avatar != null && avatar.equals(temp.avatar)) || (avatar == null && temp.avatar == null))
+                && ((profile != null && profile.equals(temp.profile)) || (profile == null && temp.profile == null))
+                && ((imgwall != null && imgwall.equals(temp.imgwall)) || (imgwall == null && temp.imgwall == null));
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "temptoken='" + temptoken + '\'' +

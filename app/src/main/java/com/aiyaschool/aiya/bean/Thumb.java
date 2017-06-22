@@ -65,6 +65,14 @@ public class Thumb implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Thumb)) return false;
+        Thumb temp = (Thumb) obj;
+        return ((face != null && face.equals(temp.face)) || (face == null && temp.face == null))
+                && ((background != null && background.equals(temp.background)) || (background == null && temp.background == null));
+    }
+
+    @Override
     public String toString() {
         return "Thumb{" +
                 "face='" + face + '\'' +

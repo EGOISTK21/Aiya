@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseActivity;
+import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
@@ -24,6 +25,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import butterknife.BindColor;
 import butterknife.BindView;
@@ -107,6 +110,8 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
                     break;
             }
             mUser = bundle.getParcelable("other detail");
+            mPresenter = new OtherDetailPresenter(this);
+            mPresenter.loadImgWall(mUser.getId());
             Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).asBitmap().error(R.drawable.guanggao1).centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.NONE).into(new ViewTarget<RelativeLayout, Bitmap>(rlBackground) {
                 @Override
@@ -123,20 +128,18 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
             tvOtherHeight.setText(mUser.getHeight());
             tvOtherCharacter.setText(mUser.getCharacter());
             tvOtherHobby.setText(mUser.getHobby());
-            initImgWall();
         } catch (Exception e) {
             e.printStackTrace();
         }
         Log.i(TAG, "initView: " + mUser);
-        mPresenter = new OtherDetailPresenter(this);
     }
 
-    private void initImgWall() {
-        Log.i(TAG, "initImgWall: " + mUser.getImgWall().getRows());
-        switch (mUser.getImgWall().getRows()) {
+    @Override
+    public void setImgWall(List<Gallery> imgWall) {
+        switch (imgWall.size()) {
             case 1:
                 Picasso.with(this)
-                        .load(mUser.getImgWall().getUrl().getThumb().get(0))
+                        .load(imgWall.get(0).getImg().getThumb())
                         .placeholder(R.drawable.mis_default_error)
                         .tag(MultiImageSelectorFragment.TAG)
                         .resize(238, 181)
@@ -145,14 +148,14 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
                 break;
             case 2:
                 Picasso.with(this)
-                        .load(mUser.getImgWall().getUrl().getThumb().get(0))
+                        .load(imgWall.get(0).getImg().getThumb())
                         .placeholder(R.drawable.mis_default_error)
                         .tag(MultiImageSelectorFragment.TAG)
                         .resize(238, 181)
                         .centerCrop()
                         .into(imageView1);
                 Picasso.with(this)
-                        .load(mUser.getImgWall().getUrl().getThumb().get(1))
+                        .load(imgWall.get(1).getImg().getThumb())
                         .placeholder(R.drawable.mis_default_error)
                         .tag(MultiImageSelectorFragment.TAG)
                         .resize(238, 181)

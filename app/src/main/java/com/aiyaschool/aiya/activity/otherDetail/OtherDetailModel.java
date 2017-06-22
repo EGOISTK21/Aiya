@@ -1,10 +1,12 @@
 package com.aiyaschool.aiya.activity.otherDetail;
 
+import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.UserUtil;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observer;
@@ -16,6 +18,17 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 class OtherDetailModel implements OtherDetailContract.Model {
+    @Override
+    public void getImgWall(String userid, Observer<HttpResult<List<Gallery>>> observer) {
+        APIUtil.getPhotoApi()
+                .getPhoto(null, null, userid)
+                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(observer);
+    }
+
     @Override
     public void touch(String id, Observer<HttpResult> observer) {
         APIUtil.getTouchApi()

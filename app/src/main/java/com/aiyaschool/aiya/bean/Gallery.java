@@ -1,7 +1,6 @@
 package com.aiyaschool.aiya.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created by wewarriors on 2017/5/29.
@@ -17,7 +16,7 @@ public class Gallery implements Serializable {
     }
 
     private String imgid;
-    Img img;
+    private Img img;
     private String createtime;
 
     public Img getImg() {

@@ -2,10 +2,13 @@ package com.aiyaschool.aiya.activity.otherDetail;
 
 import android.util.Log;
 
+import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.util.UserUtil;
+
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -38,6 +41,34 @@ class OtherDetailPresenter implements OtherDetailContract.Presenter {
     public void detachView() {
         this.mView = null;
         this.mModel = null;
+    }
+
+    @Override
+    public void loadImgWall(String userid) {
+        mModel.getImgWall(userid, new Observer<HttpResult<List<Gallery>>>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.i(TAG, "onSubscribe: loadImgWall " + d);
+            }
+
+            @Override
+            public void onNext(@NonNull HttpResult<List<Gallery>> listHttpResult) {
+                Log.i(TAG, "onNext: loadImgWall " + listHttpResult);
+                if ("2000".equals(listHttpResult.getState())) {
+                    mView.setImgWall(listHttpResult.getData());
+                }
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.i(TAG, "onError: loadImgWall");
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i(TAG, "onComplete: loadImgWall");
+            }
+        });
     }
 
     @Override

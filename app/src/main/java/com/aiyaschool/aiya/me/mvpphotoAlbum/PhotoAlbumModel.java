@@ -5,7 +5,7 @@ import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.util.APIUtil;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observer;
@@ -42,7 +42,7 @@ public class PhotoAlbumModel implements PhotoAlbumContract.Model {
     }
 
     @Override
-    public void getImgUploadUrl(Observer<HttpResult<ArrayList<UploadUrl>>> observer) {
+    public void getImgUploadUrl(Observer<HttpResult<List<UploadUrl>>> observer) {
         APIUtil.getImgUploadUrlApi()
                 .startGetImgUploadUrl()
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
@@ -53,9 +53,9 @@ public class PhotoAlbumModel implements PhotoAlbumContract.Model {
     }
 
     @Override
-    public void getMePhoto(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer) {
-        APIUtil.getMePhotoApi()
-                .startGetMePhoto(page, lines)
+    public void getMePhoto(String page, String lines, Observer<HttpResult<List<Gallery>>> observer) {
+        APIUtil.getPhotoApi()
+                .getPhoto(page, lines, null)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -64,9 +64,9 @@ public class PhotoAlbumModel implements PhotoAlbumContract.Model {
     }
 
     @Override
-    public void updateImagePathList(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer) {
-        APIUtil.getMePhotoApi()
-                .startGetMePhoto(page, lines)
+    public void updateImagePathList(String page, String lines, Observer<HttpResult<List<Gallery>>> observer) {
+        APIUtil.getPhotoApi()
+                .getPhoto(page, lines, null)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

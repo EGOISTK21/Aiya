@@ -5,7 +5,6 @@ import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.UploadUrl;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -23,11 +22,11 @@ public interface PhotoAlbumContract {
 
         void startPostPhotoImg(String img, Observer<HttpResult> observer);
 
-        void getImgUploadUrl(Observer<HttpResult<ArrayList<UploadUrl>>> observer);
+        void getImgUploadUrl(Observer<HttpResult<List<UploadUrl>>> observer);
 
-        void getMePhoto(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer);
+        void getMePhoto(String page, String lines, Observer<HttpResult<List<Gallery>>> observer);
 
-        void updateImagePathList(String page, String lines, Observer<HttpResult<ArrayList<Gallery>>> observer);
+        void updateImagePathList(String page, String lines, Observer<HttpResult<List<Gallery>>> observer);
 
         void deletePhoto(String imgId, Observer<HttpResult> observer);
     }
@@ -35,11 +34,11 @@ public interface PhotoAlbumContract {
     interface View {
         void showImgUploadUrl(List<UploadUrl> uploadUrlList);
 
-        void showGetMePhoto(ArrayList<Gallery> mGalleryList);
+        void showGetMePhoto(List<Gallery> mGalleryList);
 
         void startPostPhotoImg();
 
-        void updateImagePathList(ArrayList<Gallery> mGalleryList);
+        void updateImagePathList(List<Gallery> mGalleryList);
     }
 
     interface Presenter {

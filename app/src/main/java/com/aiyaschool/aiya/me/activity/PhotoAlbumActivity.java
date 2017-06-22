@@ -258,7 +258,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements PhotoAlbumC
 
     //加载从后台取到的url链接
     @Override
-    public void showGetMePhoto(ArrayList<Gallery> GalleryList) {
+    public void showGetMePhoto(List<Gallery> GalleryList) {
         if (GalleryList.size() > 0) {
             for (Gallery gallery : GalleryList) {
                 boolean isHasImg = false;
@@ -309,7 +309,7 @@ public class PhotoAlbumActivity extends AppCompatActivity implements PhotoAlbumC
     }
 
     @Override
-    public void updateImagePathList(ArrayList<Gallery> mGalleryList) {
+    public void updateImagePathList(List<Gallery> mGalleryList) {
         mImagePathList.get(0).getGalleryList().clear();
         for (Gallery gallery : mGalleryList) {
             mImagePathList.get(0).getCreateTime().equals(parseDate(gallery.getCreatetime()));

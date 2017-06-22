@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.bean.Avatar;
-import com.aiyaschool.aiya.bean.HitNotification;
 import com.aiyaschool.aiya.bean.ImgWall;
 import com.aiyaschool.aiya.bean.Normal;
 import com.aiyaschool.aiya.bean.Thumb;
@@ -27,7 +26,6 @@ public class UserUtil {
     private static SharedPreferences sSharedPreferences;
     private static SharedPreferences.Editor sEditor;
     private static User sUser, sTa;
-    private static List<HitNotification> sHitNotifications;
 
     private UserUtil() {
 
@@ -140,41 +138,6 @@ public class UserUtil {
         sTa = null;
     }
 
-    private static void initHitNotification() {
-        sHitNotifications = new ArrayList<>();
-        int size = sSharedPreferences.getInt("hitnotificationNum", 0);
-        for (int i = 0; i < size; i++) {
-//            sHitNotifications.add(new HitNotification(
-//                            new Avatar(null, new Thumb(sSharedPreferences.getString("hitnotification_avatar_" + i, null), null)),
-//                            sSharedPreferences.getString("hitnotification_username_" + i, null),
-//                            sSharedPreferences.getString("hitnotification_school_" + i, null),
-//                            sSharedPreferences.getString("hitnotification_requestid_" + i, null),
-//                            sSharedPreferences.getString("hitnotification_fromuserid_" + i, null),
-//                            sSharedPreferences.getBoolean("hitnotification_state_" + i, Boolean.parseBoolean(null))));
-        }
-    }
-
-    public static void addHitNotification(HitNotification hitNotification) {
-//        sHitNotifications.add(hitNotification);
-//        int size = sHitNotifications.size();
-//        sEditor.putInt("hitnotificationNum", size);
-//        sEditor.putString("hitnotification_avatar_" + size, hitNotification.getAvatar().getThumb().getFace());
-//        sEditor.putString("hitnotification_username_" + size, hitNotification.getUsername());
-//        sEditor.putString("hitnotification_school_" + size, hitNotification.getSchool());
-//        sEditor.putString("hitnotification_requestid_" + size, hitNotification.getRequestid());
-//        sEditor.putString("hitnotification_fromuserid_" + size, hitNotification.getFromuserid());
-//        sEditor.putBoolean("hitnotification_state_" + size, hitNotification.getState());
-//        sEditor.apply();
-    }
-
-    public static void updateHitNotification(int index, boolean state) {
-        sHitNotifications.get(index).setState(state);
-    }
-
-    private static List<HitNotification> getHitNotifications() {
-        return sHitNotifications;
-    }
-
     public static void setContactShield(boolean contactShield) {
         sEditor.putBoolean("contactShield", contactShield);
         sEditor.apply();
@@ -182,6 +145,38 @@ public class UserUtil {
 
     public static boolean getContactShield() {
         return sSharedPreferences.getBoolean("contactShield", true);
+    }
+
+    public static void addMsgTime(long msgTime, int index) {
+        //sEditor.putInt("msgTimeSize", Math.max(index, sSharedPreferences.getInt("msgTimeSize", 0)));
+        if (msgTime > getMsgTime().get(index)) {
+            sEditor.putLong("msgTime_" + index, msgTime);
+        }
+        sEditor.apply();
+    }
+
+    public static List<Long> getMsgTime() {
+        List<Long> msgTime = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            msgTime.add(sSharedPreferences.getLong("msgTime_" + i, 0));
+        }
+        return msgTime;
+    }
+
+    public static void addMsgPre(String msgPre, int index) {
+        //sEditor.putInt("msgPreSize", Math.max(index, sSharedPreferences.getInt("msgPreSize", 0)));
+        if (msgPre != null && !(msgPre.equals(getMsgPre().get(index)))) {
+            sEditor.putString("msgPre_" + index, msgPre);
+        }
+        sEditor.apply();
+    }
+
+    public static List<String> getMsgPre() {
+        List<String> msgPre = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            msgPre.add(sSharedPreferences.getString("msgPre_" + i, null));
+        }
+        return msgPre;
     }
 
     private static void setLoginToken(String loginToken) {

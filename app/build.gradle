@@ -4,7 +4,7 @@ apply plugin: 'com.antfortune.freeline'
 android {
     signingConfigs {
     }
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion '26.0.0'
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
@@ -12,14 +12,12 @@ android {
     defaultConfig {
         applicationId 'com.aiyaschool.aiya'
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName '1.0'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        ndk {
-            abiFilters "arm64-v8a", "armeabi", "armeabi-v7a", "x86", "x86_64"
-        }
+
         multiDexEnabled true
     }
     buildTypes {
@@ -68,18 +66,17 @@ dependencies {
     compile files('libs/soload.jar')
     compile files('libs/tls_sdk.jar')
     compile files('libs/wup-1.0.0-SNAPSHOT.jar')
-    compile files('libs/MobCommons-2017.0321.1624.jar')
-    compile files('libs/MobTools-2017.0321.1624.jar')
-    compile name: 'SMSSDK-2.1.4', ext: 'aar'
-    //圆形图片
+    compile files('libs/MobCommons-2017.0607.1736.jar')
+    compile files('libs/MobTools-2017.0607.1736.jar')
+    compile name: 'SMSSDK-3.0.0', ext: 'aar'
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:palette-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:support-vector-drawable:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.android.support:design:26.0.0-alpha1'
+    compile 'com.android.support:palette-v7:26.0.0-alpha1'
+    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+    compile 'com.android.support:support-v4:26.0.0-alpha1'
+    compile 'com.android.support:support-vector-drawable:26.0.0-alpha1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
     compile 'com.github.w446108264:AndroidEmoji:1.3-withsource'
@@ -108,8 +105,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.chrisbanes:PhotoView:1.3.0'
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }
 

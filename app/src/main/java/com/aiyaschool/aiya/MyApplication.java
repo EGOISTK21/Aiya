@@ -1,18 +1,18 @@
 package com.aiyaschool.aiya;
 
-import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
 
 import com.aiyaschool.aiya.bean.DelNotification;
+import com.aiyaschool.aiya.bean.HitNotification;
 import com.aiyaschool.aiya.bean.ReplyNotification;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
-import com.aiyaschool.aiya.bean.HitNotification;
 import com.aiyaschool.aiya.util.RefreshTokenService;
 import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.google.gson.Gson;
+import com.mob.MobApplication;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -38,18 +38,14 @@ import org.litepal.LitePal;
 import java.io.File;
 import java.util.List;
 
-import cn.smssdk.SMSSDK;
-
 /**
  * app实体类，onCreate初始化各种SDK
  * Created by EGOISTK21 on 2017/3/15.
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends MobApplication {
 
     private static final String TAG = "MyApplication";
-    private static final String APP_KEY = "1d3c277c6bde4";
-    private static final String APP_SECRET = "3b295b8b0455bdf9c6aedf8ecc33f3cc";
     public static final int APP_ID = 1400029084;
     private static MyApplication instance;
 
@@ -62,7 +58,6 @@ public class MyApplication extends Application {
         super.onCreate();
         initImageLoader();
         instance = this;
-        SMSSDK.initSDK(this, APP_KEY, APP_SECRET);
         LitePal.initialize(this);
         UserUtil.init();
         DBCopyUtil.copyDataBaseFromAssets(this, "edu.db");

@@ -69,6 +69,14 @@ public class Avatar implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Avatar)) return false;
+        Avatar temp = (Avatar) obj;
+        return ((normal != null && normal.equals(temp.normal)) || (normal == null && temp.normal == null))
+                && ((thumb != null && thumb.equals(temp.thumb)) || (thumb == null && temp.thumb == null));
+    }
+
+    @Override
     public String toString() {
         return "Avatar{" +
                 "normal=" + normal +

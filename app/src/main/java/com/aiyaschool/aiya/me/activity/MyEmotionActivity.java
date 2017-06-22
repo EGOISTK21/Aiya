@@ -17,18 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.bean.EmotionRecordBean;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.mvpEmotionRecord.EmotionRecordContract;
 import com.aiyaschool.aiya.me.mvpEmotionRecord.EmotionRecordPresenter;
-import com.aiyaschool.aiya.me.view.RoundImageView;
 import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
-import com.aiyaschool.aiya.util.SignUtil;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.bumptech.glide.Glide;
 

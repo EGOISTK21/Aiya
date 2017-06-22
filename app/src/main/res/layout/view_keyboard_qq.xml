@@ -53,8 +53,7 @@
             android:layout_centerVertical="true"
             android:orientation="horizontal"
             android:paddingBottom="8dp"
-            android:paddingTop="12dp"
-            android:weightSum="4">
+            android:paddingTop="12dp">
 
             <ImageView
                 android:id="@+id/btn_image"
@@ -76,12 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/qq_skin_aio_panel_emotion"/>
-            <ImageView
-                android:id="@+id/btn_gift"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@drawable/gift"/>
+
         </LinearLayout>
     </LinearLayout>
 

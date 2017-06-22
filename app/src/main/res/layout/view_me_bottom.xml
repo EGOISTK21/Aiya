@@ -115,44 +115,6 @@
         android:layout_height="15dp"
         android:background="@color/colorBackGround"/>
 
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/my_gift"
-        android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:src="@drawable/gift" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:text="我的礼物"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="16dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="20dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/rightward_32"/>
-        </RelativeLayout>
-
-    </LinearLayout>
-
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="15dp"

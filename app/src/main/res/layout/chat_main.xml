@@ -40,8 +40,7 @@
         android:id="@+id/activity_chat_photos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:layout_marginTop="96px"
+        android:layout_marginTop="48dp"
         android:orientation="vertical"
         android:visibility="invisible">
 
