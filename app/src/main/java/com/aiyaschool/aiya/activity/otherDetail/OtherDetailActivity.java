@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +17,9 @@ import android.widget.TextView;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.bean.Gallery;
+import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.CircleImageView;
@@ -31,6 +34,10 @@ import java.util.List;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import me.nereo.multi_image_selector.MultiImageSelectorFragment;
 
 /**
@@ -82,6 +89,40 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
         return R.layout.activity_other_card;
     }
 
+    private void initLover() {
+        if (UserUtil.getUser().isMatched()) {
+            APIUtil.getLoverInfoApi()
+                    .getLoverInfo()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .unsubscribeOn(Schedulers.io())
+                    .subscribe(new Observer<HttpResult<User>>() {
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
+                            Log.i(TAG, "onSubscribe: initView");
+                        }
+
+                        @Override
+                        public void onNext(@NonNull HttpResult<User> userHttpResult) {
+                            Log.i(TAG, "onNext: initView " + userHttpResult);
+                            if ("2000".equals(userHttpResult.getState())) {
+                                UserUtil.setTa(userHttpResult.getData());
+                            }
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+                            Log.i(TAG, "onError: initView " + e);
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            Log.i(TAG, "onComplete: initView");
+                        }
+                    });
+        }
+    }
+
     protected void initView() {
         try {
             Bundle bundle = getIntent().getExtras();
@@ -104,6 +145,7 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
                     });
                     break;
                 case 4:
+                    initLover();
                     btnHit.setBackgroundColor(hitBG);
                     btnHit.setTextColor(hitText);
                     btnHit.setText("解除关系");
@@ -136,17 +178,15 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
 
     @Override
     public void setImgWall(List<Gallery> imgWall) {
-        switch (imgWall.size()) {
-            case 1:
-                Picasso.with(this)
-                        .load(imgWall.get(0).getImg().getThumb())
-                        .placeholder(R.drawable.mis_default_error)
-                        .tag(MultiImageSelectorFragment.TAG)
-                        .resize(238, 181)
-                        .centerCrop()
-                        .into(imageView1);
-                break;
-            case 2:
+        if (imgWall.size() == 1) {
+            Picasso.with(this)
+                    .load(imgWall.get(0).getImg().getThumb())
+                    .placeholder(R.drawable.mis_default_error)
+                    .tag(MultiImageSelectorFragment.TAG)
+                    .resize(238, 181)
+                    .centerCrop()
+                    .into(imageView1);
+        } else if (imgWall.size() > 1) {
                 Picasso.with(this)
                         .load(imgWall.get(0).getImg().getThumb())
                         .placeholder(R.drawable.mis_default_error)
@@ -161,7 +201,6 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
                         .resize(238, 181)
                         .centerCrop()
                         .into(imageView2);
-                break;
         }
     }
 
@@ -173,7 +212,7 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
     @OnClick(R.id.iv_other_avatar)
     void showNormal() {
         ImageView imageView = new ImageView(this);
-        Glide.with(this).load(mUser.getAvatar().getNormal().getFace()).centerCrop()
+        Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivOtherAvatar);
         AlertDialog.Builder imageDialog = new AlertDialog.Builder(this);
         imageDialog.setView(imageView);

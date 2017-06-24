@@ -25,4 +25,12 @@ public class Img implements Serializable {
     public void setThumb(String thumb) {
         this.thumb = thumb;
     }
+
+    @Override
+    public String toString() {
+        return "Img{" +
+                "normal='" + normal + '\'' +
+                ", thumb='" + thumb + '\'' +
+                '}';
+    }
 }

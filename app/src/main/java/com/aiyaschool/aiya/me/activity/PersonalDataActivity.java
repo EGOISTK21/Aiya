@@ -21,11 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aiyaschool.aiya.R;
-
 import com.aiyaschool.aiya.bean.Avatar;
-import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.UploadUrl;
-
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.bean.RegionModel;
 import com.aiyaschool.aiya.me.db.RegionDao;
@@ -34,10 +31,10 @@ import com.aiyaschool.aiya.me.mvpPersonData.PersonDataPresenter;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataContract;
 import com.aiyaschool.aiya.me.mvpupdate.UpdateUserDataPresenter;
 import com.aiyaschool.aiya.me.util.DBCopyUtil;
-
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.SchoolDBHelper;
 import com.aiyaschool.aiya.util.UserUtil;
+import com.aiyaschool.aiya.widget.CircleImageView;
 import com.aiyaschool.aiya.widget.FilletDialog;
 import com.aiyaschool.aiya.widget.ScrollPickerView;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
@@ -50,15 +47,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Set;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 import me.nereo.multi_image_selector.MultiImageSelector;
 
 public class PersonalDataActivity extends AppCompatActivity implements View.OnClickListener, PersonDataContract.View, UpdateUserDataContract.View {
@@ -236,11 +229,11 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
                 mTvConstellation.setText(user.getConstellation());
             }
 
-            Log.d(TAG, "onCreate: " + user.getAvatar().getNormal().getFace());
+            Log.d(TAG, "onCreate: " + user.getAvatar().getThumb().getFace());
             if (user.getAvatar() != null) {
-                if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
+                if (!TextUtils.isEmpty(user.getAvatar().getThumb().getFace())) {
 
-                    Glide.with(this).load(user.getAvatar().getNormal().getFace())
+                    Glide.with(this).load(user.getAvatar().getThumb().getFace())
 
                             .error(R.drawable.guanggao1)
                             .centerCrop()

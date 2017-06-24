@@ -174,7 +174,7 @@ public class HitListActivity extends BaseActivity implements HitListContract.Vie
         @Override
         public void onBindViewHolder(final GuestViewHolder holder, int position) {
 
-            Glide.with(HitListActivity.this).load(mGuestList.get(position).getAvatar().getNormal())
+            Glide.with(HitListActivity.this).load(mGuestList.get(position).getAvatar().getThumb())
                     .error(R.drawable.guanggao1)
                     .centerCrop()
                     .transform(new GlideCircleTransform(HitListActivity.this))

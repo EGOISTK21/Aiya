@@ -48,7 +48,7 @@ public class NotificationUtil {
             case 333:
                 break;
             case 444:
-                sIntent = new Intent(MyApplication.getInstance(), MainActivity.class).putExtras(sBundle);
+                sIntent = new Intent(MyApplication.getInstance(), MainActivity.class);
                 break;
         }
         if (id != 444) {

@@ -85,7 +85,7 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
     }
 
     private void initTa() {
-        if (!UserUtil.getTa().equals(ta)) {
+        if (UserUtil.getTa() != null && !UserUtil.getTa().equals(ta)) {
             ta = UserUtil.getTa();
             Glide.with(this).load(ta.getAvatar().getThumb().getFace()).error(R.drawable.guanggao1).centerCrop()
                     .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivRightAvatar);

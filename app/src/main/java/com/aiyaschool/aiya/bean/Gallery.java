@@ -42,5 +42,14 @@ public class Gallery implements Serializable {
     public void setImgid(String imgid) {
         this.imgid = imgid;
     }
+
+    @Override
+    public String toString() {
+        return "Gallery{" +
+                "imgid='" + imgid + '\'' +
+                ", img=" + img +
+                ", createtime='" + createtime + '\'' +
+                '}';
+    }
 }
 

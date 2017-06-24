@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aiyaschool.aiya">
+          package="com.aiyaschool.aiya">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -37,39 +36,42 @@
         <meta-data
             android:name="Mob-AppSecret"
             android:value="3b295b8b0455bdf9c6aedf8ecc33f3cc"/>
+
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
 
         <activity
             android:name=".activity.splash.SplashActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Splash">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.sign.SignActivity"
-            android:windowSoftInputMode="stateVisible" />
+            android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".activity.form.FormActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <!-- Image Selector Entry -->
         <activity
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
             android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.main.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.otherDetail.OtherDetailActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".message.hit.HitListActivity"
@@ -77,34 +79,34 @@
         <activity
             android:name=".message.ui.activity.ChatQQActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden|adjustUnspecified" />
-        <activity android:name=".message.ui.activity.PhotosThumbnailActivity" />
-        <activity android:name=".message.ui.activity.ChatPhotosActivity" />
-        <activity android:name=".message.ui.activity.PhotoChooseActivity" />
-        <activity android:name=".message.ui.activity.PhotoCropActivity" />
+            android:windowSoftInputMode="adjustResize|stateHidden|adjustUnspecified"/>
+        <activity android:name=".message.ui.activity.PhotosThumbnailActivity"/>
+        <activity android:name=".message.ui.activity.ChatPhotosActivity"/>
+        <activity android:name=".message.ui.activity.PhotoChooseActivity"/>
+        <activity android:name=".message.ui.activity.PhotoCropActivity"/>
         <activity
             android:name=".love.matched.today.ClockInActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".love.matched.today.IntimacyRulesActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
         <!-- 消息收发service -->
         <service
             android:name="com.tencent.qalsdk.service.QalService"
             android:exported="false"
-            android:process=":QALSERVICE" />
+            android:process=":QALSERVICE"/>
         <!-- 消息收发辅助service -->
         <service
             android:name="com.tencent.qalsdk.service.QalAssistService"
             android:exported="false"
-            android:process=":QALSERVICE" />
+            android:process=":QALSERVICE"/>
         <!-- 离线消息广播接收器 -->
         <receiver
             android:name="com.tencent.qalsdk.QALBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.tencent.qalsdk.broadcast.qal" />
+                <action android:name="com.tencent.qalsdk.broadcast.qal"/>
             </intent-filter>
         </receiver>
         <!-- 系统消息广播接收器 -->
@@ -112,34 +114,34 @@
             android:name="com.tencent.qalsdk.core.NetConnInfoCenter"
             android:process=":QALSERVICE">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIME_SET"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
             </intent-filter>
         </receiver>
 
-        <service android:name=".util.RefreshTokenService" />
+        <service android:name=".util.RefreshTokenService"/>
 
-        <receiver android:name=".util.AlarmReceiver" />
+        <receiver android:name=".util.AlarmReceiver"/>
 
-        <activity android:name=".me.activity.PersonalDataActivity" />
-        <activity android:name=".me.activity.JifenAndGiftActivity" />
-        <activity android:name=".me.activity.MyStateActivity" />
-        <activity android:name=".me.activity.MyGuestActivity" />
-        <activity android:name=".me.activity.MyEmotionActivity" />
-        <activity android:name=".me.activity.MoreSettingActivity" />
-        <activity android:name=".me.activity.GiftMethodActivity" />
-        <activity android:name=".me.activity.MemberActivity" />
-        <activity android:name=".me.activity.PhotoAlbumActivity2" />
-        <activity android:name=".me.activity.UpdateDataActivity" />
-        <activity android:name=".me.activity.PhotoAlbumActivity" />
+        <activity android:name=".me.activity.PersonalDataActivity"/>
+        <activity android:name=".me.activity.JifenAndGiftActivity"/>
+        <activity android:name=".me.activity.MyStateActivity"/>
+        <activity android:name=".me.activity.MyGuestActivity"/>
+        <activity android:name=".me.activity.MyEmotionActivity"/>
+        <activity android:name=".me.activity.MoreSettingActivity"/>
+        <activity android:name=".me.activity.GiftMethodActivity"/>
+        <activity android:name=".me.activity.MemberActivity"/>
+        <activity android:name=".me.activity.PhotoAlbumActivity2"/>
+        <activity android:name=".me.activity.UpdateDataActivity"/>
+        <activity android:name=".me.activity.PhotoAlbumActivity"/>
         <activity
             android:name=".me.activity.PhotoActivity"
             android:screenOrientation="portrait"

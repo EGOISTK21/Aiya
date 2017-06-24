@@ -1,11 +1,9 @@
 package com.aiyaschool.aiya.util;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.aiyaschool.aiya.MyApplication;
-import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.bean.Avatar;
 import com.aiyaschool.aiya.bean.ImgWall;
 import com.aiyaschool.aiya.bean.Normal;
@@ -125,7 +123,7 @@ public class UserUtil {
             setTaProfile(user.getProfile());
             setImgWall(user.getImgWall());
             setStartDate(user.getStartdate());
-            MyApplication.getInstance().startActivity(new Intent(MyApplication.getInstance(), MainActivity.class));
+//            MyApplication.getInstance().startActivity(new Intent(MyApplication.getInstance(), MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 
@@ -387,7 +385,7 @@ public class UserUtil {
 
     private static void setTaAge(String age) {
         if (age != null && !age.equals(sTa.getAge())) {
-            sTa.setHobby(age);
+            sTa.setAge(age);
             sEditor.putString("ta_age", age);
             sEditor.apply();
         }

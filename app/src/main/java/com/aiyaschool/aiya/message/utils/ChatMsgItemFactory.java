@@ -2,7 +2,6 @@ package com.aiyaschool.aiya.message.utils;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.aiyaschool.aiya.message.ui.view.ChatGiftOneView;
 import com.aiyaschool.aiya.message.ui.view.ChatImgView;
@@ -19,7 +18,6 @@ import com.tencent.TIMElemType;
 
 public class ChatMsgItemFactory {
     public static ChatMsgItemView createItemView(Context context, TIMElem messageBean, int isSend){
-        Toast.makeText(context, "111", Toast.LENGTH_SHORT).show();
         Log.e("111", String.valueOf(isSend));
         ChatMsgItemView itemView;
         itemView = getChatViewByMsgType(context,messageBean,isSend);

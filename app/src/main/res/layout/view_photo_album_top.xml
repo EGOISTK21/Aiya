@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="48dp">
-    <RelativeLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/tv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingEnd="@dimen/common_margin_15"
+        android:paddingStart="@dimen/common_margin_15"
+        android:text="返回"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="16.5dp">
-        <TextView
-            android:id="@+id/tv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="返回"
-            android:textSize="15dp"
-            android:textColor="@color/colorPrimaryDark"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="动态图库"
-            android:textSize="15dp"
-            android:textColor="@color/colorData"/>
-        <TextView
-            android:id="@+id/tv_photo_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:text="编辑"
-            android:textSize="16dp"
-            android:textColor="@color/colorPrimaryDark"/>
-    </RelativeLayout>
-</LinearLayout>
+        android:layout_centerInParent="true"
+        android:text="动态图库"
+        android:textColor="@color/colorData"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/tv_photo_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:paddingEnd="@dimen/common_margin_15"
+        android:paddingStart="@dimen/common_margin_15"
+        android:text="编辑"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16dp"/>
+
+</RelativeLayout>

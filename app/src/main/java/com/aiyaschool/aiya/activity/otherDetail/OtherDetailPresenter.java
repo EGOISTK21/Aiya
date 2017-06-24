@@ -1,5 +1,6 @@
 package com.aiyaschool.aiya.activity.otherDetail;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.aiyaschool.aiya.bean.Gallery;
@@ -113,7 +114,7 @@ class OtherDetailPresenter implements OtherDetailContract.Presenter {
                 if ("2000".equals(httpResult.getState())) {
                     UserUtil.setLoveId("0");
                     UserUtil.setTa(new User());
-                    //mView.finishToMain(RESULT_OK, new Intent().putExtra("flag", "destroyLove"));
+                    mView.finishToMain(RESULT_OK, new Intent().putExtra("flag", "destroyLove"));
                 }
             }
 

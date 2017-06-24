@@ -59,7 +59,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        System.out.println(555);
         this.mContext = context;
     }
 
@@ -67,6 +66,12 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        initData();
+//    }
 
     private void initData() {
         APIUtil.getPhotoApi()
@@ -206,26 +211,8 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         mTvMember.setOnClickListener(this);
         mMember_icon.setOnClickListener(this);
 
-        /**
-         * temptoken : f29c1317158d76821e8d11ccd8a007a358fc9984c178e
-         * username : xihuan
-         * phone : 15000000000
-         * AccessToken : 48f418d380c1cf2ae948732780f6a39815000000000590494641c6de
-         * school : 南京大学
-         * loveid : 1
-         * group : 1
-         * province : 陕西
-         * avatar : {"normal":{"face":"http://cdn.sinacloud.net/gxwy-user/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=aTVxXyiYsr&Expires=1493558756","background":"http://cdn.sinacloud.net/gxwy-user/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=9%2F2aGPHyih&Expires=1493558756"},"thumb":{"face":"http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/avatar/face0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=k1IE5rKli6&Expires=1493558756","background":"http://imgx.sinacloud.net/gxwy-user/c_fill,h_224,w_224/background/beijing0.jpg?KID=sina,2nc35s5cZOQiXwCUWQm7&ssig=r1nCbOvIRL&Expires=1493558756"}}
-         * profile : 亨利就坐在那里，满眼望去，都是自己二十岁的影子
-         * points : 200
-         * gifttickets : 0
-         * imgwall : {"rows":0,"url":null}
-         * usersig : eJxNjV1PgzAYRv9Lb2dcCy0LJl4AY4A6EzLddtdUeCF1ArUUlBj-uw3B6O05z8cXeno4XIui6IbWcDMpQDcIo6sZyxJaIysJ2sJXofW0CKGULLkw3NXlv3xfXvisLCMUY0wYxu4i4VNJDVxUZp4jjDHHRhY7gu5l11rhYOIRTAj*k0Y2ME-6tsF8x--9k7XF*-g5yvJom95Dr8ZT9eHs3U36GJ5fgnW5CldTUt-R0BspOQRBErP3PKthRzu-b1Rz2ubFdFmnO*qF3ZCwWMTDJi*OEZEZHt6gqm-R9w-MC1Zg
-         * logintoken : 03b0761c6c915924907bb9ebabdebad3160b4f30-1f89-11e7-967b-ebe175c2a0263b946bfe-d0fb-4357-aa30-42cdaef6dc50
-         */
-
         //从MyApplication 中读取数据
-        Log.d(TAG, "initView: " + UserUtil.getUser().getAvatar().getNormal().getFace());
+        Log.d(TAG, "initView: " + UserUtil.getUser().getAvatar().getThumb().getFace());
         if (UserUtil.getUser() != null) {
             User user = UserUtil.getUser();
             if (!TextUtils.isEmpty(user.getUsername())) {
@@ -240,10 +227,10 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                     mMember_icon.setImageResource(R.drawable.huanggaun);
                 }
             }
-            Log.d(TAG, "initView: " + user.getAvatar().getNormal().getFace());
-            if (!TextUtils.isEmpty(user.getAvatar().getNormal().getFace())) {
+            Log.d(TAG, "initView: " + user.getAvatar().getThumb().getFace());
+            if (!TextUtils.isEmpty(user.getAvatar().getThumb().getFace())) {
 
-                Glide.with(this).load(user.getAvatar().getNormal().getFace())
+                Glide.with(this).load(user.getAvatar().getThumb().getFace())
                         .error(R.drawable.guanggao1)
                         .centerCrop()
                         .transform(new GlideCircleTransform(getContext()))
@@ -251,7 +238,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                         .crossFade()
                         .into(mRivMyPhoto);
             }
-            System.out.println(user.getUsername());
         }
 
         initData();

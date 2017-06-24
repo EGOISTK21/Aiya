@@ -210,7 +210,7 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
             holder.mStartTime.setText(parseDate(mEmotionList.get(position).getStarttime()));
             holder.mIntimacy.setText(mEmotionList.get(position).getIntimacy());
             holder.mRivPhoto.setImageResource(R.drawable.guanggao1);
-            Glide.with(MyEmotionActivity.this).load(mEmotionList.get(position).getAvatar().getNormal())
+            Glide.with(MyEmotionActivity.this).load(mEmotionList.get(position).getAvatar().getThumb())
                     .error(R.drawable.guanggao1)
                     .centerCrop()
                     .transform(new GlideCircleTransform(MyEmotionActivity.this))
@@ -274,6 +274,7 @@ public class MyEmotionActivity extends AppCompatActivity implements EmotionRecor
                                                 if ("2000".equals(httpResult.getState())) {
                                                     UserUtil.setLoveId("0");
                                                     setResult(RESULT_OK, new Intent().putExtra("flag", "destroyLove"));
+                                                    finish();
                                                 }
                                             }
 
