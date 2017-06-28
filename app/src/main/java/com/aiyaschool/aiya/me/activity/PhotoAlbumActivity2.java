@@ -80,6 +80,7 @@ public class PhotoAlbumActivity2 extends AppCompatActivity implements PhotoAlbum
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "onCreate: ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_album2);
         initView();
@@ -113,7 +114,6 @@ public class PhotoAlbumActivity2 extends AppCompatActivity implements PhotoAlbum
         mTvPhotoEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println(55555);
                 if(isEdit == false){
                     clearSelected();
                     isEdit = true;

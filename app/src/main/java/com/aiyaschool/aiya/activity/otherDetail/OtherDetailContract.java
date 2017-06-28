@@ -16,7 +16,7 @@ import io.reactivex.Observer;
 
 interface OtherDetailContract {
     interface Model {
-        void getImgWall(String userid, Observer<HttpResult<List<Gallery>>> observer);
+        void getImgWall(String page, String lines, String userid, Observer<HttpResult<List<Gallery>>> observer);
 
         void touch(String id, Observer<HttpResult> observer);
 
@@ -36,7 +36,7 @@ interface OtherDetailContract {
 
         void detachView();
 
-        void loadImgWall(String userid);
+        void loadImgWall(String page, String lines, String userid);
 
         void touch(String id);
 

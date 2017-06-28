@@ -158,7 +158,7 @@ public class MsgListFragment extends BaseFragment {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            startActivity(new Intent(getContext(), EmptyActivity.class).putExtra("title", "消息通知"));
                         }
                     });
                     break;
@@ -174,7 +174,7 @@ public class MsgListFragment extends BaseFragment {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            startActivity(new Intent(getContext(), EmptyActivity.class).putExtra("title", "攻略指南"));
                         }
                     });
                     break;

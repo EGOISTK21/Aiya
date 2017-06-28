@@ -29,7 +29,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="Mob-AppKey"
             android:value="1d3c277c6bde4"/>
@@ -42,7 +41,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
-
         <activity
             android:name=".activity.splash.SplashActivity"
             android:label="@string/app_name"
@@ -146,6 +144,8 @@
             android:name=".me.activity.PhotoActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity android:name=".message.EmptyActivity">
+        </activity>
     </application>
 
 </manifest>
