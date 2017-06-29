@@ -4,7 +4,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.activity.MainActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.util.GlideRoundTransform;

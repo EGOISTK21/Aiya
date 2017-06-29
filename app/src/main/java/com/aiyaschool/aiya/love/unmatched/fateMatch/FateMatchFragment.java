@@ -15,7 +15,6 @@ import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.love.unmatched.HitItOffFragment;
-import com.aiyaschool.aiya.util.ToastUtil;
 import com.aiyaschool.aiya.util.UserUtil;
 
 import butterknife.BindView;
@@ -71,11 +70,7 @@ public class FateMatchFragment extends BaseFragment implements FateMatchContract
 
     @OnClick(value = R.id.btn_start_fate_match)
     void startFateMatch() {
-        if ("1".equals(UserUtil.getUser().getSex()) && "1".equals(UserUtil.getUser().getGroup())) {
-            ToastUtil.show("男性用户只有开通会员才能主动发起随缘匹配");
-        } else {
-            mPresenter.startFateMatch();
-        }
+        mPresenter.startFateMatch();
     }
 
     @Override

@@ -10,6 +10,14 @@ public class Img implements Serializable {
     private String normal;
     private String thumb;
 
+    public Img() {
+    }
+
+    public Img(String normal, String thumb) {
+        this.normal = normal;
+        this.thumb = thumb;
+    }
+
     public String getNormal() {
         return normal;
     }

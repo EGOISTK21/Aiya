@@ -1,32 +1,27 @@
 package com.aiyaschool.aiya.me.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.widget.AppCompatTextView;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.CopyrightActivity;
 import com.aiyaschool.aiya.activity.sign.SignActivity;
+import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.util.SignUtil;
-import com.aiyaschool.aiya.util.StatusBarUtil;
-import com.aiyaschool.aiya.util.UserUtil;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MoreSettingActivity extends RxAppCompatActivity {
+public class MoreSettingActivity extends BaseActivity {
 
     private static final String TAG = "MoreSettingActivity";
-    @BindView(R.id.tv)
-    AppCompatTextView tv;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_more_setting);
-        ButterKnife.bind(this);
-        StatusBarUtil.init(this);
+    protected int getLayoutId() {
+        return R.layout.activity_more_setting;
+    }
+
+    @OnClick(value = R.id.tv_back)
+    void back() {
+        finish();
     }
 
     @OnClick(value = R.id.btn_login_out)
@@ -37,14 +32,9 @@ public class MoreSettingActivity extends RxAppCompatActivity {
         finish();
     }
 
-    @OnClick(value = R.id.btn_clear_all)
-    void clearAll() {
-        UserUtil.clearAll();
-    }
-
-    @OnClick(value = R.id.btn_print)
-    void print() {
-        tv.setText(UserUtil.getUser() + "\n\n" + UserUtil.getTa());
+    @OnClick(value = R.id.tv_copyright)
+    void copyright() {
+        startActivity(new Intent(MoreSettingActivity.this, CopyrightActivity.class));
     }
 
 }

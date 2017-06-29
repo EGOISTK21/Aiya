@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.activity.MainActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.message.hit.HitListActivity;
 import com.aiyaschool.aiya.message.ui.activity.ChatQQActivity;
@@ -158,7 +158,7 @@ public class MsgListFragment extends BaseFragment {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            startActivity(new Intent(getContext(), EmptyActivity.class).putExtra("title", "消息通知"));
                         }
                     });
                     break;
@@ -174,7 +174,7 @@ public class MsgListFragment extends BaseFragment {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            startActivity(new Intent(getContext(), EmptyActivity.class).putExtra("title", "攻略指南"));
                         }
                     });
                     break;

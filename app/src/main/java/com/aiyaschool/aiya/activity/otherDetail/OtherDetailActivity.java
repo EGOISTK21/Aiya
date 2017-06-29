@@ -2,10 +2,10 @@ package com.aiyaschool.aiya.activity.otherDetail;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +15,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.AvatarActivity;
 import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
+import com.aiyaschool.aiya.me.activity.PhotoActivity;
 import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.GlideCircleTransform;
 import com.aiyaschool.aiya.util.UserUtil;
@@ -29,10 +31,13 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindColor;
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -50,6 +55,7 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
     private String requestid;
     private String fromuserid;
     private User mUser;
+    private List<Gallery> imgWall;
     private OtherDetailContract.Presenter mPresenter;
     @BindColor(R.color.colorFutureRed)
     int hitText;
@@ -61,13 +67,10 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
     CircleImageView ivOtherAvatar;
     @BindView(R.id.tv_other_username)
     TextView tvOtherUsername;
-    @BindView(R.id.my_photo_albun)
+    @BindView(R.id.my_photo_album)
     LinearLayout mLlMyPhotoAlbum;
-    @BindView(R.id.photo1)
-    ImageView imageView1;
-    @BindView(R.id.photo2)
-    ImageView imageView2;
-    @BindView(R.id.tv_other_profile)
+    @BindViews({R.id.iv, R.id.photo1, R.id.photo2, R.id.photo3, R.id.photo4, R.id.photo5, R.id.photo6, R.id.photo7, R.id.photo8})
+    ImageView[] imageViews;
     TextView tvOtherProfile;
     @BindView(R.id.tv_other_school)
     TextView tvOtherSchool;
@@ -153,7 +156,7 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
             }
             mUser = bundle.getParcelable("other detail");
             mPresenter = new OtherDetailPresenter(this);
-            mPresenter.loadImgWall(mUser.getId());
+            mPresenter.loadImgWall(null, null, mUser.getId());
             Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).asBitmap().error(R.drawable.guanggao1).centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.NONE).into(new ViewTarget<RelativeLayout, Bitmap>(rlBackground) {
                 @Override
@@ -178,29 +181,32 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
 
     @Override
     public void setImgWall(List<Gallery> imgWall) {
-        if (imgWall.size() == 1) {
-            Picasso.with(this)
-                    .load(imgWall.get(0).getImg().getThumb())
-                    .placeholder(R.drawable.mis_default_error)
-                    .tag(MultiImageSelectorFragment.TAG)
-                    .resize(238, 181)
-                    .centerCrop()
-                    .into(imageView1);
-        } else if (imgWall.size() > 1) {
+        this.imgWall = imgWall;
+        if (imgWall.size() == 0) {
+            mLlMyPhotoAlbum.setVisibility(View.GONE);
+        } else if (imgWall.size() < 10) {
+            for (int i = 0; i < imgWall.size(); i++) {
                 Picasso.with(this)
-                        .load(imgWall.get(0).getImg().getThumb())
+                        .load(imgWall.get(i).getImg().getThumb())
                         .placeholder(R.drawable.mis_default_error)
                         .tag(MultiImageSelectorFragment.TAG)
                         .resize(238, 181)
                         .centerCrop()
-                        .into(imageView1);
+                        .into(imageViews[i]);
+            }
+            for (int i = imgWall.size(); i < 9; i++) {
+                imageViews[i].setVisibility(View.GONE);
+            }
+        } else {
+            for (int i = 0; i < imgWall.size(); i++) {
                 Picasso.with(this)
-                        .load(imgWall.get(1).getImg().getThumb())
+                        .load(imgWall.get(i).getImg().getThumb())
                         .placeholder(R.drawable.mis_default_error)
                         .tag(MultiImageSelectorFragment.TAG)
                         .resize(238, 181)
                         .centerCrop()
-                        .into(imageView2);
+                        .into(imageViews[i]);
+            }
         }
     }
 
@@ -211,18 +217,79 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
 
     @OnClick(R.id.iv_other_avatar)
     void showNormal() {
-        ImageView imageView = new ImageView(this);
-        Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivOtherAvatar);
-        AlertDialog.Builder imageDialog = new AlertDialog.Builder(this);
-        imageDialog.setView(imageView);
-        imageDialog.create();
-        imageDialog.show();
+        startActivity(new Intent(OtherDetailActivity.this, AvatarActivity.class).putExtra("url", mUser.getAvatar().getNormal().getFace()));
     }
 
-    @OnClick(value = R.id.my_photo_albun)
-    void showAlbum() {
+    private void showAlbum(int index) {
+        List<Gallery> galleryList = new ArrayList<>();
+        galleryList.addAll(imgWall);
+        ArrayList<Rect> rects = new ArrayList<>();
+        for (int i = 0; i < imgWall.size(); i++) {
+            Rect rect = new Rect();
+            final View child = new View(OtherDetailActivity.this);
+            Glide.with(OtherDetailActivity.this).load(imgWall.get(i).getImg().getNormal()).asBitmap().error(R.drawable.guanggao1).centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(new ViewTarget<View, Bitmap>(child) {
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    child.setBackground(new BitmapDrawable(resource));
+                }
+            });
+            child.getGlobalVisibleRect(rect);
+            rects.add(rect);
+        }
+        Intent intent = new Intent(OtherDetailActivity.this, PhotoActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("gallery", (Serializable) galleryList);
+        intent.putExtras(bundle);
+        intent.putExtra("index", index);
+        intent.putExtra("bounds", rects);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
 
+    @OnClick(value = R.id.iv)
+    void showAlbum0() {
+        showAlbum(0);
+    }
+
+    @OnClick(value = R.id.photo1)
+    void showAlbum1() {
+        showAlbum(1);
+    }
+
+    @OnClick(value = R.id.photo2)
+    void showAlbum2() {
+        showAlbum(2);
+    }
+
+    @OnClick(value = R.id.photo3)
+    void showAlbum3() {
+        showAlbum(3);
+    }
+
+    @OnClick(value = R.id.photo4)
+    void showAlbum4() {
+        showAlbum(4);
+    }
+
+    @OnClick(value = R.id.photo5)
+    void showAlbum5() {
+        showAlbum(5);
+    }
+
+    @OnClick(value = R.id.photo6)
+    void showAlbum6() {
+        showAlbum(6);
+    }
+
+    @OnClick(value = R.id.photo7)
+    void showAlbum7() {
+        showAlbum(7);
+    }
+
+    @OnClick(value = R.id.photo8)
+    void showAlbum8() {
+        showAlbum(8);
     }
 
     @OnClick(R.id.btn_hit)

@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 class OtherDetailModel implements OtherDetailContract.Model {
     @Override
-    public void getImgWall(String userid, Observer<HttpResult<List<Gallery>>> observer) {
+    public void getImgWall(String page, String lines, String userid, Observer<HttpResult<List<Gallery>>> observer) {
         APIUtil.getPhotoApi()
                 .getPhoto(null, null, userid)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)

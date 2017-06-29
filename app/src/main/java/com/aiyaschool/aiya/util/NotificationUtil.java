@@ -10,7 +10,7 @@ import android.support.v7.app.NotificationCompat;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.activity.MainActivity;
 import com.aiyaschool.aiya.activity.otherDetail.OtherDetailActivity;
 import com.aiyaschool.aiya.bean.AiyaNotification;
 import com.aiyaschool.aiya.bean.HitNotification;

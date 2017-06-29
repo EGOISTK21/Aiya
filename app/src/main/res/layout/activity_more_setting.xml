@@ -1,56 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/rl_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/linearLayout">
+        android:layout_height="@dimen/title_bar_height"
+        android:background="@color/colorPureWhite">
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingEnd="@dimen/common_margin_15"
+            android:paddingStart="@dimen/common_margin_15"
+            android:text="@string/back"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/common_text_size_16"/>
 
-    </ScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="更多设置"
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/common_text_size_16"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_ic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo_512"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_ic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/version"
+        android:textSize="@dimen/common_text_size_13"
+        android:id="@+id/textView"/>
+
+    <Button
+        android:id="@+id/btn_login_out"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_item_height_46"
+        android:background="@drawable/button_login_out"
+        android:text="@string/login_out"
+        android:textColor="@color/red"
+        android:textSize="@dimen/common_text_size_16"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="60dp"/>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_login_out"
+        <TextView
+            android:id="@+id/tv_copyright"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="60dp"
-            android:layout_weight="1"
-            android:text="@string/login_out"/>
+            android:text="《用户协议》"
+            android:textColor="@color/bg_blue"/>
 
-        <Button
-            android:id="@+id/btn_clear_all"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="60dp"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:text="@string/clear_all"/>
+            android:layout_marginTop="@dimen/common_margin_5"
+            android:text="爱呀校园 版权所有"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_margin_5"
+            android:text="Copyright © 2017 AiyaSchool.All Rights Reserved."/>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_print"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="@string/print_user"/>
 
 </RelativeLayout>

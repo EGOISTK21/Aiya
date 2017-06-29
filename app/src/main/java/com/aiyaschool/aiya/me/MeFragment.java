@@ -20,7 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.main.MainActivity;
+
+import com.aiyaschool.aiya.activity.MainActivity;
 import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.Img;
@@ -44,7 +45,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+
 import id.zelory.compressor.Compressor;
+
+import butterknife.BindViews;
+import butterknife.ButterKnife;
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -65,8 +71,12 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     private Context mContext;
     private CircleImageView mRivMyPhoto;
     private TextView mTvMyName, mTvSignName, mTVJiFen, mTvGift, mTvMember;
+
     private LinearLayout mLLMeFragmentTop, mLlMyPhotoAlbum, mLlMyState, mLlMyGuest, mLlEmotion, mLlMoreSetting;
-    private ImageView imageView1, imageView2;
+
+    @BindViews({R.id.photo1, R.id.photo2, R.id.photo3, R.id.photo4, R.id.photo5, R.id.photo6, R.id.photo7, R.id.photo8, R.id.photo9})
+    ImageView[] imageViews;
+
     private ImageView mMember_icon;
 
     private ArrayList<String> mSelectPath;
@@ -95,7 +105,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
 
     private void initData() {
         APIUtil.getPhotoApi()
-                .getPhoto("1", "2", null)
+                .getPhoto("1", "9", null)
                 .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -111,30 +121,14 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                         Log.d(TAG, "onNext: " + arrayListHttpResult.getState());
                         if (arrayListHttpResult.getState().equals("2000")) {
                             int size = arrayListHttpResult.getData().size();
-                            if (size == 1) {
+                            for (int i = 0; i < size; i++) {
                                 Picasso.with(getActivity())
-                                        .load(arrayListHttpResult.getData().get(0).getImg().getThumb())
+                                        .load(arrayListHttpResult.getData().get(i).getImg().getThumb())
                                         .placeholder(R.drawable.mis_default_error)
                                         .tag(MultiImageSelectorFragment.TAG)
                                         .resize(238, 181)
                                         .centerCrop()
-                                        .into(imageView1);
-                            } else if (size == 2) {
-                                Picasso.with(getActivity())
-                                        .load(arrayListHttpResult.getData().get(0).getImg().getThumb())
-                                        .placeholder(R.drawable.mis_default_error)
-                                        .tag(MultiImageSelectorFragment.TAG)
-                                        .resize(238, 181)
-                                        .centerCrop()
-                                        .into(imageView1);
-
-                                Picasso.with(getActivity())
-                                        .load(arrayListHttpResult.getData().get(1).getImg().getThumb())
-                                        .placeholder(R.drawable.mis_default_error)
-                                        .tag(MultiImageSelectorFragment.TAG)
-                                        .resize(238, 181)
-                                        .centerCrop()
-                                        .into(imageView2);
+                                        .into(imageViews[i]);
                             }
                         }
                     }
@@ -149,12 +143,69 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
 
                     }
                 });
+//        APIUtil.getPhotoApi()
+//                .getPhoto("1", "2", null)
+//                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .unsubscribeOn(Schedulers.io())
+//                .subscribe(new Observer<HttpResult<List<Gallery>>>() {
+//                    @Override
+//                    public void onSubscribe(@NonNull Disposable d) {
+//                        Log.d(TAG, "onSubscribe: ");
+//                    }
+//
+//                    @Override
+//                    public void onNext(@NonNull HttpResult<List<Gallery>> arrayListHttpResult) {
+//                        Log.d(TAG, "onNext: " + arrayListHttpResult.getState());
+//                        if ("2000".equals(arrayListHttpResult.getState())) {
+//                            List<Gallery> imgWall = arrayListHttpResult.getData();
+//                            if (arrayListHttpResult.getData().size() == 0) {
+//                                mLlMyPhotoAlbum.setVisibility(View.GONE);
+//                            } else if (imgWall.size() < 9) {
+//                                for (int i = 0; i < imgWall.size() - 1; i++) {
+//                                    Picasso.with(getContext())
+//                                            .load(imgWall.get(i).getImg().getThumb())
+//                                            .placeholder(R.drawable.mis_default_error)
+//                                            .tag(MultiImageSelectorFragment.TAG)
+//                                            .resize(238, 181)
+//                                            .centerCrop()
+//                                            .into(imageViews[i + 1]);
+//                                }
+//                                for (int i = imgWall.size() + 1; i < 9; i++) {
+//                                    imageViews[i].setVisibility(View.GONE);
+//                                }
+//                            } else {
+//                                for (int i = 0; i < imgWall.size(); i++) {
+//                                    Picasso.with(getContext())
+//                                            .load(imgWall.get(i).getImg().getThumb())
+//                                            .placeholder(R.drawable.mis_default_error)
+//                                            .tag(MultiImageSelectorFragment.TAG)
+//                                            .resize(238, 181)
+//                                            .centerCrop()
+//                                            .into(imageViews[i + 1]);
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(@NonNull Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.view_me, container, false);
+        ButterKnife.bind(this, mView);
         initView(mView);
         return mView;
     }
@@ -205,21 +256,22 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     }
 
     private void initView(View view) {
+
         mRivMyPhoto = (CircleImageView) view.findViewById(R.id.my_photo);
         mTvMyName = (TextView) view.findViewById(R.id.tv_name);
         mTvSignName = (TextView) view.findViewById(R.id.tv_sign_name);
         mTVJiFen = (TextView) view.findViewById(R.id.tv_Jifen);
         mTvGift = (TextView) view.findViewById(R.id.tv_gift);
         mTvMember = (TextView) view.findViewById(R.id.tv_member);
-        mLlMyPhotoAlbum = (LinearLayout) view.findViewById(R.id.my_photo_albun);
+        mLlMyPhotoAlbum = (LinearLayout) view.findViewById(R.id.my_photo_album);
         mLlMyState = (LinearLayout) view.findViewById(R.id.my_state);
         mLlMyGuest = (LinearLayout) view.findViewById(R.id.my_guest);
         mLlEmotion = (LinearLayout) view.findViewById(R.id.my_emotion);
         mLlMoreSetting = (LinearLayout) view.findViewById(R.id.more_setting);
         mLLMeFragmentTop = (LinearLayout) view.findViewById(R.id.ll_me_fragment);
-        imageView1 = (ImageView) view.findViewById(R.id.photo1);
-        imageView2 = (ImageView) view.findViewById(R.id.photo2);
+
         mMember_icon = (ImageView) view.findViewById(R.id.member_icon);
+
         mRivMyPhoto.setOnClickListener(this);
         mTvMyName.setOnClickListener(this);
         mTvSignName.setOnClickListener(this);
@@ -310,7 +362,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                 intent = new Intent(getActivity(), JifenAndGiftActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.my_photo_albun:
+            case R.id.my_photo_album:
                 intent = new Intent(getActivity(), PhotoAlbumActivity.class);
                 startActivityForResult(intent, 1);
 

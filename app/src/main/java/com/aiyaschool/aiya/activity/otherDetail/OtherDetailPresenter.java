@@ -45,8 +45,8 @@ class OtherDetailPresenter implements OtherDetailContract.Presenter {
     }
 
     @Override
-    public void loadImgWall(String userid) {
-        mModel.getImgWall(userid, new Observer<HttpResult<List<Gallery>>>() {
+    public void loadImgWall(String page, String lines, String userid) {
+        mModel.getImgWall(page, lines, userid, new Observer<HttpResult<List<Gallery>>>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
                 Log.i(TAG, "onSubscribe: loadImgWall " + d);
