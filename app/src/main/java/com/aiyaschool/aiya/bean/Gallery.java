@@ -8,7 +8,10 @@ import java.io.Serializable;
 
 public class Gallery implements Serializable {
     public Gallery() {
+    }
 
+    public Gallery(Img img) {
+        this.img = img;
     }
 
     public Gallery(String createtime) {

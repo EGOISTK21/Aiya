@@ -64,7 +64,7 @@
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.main.MainActivity"
+            android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
@@ -145,6 +145,12 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".message.EmptyActivity">
+        </activity>
+        <activity
+            android:name=".activity.CopyrightActivity"
+            android:label="@string/title_activity_copyright">
+        </activity>
+        <activity android:name=".activity.AvatarActivity">
         </activity>
     </application>
 

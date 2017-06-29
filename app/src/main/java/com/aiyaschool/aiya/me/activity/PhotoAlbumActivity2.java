@@ -28,7 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.activity.MainActivity;
 import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.me.bean.ImagePathItem;

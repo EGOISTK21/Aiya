@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.main.MainActivity;
+import com.aiyaschool.aiya.activity.MainActivity;
 import com.aiyaschool.aiya.base.BaseFragment;
 import com.aiyaschool.aiya.message.hit.HitListActivity;
 import com.aiyaschool.aiya.message.ui.activity.ChatQQActivity;

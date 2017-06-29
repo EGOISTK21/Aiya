@@ -6,7 +6,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.AvatarActivity;
 import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
@@ -217,13 +217,7 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
 
     @OnClick(R.id.iv_other_avatar)
     void showNormal() {
-        ImageView imageView = new ImageView(this);
-        Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivOtherAvatar);
-        AlertDialog.Builder imageDialog = new AlertDialog.Builder(this);
-        imageDialog.setView(imageView);
-        imageDialog.create();
-        imageDialog.show();
+        startActivity(new Intent(OtherDetailActivity.this, AvatarActivity.class).putExtra("url", mUser.getAvatar().getNormal().getFace()));
     }
 
     private void showAlbum(int index) {

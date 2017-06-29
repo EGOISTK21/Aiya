@@ -1,4 +1,4 @@
-package com.aiyaschool.aiya.activity.main;
+package com.aiyaschool.aiya.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
