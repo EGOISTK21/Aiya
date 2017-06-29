@@ -248,6 +248,9 @@ public class PhotoAlbumActivity extends AppCompatActivity implements PhotoAlbumC
             rvAlbumAdapter.notifyDataSetChanged();
             return;
         }
+        Intent intent = new Intent();
+        intent.putExtra("flag", "me");
+        setResult(RESULT_OK, intent);
         finish();
     }
 

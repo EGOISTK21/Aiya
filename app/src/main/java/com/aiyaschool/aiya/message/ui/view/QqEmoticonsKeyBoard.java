@@ -68,13 +68,13 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
     }
 
     protected void initView(){
-        etChat = view.findViewById(R.id.et_chat);
-        btnSend = view.findViewById(R.id.btn_send);
-        btnVoice = view.findViewById(R.id.btn_voice);
-        btnImage = view.findViewById(R.id.btn_image);
-        btnEmoticon = view.findViewById(R.id.btn_emoticon);
-        llKeyboard = view.findViewById(R.id.ll_keyboard);
-        lyKvml = view.findViewById(R.id.ly_kvml);
+        etChat = (EmoticonsEditText) view.findViewById(R.id.et_chat);
+        btnSend = (Button) view.findViewById(R.id.btn_send);
+        btnVoice = (ImageView) view.findViewById(R.id.btn_voice);
+        btnImage = (ImageView) view.findViewById(R.id.btn_image);
+        btnEmoticon = (ImageView) view.findViewById(R.id.btn_emoticon);
+        llKeyboard = (LinearLayout) view.findViewById(R.id.ll_keyboard);
+        lyKvml = (FuncLayout) view.findViewById(R.id.ly_kvml);
 
         etChat.setOnBackKeyClickListener(this);
 //        btnSend.setOnClickListener(this);

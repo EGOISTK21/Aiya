@@ -47,7 +47,7 @@ public class MsgListFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        mMsgRecyclerView = rootView.findViewById(R.id.recycler_view);
+        mMsgRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mMsgRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         msgList = new Msg().getMsgs2();
         adapter = new MsgAdapter(msgList);
@@ -78,10 +78,10 @@ public class MsgListFragment extends BaseFragment {
 
         MsgHolder(View itemView) {
             super(itemView);
-            mTitle = itemView.findViewById(R.id.msg_title);
-            mTime = itemView.findViewById(R.id.msg_time);
-            mPreView = itemView.findViewById(R.id.msg_preview);
-            mCircleImageView = itemView.findViewById(R.id.circleImageView);
+            mTitle = (TextView) itemView.findViewById(R.id.msg_title);
+            mTime = (TextView) itemView.findViewById(R.id.msg_time);
+            mPreView = (TextView) itemView.findViewById(R.id.msg_preview);
+            mCircleImageView = (CircleImageView) itemView.findViewById(R.id.circleImageView);
         }
 
         void bindCrime(Msg msg) {

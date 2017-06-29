@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
@@ -31,11 +33,14 @@ import com.tencent.TIMCallBack;
 import com.tencent.TIMManager;
 import com.tencent.TIMUser;
 
+import java.util.ArrayList;
+
 import butterknife.BindDrawable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import me.nereo.multi_image_selector.MultiImageSelector;
 
 /**
  * 主体为NoScrollViewPager+BottomNavigationView的主界面
@@ -47,6 +52,7 @@ public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
     public static final int DESTROY_LOVE = 100;
     private static final int PAGE_COUNT = 3;
+    private static final int REQUEST_IMAGE = 202;
     private NoScrollViewPager vpMain;
     private FragmentManager fm;
     private FragmentPagerAdapter adapter;
@@ -59,6 +65,7 @@ public class MainActivity extends BaseActivity {
     Drawable me;
 
     private boolean isMeChanged;
+    public static ArrayList<String> mSelectPath = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -282,17 +289,25 @@ public class MainActivity extends BaseActivity {
         if (data != null) {
             Log.i(TAG, "onActivityResult: " + requestCode + " " + resultCode + " " + data.getStringExtra("flag"));
         }
-
-        if (resultCode == RESULT_OK) {
-            String s = data.getStringExtra("flag");
-            switch (s) {
-                case "me":
-                    isMeChanged = true;
-                    break;
-                case "destroyLove":
-                    notifyAdapter();
-                    break;
+        if (requestCode == REQUEST_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                mSelectPath = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
+                isMeChanged = true;
+                return;
+            }
+        } else {
+            if (resultCode == RESULT_OK) {
+                String s = data.getStringExtra("flag");
+                switch (s) {
+                    case "me":
+                        isMeChanged = true;
+                        break;
+                    case "destroyLove":
+                        notifyAdapter();
+                        break;
+                }
             }
         }
+
     }
 }

@@ -22,189 +22,213 @@
         android:background="@color/colorBackGround"/>
 
 
-
-    <RelativeLayout
-        android:id="@+id/rl_height"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="46dp">
-        <TextView
-            android:id="@+id/tvv_height"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:text="身高"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"/>
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_height"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="175"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"
-            android:layout_alignBaseline="@+id/tvv_height"
-            android:layout_alignBottom="@+id/tvv_height"
-            android:layout_toRightOf="@+id/tvv_height"
-            android:layout_toEndOf="@+id/tvv_height"
-            android:layout_marginLeft="30dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/rightward_32"/>
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_height"
+                android:layout_width="match_parent"
+                android:layout_height="46dp">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorBackGround"/>
+                <TextView
+                    android:id="@+id/tvv_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="身高"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorName" />
 
-    <RelativeLayout
-        android:id="@+id/rl_home_town"
-        android:layout_width="match_parent"
-        android:layout_height="46dp">
-        <TextView
-            android:id="@+id/tvv_hometown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:text="性格"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"/>
+                <TextView
+                    android:id="@+id/tv_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="175"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorName"
+                    android:layout_alignBaseline="@+id/tvv_height"
+                    android:layout_alignBottom="@+id/tvv_height"
+                    android:layout_toRightOf="@+id/tvv_height"
+                    android:layout_toEndOf="@+id/tvv_height"
+                    android:layout_marginLeft="30dp" />
 
-        <TextView
-            android:id="@+id/tv_hometown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="安静"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"
-            android:layout_alignBaseline="@+id/tvv_hometown"
-            android:layout_alignBottom="@+id/tvv_hometown"
-            android:layout_toRightOf="@+id/tvv_hometown"
-            android:layout_toEndOf="@+id/tvv_hometown"
-            android:layout_marginLeft="30dp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/rightward_32" />
+            </RelativeLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/rightward_32"/>
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorBackGround" />
 
-    <RelativeLayout
-        android:id="@+id/rl_constellation"
-        android:layout_width="match_parent"
-        android:layout_height="46dp">
-        <TextView
-            android:id="@+id/tvv_constellation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:text="星座"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"/>
+            <RelativeLayout
+                android:id="@+id/rl_home_town"
+                android:layout_width="match_parent"
+                android:layout_height="46dp">
 
-        <TextView
-            android:id="@+id/tv_constellation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="天马座"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"
-            android:layout_alignBaseline="@+id/tvv_constellation"
-            android:layout_alignBottom="@+id/tvv_constellation"
-            android:layout_toRightOf="@+id/tvv_constellation"
-            android:layout_toEndOf="@+id/tvv_constellation"
-            android:layout_marginLeft="30dp" />
+                <TextView
+                    android:id="@+id/tvv_hometown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="性格"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorName" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/rightward_32"/>
+                <TextView
+                    android:id="@+id/tv_hometown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="安静"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorName"
+                    android:layout_alignBaseline="@+id/tvv_hometown"
+                    android:layout_alignBottom="@+id/tvv_hometown"
+                    android:layout_toRightOf="@+id/tvv_hometown"
+                    android:layout_toEndOf="@+id/tvv_hometown"
+                    android:layout_marginLeft="30dp" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/rightward_32" />
+            </RelativeLayout>
 
-    </RelativeLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorBackGround" />
 
-    <RelativeLayout
-        android:id="@+id/rl_hobby"
-        android:layout_width="match_parent"
-        android:layout_height="46dp">
+            <RelativeLayout
+                android:id="@+id/rl_constellation"
+                android:layout_width="match_parent"
+                android:layout_height="46dp">
 
-        <TextView
-            android:id="@+id/tvv_hobby"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:text="兴趣"
-            android:textSize="16dp"
-            android:textColor="@color/colorName" />
+                <TextView
+                    android:id="@+id/tvv_constellation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="星座"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorName" />
 
-        <TextView
-            android:id="@+id/tv_hobby"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我的兴趣爱好是。。。"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"
-            android:layout_alignBaseline="@+id/tvv_hobby"
-            android:layout_alignBottom="@+id/tvv_hobby"
-            android:layout_toRightOf="@+id/tvv_hobby"
-            android:layout_toEndOf="@+id/tvv_hobby"
-            android:layout_marginLeft="30dp" />
+                <TextView
+                    android:id="@+id/tv_constellation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="天马座"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorName"
+                    android:layout_alignBaseline="@+id/tvv_constellation"
+                    android:layout_alignBottom="@+id/tvv_constellation"
+                    android:layout_toRightOf="@+id/tvv_constellation"
+                    android:layout_toEndOf="@+id/tvv_constellation"
+                    android:layout_marginLeft="30dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/rightward_32" />
 
 
-    </RelativeLayout>
+            </RelativeLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorBackGround" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorBackGround" />
+
+            <RelativeLayout
+                android:id="@+id/rl_hobby"
+                android:layout_width="match_parent"
+                android:layout_height="46dp">
+
+                <TextView
+                    android:id="@+id/tvv_hobby"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="兴趣"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorName" />
+
+                <TextView
+                    android:id="@+id/tv_hobby"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的兴趣爱好是。。。"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorName"
+                    android:layout_alignBaseline="@+id/tvv_hobby"
+                    android:layout_alignBottom="@+id/tvv_hobby"
+                    android:layout_toRightOf="@+id/tvv_hobby"
+                    android:layout_toEndOf="@+id/tvv_hobby"
+                    android:layout_marginLeft="30dp" />
 
 
-    <RelativeLayout
-        android:id="@+id/rl_sign_name"
-        android:layout_width="match_parent"
-        android:layout_height="46dp">
+            </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tvv_signname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:text="个性签名"
-            android:textSize="16dp"
-            android:textColor="@color/colorName" />
-
-        <TextView
-            android:id="@+id/tv_sign_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="落霞明 月盈盈 来复无言去不闻"
-            android:textSize="16dp"
-            android:textColor="@color/colorName"
-            android:layout_alignBaseline="@+id/tvv_signname"
-            android:layout_alignBottom="@+id/tvv_signname"
-            android:layout_toRightOf="@+id/tvv_signname"
-            android:layout_toEndOf="@+id/tvv_signname"
-            android:layout_marginLeft="30dp" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorBackGround" />
 
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_sign_name"
+                android:layout_width="match_parent"
+                android:layout_height="46dp">
+
+                <TextView
+                    android:id="@+id/tvv_signname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="个性签名"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorName" />
+
+                <TextView
+                    android:id="@+id/tv_sign_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="落霞明 月盈盈 来复无言去不闻"
+                    android:textSize="16dp"
+                    android:textColor="@color/colorName"
+                    android:layout_alignBaseline="@+id/tvv_signname"
+                    android:layout_alignBottom="@+id/tvv_signname"
+                    android:layout_toRightOf="@+id/tvv_signname"
+                    android:layout_toEndOf="@+id/tvv_signname"
+                    android:layout_marginLeft="30dp" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>

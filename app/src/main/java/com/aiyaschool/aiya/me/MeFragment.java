@@ -1,9 +1,14 @@
 package com.aiyaschool.aiya.me;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +17,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aiyaschool.aiya.R;
+import com.aiyaschool.aiya.activity.main.MainActivity;
 import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.Img;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.activity.JifenAndGiftActivity;
 import com.aiyaschool.aiya.me.activity.MoreSettingActivity;
@@ -31,15 +39,22 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import id.zelory.compressor.Compressor;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorFragment;
+import rx.functions.Action1;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by wewarriors on 2017/3/16.
@@ -50,9 +65,14 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     private Context mContext;
     private CircleImageView mRivMyPhoto;
     private TextView mTvMyName, mTvSignName, mTVJiFen, mTvGift, mTvMember;
-    private LinearLayout mLlMyPhotoAlbum, mLlMyState, mLlMyGuest, mLlEmotion, mLlMoreSetting;
+    private LinearLayout mLLMeFragmentTop, mLlMyPhotoAlbum, mLlMyState, mLlMyGuest, mLlEmotion, mLlMoreSetting;
     private ImageView imageView1, imageView2;
     private ImageView mMember_icon;
+
+    private ArrayList<String> mSelectPath;
+
+    private static final int REQUEST_IMAGE = 202;
+    protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
 
     private static final int REQUEST_DATA = 101;
 
@@ -139,6 +159,7 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         return mView;
     }
 
+
 //    @Override
 //    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 //        super.onViewCreated(view, savedInstanceState);
@@ -184,20 +205,21 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     }
 
     private void initView(View view) {
-        mRivMyPhoto = view.findViewById(R.id.my_photo);
-        mTvMyName = view.findViewById(R.id.tv_name);
-        mTvSignName = view.findViewById(R.id.tv_sign_name);
-        mTVJiFen = view.findViewById(R.id.tv_Jifen);
-        mTvGift = view.findViewById(R.id.tv_gift);
-        mTvMember = view.findViewById(R.id.tv_member);
-        mLlMyPhotoAlbum = view.findViewById(R.id.my_photo_albun);
-        mLlMyState = view.findViewById(R.id.my_state);
-        mLlMyGuest = view.findViewById(R.id.my_guest);
-        mLlEmotion = view.findViewById(R.id.my_emotion);
-        mLlMoreSetting = view.findViewById(R.id.more_setting);
-        imageView1 = view.findViewById(R.id.photo1);
-        imageView2 = view.findViewById(R.id.photo2);
-        mMember_icon = view.findViewById(R.id.member_icon);
+        mRivMyPhoto = (CircleImageView) view.findViewById(R.id.my_photo);
+        mTvMyName = (TextView) view.findViewById(R.id.tv_name);
+        mTvSignName = (TextView) view.findViewById(R.id.tv_sign_name);
+        mTVJiFen = (TextView) view.findViewById(R.id.tv_Jifen);
+        mTvGift = (TextView) view.findViewById(R.id.tv_gift);
+        mTvMember = (TextView) view.findViewById(R.id.tv_member);
+        mLlMyPhotoAlbum = (LinearLayout) view.findViewById(R.id.my_photo_albun);
+        mLlMyState = (LinearLayout) view.findViewById(R.id.my_state);
+        mLlMyGuest = (LinearLayout) view.findViewById(R.id.my_guest);
+        mLlEmotion = (LinearLayout) view.findViewById(R.id.my_emotion);
+        mLlMoreSetting = (LinearLayout) view.findViewById(R.id.more_setting);
+        mLLMeFragmentTop = (LinearLayout) view.findViewById(R.id.ll_me_fragment);
+        imageView1 = (ImageView) view.findViewById(R.id.photo1);
+        imageView2 = (ImageView) view.findViewById(R.id.photo2);
+        mMember_icon = (ImageView) view.findViewById(R.id.member_icon);
         mRivMyPhoto.setOnClickListener(this);
         mTvMyName.setOnClickListener(this);
         mTvSignName.setOnClickListener(this);
@@ -210,7 +232,11 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         mLlMoreSetting.setOnClickListener(this);
         mTvMember.setOnClickListener(this);
         mMember_icon.setOnClickListener(this);
-
+        mLLMeFragmentTop.setOnClickListener(this);
+        if (MainActivity.mSelectPath.size() != 0) {
+            Toast.makeText(getActivity(), MainActivity.mSelectPath.get(0), Toast.LENGTH_SHORT).show();
+            mLLMeFragmentTop.setBackground(Drawable.createFromPath(MainActivity.mSelectPath.get(0)));
+        }
         //从MyApplication 中读取数据
         Log.d(TAG, "initView: " + UserUtil.getUser().getAvatar().getThumb().getFace());
         if (UserUtil.getUser() != null) {
@@ -313,7 +339,51 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
 //                startActivityForResult(intent, DESTROY_LOVE);
                 startActivity(intent);
                 break;
+            case R.id.ll_me_fragment:
+                String choiceMode = "single";
+                pickImage(choiceMode);
+                break;
 
         }
     }
+
+
+    private void pickImage(String choiceMode) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
+//                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+//                    getString(R.string.mis_permission_rationale),
+//                    REQUEST_STORAGE_READ_ACCESS_PERMISSION);
+//        } else {
+        boolean showCamera = false;
+        int maxNum = 9;
+
+        MultiImageSelector selector = MultiImageSelector.create(getActivity());
+        selector.showCamera(showCamera);
+        selector.count(maxNum);
+        if (choiceMode.equals("single")) {
+            selector.single();
+        } else {
+            selector.multi();
+        }
+        selector.origin(mSelectPath);
+        selector.start(getActivity(), REQUEST_IMAGE);
+//        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @android.support.annotation.NonNull String[] permissions, @android.support.annotation.NonNull int[] grantResults) {
+        if (requestCode == REQUEST_STORAGE_READ_ACCESS_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                String choiceMode = "multi";
+                pickImage(choiceMode);
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+
 }
