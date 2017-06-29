@@ -16,64 +16,70 @@
             android:layout_height="90.5dp"
             android:layout_marginStart="6dp"
             android:layout_marginTop="10.5dp"
-            android:src="@drawable/up_load"/>
+            android:src="@drawable/up_load" />
 
         <ImageView
             android:id="@+id/photo1"
             android:layout_width="119dp"
             android:layout_height="90.5dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="10.5dp"
-            />
+            android:layout_marginTop="10.5dp" />
 
         <ImageView
             android:id="@+id/photo2"
             android:layout_width="119dp"
             android:layout_height="90.5dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="10.5dp"/>
+            android:layout_marginTop="10.5dp" />
 
         <ImageView
             android:id="@+id/photo3"
             android:layout_width="119dp"
             android:layout_height="90.5dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="10.5dp"/>
+            android:layout_marginTop="10.5dp" />
 
         <ImageView
             android:id="@+id/photo4"
             android:layout_width="119dp"
             android:layout_height="90.5dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="10.5dp"/>
+            android:layout_marginTop="10.5dp" />
 
         <ImageView
             android:id="@+id/photo5"
             android:layout_width="119dp"
             android:layout_height="90.5dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="10.5dp"/>
+            android:layout_marginTop="10.5dp" />
 
         <ImageView
             android:id="@+id/photo6"
             android:layout_width="119dp"
             android:layout_height="90.5dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="10.5dp"/>
+            android:layout_marginTop="10.5dp" />
 
         <ImageView
             android:id="@+id/photo7"
             android:layout_width="119dp"
             android:layout_height="90.5dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="10.5dp"/>
+            android:layout_marginTop="10.5dp" />
 
         <ImageView
             android:id="@+id/photo8"
             android:layout_width="119dp"
             android:layout_height="90.5dp"
             android:layout_marginStart="6dp"
-            android:layout_marginTop="10.5dp"/>
+            android:layout_marginTop="10.5dp" />
+
+        <ImageView
+            android:id="@+id/photo9"
+            android:layout_width="119dp"
+            android:layout_height="90.5dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="10.5dp" />
 
     </LinearLayout>
 

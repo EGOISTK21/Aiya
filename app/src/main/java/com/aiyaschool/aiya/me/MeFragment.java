@@ -286,7 +286,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         mMember_icon.setOnClickListener(this);
         mLLMeFragmentTop.setOnClickListener(this);
         if (MainActivity.mSelectPath.size() != 0) {
-            Toast.makeText(getActivity(), MainActivity.mSelectPath.get(0), Toast.LENGTH_SHORT).show();
             mLLMeFragmentTop.setBackground(Drawable.createFromPath(MainActivity.mSelectPath.get(0)));
         }
         //从MyApplication 中读取数据

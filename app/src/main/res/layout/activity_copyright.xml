@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,7 +23,7 @@
             android:paddingStart="@dimen/common_margin_15"
             android:text="@string/back"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/common_text_size_16"/>
+            android:textSize="@dimen/common_text_size_16" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,7 +31,7 @@
             android:layout_centerInParent="true"
             android:text="用户协议"
             android:textColor="@color/colorTitle"
-            android:textSize="@dimen/common_text_size_16"/>
+            android:textSize="@dimen/common_text_size_16" />
 
     </RelativeLayout>
 
@@ -46,7 +45,7 @@
             android:paddingEnd="@dimen/common_margin_30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/copyright"/>
+            android:text="@string/copyright" />
 
     </ScrollView>
 
