@@ -71,6 +71,7 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
     LinearLayout mLlMyPhotoAlbum;
     @BindViews({R.id.iv, R.id.photo1, R.id.photo2, R.id.photo3, R.id.photo4, R.id.photo5, R.id.photo6, R.id.photo7, R.id.photo8})
     ImageView[] imageViews;
+    @BindView(R.id.tv_other_profile)
     TextView tvOtherProfile;
     @BindView(R.id.tv_other_school)
     TextView tvOtherSchool;

@@ -214,8 +214,7 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
         TIMManager.getInstance().addMessageListener(new TIMMessageListener() {
             @Override
             public boolean onNewMessages(List<TIMMessage> list) {
-                int i = 0;
-                for (; i < list.size(); i++) {
+                for (int i = 0; i < list.size(); i++) {
                     TIMMessage aux = list.get(i);
                     addChatMsg(aux);
                 }
@@ -404,11 +403,22 @@ public class ChatQQActivity extends AppCompatActivity implements FuncLayout.OnFu
     }
 
     public void addChatMsg(TIMMessage msg) {
-        if (msg.getElement(0).getType() == TIMElemType.Image) {
+        TIMElemType type = msg.getElement(0).getType();
+        if (type == TIMElemType.Image) {
             if (((TIMImageElem) msg.getElement(0)).getImageList().size() < 0)
                 return;
         }
         Log.d("EEEE", "12345aa" + msg);
+        String content = null;
+        if (type == TIMElemType.Text) {
+            content = ((TIMTextElem) msg.getElement(0)).getText();
+        } else if (type == TIMElemType.Image) {
+            content = "图片";
+        } else if (type == TIMElemType.Sound) {
+            content = "语音";
+        }
+        UserUtil.addMsgTime(System.currentTimeMillis(), 0);
+        UserUtil.addMsgPre(content, 0);
         chatAdapter.addChatMsg(msg);
     }
 

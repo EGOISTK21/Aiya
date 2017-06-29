@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.aiyaschool.aiya.util.APIUtil;
 import com.aiyaschool.aiya.util.NotificationUtil;
+import com.aiyaschool.aiya.util.UserUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -44,6 +45,8 @@ public class HitNotification implements AiyaNotification {
                         if ("2000".equals(userHttpResult.getState())) {
                             mUser = userHttpResult.getData();
                             NotificationUtil.show(HitNotification.this, "你被别人撩啦", getUser().getUsername(), 111);
+                            UserUtil.addMsgTime(System.currentTimeMillis(), 0);
+                            UserUtil.addMsgPre(getUser().getUsername(), 0);
                         }
                     }
 

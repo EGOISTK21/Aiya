@@ -24,16 +24,17 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
+import static com.aiyaschool.aiya.R.id.msg_time;
+
 /**
  * Created by XZY on 2017/3/8.
  */
 
 public class MsgListFragment extends BaseFragment {
 
+    private static final String TAG = "MsgListFragment";
     private RecyclerView mMsgRecyclerView;
     private List<Msg> msgList;
-    private List<Long> msgTime;
-    private List<String> msgPre;
     private MsgAdapter adapter;
 
     public static MsgListFragment newInstance() {
@@ -55,18 +56,12 @@ public class MsgListFragment extends BaseFragment {
         int spacingInPixels = 30;
         mMsgRecyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
         mMsgRecyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        msgTime = UserUtil.getMsgTime();
-        msgPre = UserUtil.getMsgPre();
-        for (int i = 0; i < 4; i++) {
-            msgList.get(i).setmTime(DateTimeUtils.setChatTime(msgTime.get(i)));
-            msgList.get(i).setmPreview(msgPre.get(i));
+        if (UserUtil.getUser().isMatched()) {
+            msgList.get(0).setmTime(DateTimeUtils.setChatTime(UserUtil.getMsgTime(0)));
+            msgList.get(0).setmPreview(UserUtil.getMsgPre(0));
+            msgList.get(2).setmTime(DateTimeUtils.setChatTime(UserUtil.getMsgTime(2)));
+            msgList.get(2).setmPreview(UserUtil.getMsgPre(2));
         }
-        adapter.notifyDataSetChanged();
     }
 
     private class MsgHolder extends RecyclerView.ViewHolder {
@@ -79,7 +74,7 @@ public class MsgListFragment extends BaseFragment {
         MsgHolder(View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.msg_title);
-            mTime = itemView.findViewById(R.id.msg_time);
+            mTime = itemView.findViewById(msg_time);
             mPreView = itemView.findViewById(R.id.msg_preview);
             mCircleImageView = itemView.findViewById(R.id.circleImageView);
         }
@@ -141,6 +136,9 @@ public class MsgListFragment extends BaseFragment {
                     if (UserUtil.getUser().isMatched()) {
                         Glide.with(getContext()).load(UserUtil.getTa().getAvatar().getThumb().getFace()).centerCrop()
                                 .transform(new GlideRoundTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(holder.mCircleImageView);
+                    } else {
+                        holder.itemView.findViewById(R.id.msg_preview).setVisibility(View.INVISIBLE);
+                        holder.itemView.findViewById(R.id.msg_time).setVisibility(View.INVISIBLE);
                     }
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override

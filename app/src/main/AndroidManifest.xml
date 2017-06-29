@@ -76,6 +76,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".message.ui.activity.ChatQQActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden|adjustUnspecified"/>
         <activity android:name=".message.ui.activity.PhotosThumbnailActivity"/>
