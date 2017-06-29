@@ -96,7 +96,8 @@ public class MainActivity extends BaseActivity {
                 if (((object instanceof UnmatchedContainerFragment || object instanceof UnmatchedMessageContainerFragment)
                         && UserUtil.getUser().isMatched())
                         || ((object instanceof MatchedContainerFragment || object instanceof MatchedMessageContainerFragment)
-                        && !UserUtil.getUser().isMatched())) {
+                        && !UserUtil.getUser().isMatched())
+                        || (object instanceof MatchedMessageContainerFragment && UserUtil.getMsgFlag())) {
                     return POSITION_NONE;
                 }
                 if (isMeChanged && object instanceof MeFragment) {
@@ -121,6 +122,15 @@ public class MainActivity extends BaseActivity {
                         ft.attach(fragment);
                         ft.commitAllowingStateLoss();
                     } else if (fragment instanceof UnmatchedMessageContainerFragment) {
+                        Log.i(TAG, "instantiateItem: " + fragmentTag);
+                        FragmentTransaction ft = fm.beginTransaction();
+                        ft.remove(fragment);
+                        fragment = MatchedMessageContainerFragment.newInstance();
+                        ft.add(container.getId(), fragment, fragmentTag)
+                                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ft.attach(fragment);
+                        ft.commitAllowingStateLoss();
+                    } else if (fragment instanceof MatchedMessageContainerFragment) {
                         Log.i(TAG, "instantiateItem: " + fragmentTag);
                         FragmentTransaction ft = fm.beginTransaction();
                         ft.remove(fragment);
@@ -186,6 +196,7 @@ public class MainActivity extends BaseActivity {
                                 vpMain.setCurrentItem(0);
                                 return true;
                             case R.id.navigation_message:
+                                notifyAdapter();
                                 vpMain.setCurrentItem(1);
                                 return true;
                             case R.id.navigation_me:

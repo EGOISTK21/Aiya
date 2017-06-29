@@ -11,6 +11,7 @@ import java.util.Date;
 
 public class DateTimeUtils {
     public static String setChatTime(long when) {
+        if (when == 0) return null;
         return formatTimeNew(when, false, true);
     }
     public static String formatTimeNew(long when, boolean isFull, boolean showTime) {

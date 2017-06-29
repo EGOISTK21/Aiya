@@ -24,6 +24,7 @@ public class UserUtil {
     private static SharedPreferences sSharedPreferences;
     private static SharedPreferences.Editor sEditor;
     private static User sUser, sTa;
+    private static Boolean msgFlag;
 
     private UserUtil() {
 
@@ -32,6 +33,7 @@ public class UserUtil {
     public static void init() {
         sSharedPreferences = MyApplication.getInstance().getSharedPreferences("test", Context.MODE_PRIVATE);
         sEditor = sSharedPreferences.edit();
+        msgFlag = true;
         initUser();
         initTa();
     }
@@ -145,36 +147,36 @@ public class UserUtil {
         return sSharedPreferences.getBoolean("contactShield", true);
     }
 
+    public static Boolean getMsgFlag() {
+        return msgFlag;
+    }
+
+    public static void setMsgFlag(Boolean msgFlag) {
+        UserUtil.msgFlag = msgFlag;
+    }
+
     public static void addMsgTime(long msgTime, int index) {
-        //sEditor.putInt("msgTimeSize", Math.max(index, sSharedPreferences.getInt("msgTimeSize", 0)));
-        if (msgTime > getMsgTime().get(index)) {
+        if (msgTime > getMsgTime(index)) {
+            setMsgFlag(true);
             sEditor.putLong("msgTime_" + index, msgTime);
         }
         sEditor.apply();
     }
 
-    public static List<Long> getMsgTime() {
-        List<Long> msgTime = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            msgTime.add(sSharedPreferences.getLong("msgTime_" + i, 0));
-        }
-        return msgTime;
+    public static Long getMsgTime(int index) {
+        setMsgFlag(false);
+        return sSharedPreferences.getLong("msgTime_" + index, 0);
     }
 
     public static void addMsgPre(String msgPre, int index) {
-        //sEditor.putInt("msgPreSize", Math.max(index, sSharedPreferences.getInt("msgPreSize", 0)));
-        if (msgPre != null && !(msgPre.equals(getMsgPre().get(index)))) {
+        if (msgPre != null && !(msgPre.equals(getMsgPre(index)))) {
             sEditor.putString("msgPre_" + index, msgPre);
         }
         sEditor.apply();
     }
 
-    public static List<String> getMsgPre() {
-        List<String> msgPre = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            msgPre.add(sSharedPreferences.getString("msgPre_" + i, null));
-        }
-        return msgPre;
+    public static String getMsgPre(int index) {
+        return sSharedPreferences.getString("msgPre_" + index, null);
     }
 
     private static void setLoginToken(String loginToken) {

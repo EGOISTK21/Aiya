@@ -48,6 +48,8 @@ public class ReplyNotification implements AiyaNotification {
                             UserUtil.setTa(mUser);
                             UserUtil.setLoveId(mUser.getLoveId());
                             NotificationUtil.show(ReplyNotification.this, "别人同意你的请求了", getUser().getUsername(), 222);
+                            UserUtil.addMsgTime(System.currentTimeMillis(), 0);
+                            UserUtil.addMsgPre(getUser().getUsername(), 0);
                         } else if ("5013".equals(userHttpResult.getState())) {
                             SignUtil.signOut(MyApplication.getInstance());
                         }

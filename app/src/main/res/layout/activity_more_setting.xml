@@ -21,7 +21,7 @@
             android:paddingStart="@dimen/common_margin_15"
             android:text="@string/back"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/common_text_size_16" />
+            android:textSize="@dimen/common_text_size_16"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             android:layout_centerInParent="true"
             android:text="更多设置"
             android:textColor="@color/colorTitle"
-            android:textSize="@dimen/common_text_size_16" />
+            android:textSize="@dimen/common_text_size_16"/>
 
     </RelativeLayout>
 
@@ -38,31 +38,33 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="90dp"
         android:scaleType="fitXY"
-        android:src="@drawable/logo_512" />
+        android:src="@drawable/logo_512"/>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_ic"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:text="@string/version"
-        android:textSize="@dimen/common_text_size_13"
-        android:id="@+id/textView" />
+        android:textSize="@dimen/common_text_size_13"/>
 
     <Button
         android:id="@+id/btn_login_out"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_item_height_46"
-        android:background="@drawable/button_login_out"
-        android:text="@string/login_out"
-        android:textColor="@color/red"
-        android:textSize="@dimen/common_text_size_16"
-        android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="60dp" />
+        android:layout_below="@+id/textView"
+        android:layout_marginEnd="@dimen/common_margin_16"
+        android:layout_marginStart="@dimen/common_margin_16"
+        android:layout_marginTop="60dp"
+        android:background="#E74545"
+        android:text="@string/login_out"
+        android:textColor="@color/colorPureWhite"
+        android:textSize="@dimen/common_text_size_15"/>
 
     <LinearLayout
         android:id="@+id/ll_bottom"
@@ -77,19 +79,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="《用户协议》"
-            android:textColor="@color/bg_blue" />
+            android:textColor="@color/bg_blue"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_margin_5"
-            android:text="爱呀校园 版权所有" />
+            android:text="爱呀校园 版权所有"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/common_margin_5"
-            android:text="Copyright © 2017 AiyaSchool.All Rights Reserved." />
+            android:layout_marginBottom="@dimen/common_margin_15"
+            android:textSize="@dimen/common_text_size_13"
+            android:text="Copyright © 2017 AiyaSchool.All Rights Reserved."/>
 
     </LinearLayout>
 

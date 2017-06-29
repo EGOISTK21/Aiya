@@ -15,6 +15,7 @@ import com.aiyaschool.aiya.activity.otherDetail.OtherDetailActivity;
 import com.aiyaschool.aiya.bean.AiyaNotification;
 import com.aiyaschool.aiya.bean.HitNotification;
 import com.aiyaschool.aiya.bean.ReplyNotification;
+import com.aiyaschool.aiya.message.ui.activity.ChatQQActivity;
 
 /**
  * Created by EGOISTK21 on 2017/6/1.
@@ -24,16 +25,14 @@ public class NotificationUtil {
 
     private static NotificationCompat.Builder sBuilder = new NotificationCompat.Builder(MyApplication.getInstance());
     private static NotificationManager notificationManager = (NotificationManager) MyApplication.getInstance().getSystemService(Context.NOTIFICATION_SERVICE);
-    private static Bundle sBundle;
     private static Intent sIntent;
-    private static PendingIntent sPendingIntent;
 
     private NotificationUtil() {
 
     }
 
     public static void show(AiyaNotification notification, String title, String text, int id) {
-        sBundle = new Bundle();
+        Bundle sBundle = new Bundle();
         switch (id) {
             case 111:
                 sBundle.putInt("card_flag", 2);
@@ -50,8 +49,10 @@ public class NotificationUtil {
             case 444:
                 sIntent = new Intent(MyApplication.getInstance(), MainActivity.class);
                 break;
+            case 555:
+                sIntent = new Intent(MyApplication.getInstance(), ChatQQActivity.class);
         }
-        if (id != 444) {
+        if (id != 444 && id != 555) {
             sIntent = new Intent(MyApplication.getInstance(), OtherDetailActivity.class).putExtras(sBundle);
         }
         notificationManager.notify(id,

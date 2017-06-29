@@ -1,8 +1,10 @@
 package com.aiyaschool.aiya;
 
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.util.Log;
 
+import com.aiyaschool.aiya.bean.ChatNotification;
 import com.aiyaschool.aiya.bean.DelNotification;
 import com.aiyaschool.aiya.bean.HitNotification;
 import com.aiyaschool.aiya.bean.ReplyNotification;
@@ -30,6 +32,7 @@ import com.tencent.TIMMessage;
 import com.tencent.TIMMessageListener;
 import com.tencent.TIMOfflinePushListener;
 import com.tencent.TIMOfflinePushNotification;
+import com.tencent.TIMTextElem;
 import com.tencent.TIMUserStatusListener;
 import com.tencent.qalsdk.sdk.MsfSdkUtils;
 
@@ -71,7 +74,6 @@ public class MyApplication extends MobApplication {
             private Gson gson = new Gson();
             private HitNotification hitNotification;
             private ReplyNotification replyNotification;
-            private DelNotification delNotification;
 
             @Override
             public boolean onNewMessages(List<TIMMessage> list) {
@@ -81,7 +83,6 @@ public class MyApplication extends MobApplication {
                         TIMElem elem = message.getElement(i);
                         TIMElemType type = elem.getType();
                         if (type == TIMElemType.Custom) {
-                            System.out.println("+++++++++++" + new String(((TIMCustomElem) elem).getData()));
                             if ("aiyaliao".equals(((TIMCustomElem) elem).getDesc())) {
                                 hitNotification = gson.fromJson(new String(((TIMCustomElem) elem).getData()), HitNotification.class);
                                 hitNotification.initHitFromUser();
@@ -89,9 +90,17 @@ public class MyApplication extends MobApplication {
                                 replyNotification = gson.fromJson(new String(((TIMCustomElem) elem).getData()), ReplyNotification.class);
                                 replyNotification.initReplyUser();
                             } else if ("aiyadellove".equals(((TIMCustomElem) elem).getDesc())) {
-                                delNotification = gson.fromJson(new String(((TIMCustomElem) elem).getData()), DelNotification.class);
-                                delNotification.initFromUser();
+                                new DelNotification();
                             }
+                        } else if (!isTopActivity("com.aiyaschool.aiya.message.ui.activity.ChatQQActivity")) {
+                            if (type == TIMElemType.Text) {
+                                new ChatNotification(((TIMTextElem) elem).getText(), 555);
+                            } else if (type == TIMElemType.Image) {
+                                new ChatNotification("图片", 555);
+                            } else if (type == TIMElemType.Sound) {
+                                new ChatNotification("语音", 555);
+                            }
+                            return false;
                         }
                     }
                 }
@@ -104,7 +113,7 @@ public class MyApplication extends MobApplication {
                 @Override
                 public void handleNotification(TIMOfflinePushNotification notification) {
                     Log.e("MyApplication", "recv offline push");
-                    notification.doNotify(instance, R.drawable.ic_launcher);
+                    notification.doNotify(instance, R.drawable.ic_notification);
                 }
             });
         }
@@ -178,4 +187,18 @@ public class MyApplication extends MobApplication {
         // 全局初始化此配置
         ImageLoader.getInstance().init(config);
     }
+
+    private boolean isTopActivity(String activityName) {
+        ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> runningTaskInfos = manager.getRunningTasks(1);
+        String cmpNameTemp = null;
+        if (runningTaskInfos != null) {
+            cmpNameTemp = runningTaskInfos.get(0).topActivity.toString();
+        }
+        if (cmpNameTemp == null) {
+            return false;
+        }
+        return cmpNameTemp.equals(activityName);
+    }
+
 }
