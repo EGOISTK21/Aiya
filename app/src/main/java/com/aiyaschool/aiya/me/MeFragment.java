@@ -1,14 +1,11 @@
 package com.aiyaschool.aiya.me;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,14 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aiyaschool.aiya.R;
-
 import com.aiyaschool.aiya.activity.MainActivity;
 import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
-import com.aiyaschool.aiya.bean.Img;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.me.activity.JifenAndGiftActivity;
 import com.aiyaschool.aiya.me.activity.MoreSettingActivity;
@@ -40,17 +34,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-
-import id.zelory.compressor.Compressor;
-
 import butterknife.BindViews;
 import butterknife.ButterKnife;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -58,9 +47,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import me.nereo.multi_image_selector.MultiImageSelectorFragment;
-import rx.functions.Action1;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by wewarriors on 2017/3/16.
@@ -130,6 +116,9 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                                         .centerCrop()
                                         .into(imageViews[i]);
                             }
+                            for (int i = size; i < 9; i++) {
+                                imageViews[i].setVisibility(View.GONE);
+                            }
                         }
                     }
 
@@ -143,62 +132,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
 
                     }
                 });
-//        APIUtil.getPhotoApi()
-//                .getPhoto("1", "2", null)
-//                .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .unsubscribeOn(Schedulers.io())
-//                .subscribe(new Observer<HttpResult<List<Gallery>>>() {
-//                    @Override
-//                    public void onSubscribe(@NonNull Disposable d) {
-//                        Log.d(TAG, "onSubscribe: ");
-//                    }
-//
-//                    @Override
-//                    public void onNext(@NonNull HttpResult<List<Gallery>> arrayListHttpResult) {
-//                        Log.d(TAG, "onNext: " + arrayListHttpResult.getState());
-//                        if ("2000".equals(arrayListHttpResult.getState())) {
-//                            List<Gallery> imgWall = arrayListHttpResult.getData();
-//                            if (arrayListHttpResult.getData().size() == 0) {
-//                                mLlMyPhotoAlbum.setVisibility(View.GONE);
-//                            } else if (imgWall.size() < 9) {
-//                                for (int i = 0; i < imgWall.size() - 1; i++) {
-//                                    Picasso.with(getContext())
-//                                            .load(imgWall.get(i).getImg().getThumb())
-//                                            .placeholder(R.drawable.mis_default_error)
-//                                            .tag(MultiImageSelectorFragment.TAG)
-//                                            .resize(238, 181)
-//                                            .centerCrop()
-//                                            .into(imageViews[i + 1]);
-//                                }
-//                                for (int i = imgWall.size() + 1; i < 9; i++) {
-//                                    imageViews[i].setVisibility(View.GONE);
-//                                }
-//                            } else {
-//                                for (int i = 0; i < imgWall.size(); i++) {
-//                                    Picasso.with(getContext())
-//                                            .load(imgWall.get(i).getImg().getThumb())
-//                                            .placeholder(R.drawable.mis_default_error)
-//                                            .tag(MultiImageSelectorFragment.TAG)
-//                                            .resize(238, 181)
-//                                            .centerCrop()
-//                                            .into(imageViews[i + 1]);
-//                                }
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(@NonNull Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//
-//                    }
-//                });
     }
 
     @Nullable
@@ -209,45 +142,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         initView(mView);
         return mView;
     }
-
-
-//    @Override
-//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        List<ImagePathItem> list = DataSupport.findAll(ImagePathItem.class);
-//        System.out.println("list.size()" + list.size());
-//
-//        List<String> mList = getImagePath(list);
-//        System.out.println("mList.size()" + mList.size());
-//        if (mList.size() == 1) {
-//            File imageFile = new File(mList.get(0));
-//            Picasso.with(getActivity())
-//                    .load(imageFile)
-//                    .placeholder(R.drawable.mis_default_error)
-//                    .tag(MultiImageSelectorFragment.TAG)
-//                    .resize(238, 181)
-//                    .centerCrop()
-//                    .into(imageView1);
-//        } else if (mList.size() == 2) {
-//            File imageFile = new File(mList.get(0));
-//            Picasso.with(getActivity())
-//                    .load(imageFile)
-//                    .placeholder(R.drawable.mis_default_error)
-//                    .tag(MultiImageSelectorFragment.TAG)
-//                    .resize(238, 181)
-//                    .centerCrop()
-//                    .into(imageView1);
-//            File imageFile1 = new File(mList.get(1));
-//            Picasso.with(getActivity())
-//                    .load(imageFile1)
-//                    .placeholder(R.drawable.mis_default_error)
-//                    .tag(MultiImageSelectorFragment.TAG)
-//                    .resize(238, 181)
-//                    .centerCrop()
-//                    .into(imageView2);
-//        }
-//
-//    }
 
     @Override
     public void onDetach() {
@@ -320,28 +214,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         initData();
 
     }
-
-//    private List<String> getImagePath(List<ImagePathItem> list) {
-//        List<String> sList = new ArrayList<>();
-//        int m = 0;
-//        String s = R.drawable.uploadpic_226x226 + "";
-//        for (int i = 0; i < list.size(); i++) {
-//            List<String> nList = list.get(i).getImagePath();
-//            for (int j = 0; j < nList.size(); j++) {
-//                if (!s.equals(nList.get(j))) {
-//                    sList.add(nList.get(j));
-//                }
-//                if (sList.size() == 2) {
-//                    m = 1;
-//                    break;
-//                }
-//            }
-//            if (m == 1) {
-//                break;
-//            }
-//        }
-//        return sList;
-//    }
 
     @Override
     public void onClick(View v) {

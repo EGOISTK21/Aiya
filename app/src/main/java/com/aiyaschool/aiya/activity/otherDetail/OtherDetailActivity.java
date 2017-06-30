@@ -69,7 +69,7 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
     TextView tvOtherUsername;
     @BindView(R.id.my_photo_album)
     LinearLayout mLlMyPhotoAlbum;
-    @BindViews({R.id.iv, R.id.photo1, R.id.photo2, R.id.photo3, R.id.photo4, R.id.photo5, R.id.photo6, R.id.photo7, R.id.photo8})
+    @BindViews({R.id.iv, R.id.photo1, R.id.photo2, R.id.photo3, R.id.photo4, R.id.photo5, R.id.photo6, R.id.photo7, R.id.photo8, R.id.photo9})
     ImageView[] imageViews;
     @BindView(R.id.tv_other_profile)
     TextView tvOtherProfile;
@@ -195,7 +195,7 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
                         .centerCrop()
                         .into(imageViews[i]);
             }
-            for (int i = imgWall.size(); i < 9; i++) {
+            for (int i = imgWall.size(); i < 10; i++) {
                 imageViews[i].setVisibility(View.GONE);
             }
         } else {
