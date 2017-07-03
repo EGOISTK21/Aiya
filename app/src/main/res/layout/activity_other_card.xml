@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_other_username"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/common_margin_10"
+                android:layout_marginTop="@dimen/common_margin_15"
                 android:includeFontPadding="false"
                 android:textColor="@color/colorPureWhite"
                 android:textSize="11sp"/>

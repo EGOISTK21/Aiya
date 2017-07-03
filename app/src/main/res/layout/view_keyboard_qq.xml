@@ -50,7 +50,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:orientation="horizontal"
             android:paddingBottom="8dp"
             android:paddingTop="12dp">
@@ -62,12 +61,13 @@
                 android:layout_weight="1"
                 android:src="@drawable/qq_skin_aio_panel_image"/>
 
-            <ImageView
-                android:id="@+id/btn_voice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/qq_skin_aio_panel_ptt"/>
+            <!--<ImageView-->
+            <!--android:visibility="invisible"-->
+            <!--android:id="@+id/btn_voice"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:src="@drawable/qq_skin_aio_panel_ptt"/>-->
 
             <ImageView
                 android:id="@+id/btn_emoticon"

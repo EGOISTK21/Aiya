@@ -37,6 +37,7 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
     private static final String TAG = "MatchedTodayFragment";
     private MatchedTodayContract.Presenter mPresenter;
     private User me, ta;
+    private int day;
     @BindView(R.id.iv_matched_left)
     CircleImageView ivLeftAvatar;
     @BindView(R.id.tv_matched_username_left)
@@ -93,7 +94,8 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
             tvRightSchool.setText(ta.getSchool());
             mPresenter.getIntimacy(ta.getLoveId());
             tvLoveDate.setText((new SimpleDateFormat("yyyy-MM-dd")).format(new Date()));
-            tvLoveDay.setText("DAY " + (int) ((System.currentTimeMillis() / 1000 / 60 / 60 + 8) / 24 - (ta.getStartdate() / 60 / 60 + 8) / 24 + 1));
+            day = (int) ((System.currentTimeMillis() / 1000 / 60 / 60 + 8) / 24 - (ta.getStartdate() / 60 / 60 + 8) / 24 + 1);
+            tvLoveDay.setText("DAY " + day);
             mPresenter.getTodayTask("1");
         }
     }
@@ -137,6 +139,7 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
     @Override
     public void setTodayTask(List<String> todayTask) {
         Log.i(TAG, "setTodayTask: " + todayTask);
+        todayTask = todayTask.subList((day - 1) * 7, day * 7 - 1);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, todayTask);
         lvToday.setAdapter(adapter);
         ViewUtil.setListViewHeightBasedOnChildren(lvToday);

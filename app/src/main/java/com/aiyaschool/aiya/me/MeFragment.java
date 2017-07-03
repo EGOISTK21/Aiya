@@ -1,9 +1,9 @@
 package com.aiyaschool.aiya.me;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.MainActivity;
 import com.aiyaschool.aiya.bean.Gallery;
 import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.User;
@@ -32,6 +31,8 @@ import com.aiyaschool.aiya.util.UserUtil;
 import com.aiyaschool.aiya.widget.CircleImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -54,7 +55,6 @@ import me.nereo.multi_image_selector.MultiImageSelectorFragment;
 
 public class MeFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
     private final static String TAG = "MeFragment";
-    private Context mContext;
     private CircleImageView mRivMyPhoto;
     private TextView mTvMyName, mTvSignName, mTVJiFen, mTvGift, mTvMember;
 
@@ -71,23 +71,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
 
     private static final int REQUEST_DATA = 101;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.mContext = context;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        initData();
-//    }
 
     private void initData() {
         APIUtil.getPhotoApi()
@@ -143,12 +126,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         return mView;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        this.mContext = null;
-    }
-
     private void initView(View view) {
 
         mRivMyPhoto = (CircleImageView) view.findViewById(R.id.my_photo);
@@ -179,9 +156,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
         mTvMember.setOnClickListener(this);
         mMember_icon.setOnClickListener(this);
         mLLMeFragmentTop.setOnClickListener(this);
-        if (MainActivity.mSelectPath.size() != 0) {
-            mLLMeFragmentTop.setBackground(Drawable.createFromPath(MainActivity.mSelectPath.get(0)));
-        }
         //从MyApplication 中读取数据
         Log.d(TAG, "initView: " + UserUtil.getUser().getAvatar().getThumb().getFace());
         if (UserUtil.getUser() != null) {
@@ -208,6 +182,15 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .crossFade()
                         .into(mRivMyPhoto);
+            }
+            if (!TextUtils.isEmpty(user.getAvatar().getThumb().getBackground())) {
+                Glide.with(this).load(user.getAvatar().getThumb().getFace()).asBitmap().error(R.drawable.guanggao1).centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE).into(new ViewTarget<LinearLayout, Bitmap>(mLLMeFragmentTop) {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        mLLMeFragmentTop.setBackground(new BitmapDrawable(resource));
+                    }
+                });
             }
         }
 

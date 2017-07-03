@@ -205,22 +205,12 @@ public class HitListActivity extends BaseActivity implements HitListContract.Vie
                 case "2":
                     holder.llButton.setVisibility(View.INVISIBLE);
                     holder.mTvResult.setVisibility(View.VISIBLE);
-                    holder.mTvResult.setText("匹配成功");
-                    break;
-                case "3":
-                    holder.llButton.setVisibility(View.INVISIBLE);
-                    holder.mTvResult.setVisibility(View.VISIBLE);
-                    holder.mTvResult.setText("未知");
+                    holder.mTvResult.setText("已经匹配结束");
                     break;
                 case "4":
                     holder.llButton.setVisibility(View.INVISIBLE);
                     holder.mTvResult.setVisibility(View.VISIBLE);
                     holder.mTvResult.setText("已拒绝");
-                    break;
-                case "5":
-                    holder.llButton.setVisibility(View.INVISIBLE);
-                    holder.mTvResult.setVisibility(View.VISIBLE);
-                    holder.mTvResult.setText("未知");
                     break;
                 case "6":
                     holder.llButton.setVisibility(View.INVISIBLE);

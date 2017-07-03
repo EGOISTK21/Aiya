@@ -263,7 +263,6 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
 //        mPresenter.updateUserHeight("180");
 //        mPresenter.getGuestRecord("1","6");
 //        mPresenter.getEmotionRecord("1", "1", "3");
-        System.out.println("mSchool" + mSchool + "mProvince" + mProvince);
         String demand = "character,height,age,constellation,hobby";
         mPresenter.getMeIndex(demand);
         mPresenter.getAvatarUploadUrl();

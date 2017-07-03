@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.activity.MainActivity;
@@ -140,8 +139,6 @@ public class FormActivity extends BaseActivity implements FormContract.View, Tak
     @Override
     public void takeSuccess(TResult result) {
         String imagePath = result.getImage().getCompressPath();
-        //Toast显示图片路径
-        Toast.makeText(this, "imagePath:" + imagePath, Toast.LENGTH_SHORT).show();
         Log.i(TAG, "takeSuccess: " + imagePath);
         file = new File(imagePath);
         //Google Glide库 用于加载图片资源

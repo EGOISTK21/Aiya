@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
@@ -13,7 +12,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
@@ -65,7 +63,7 @@ public class MainActivity extends BaseActivity {
     Drawable me;
 
     private boolean isMeChanged;
-    public static ArrayList<String> mSelectPath = new ArrayList<>();
+    public ArrayList<String> mSelectPath = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -303,6 +301,7 @@ public class MainActivity extends BaseActivity {
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == RESULT_OK) {
                 mSelectPath = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
+                //上传背景,若成功就更新本地user的background
                 isMeChanged = true;
                 return;
             }

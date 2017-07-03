@@ -21,11 +21,6 @@
         android:layout_height="2dp"
         android:background="@color/colorBackGround"/>
 
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -227,8 +222,5 @@
 
             </RelativeLayout>
         </LinearLayout>
-
-    </ScrollView>
-
 
 </LinearLayout>
