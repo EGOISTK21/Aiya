@@ -174,7 +174,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
             }
             Log.d(TAG, "initView: " + user.getAvatar().getThumb().getFace());
             if (!TextUtils.isEmpty(user.getAvatar().getThumb().getFace())) {
-
                 Glide.with(this).load(user.getAvatar().getThumb().getFace())
                         .error(R.drawable.guanggao1)
                         .centerCrop()
@@ -184,7 +183,8 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
                         .into(mRivMyPhoto);
             }
             if (!TextUtils.isEmpty(user.getAvatar().getThumb().getBackground())) {
-                Glide.with(this).load(user.getAvatar().getThumb().getFace()).asBitmap().error(R.drawable.guanggao1).centerCrop()
+                Log.i(TAG, "initView: loadBackground");
+                Glide.with(this).load(user.getAvatar().getThumb().getBackground()).asBitmap().error(R.drawable.guanggao1).centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.NONE).into(new ViewTarget<LinearLayout, Bitmap>(mLLMeFragmentTop) {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -255,13 +255,6 @@ public class MeFragment extends android.support.v4.app.Fragment implements View.
 
 
     private void pickImage(String choiceMode) {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
-//                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
-//                    getString(R.string.mis_permission_rationale),
-//                    REQUEST_STORAGE_READ_ACCESS_PERMISSION);
-//        } else {
         boolean showCamera = false;
         int maxNum = 9;
 

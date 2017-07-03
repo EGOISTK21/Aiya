@@ -232,9 +232,7 @@ public class PersonalDataActivity extends AppCompatActivity implements View.OnCl
             Log.d(TAG, "onCreate: " + user.getAvatar().getThumb().getFace());
             if (user.getAvatar() != null) {
                 if (!TextUtils.isEmpty(user.getAvatar().getThumb().getFace())) {
-
                     Glide.with(this).load(user.getAvatar().getThumb().getFace())
-
                             .error(R.drawable.guanggao1)
                             .centerCrop()
                             .transform(new GlideCircleTransform(PersonalDataActivity.this))

@@ -17,6 +17,7 @@ import com.aiyaschool.aiya.MyApplication;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.bean.HttpResult;
+import com.aiyaschool.aiya.bean.UploadUrl;
 import com.aiyaschool.aiya.bean.User;
 import com.aiyaschool.aiya.love.matched.MatchedContainerFragment;
 import com.aiyaschool.aiya.love.unmatched.UnmatchedContainerFragment;
@@ -31,7 +32,11 @@ import com.tencent.TIMCallBack;
 import com.tencent.TIMManager;
 import com.tencent.TIMUser;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindDrawable;
 import io.reactivex.Observer;
@@ -39,6 +44,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import me.nereo.multi_image_selector.MultiImageSelector;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
 /**
  * 主体为NoScrollViewPager+BottomNavigationView的主界面
@@ -302,6 +310,94 @@ public class MainActivity extends BaseActivity {
             if (resultCode == RESULT_OK) {
                 mSelectPath = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
                 //上传背景,若成功就更新本地user的background
+                final Map<String, String> map = new HashMap<String, String>();
+                map.put("background", mSelectPath.get(0));
+                APIUtil.getAvatarUploadUrlApi()
+                        .startGetAvatarUploadUrl()
+                        .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .unsubscribeOn(Schedulers.io())
+                        .subscribe(new Observer<HttpResult<UploadUrl>>() {
+                            @Override
+                            public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+                                Log.i(TAG, "onSubscribe: startGetAvatarUploadUrl");
+                            }
+
+                            @Override
+                            public void onNext(@io.reactivex.annotations.NonNull HttpResult<UploadUrl> uploadUrlHttpResult) {
+                                Log.i(TAG, "onNext: startGetAvatarUploadUrl");
+                                if ("2000".equals(uploadUrlHttpResult.getState())) {
+                                    APIUtil.getIMGApi()
+                                            .submitIMG(uploadUrlHttpResult.getData().getUpurl(), RequestBody.create(MediaType.parse("image/jpeg"), new File(mSelectPath.get(0))))
+                                            .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .unsubscribeOn(Schedulers.io())
+                                            .subscribe(new Observer<ResponseBody>() {
+                                                @Override
+                                                public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+                                                    Log.i(TAG, "onSubscribe: submitIMG");
+                                                }
+
+                                                @Override
+                                                public void onNext(@io.reactivex.annotations.NonNull ResponseBody responseBody) {
+                                                    Log.i(TAG, "onNext: submitIMG");
+                                                    APIUtil.getUpdateUserDataApi()
+                                                            .startUpdateUserData(map)
+                                                            .debounce(APIUtil.FILTER_TIMEOUT, TimeUnit.SECONDS)
+                                                            .subscribeOn(Schedulers.io())
+                                                            .observeOn(AndroidSchedulers.mainThread())
+                                                            .unsubscribeOn(Schedulers.io())
+                                                            .subscribe(new Observer<HttpResult>() {
+                                                                @Override
+                                                                public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+                                                                    Log.i(TAG, "onSubscribe: startUpdateUserData");
+                                                                }
+
+                                                                @Override
+                                                                public void onNext(@io.reactivex.annotations.NonNull HttpResult httpResult) {
+                                                                    Log.i(TAG, "onNext: startUpdateUserData");
+                                                                    if ("2000".equals(httpResult.getState())) {
+                                                                        ////////////
+                                                                    }
+                                                                }
+
+                                                                @Override
+                                                                public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                                                                    Log.i(TAG, "onError: startUpdateUserData");
+                                                                }
+
+                                                                @Override
+                                                                public void onComplete() {
+                                                                    Log.i(TAG, "onComplete: startUpdateUserData");
+                                                                }
+                                                            });
+                                                }
+
+                                                @Override
+                                                public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                                                    Log.i(TAG, "onError: submitIMG");
+                                                }
+
+                                                @Override
+                                                public void onComplete() {
+                                                    Log.i(TAG, "onComplete: submitIMG");
+                                                }
+                                            });
+                                }
+                            }
+
+                            @Override
+                            public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                                Log.i(TAG, "onError: startGetAvatarUploadUrl");
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                Log.i(TAG, "onComplete: startGetAvatarUploadUrl");
+                            }
+                        });
                 isMeChanged = true;
                 return;
             }

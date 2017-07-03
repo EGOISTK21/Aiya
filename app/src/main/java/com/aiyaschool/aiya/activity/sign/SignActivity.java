@@ -18,14 +18,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.activity.form.FormActivity;
 import com.aiyaschool.aiya.activity.MainActivity;
+import com.aiyaschool.aiya.activity.form.FormActivity;
 import com.aiyaschool.aiya.base.BaseActivity;
 import com.aiyaschool.aiya.util.SignUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import cn.smssdk.SMSSDK;
 
 /**
  * 登陆注册View实现类
@@ -87,7 +88,7 @@ public class SignActivity extends BaseActivity implements SignContract.View {
     @OnClick(value = R.id.tv_sub_title)
     void reAcquire() {
         if (tvSubTitle.getText().toString().contains("重新获取")) {
-//            SMSSDK.getVerificationCode("86", phone);
+            SMSSDK.getVerificationCode("86", phone);
             timeCounter.start();
         }
     }
@@ -142,7 +143,7 @@ public class SignActivity extends BaseActivity implements SignContract.View {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                SMSSDK.getVerificationCode("86", phone);
+                SMSSDK.getVerificationCode("86", phone);
                 initVerificationView();
             }
         });
