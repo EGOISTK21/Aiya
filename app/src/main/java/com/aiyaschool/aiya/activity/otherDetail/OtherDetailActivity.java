@@ -158,7 +158,7 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
             mUser = bundle.getParcelable("other detail");
             mPresenter = new OtherDetailPresenter(this);
             mPresenter.loadImgWall(null, null, mUser.getId());
-            Glide.with(this).load(mUser.getAvatar().getThumb().getFace()).asBitmap().error(R.drawable.guanggao1).centerCrop()
+            Glide.with(this).load(mUser.getAvatar().getThumb().getBackground()).asBitmap().error(R.color.colorPrimary).centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.NONE).into(new ViewTarget<RelativeLayout, Bitmap>(rlBackground) {
                 @Override
                 public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -219,6 +219,11 @@ public class OtherDetailActivity extends BaseActivity implements OtherDetailCont
     @OnClick(R.id.iv_other_avatar)
     void showNormal() {
         startActivity(new Intent(OtherDetailActivity.this, AvatarActivity.class).putExtra("url", mUser.getAvatar().getNormal().getFace()));
+    }
+
+    @OnClick(value = R.id.rl_background)
+    void showBackground() {
+        startActivity(new Intent(OtherDetailActivity.this, AvatarActivity.class).putExtra("url", mUser.getAvatar().getNormal().getBackground()));
     }
 
     private void showAlbum(int index) {

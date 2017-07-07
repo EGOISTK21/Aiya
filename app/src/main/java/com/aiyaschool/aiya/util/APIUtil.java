@@ -232,7 +232,7 @@ public class APIUtil {
     public interface CtodayTaskApi {
         @POST("Love/GET/CtodayTask")
         @FormUrlEncoded
-        Observable<HttpResult<Task>> getToadyTask(@Field("period") String period);
+        Observable<HttpResult<Task>> getToadyTask(@Field("period") int period);
     }
 
     /**

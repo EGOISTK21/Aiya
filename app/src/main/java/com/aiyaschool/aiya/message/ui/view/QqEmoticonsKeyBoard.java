@@ -49,7 +49,7 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
     protected boolean mDispatchKeyEventPreImeLock = false;
     private EmoticonsEditText etChat;
     private Button btnSend;
-    private ImageView btnVoice;
+    //    private ImageView btnVoice;
     private ImageView btnImage;
     private ImageView btnEmoticon;
     private FuncLayout lyKvml;
@@ -70,7 +70,7 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
     protected void initView(){
         etChat = (EmoticonsEditText) view.findViewById(R.id.et_chat);
         btnSend = (Button) view.findViewById(R.id.btn_send);
-        btnVoice = (ImageView) view.findViewById(R.id.btn_voice);
+//        btnVoice = (ImageView) view.findViewById(R.id.btn_voice);
         btnImage = (ImageView) view.findViewById(R.id.btn_image);
         btnEmoticon = (ImageView) view.findViewById(R.id.btn_emoticon);
         llKeyboard = (LinearLayout) view.findViewById(R.id.ll_keyboard);
@@ -78,16 +78,16 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
 
         etChat.setOnBackKeyClickListener(this);
 //        btnSend.setOnClickListener(this);
-        btnVoice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleFuncView(FUNC_TYPE_VOICE);
-                setFuncViewHeight(EmoticonsKeyboardUtils.dip2px(getContext(), APPS_HEIGHT));
-                if (keyboardClickListener != null) {
-                    keyboardClickListener.OnKeyBoardClickListener(FUNC_TYPE_VOICE);
-                }
-            }
-        });
+//        btnVoice.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                toggleFuncView(FUNC_TYPE_VOICE);
+//                setFuncViewHeight(EmoticonsKeyboardUtils.dip2px(getContext(), APPS_HEIGHT));
+//                if (keyboardClickListener != null) {
+//                    keyboardClickListener.OnKeyBoardClickListener(FUNC_TYPE_VOICE);
+//                }
+//            }
+//        });
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,7 +183,7 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
     }
 
     public void resetIcon() {
-        btnVoice.setImageResource(R.drawable.qq_skin_aio_panel_ptt);
+//        btnVoice.setImageResource(R.drawable.qq_skin_aio_panel_ptt);
         btnImage.setImageResource(R.drawable.qq_skin_aio_panel_image);
         btnEmoticon.setImageResource(R.drawable.qq_skin_aio_panel_emotion);
     }
@@ -196,9 +196,9 @@ public class QqEmoticonsKeyBoard extends AutoHeightLayout implements EmoticonsFu
     public void onFuncChange(int key) {
         resetIcon();
         switch (key) {
-            case FUNC_TYPE_VOICE:
-                btnVoice.setImageResource(R.mipmap.qq_skin_aio_panel_ptt_press);
-                break;
+//            case FUNC_TYPE_VOICE:
+//                btnVoice.setImageResource(R.mipmap.qq_skin_aio_panel_ptt_press);
+//                break;
             case FUNC_TYPE_IMAGE:
                 btnImage.setImageResource(R.mipmap.qq_skin_aio_panel_image_press);
                 break;

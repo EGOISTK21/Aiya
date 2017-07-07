@@ -6,6 +6,10 @@ import com.aiyaschool.aiya.bean.HttpResult;
 import com.aiyaschool.aiya.bean.Task;
 import com.aiyaschool.aiya.util.UserUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -36,38 +40,38 @@ class MatchedTodayPresenter implements MatchedTodayContract.Presenter {
         this.mModel = null;
     }
 
+//    @Override
+//    public void getIntimacy(String loveid) {
+//        mModel.loadIntimacy(loveid, new Observer<Intimacy>() {
+//            @Override
+//            public void onSubscribe(@NonNull Disposable d) {
+//                Log.i(TAG, "onSubscribe: getIntimacy");
+//            }
+//
+//            @Override
+//            public void onNext(@NonNull Intimacy intimacy) {
+//                Log.i(TAG, "onNext: getIntimacy " + intimacy);
+//                if ("2000".equals(intimacy.getState())) {
+//                    mView.setIntimacy(intimacy.getValue());
+//                }
+//            }
+//
+//            @Override
+//            public void onError(@NonNull Throwable e) {
+//                Log.i(TAG, "onError: getIntimacy");
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//                Log.i(TAG, "onComplete: getIntimacy");
+//            }
+//        });
+//    }
+
     @Override
-    public void getIntimacy(String loveid) {
-        mModel.loadIntimacy(loveid, new Observer<Intimacy>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                Log.i(TAG, "onSubscribe: getIntimacy");
-            }
-
-            @Override
-            public void onNext(@NonNull Intimacy intimacy) {
-                Log.i(TAG, "onNext: getIntimacy " + intimacy);
-                if ("2000".equals(intimacy.getState())) {
-                    mView.setIntimacy(intimacy.getValue());
-                }
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-                Log.i(TAG, "onError: getIntimacy");
-            }
-
-            @Override
-            public void onComplete() {
-                Log.i(TAG, "onComplete: getIntimacy");
-            }
-        });
-    }
-
-    @Override
-    public void getTodayTask(String period) {
-        if (UserUtil.getTask().size() != 0) {
-            mView.setTodayTask(UserUtil.getTask());
+    public void getTodayTask(final int period) {
+        if (UserUtil.getPeriod() != period && UserUtil.getTask().size() != 0) {
+            mView.setTodayTask(period, UserUtil.getTask());
         } else {
             mModel.loadTodayTask(period, new Observer<HttpResult<Task>>() {
                 @Override
@@ -79,8 +83,14 @@ class MatchedTodayPresenter implements MatchedTodayContract.Presenter {
                 public void onNext(@NonNull HttpResult<Task> taskHttpResult) {
                     Log.i(TAG, "onNext: getTodayTask " + taskHttpResult);
                     if ("2000".equals(taskHttpResult.getState())) {
-                        UserUtil.setTask(taskHttpResult.getData().getTask());
-                        mView.setTodayTask(taskHttpResult.getData().getTask());
+                        List<String> result = taskHttpResult.getData().getTask();
+                        List<String> task = new ArrayList<>();
+                        Random random = new Random();
+                        for (int i = 0; i < 7; i++) {
+                            task.add(result.remove(random.nextInt(result.size())));
+                        }
+                        UserUtil.setTask(period, task);
+                        mView.setTodayTask(period, task);
                     }
                 }
 

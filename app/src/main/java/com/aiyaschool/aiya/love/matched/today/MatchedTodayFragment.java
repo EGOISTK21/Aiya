@@ -37,7 +37,6 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
     private static final String TAG = "MatchedTodayFragment";
     private MatchedTodayContract.Presenter mPresenter;
     private User me, ta;
-    private int day;
     @BindView(R.id.iv_matched_left)
     CircleImageView ivLeftAvatar;
     @BindView(R.id.tv_matched_username_left)
@@ -92,11 +91,11 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
                     .transform(new GlideCircleTransform(getContext())).diskCacheStrategy(DiskCacheStrategy.NONE).crossFade().into(ivRightAvatar);
             tvRightUsername.setText(ta.getUsername());
             tvRightSchool.setText(ta.getSchool());
-            mPresenter.getIntimacy(ta.getLoveId());
+//            mPresenter.getIntimacy(ta.getLoveId());
             tvLoveDate.setText((new SimpleDateFormat("yyyy-MM-dd")).format(new Date()));
-            day = (int) ((System.currentTimeMillis() / 1000 / 60 / 60 + 8) / 24 - (ta.getStartdate() / 60 / 60 + 8) / 24 + 1);
-            tvLoveDay.setText("DAY " + day);
-            mPresenter.getTodayTask("1");
+            int day = (int) ((System.currentTimeMillis() / 1000 / 60 / 60 + 8) / 24 - (ta.getStartdate() / 60 / 60 + 8) / 24 + 1);
+            setIntimacy(day);
+            mPresenter.getTodayTask(day);
         }
     }
 
@@ -125,21 +124,46 @@ public class MatchedTodayFragment extends BaseFragment implements MatchedTodayCo
         startActivityForResult(new Intent(getContext(), OtherDetailActivity.class).putExtras(bundle), DESTROY_LOVE);
     }
 
-    @OnClick(R.id.ll_intimacy)
-    void showIntimacy() {
-//        startActivity(new Intent(getContext(), IntimacyDetailActivity.class));
-        startActivity(new Intent(getContext(), IntimacyRulesActivity.class));
+//    @OnClick(R.id.ll_intimacy)
+//    void showIntimacy() {
+//        startActivity(new Intent(getContext(), IntimacyRulesActivity.class));
+//    }
+
+    //    @Override
+    public void setIntimacy(int period) {
+        int intimacy;
+        if (period == 0) {
+            intimacy = 10;
+        } else if (period == 1) {
+            intimacy = 15;
+        } else if (period == 2) {
+            intimacy = 25;
+        } else if (period == 3) {
+            intimacy = 40;
+        } else if (period == 4) {
+            intimacy = 60;
+        } else if (period == 5) {
+            intimacy = 75;
+        } else if (period == 6) {
+            intimacy = 85;
+        } else if (period == 7) {
+            intimacy = 90;
+        } else if (period == 8) {
+            intimacy = 94;
+        } else if (period == 9) {
+            intimacy = 97;
+        } else if (period >= 10 && period < 30) {
+            intimacy = 99;
+        } else {
+            intimacy = 100;
+        }
+        tvIntimacyNum.setText(String.valueOf(intimacy));
     }
 
     @Override
-    public void setIntimacy(String intimacy) {
-        tvIntimacyNum.setText(intimacy);
-    }
-
-    @Override
-    public void setTodayTask(List<String> todayTask) {
+    public void setTodayTask(int period, List<String> todayTask) {
         Log.i(TAG, "setTodayTask: " + todayTask);
-        todayTask = todayTask.subList((day - 1) * 7, day * 7 - 1);
+        tvLoveDay.setText("DAY " + period);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, todayTask);
         lvToday.setAdapter(adapter);
         ViewUtil.setListViewHeightBasedOnChildren(lvToday);

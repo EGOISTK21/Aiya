@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/iv_other_avatar"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/common_margin_15"
+                android:layout_marginTop="@dimen/common_margin_10"
                 android:includeFontPadding="false"
                 android:text="曲无忆"
                 android:textColor="@color/colorPureWhite"
@@ -57,10 +57,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_other_username"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/common_margin_15"
+                android:layout_marginTop="@dimen/common_margin_10"
                 android:includeFontPadding="false"
                 android:textColor="@color/colorPureWhite"
-                android:textSize="11sp"/>
+                android:textSize="12sp"/>
 
 
         </RelativeLayout>

@@ -14,15 +14,15 @@ import io.reactivex.Observer;
 interface MatchedTodayContract {
 
     interface Model {
-        void loadIntimacy(String loveid, Observer<Intimacy> observer);
+//        void loadIntimacy(String loveid, Observer<Intimacy> observer);
 
-        void loadTodayTask(String period, Observer<HttpResult<Task>> observer);
+        void loadTodayTask(int period, Observer<HttpResult<Task>> observer);
     }
 
     interface View {
-        void setIntimacy(String intimacy);
+//        void setIntimacy(String intimacy);
 
-        void setTodayTask(List<String> todayTask);
+        void setTodayTask(int period, List<String> todayTask);
     }
 
     interface Presenter {
@@ -30,8 +30,8 @@ interface MatchedTodayContract {
 
         void detachView();
 
-        void getIntimacy(String loveid);
+//        void getIntimacy(String loveid);
 
-        void getTodayTask(String period);
+        void getTodayTask(int period);
     }
 }

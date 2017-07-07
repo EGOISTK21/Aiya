@@ -655,21 +655,24 @@ public class UserUtil {
         return sSharedPreferences.getLong("satrtdate", 0);
     }
 
-    public static void setTask(List<String> task) {
+    public static void setTask(int period, List<String> task) {
         if (task != null) {
             clearTask();
-            sEditor.putInt("taskNum", task.size());
-            for (int i = 0; i < task.size(); i++) {
+            sEditor.putInt("period", period);
+            for (int i = 0; i < 7; i++) {
                 sEditor.putString("task_" + i, task.get(i));
             }
             sEditor.apply();
         }
     }
 
+    public static int getPeriod() {
+        return sSharedPreferences.getInt("period", -1);
+    }
+
     public static List<String> getTask() {
-        int taskNum = sSharedPreferences.getInt("taskNum", 0);
         List<String> task = new ArrayList<>();
-        for (int i = 0; i < taskNum; i++) {
+        for (int i = 0; i < 7; i++) {
             task.add(sSharedPreferences.getString("task_" + i, null));
         }
         return task;

@@ -21,7 +21,7 @@ public class AvatarActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        Glide.with(this).load(getIntent().getStringExtra("url")).error(R.drawable.guanggao1).centerCrop()
+        Glide.with(this).load(getIntent().getStringExtra("url")).error(R.color.black).centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.NONE).into(ivAvatar);
     }
 }
