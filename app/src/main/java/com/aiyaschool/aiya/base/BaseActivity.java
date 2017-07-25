@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
-import com.aiyaschool.aiya.util.StatusBarUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.List;
@@ -25,7 +24,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements View.O
         Log.d("BaseActivity", getClass().getSimpleName());
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        StatusBarUtil.init(this);
         ButterKnife.bind(this);
         initView();
     }

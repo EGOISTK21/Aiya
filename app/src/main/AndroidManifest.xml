@@ -84,9 +84,6 @@
         <activity android:name=".message.ui.activity.PhotoChooseActivity"/>
         <activity android:name=".message.ui.activity.PhotoCropActivity"/>
         <activity
-            android:name=".love.matched.today.ClockInActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".love.matched.today.IntimacyRulesActivity"
             android:screenOrientation="portrait"/>
 

@@ -13,8 +13,7 @@
 
     <style name="AppTheme.Splash" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@drawable/start</item>
     </style>
 
     <style name="FilletDialog" parent="AlertDialog.AppCompat.Light">

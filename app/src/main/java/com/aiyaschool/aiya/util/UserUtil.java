@@ -138,6 +138,15 @@ public class UserUtil {
         sTa = null;
     }
 
+    public static void setFirst(boolean isFirst) {
+        sEditor.putBoolean("first", isFirst);
+        sEditor.apply();
+    }
+
+    public static boolean isFirst() {
+        return sSharedPreferences.getBoolean("first", true);
+    }
+
     public static void setContactShield(boolean contactShield) {
         sEditor.putBoolean("contactShield", contactShield);
         sEditor.apply();

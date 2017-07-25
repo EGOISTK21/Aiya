@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.util.StatusBarUtil;
 
 /**
  * Created by EGOISTK21 on 2017/4/6.
@@ -19,7 +18,6 @@ public class IntimacyDetailActivity extends AppCompatActivity implements View.On
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_intimacy_detail);
-        StatusBarUtil.init(this);
         initView();
     }
 

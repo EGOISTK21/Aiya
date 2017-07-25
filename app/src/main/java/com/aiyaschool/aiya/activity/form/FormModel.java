@@ -25,7 +25,7 @@ import okhttp3.ResponseBody;
 
 class FormModel implements FormContract.Model {
 
-    List<String> schoolList = new ArrayList<>();
+    private List<String> schoolList = new ArrayList<>();
 
     @Override
     public void submitAvatar(RequestBody img, Observer<ResponseBody> observer) {

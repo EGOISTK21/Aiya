@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.aiyaschool.aiya.R;
 import com.aiyaschool.aiya.widget.FilletDialog;
 import com.aiyaschool.aiya.widget.StringScrollPicker;
-import com.aiyaschool.aiya.util.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +39,6 @@ public class NewMissionActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_mission);
-        StatusBarUtil.init(this);
         initView();
     }
 

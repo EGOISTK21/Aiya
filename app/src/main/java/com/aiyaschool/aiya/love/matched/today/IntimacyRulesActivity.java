@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.aiyaschool.aiya.R;
-import com.aiyaschool.aiya.util.StatusBarUtil;
 
 /**
  * Created by EGOISTK21 on 2017/4/8.
@@ -26,7 +25,6 @@ public class IntimacyRulesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intimacy_rules);
-        StatusBarUtil.init(this);
         initView();
     }
 
